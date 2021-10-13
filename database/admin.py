@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserAdminCreationForm, UserAdminChangeForm
-from .models import Trip,AdminMedia,Booking,UserMedia,Blog,Query
+from .models import Trip,AdminMedia,Booking,UserMedia,Blog,Query,BlogMedia
 
 # # Register your models here.
 User = get_user_model()
@@ -13,6 +13,7 @@ admin.site.register(AdminMedia)
 admin.site.register(Booking)
 admin.site.register(UserMedia)
 admin.site.register(Blog)
+admin.site.register(BlogMedia)
 admin.site.register(Query)
 
 class UserAdmin(BaseUserAdmin):

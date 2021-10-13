@@ -110,6 +110,8 @@ class Booking(models.Model):
     trip             = models.ForeignKey("Trip", on_delete=models.CASCADE, null=True, blank=True, related_name="booking") 
     phoneNumber      = models.IntegerField(null=True)
     approved         = models.BooleanField(default=False)
+    created          = models.DateTimeField(auto_now_add=True, null=True)       
+
     # additionalUser = models.ManyToManyField("AdditionalUsers", on_delete=models.CASCADE, null=True, blank=True)
 
 class UserMedia(models.Model):
@@ -126,7 +128,11 @@ class Blog(models.Model):
     likes    = models.ManyToManyField("database.User", related_name="likes")
     dislikes = models.ManyToManyField("database.User", related_name="dislikes")
     location = models.CharField(max_length=100)
+    created  = models.DateTimeField(auto_now_add=True,null=True)       
 
+class BlogMedia(models.Model):
+    blog  = models.ForeignKey("database.Blog", on_delete=models.CASCADE)
+    image = models.ImageField( upload_to=None, max_length=None)
 
 class Query(models.Model):
     MY_CHOICES = (
@@ -137,11 +143,12 @@ class Query(models.Model):
         ('q5', 'Query 5'),
         ('other', 'Other'),
     )
-    choice = models.CharField( max_length=50,choices=MY_CHOICES)
-    query  = models.CharField( max_length=1000, default="")
-    email  = models.EmailField( max_length=254, null=True, blank=True)
-    Name   = models.CharField( max_length=50, null=True, blank=True)
-    user   = models.ForeignKey("database.User", on_delete=models.CASCADE, null=True, blank=True)
+    choice  = models.CharField( max_length=50,choices=MY_CHOICES)
+    query   = models.CharField( max_length=1000, default="")
+    email   = models.EmailField( max_length=254, null=True, blank=True)
+    Name    = models.CharField( max_length=50, null=True, blank=True)
+    user    = models.ForeignKey("database.User", on_delete=models.CASCADE, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True,null=True)       
     class Meta:
         verbose_name_plural = 'Queries'
 
