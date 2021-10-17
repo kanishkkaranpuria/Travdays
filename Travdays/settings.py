@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@*zbo%habo8fwyh=dki0@dfjb)0+7u*j&m+3ar@1g!%kgyqh#3'
+SECRET_KEY = 'django-insecure--fbn62)w+1t*^v_wg!ylf5umv2#*=t3mfpd&ad3quf2n2gwv-='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,9 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     #APPS
     'database',
+    'gallery',
+    'trips',
 ]
+
+AUTH_USER_MODEL = 'database.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,6 +135,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-# Manually Added 
-AUTH_USER_MODEL = 'database.User'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

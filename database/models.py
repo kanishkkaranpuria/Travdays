@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.contrib.auth import get_user_model
-# Create your models here.
 
+# Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, email, name=None, is_active=True, password=None, is_staff=False, is_admin=False):
+    def create_user(self, email, name=None, is_active=True, password=None, is_staff=False, is_admin=False, ):
         if not email:
             raise ValueError("Users must have an email address")
         if not password:
@@ -90,54 +90,99 @@ class User(AbstractBaseUser):
 User = get_user_model()
 
 class Trip(models.Model):
+    type        = models.CharField(max_length=50)
     name        = models.CharField(max_length=50)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True)
+    price       = models.IntegerField(null=True, default=None)
 
     def __str__(self):
         return self.name
 
 class AdminMedia(models.Model):
-    trip  =  models.ForeignKey("Trip", on_delete=models.CASCADE, related_name="adminmedia", null=True, blank=True)
-    image = models.ImageField( upload_to=None, max_length=None, null=True, blank=True)
-    video = models.FileField( upload_to=None, max_length=None, null=True, blank=True)
+    trip         = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="adminmedia",blank=True, null=True)
+    image        = models.ImageField( upload_to='admin media/images', max_length=None, null=True, blank=True)
+    video        = models.FileField( upload_to='admin media/videos', max_length=None, null=True, blank=True)
+    displayImage = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.trip != None:
+            return self.trip.name
+        return "Webpage Related"
+
+    def save(self, *args, **kwargs):
+        if self.displayImage:
+            try:
+                temp = AdminMedia.objects.get(displayImage=True, trip = self.trip)
+                if self != temp:
+                    temp.displayImage = False
+                    temp.save()
+            except AdminMedia.DoesNotExist:
+                pass
+        super(AdminMedia, self).save(*args, **kwargs)
+    
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+    )
+    user         = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    trip         = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="reviews")
+    ratings      = models.IntegerField( choices=RATING_CHOICES, )
+    description  = models.CharField( max_length=500, blank=True,null=True)
+    created      = models.DateTimeField(auto_now_add=True)       
+
+    def __str__(self):
+        return f"{self.user.name} - {self.trip.name}"
 
 # class AdditionalUsers(models.Model):
 #     Name  = models.CharField(max_length=50)
 #     email = models.EmailField(max_length=254)
 
 class Booking(models.Model):
-    user             = models.ForeignKey("database.User", on_delete=models.CASCADE, related_name="booking")
-    trip             = models.ForeignKey("Trip", on_delete=models.CASCADE, null=True, blank=True, related_name="booking") 
-    phoneNumber      = models.IntegerField(null=True)
-    approved         = models.BooleanField(default=False)
-    created          = models.DateTimeField(auto_now_add=True, null=True)       
-
+    user           = models.ForeignKey(User, on_delete=models.CASCADE, related_name="booking")
+    trip           = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="booking") 
+    phoneNumber    = models.IntegerField(null=True)
+    approved       = models.BooleanField(default=False)
+    created        = models.DateTimeField(auto_now_add=True, null=True)       
     # additionalUser = models.ManyToManyField("AdditionalUsers", on_delete=models.CASCADE, null=True, blank=True)
 
 class UserMedia(models.Model):
-    user      = models.ForeignKey("database.User", on_delete=models.CASCADE, related_name="usermedia")
-    image     = models.ImageField( upload_to=None, max_length=None, null=True, blank=True)
-    video     = models.FileField( upload_to=None, max_length=None, null=True, blank=True)
+    user      = models.ForeignKey(User, on_delete=models.CASCADE, related_name="usermedia")
+    image     = models.ImageField( upload_to='media/images', max_length=None, null=True, blank=True)
+    video     = models.FileField( upload_to='media/videos', max_length=None, null=True, blank=True)
     approved  = models.BooleanField(default=False)
 
 class Blog(models.Model):
-    Name     = models.CharField(max_length=50)
-    email    = models.EmailField( max_length=254, blank=True,null=True)
-    user     = models.ForeignKey("database.User", on_delete=models.CASCADE, null=True, blank=True)
+    title    = models.CharField(max_length=50)
+    user     = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     blog     = models.TextField()
-    likes    = models.ManyToManyField("database.User", related_name="likes")
-    dislikes = models.ManyToManyField("database.User", related_name="dislikes")
+    likes    = models.ManyToManyField(User, related_name="likes", blank=True)
+    dislikes = models.ManyToManyField(User, related_name="dislikes", blank=True)
     location = models.CharField(max_length=100)
-    created  = models.DateTimeField(auto_now_add=True,null=True)       
+    created  = models.DateTimeField(auto_now_add=True,null=True)    
+    featured = models.BooleanField(default=False)   
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def netlikes(self):
+        return self.likes.count() - self.dislikes.count() 
 
 class BlogMedia(models.Model):
-    blog  = models.ForeignKey("database.Blog", on_delete=models.CASCADE)
-    image = models.ImageField( upload_to=None, max_length=None)
+    blog  = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="blogmedia")
+    image = models.ImageField( upload_to='media/images', max_length=None)
+
+    def __str__(self):
+        return self.blog.title
 
 class Query(models.Model):
     MY_CHOICES = (
         ('q1', 'Booking'),
-        ('q2', 'Trip'),
+        ('q2', 'Trip..'),
         ('q3', 'Query 3'),
         ('q4', 'Query 4'),
         ('q5', 'Query 5'),
@@ -147,7 +192,7 @@ class Query(models.Model):
     query   = models.CharField( max_length=1000, default="")
     email   = models.EmailField( max_length=254, null=True, blank=True)
     Name    = models.CharField( max_length=50, null=True, blank=True)
-    user    = models.ForeignKey("database.User", on_delete=models.CASCADE, null=True, blank=True)
+    user    = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True,null=True)       
     class Meta:
         verbose_name_plural = 'Queries'
