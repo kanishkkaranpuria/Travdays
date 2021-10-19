@@ -55,23 +55,22 @@ class CreateBlog(APIView): # Change logic to allow users to add multiple images 
 
     def post(self,request):
         data = []
+        blogId = None
         data['user'] = request.user
         data['blog'] = request.data['blog']
         data['title'] = request.data['title']
         data['location'] = request.data['location']
         serializer = CreateBlogSerializer(data = data)
         if serializer.is_valid():
-            serializer.save()
-            print(serializer.data['id'])
+            blogId = serializer.save()
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         data = []
         data['image'] = request.data['image']
-        data['blog'] = serializer.data['id']
+        data['blog'] = blogId.id
         serializer = CreateBlogMediaSerializer(data = data)
         if serializer.is_valid():
             serializer.save()
-            print(serializer.data['id'])
             return Response({'message':'Blog Created'}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
