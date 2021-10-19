@@ -119,20 +119,27 @@ class CreateTripView(APIView):
                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
                 if "image" or 'video' in request.data:
                     data = {}
-                    if "image" in request.data:
-                        data["image"] = request.data["image"]
-                    if "video" in request.data:
-                        data["video"] = request.data["video"]
                     # if 'id' in request.data:
                     #     data["id"] = request.data["id"]
                     # else:
                     #     data["id"] = None
                     data["trip"] = TripId or request.data["id"]
-                    serializer = CreateTripMediaSerializer(data=data)
-                    if serializer.is_valid():
-                        serializer.save()
-                    else:
-                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                    if "image" in request.data:
+                        for img in request.data['image']:
+                            data['image'] = img
+                            serializer = CreateTripMediaSerializer(data = data)
+                            if serializer.is_valid():
+                                serializer.save()
+                            else:
+                                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                    if "video" in request.data:
+                        for vid in request.data['video']:
+                            data['video'] = vid
+                            serializer = CreateTripMediaSerializer(data = data)
+                            if serializer.is_valid():
+                                serializer.save()
+                            else:
+                                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
                 return Response({"success":"Trip created/media added"}, status = status.HTTP_200_OK)
             return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"user not allowed"}, status=status.HTTP_400_BAD_REQUEST)
