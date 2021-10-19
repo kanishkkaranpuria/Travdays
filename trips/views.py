@@ -143,11 +143,3 @@ class CreateTripView(APIView):
                 return Response({"success":"Trip created/media added"}, status = status.HTTP_200_OK)
             return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"user not allowed"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-
-
