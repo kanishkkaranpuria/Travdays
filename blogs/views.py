@@ -1,3 +1,4 @@
+from django.db.models import Q
 from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
@@ -12,9 +13,9 @@ class BlogsDisplayView(APIView,BlogPagination):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        voteBlogs = sorted(Blog.objects.all(),  key=lambda instance: -instance.netlikes)
+        voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
         print(voteBlogs)
-        featuredBlogs = list(Blog.objects.filter(featured = True)[:6])
+        featuredBlogs = list(Blog.objects.filter(Q(featured = True) & Q(approved = True))[:6])
         blogs = list(dict.fromkeys(featuredBlogs + voteBlogs)) 
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = BlogSerializer(results,context={"request" : request}, many = True)
@@ -25,7 +26,7 @@ class BlogsDisplayVoteFilter(APIView,BlogPagination):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        blogs = sorted(Blog.objects.all(),  key=lambda instance: -instance.netlikes)
+        blogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = BlogSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
@@ -35,7 +36,7 @@ class BlogsDisplayCreatedFilter(APIView,BlogPagination):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        blogs = Blog.objects.all().order_by('-created')
+        blogs = Blog.objects.filter(approved = True).order_by('-created')
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = BlogSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
@@ -45,7 +46,7 @@ class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        blogs = Blog.objects.filter(featured = True).order_by('-created')
+        blogs = Blog.objects.filter(Q(featured = True) & Q(approved = True)).order_by('-created')
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = BlogSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
@@ -66,7 +67,7 @@ class CreateBlog(APIView): # Change logic to allow users to add multiple images 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         data = []
         data['image'] = request.data['image']
-        data['blog'] = Blog.objects.get(id = serializer.data['id'])
+        data['blog'] = serializer.data['id']
         serializer = CreateBlogMediaSerializer(data = data)
         if serializer.is_valid():
             serializer.save()

@@ -23,4 +23,6 @@ urlpatterns = [
     path('gallery/', include("gallery.urls")),
     path('blog/', include("blogs.urls")),
     path('trip/', include("trips.urls")),
+    path('booking/', include("booking.urls")),
+    path('query/', include("query.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

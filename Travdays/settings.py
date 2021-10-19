@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'database',
     'gallery',
     'trips',
+    'blogs',
+    'booking',
+    'query',
 ]
 
 AUTH_USER_MODEL = 'database.User'

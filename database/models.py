@@ -87,11 +87,17 @@ class User(AbstractBaseUser):
     def is_active(self, value):
         self.active = value
 
+    @property
+    def is_superuser(self):
+        return self.staff and self.admin and self.active
+
+
+
 User = get_user_model()
 
 class Trip(models.Model):
     type        = models.CharField(max_length=50)
-    name        = models.CharField(max_length=50)
+    name        = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True)
     price       = models.IntegerField(null=True, default=None)
 
@@ -164,6 +170,7 @@ class Blog(models.Model):
     location = models.CharField(max_length=100)
     created  = models.DateTimeField(auto_now_add=True,null=True)    
     featured = models.BooleanField(default=False)   
+    approved = models.BooleanField(default=False)   
 
     def __str__(self):
         return self.title
@@ -186,16 +193,16 @@ class Query(models.Model):
         ('q3', 'Query 3'),
         ('q4', 'Query 4'),
         ('q5', 'Query 5'),
-        ('other', 'Other'),
+        ('q6', 'Other'),
     )
     choice  = models.CharField( max_length=50,choices=MY_CHOICES)
     query   = models.CharField( max_length=1000, default="")
     email   = models.EmailField( max_length=254, null=True, blank=True)
-    Name    = models.CharField( max_length=50, null=True, blank=True)
+    name    = models.CharField( max_length=50, null=True, blank=True)
     user    = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True,null=True)       
     class Meta:
         verbose_name_plural = 'Queries'
 
     def __str__(self):
-        return self.choice
+        return self.get_choice_display()

@@ -1,0 +1,31 @@
+from django.db.models import Q
+from database.models import *
+from rest_framework.decorators import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from .serializers import CreateQuerySerializer
+from rest_framework import status
+# from .pagination import 
+
+
+class CreateQueryView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self,request):
+        data = {}
+        if request.user.is_authenticated:
+            data["email"] = request.user.email
+            data["name"] = request.user.name
+            data["user"] = request.user.id
+        else:
+            data["email"] = request.data["email"]
+            data["name"] = request.data["name"]
+        data["query"] = request.data["query"]
+        data["choice"] = request.data["choice"]
+        serializer = CreateQuerySerializer(data = data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'success':'Query Created'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        

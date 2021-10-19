@@ -85,3 +85,16 @@ class CreateReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['user','description','trip', 'ratings']
+
+
+class CreateTripSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Trip
+        fields = ['type','name','description','price']
+
+class CreateTripMediaSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AdminMedia
+        fields = ['trip', 'image', 'video']
