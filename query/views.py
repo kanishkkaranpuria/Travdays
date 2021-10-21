@@ -12,8 +12,12 @@ class CreateQueryView(APIView):
     permission_classes = [AllowAny]
 
     def get(self,request):
-        return Response(Query.MY_CHOICES)
+        data = {}
+        for i in Query.MY_CHOICES:
+            data[i[0]] = i[1]
 
+        # return Response(Query.MY_CHOICES)
+        return Response(data)
     def post(self,request):
         data = {}
         if request.user.is_authenticated:

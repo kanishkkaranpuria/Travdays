@@ -188,12 +188,12 @@ class BlogMedia(models.Model):
 
 class Query(models.Model):
     MY_CHOICES = (
-        ('q1', 'Booking'),
-        ('q2', 'Trip'),
-        ('q3', 'Query 3'),
-        ('q4', 'Query 4'),
-        ('q5', 'Query 5'),
-        ('q6', 'Other'),
+        ('1', 'Booking'),
+        ('2', 'Trip'),
+        ('3', 'Query 3'),
+        ('4', 'Query 4'),
+        ('5', 'Query 5'),
+        ('6', 'Other'),
     )
     choice      = models.CharField( max_length=8,choices=MY_CHOICES)
     query       = models.CharField( max_length=1000, default="")
