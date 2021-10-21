@@ -206,3 +206,15 @@ class Query(models.Model):
 
     def __str__(self):
         return self.get_choice_display()
+
+class GalleryPageTemp(models.Model):        # for explore page
+    userKey = models.CharField(max_length=100)
+    previousId = models.CharField( max_length=10000, default='')
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+
+    def __str__(self):
+        return self.userKey
+
+    class Meta:
+        verbose_name = 'Temp'
+    
