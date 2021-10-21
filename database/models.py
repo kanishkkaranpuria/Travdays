@@ -228,3 +228,10 @@ class GalleryPageTemp(models.Model):        # for explore page
     @property
     def updated(self):
         return (self.updated_at.astimezone())
+
+class FAQ(models.Model): 
+    question = models.CharField( max_length=500, default='')
+    answer   =  models.CharField( max_length=500, default='')
+
+    def __str__(self):
+        return self.question

@@ -11,4 +11,5 @@ urlpatterns = [
     path('booking/', include("booking.urls")),
     path('query/', include("query.urls")),
     path('auth/', include("authentication.urls")),
+    path('faq/', include("faq.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

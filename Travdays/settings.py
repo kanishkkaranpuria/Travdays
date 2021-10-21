@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'booking',
     'query',
     'authentication',
+    'faq',
 ]
 
 AUTH_USER_MODEL = 'database.User'
