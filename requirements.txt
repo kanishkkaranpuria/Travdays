@@ -1,0 +1,16 @@
+# Download these -.
+
+asgiref==3.4.1
+Django==3.2.8
+django-cors-headers==3.7.0
+djangorestframework==3.12.4
+Pillow==7.1.2
+pytz==2021.3
+sqlparse==0.4.2
+typing-extensions==3.10.0.2
+
+
+# also you have to go to the djangorestframework-simplejwt module, open the token blacklist folder, open there admin.py file and change
+# the line 37 from return false to return true
+
+#Just run this "pip install -r requirements.txt" in the terminal
