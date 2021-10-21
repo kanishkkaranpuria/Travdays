@@ -211,10 +211,21 @@ class GalleryPageTemp(models.Model):        # for explore page
     userKey = models.CharField(max_length=100)
     previousId = models.CharField( max_length=10000, default='')
     created_at = models.DateTimeField(auto_now_add=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+
+    class Meta:
+        verbose_name = 'Temp'
 
     def __str__(self):
         return self.userKey
 
-    class Meta:
-        verbose_name = 'Temp'
+    @property
+    def created(self):
+        return (self.created_at.astimezone())
+
+    @property
+    def updated(self):
+        return (self.updated_at.astimezone())
+
+
     
