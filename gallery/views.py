@@ -11,7 +11,7 @@ class GalleryView(APIView):
     def get(self,request):
         page = int(self.request.query_params.get('page', None))
         now = datetime.datetime.now()
-        qs = GalleryPageTemp.objects.only("created_at")
+        qs = GalleryPageTemp.objects.only("updated_at")
         for obj in qs:
             if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).hour < now.hour:  
                 obj.delete()
@@ -62,7 +62,7 @@ class GalleryView(APIView):
         serializer = GallerySerializer(galleries,context={"request" : request}, many = True)
         print(galleries)
         return Response(serializer.data)
-        
+
         # galleries = AdminMedia.objects.exclude(trip = None)
         # results = self.paginate_queryset(galleries, request, view=self)
         # serializer = GallerySerializer(results,context={"request" : request}, many = True)
