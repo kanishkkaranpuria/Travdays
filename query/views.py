@@ -5,12 +5,14 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from .serializers import CreateQuerySerializer
 from rest_framework import status
-# from .pagination import 
 
 
 class CreateQueryView(APIView):
 
     permission_classes = [AllowAny]
+
+    def get(self,request):
+        return Response(Query.MY_CHOICES)
 
     def post(self,request):
         data = {}
@@ -30,4 +32,3 @@ class CreateQueryView(APIView):
             serializer.save()
             return Response({'success':'Query Created'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        

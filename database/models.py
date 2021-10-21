@@ -195,7 +195,7 @@ class Query(models.Model):
         ('q5', 'Query 5'),
         ('q6', 'Other'),
     )
-    choice      = models.CharField( max_length=50,choices=MY_CHOICES)
+    choice      = models.CharField( max_length=8,choices=MY_CHOICES)
     query       = models.CharField( max_length=1000, default="")
     email       = models.EmailField( max_length=254, null=True, blank=True)
     name        = models.CharField( max_length=50, null=True, blank=True)
