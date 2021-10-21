@@ -189,18 +189,20 @@ class BlogMedia(models.Model):
 class Query(models.Model):
     MY_CHOICES = (
         ('q1', 'Booking'),
-        ('q2', 'Trip..'),
+        ('q2', 'Trip'),
         ('q3', 'Query 3'),
         ('q4', 'Query 4'),
         ('q5', 'Query 5'),
         ('q6', 'Other'),
     )
-    choice  = models.CharField( max_length=50,choices=MY_CHOICES)
-    query   = models.CharField( max_length=1000, default="")
-    email   = models.EmailField( max_length=254, null=True, blank=True)
-    name    = models.CharField( max_length=50, null=True, blank=True)
-    user    = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True,null=True)       
+    choice      = models.CharField( max_length=50,choices=MY_CHOICES)
+    query       = models.CharField( max_length=1000, default="")
+    email       = models.EmailField( max_length=254, null=True, blank=True)
+    name        = models.CharField( max_length=50, null=True, blank=True)
+    user        = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    phoneNumber = models.IntegerField(default=None,blank=True,null=True)
+    created     = models.DateTimeField(auto_now_add=True,null=True)       
+
     class Meta:
         verbose_name_plural = 'Queries'
 
@@ -226,6 +228,3 @@ class GalleryPageTemp(models.Model):        # for explore page
     @property
     def updated(self):
         return (self.updated_at.astimezone())
-
-
-    

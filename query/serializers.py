@@ -7,5 +7,4 @@ class CreateQuerySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Query
-        fields = ['name','email','user','choice','query']
-
+        fields = ['name','email','user','choice','query','phoneNumber']

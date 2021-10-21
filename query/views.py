@@ -23,6 +23,8 @@ class CreateQueryView(APIView):
             data["name"] = request.data["name"]
         data["query"] = request.data["query"]
         data["choice"] = request.data["choice"]
+        if "phoneNumber" in request.data:
+            data["phoneNumber"] = request.data["phoneNumber"]
         serializer = CreateQuerySerializer(data = data)
         if serializer.is_valid():
             serializer.save()
