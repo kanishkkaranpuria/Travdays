@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.contrib.auth import get_user_model
+from django.db.models import Sum
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -98,11 +99,27 @@ User = get_user_model()
 class Trip(models.Model):
     type        = models.CharField(max_length=50)
     name        = models.CharField(max_length=50, unique=True)
+    location    = models.CharField( max_length=50)
     description = models.TextField(null=True)
     price       = models.IntegerField(null=True, default=None)
 
+
     def __str__(self):
         return self.name
+
+    @property
+    def ratingsCount(self):
+        return self.reviews.all().count()
+
+    @property
+    def ratings(self):
+        result = Trip.objects.annotate(total_ratings=Sum('reviews__ratings')).filter(id = self.id)
+        for r in result:
+            net = r.total_ratings
+        net = result[0].total_ratings
+        if net:
+            return round(net/self.reviews.all().count(), 1)
+        return "No Ratings"
 
 class AdminMedia(models.Model):
     trip         = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="adminmedia",blank=True, null=True)

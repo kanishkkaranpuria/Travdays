@@ -6,9 +6,9 @@ class TripAdmin(admin.ModelAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('id','name', 'type')
-    list_filter = ('type',)
+    list_filter = ('type','location')
     fieldsets = (
-        (None, {'fields': ('name', 'type','description','price',)}),
+        (None, {'fields': ('name','location', 'type','description','price',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -18,7 +18,7 @@ class TripAdmin(admin.ModelAdmin):
     #         'fields': ('name', 'type', 'description','price')}
     #     ),
     # )
-    search_fields = ('name',)
+    search_fields = ('name','location','type')
     ordering = ('id',)
     filter_horizontal = ()
 admin.site.register(Trip, TripAdmin)

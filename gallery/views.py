@@ -13,12 +13,15 @@ class GalleryView(APIView):
         now = datetime.datetime.now()
         qs = GalleryPageTemp.objects.only("updated_at")
         for obj in qs:
-            if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).hour < now.hour:  
+            if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day < now.day:
                 obj.delete()
-            elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day < now.day:
-                obj.delete()
-            else:
+            elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day > now.day:
                 pass
+            elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day == now.day:
+                if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).hour < now.hour: 
+                    obj.delete()
+                else:
+                    pass
         if page == 1:
             if GalleryPageTemp.objects.filter(userKey = request.session.get('name')).exists():
                 temp = GalleryPageTemp.objects.get(userKey = request.session.get('name'))

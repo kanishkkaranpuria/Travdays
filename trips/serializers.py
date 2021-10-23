@@ -4,20 +4,12 @@ from database.models import AdminMedia, Review, Trip
 
 class SingleTripDisplaySerializer(serializers.ModelSerializer):
 
-    ratings = serializers.SerializerMethodField()
+    ratings = serializers.ReadOnlyField()
+    ratingsCount = serializers.ReadOnlyField()
 
     class Meta:
         model = Trip
-        fields = ['id','type','name','description','price', 'ratings']
-
-    def get_ratings(self,obj):
-        result = Trip.objects.annotate(total_ratings=Sum('reviews__ratings')).filter(id = obj.id)
-        for r in result:
-            net = r.total_ratings
-        net = result[0].total_ratings
-        if net:
-            return round(net/obj.reviews.all().count(), 1)
-        return "No Ratings"
+        fields = ['id','type','name','location','description','price', 'ratings','ratingsCount']
 
 
 class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
@@ -52,20 +44,24 @@ class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 class TripDisplaySerializer(serializers.ModelSerializer):
 
     displayImage = serializers.SerializerMethodField()
+    ratings = serializers.ReadOnlyField()
+    ratingsCount = serializers.ReadOnlyField()
 
     class Meta:
         model = Trip
-        fields = ['id','name','displayImage']
+        fields = ['id','name','type','location','displayImage','price', 'ratings','ratingsCount']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
         if len(obj.adminmedia.filter(displayImage=True)) != 0:
-            image_url = obj.adminmedia.filter(displayImage=True)
-            qs=[]
-            for i in image_url:
-                print(request.build_absolute_uri(i.image.url))
-                qs.append(request.build_absolute_uri(i.image.url))
-            return qs
+            # image_url = obj.adminmedia.filter(displayImage=True)
+            image_url = obj.adminmedia.get(displayImage=True)
+            # qs=[]
+            # for i in image_url:
+            #     print(request.build_absolute_uri(i.image.url))
+            #     qs.append(request.build_absolute_uri(i.image.url))
+            # return qs
+            return request.build_absolute_uri(image_url.image.url)
         displayImage  = AdminMedia.objects.get(trip = None, displayImage = True)
         return request.build_absolute_uri(displayImage.image.url)
 
@@ -91,7 +87,7 @@ class CreateTripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ['type','name','description','price']
+        fields = ['type','name','location','description','price']
 
 class CreateTripMediaSerializer(serializers.ModelSerializer):
 

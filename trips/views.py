@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny
 from .serializers import SingleTripDisplaySerializer,SingleTripMediaDisplaySerializer,TripDisplaySerializer,ReviewDisplaySerializer,CreateReviewSerializer,CreateTripSerializer,CreateTripMediaSerializer
 from rest_framework import status
 from .pagination import TripsPagination,TripMediaPagination, ReviewsPagination
-
+import ast
 
 class TripView(APIView, TripsPagination):
 
@@ -26,18 +26,58 @@ class TripView(APIView, TripsPagination):
             else:
                 return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
 
-class TripFilterView(APIView, TripsPagination):
+class TripUniversalFilterView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
 
-    def get(self,request,type = None):
-        if Trip.objects.filter(type = type).exists():
-            trips = Trip.objects.filter(type = type)
+    def get(self,request,variable):
+        type = ast.literal_eval(variable)[0][0]
+        location = ast.literal_eval(variable)[1][0]
+        sort = ast.literal_eval(variable)[2][0]
+        if location == None or location == '':
+            if type == None or type == '':
+                print("1")
+                trips = Trip.objects.all()
+            elif type != None or type != '':
+                print("2")
+                if Trip.objects.filter(type = type).exists():
+                    trips = Trip.objects.filter(type = type)
+                else:
+                    return Response({"error":"Invalid input1"}, status = status.HTTP_400_BAD_REQUEST) 
+            else:
+                return Response({"error":"something went wrong1"}, status = status.HTTP_400_BAD_REQUEST) 
+        elif location != None or location != '':
+            if type == None or type == '':
+                print("3")
+                if Trip.objects.filter(location = location).exists():
+                    trips = Trip.objects.filter(location = location)
+                else:
+                    return Response({"error":"Invalid input2"}, status = status.HTTP_400_BAD_REQUEST)
+            elif type != None or type != '':
+                print("4")
+                if Trip.objects.filter(Q(type = type) & Q(location = location)).exists():
+                    trips = Trip.objects.filter(Q(type = type) & Q(location = location))
+                else:
+                    return Response({"error":"Invalid input3"}, status = status.HTTP_400_BAD_REQUEST) 
+            else:
+                return Response({"error":"something went wrong2"}, status = status.HTTP_400_BAD_REQUEST) 
+        else:
+            print("5")
+            return Response({"error":"something went wrong3"}, status = status.HTTP_400_BAD_REQUEST)
+        if sort == None or sort == '':
             results = self.paginate_queryset(trips, request, view=self)
             serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
             return Response(serializer.data, status = status.HTTP_200_OK)
-        return Response({"error":"Invalid input"}, status = status.HTTP_400_BAD_REQUEST)
-
+        elif sort == "ascending":
+            results = self.paginate_queryset(trips.order_by("price"), request, view=self)
+            serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        elif sort == "descending":
+            results = self.paginate_queryset(trips.order_by("-price"), request, view=self)
+            serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        else:
+            return Response({"error":"something went wrong4"}, status = status.HTTP_400_BAD_REQUEST)
 
 
 class TripMediaView(APIView, TripMediaPagination):
@@ -143,3 +183,27 @@ class CreateTripView(APIView):
                 return Response({"success":"Trip created/media added"}, status = status.HTTP_200_OK)
             return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"user not allowed"}, status=status.HTTP_400_BAD_REQUEST)
+
+class TripTypeFilterView(APIView, TripsPagination):
+
+    permission_classes = [AllowAny]
+
+    def get(self,request,type = None):
+        if Trip.objects.filter(type = type).exists():
+            trips = Trip.objects.filter(type = type)
+            results = self.paginate_queryset(trips, request, view=self)
+            serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({"error":"Invalid input"}, status = status.HTTP_400_BAD_REQUEST)
+
+class TripLocationFilterView(APIView, TripsPagination):
+
+    permission_classes = [AllowAny]
+
+    def get(self,request,location = None):
+        if Trip.objects.filter(location = location).exists():
+            trips = Trip.objects.filter(location = location)
+            results = self.paginate_queryset(trips, request, view=self)
+            serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({"error":"Invalid input"}, status = status.HTTP_400_BAD_REQUEST)
