@@ -9,7 +9,7 @@ import Home from './pages/Homepage';
 function App() {
   return (
     <Router>
-    <div className="App">
+    <div className="App bg-blue-500">
       <Navbar />
       
       <div className="content">
