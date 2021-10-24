@@ -38,59 +38,10 @@ class TripUniversalFilterView(APIView, TripsPagination):
         qs4 = Trip.objects.filter(price__gte = variable['greaterthan']) if 'greaterthan' in variable else qs1
         qs5 = Trip.objects.filter(price__lte = variable['lesserthan']) if 'lesserthan' in variable else qs1
         qs = qs1 & qs2 & qs3 & qs4 & qs5
-        print(qs.count())
-        qs = qs.order_by(variable['sort']) if 'sort' in variable else qs3
+        qs = qs.order_by(variable['sort']) if 'sort' in variable else qs
         results = self.paginate_queryset(qs, request, view=self)
         serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
         return Response(serializer.data, status = status.HTTP_200_OK)
-        # type = ast.literal_eval(variable)[0][0]
-        # location = ast.literal_eval(variable)[1][0]
-        # sort = ast.literal_eval(variable)[2][0]
-        # if location == None or location == '':
-        #     if type == None or type == '':
-        #         print("1")
-        #         trips = Trip.objects.all()
-        #     elif type != None or type != '':
-        #         print("2")
-        #         if Trip.objects.filter(type = type).exists():
-        #             trips = Trip.objects.filter(type = type)
-        #         else:
-        #             return Response({"error":"Invalid input1"}, status = status.HTTP_400_BAD_REQUEST) 
-        #     else:
-        #         return Response({"error":"something went wrong1"}, status = status.HTTP_400_BAD_REQUEST) 
-        # elif location != None or location != '':
-        #     if type == None or type == '':
-        #         print("3")
-        #         if Trip.objects.filter(location = location).exists():
-        #             trips = Trip.objects.filter(location = location)
-        #         else:
-        #             return Response({"error":"Invalid input2"}, status = status.HTTP_400_BAD_REQUEST)
-        #     elif type != None or type != '':
-        #         print("4")
-        #         if Trip.objects.filter(Q(type = type) & Q(location = location)).exists():
-        #             trips = Trip.objects.filter(Q(type = type) & Q(location = location))
-        #         else:
-        #             return Response({"error":"Invalid input3"}, status = status.HTTP_400_BAD_REQUEST) 
-        #     else:
-        #         return Response({"error":"something went wrong2"}, status = status.HTTP_400_BAD_REQUEST) 
-        # else:
-        #     print("5")
-        #     return Response({"error":"something went wrong3"}, status = status.HTTP_400_BAD_REQUEST)
-        # if sort == None or sort == '':
-        #     results = self.paginate_queryset(trips, request, view=self)
-        #     serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
-        #     return Response(serializer.data, status = status.HTTP_200_OK)
-        # elif sort == "ascending":
-        #     results = self.paginate_queryset(trips.order_by("price"), request, view=self)
-        #     serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
-        #     return Response(serializer.data, status = status.HTTP_200_OK)
-        # elif sort == "descending":
-        #     results = self.paginate_queryset(trips.order_by("-price"), request, view=self)
-        #     serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
-        #     return Response(serializer.data, status = status.HTTP_200_OK)
-        # else:
-        #     return Response({"error":"something went wrong4"}, status = status.HTTP_400_BAD_REQUEST)
-
 
 class TripMediaView(APIView, TripMediaPagination):
 
