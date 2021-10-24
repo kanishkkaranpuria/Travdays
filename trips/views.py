@@ -35,10 +35,12 @@ class TripUniversalFilterView(APIView, TripsPagination):
         qs1 = Trip.objects.all()
         qs2 = Trip.objects.filter(type = variable['type']) if 'type' in variable else qs1
         qs3 = Trip.objects.filter(location = variable['location']) if 'location' in variable else qs1
-        qs4 = qs1 & qs2 & qs3
-        print(qs4.count())
-        qs4 = qs4.order_by(variable['sort']) if 'sort' in variable else qs3
-        results = self.paginate_queryset(qs4, request, view=self)
+        qs4 = Trip.objects.filter(price__gte = variable['greaterthan']) if 'greaterthan' in variable else qs1
+        qs5 = Trip.objects.filter(price__lte = variable['lesserthan']) if 'lesserthan' in variable else qs1
+        qs = qs1 & qs2 & qs3 & qs4 & qs5
+        print(qs.count())
+        qs = qs.order_by(variable['sort']) if 'sort' in variable else qs3
+        results = self.paginate_queryset(qs, request, view=self)
         serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
         return Response(serializer.data, status = status.HTTP_200_OK)
         # type = ast.literal_eval(variable)[0][0]

@@ -18,7 +18,7 @@ class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdminMedia
-        fields = ['id','name', 'image', 'video']
+        fields = ['id', 'image', 'video']
 
     def get_name(self,obj):
         return obj.trip.name
