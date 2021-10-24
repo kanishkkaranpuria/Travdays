@@ -30,3 +30,18 @@ code {
 .gallerysub{
   display:flex
 }
+
+.navbar{
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px 0;
+}
+.navbar > *{
+padding: 8px;
+}
+.navbar > li > ul{
+  padding: 4px;
+  width: max-content;
+}

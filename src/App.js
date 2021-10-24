@@ -9,10 +9,10 @@ import Home from './pages/Homepage';
 function App() {
   return (
     <Router>
-    <div className="App bg-blue-500">
+    <div className="App">
       <Navbar />
       
-      <div className="content">
+      <div className="content flex justify-center">
         <Switch>
         
         <Route exact path = "/"> <Home /> </Route>

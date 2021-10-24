@@ -6,8 +6,8 @@ import FAQ from "../components/FAQ";
 
 const Home = () => {
     return ( 
-        <div className="main">
-            <h1>Ugliest Homepage af</h1>
+        <div className="main ">
+            <h1>still ugly af <small>homepage</small></h1>
             <Router>
                 <FAQ/>
             </Router>
