@@ -6,15 +6,22 @@ const Trip = () => {
 
     const [images,setImages]=useState([])
     const [tripDescription,setTripDescription]=useState([])
-    const [trip,setPrice]=useState(0)
+    const [price,setPrice]=useState(0)
     const [review,setReview]=useState([])
     const [tripId,setTripId]=useState(0)
     const [tripType,setTripType]=useState('')
     const [ratings, setRatings]=useState(0)
-    // const [name,setName]=useState('')
+    // const [name,setName]=useState('')            
+    // since not using the name as a dynamic fetched idea anymore
 
     const name = useParams();
-    function imagesCarousel(){}
+    const imagesCarousel= () => {
+        axios
+        .get(`trip/media/${name}`)
+        .then(res=>{
+            console.log(res.data)
+        })
+    }
     // function review(){}
 
     const details = () => {
@@ -23,7 +30,10 @@ const Trip = () => {
         .get(`/trip/${name}`,{
 
         })
-        .then(res => {console.log(res)})
+        .then(res => {
+            console.log(res)
+            setPrice(res.data.price)
+        })
         .catch(
 
         )
