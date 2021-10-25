@@ -32,16 +32,19 @@ class TripUniversalFilterView(APIView, TripsPagination):
 
     def get(self,request,variable):
         variable = json.loads(variable)
-        qs1 = Trip.objects.all()
-        qs2 = Trip.objects.filter(type = variable['type']) if 'type' in variable else qs1
-        qs3 = Trip.objects.filter(location = variable['location']) if 'location' in variable else qs1
-        qs4 = Trip.objects.filter(price__gte = variable['greaterthan']) if 'greaterthan' in variable else qs1
-        qs5 = Trip.objects.filter(price__lte = variable['lesserthan']) if 'lesserthan' in variable else qs1
-        qs = qs1 & qs2 & qs3 & qs4 & qs5
-        qs = qs.order_by(variable['sort']) if 'sort' in variable else qs
-        results = self.paginate_queryset(qs, request, view=self)
-        serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
-        return Response(serializer.data, status = status.HTTP_200_OK)
+        print(variable)
+        if isinstance(variable,dict) and ('type' or 'location' or 'greaterthan' or 'lesserthan' in variable) :
+            qs1 = Trip.objects.all()
+            qs2 = Trip.objects.filter(type = variable['type']) if 'type' in variable else qs1
+            qs3 = Trip.objects.filter(location = variable['location']) if 'location' in variable else qs1
+            qs4 = Trip.objects.filter(price__gte = variable['greaterthan']) if 'greaterthan' in variable else qs1
+            qs5 = Trip.objects.filter(price__lte = variable['lesserthan']) if 'lesserthan' in variable else qs1
+            qs = qs1 & qs2 & qs3 & qs4 & qs5
+            qs = qs.order_by(variable['sort']) if 'sort' in variable else qs
+            results = self.paginate_queryset(qs, request, view=self)
+            serializer = TripDisplaySerializer( results,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({"error":"something went wrong"}, status = status.HTTP_400_BAD_REQUEST)
 
 class TripMediaView(APIView, TripMediaPagination):
 

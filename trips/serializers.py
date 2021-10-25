@@ -14,14 +14,10 @@ class SingleTripDisplaySerializer(serializers.ModelSerializer):
 
 class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 
-    name = serializers.SerializerMethodField()
-
     class Meta:
         model = AdminMedia
         fields = ['id', 'image', 'video']
 
-    def get_name(self,obj):
-        return obj.trip.name
     # def get_image(self,obj):
     #     if len(obj.adminmedia.exclude(image='').exclude(image__isnull=True) ) != 0:
     #         request = self.context.get('request')
@@ -57,7 +53,13 @@ class TripDisplaySerializer(serializers.ModelSerializer):
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
-        if len(obj.adminmedia.filter(displayImage=True)) != 0:
+        if obj.adminmedia.filter(image__isnull=False).exists():
+            if obj.adminmedia.filter(displayImage=True).exists():
+                pass
+            else:
+                new = obj.adminmedia.order_by('?')[0]
+                new.displayImage=True
+                new.save()
             # image_url = obj.adminmedia.filter(displayImage=True)
             image_url = obj.adminmedia.get(displayImage=True)
             # qs=[]
