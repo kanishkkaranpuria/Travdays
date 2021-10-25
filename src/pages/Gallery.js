@@ -162,8 +162,8 @@ const Gallery = () => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="aaa" key={data.id}>
             {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview object-contain overflow-hidden h-5">
-              {data.image && <img src={data.image}  alt="" className ="w-full"/>}
+            <div className="datas-preview">
+              {data.image && <img src={data.image}  alt="" className ="object-cover h-full w-full"/>}
               {/* {console.log(number = number + 1)} */}
             </div>
 
@@ -171,8 +171,8 @@ const Gallery = () => {
           }else {
             return ( <div className="aaa" key={data.id} >
             {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview object-contain overflow-hidden  h-5">
-              {data.image && <img src={data.image}  alt="" className ="w-full"/>}
+            <div className="datas-preview">
+              {data.image && <img src={data.image}  alt="" className ="object-cover h-full w-full"/>}
               {/* {console.log(number = number + 1)} */}
             </div>
 

@@ -85,3 +85,10 @@ padding: 8px;
   background-image: url(https://picsum.photos/500/500);
   background-size: cover;
 }
+.aaa{
+  height: 300px;
+  /* padding-bottom: 100%; */
+}
+.datas-preview{
+  height: 100%;
+}
