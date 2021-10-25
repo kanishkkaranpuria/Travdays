@@ -119,7 +119,7 @@ const Gallery = () => {
   useEffect(() => {
     axios({
         method:'GET',
-        url: 'http://127.0.0.1:8000/gallery/?page='+ page,
+        url: '/gallery/?page='+ page,
 
         // configuration
     })
@@ -155,25 +155,24 @@ const Gallery = () => {
    
 
 
-    <div className="gallery"  >
-      <div className="c2" >
+    <div className= "grid grid-cols-3">
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
 
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
-         return ( <div ref = {lastDataElementRef} className="datas-previewx" key={data.id}>
+         return ( <div ref = {lastDataElementRef} className="aaa" key={data.id}>
             {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview">
-              {data.image && <img src={data.image}  alt="" width="100%" />}
+            <div className="datas-preview object-contain overflow-hidden h-5">
+              {data.image && <img src={data.image}  alt="" className ="w-full"/>}
               {/* {console.log(number = number + 1)} */}
             </div>
 
           </div>);
           }else {
-            return ( <div className="datas-previewx" key={data.id} >
+            return ( <div className="aaa" key={data.id} >
             {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview">
-              {data.image && <img src={data.image}  alt="" width="100%" />}
+            <div className="datas-preview object-contain overflow-hidden  h-5">
+              {data.image && <img src={data.image}  alt="" className ="w-full"/>}
               {/* {console.log(number = number + 1)} */}
             </div>
 
@@ -182,10 +181,6 @@ const Gallery = () => {
         })
 
         }
-
-
-      </div>
-
       {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
     </div>
 </div>

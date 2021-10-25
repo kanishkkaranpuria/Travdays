@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import axiosInstance from "./axios"
+import axios from 'axios'
+import { useParams } from 'react-router'
 
 const Trip = () => {
 
@@ -10,40 +11,22 @@ const Trip = () => {
     const [tripId,setTripId]=useState(0)
     const [tripType,setTripType]=useState('')
     const [ratings, setRatings]=useState(0)
-    const [name,setName]=useState('')
-    const 
+    // const [name,setName]=useState('')
 
-    function imagesCarousel(){
+    const name = useParams();
+    function imagesCarousel(){}
+    // function review(){}
 
-    }
+    const details = () => {
 
-    function review(){
-
-    }
-
-    function details(){
-
-        axiosInstance
-        .get('/trip/Mumbai',{
+        axios
+        .get(`/trip/${name}`,{
 
         })
-
-        .then(response => {
-          response.data.map(
-              (items) => <div>
-                  {setTripId(items.id)}
-                  {setTripType(items.type)}
-                  {setTripName(items.name)}
-                  {setTripDescription(items.description)}
-                  {setPrice(items.price)}
-                  {setRatings(items.ratings)}
-              </div>
-          )
-        })
+        .then(res => {console.log(res)})
         .catch(
 
         )
-
     }
 
     return(
@@ -57,3 +40,5 @@ const Trip = () => {
         </div>
     );
 }
+
+export default Trip;

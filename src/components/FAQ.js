@@ -13,7 +13,7 @@ const FAQ = () => {
     useEffect(() => {
       
       axios
-      .get(`http://127.0.0.1:8000/faq/question?page=`+ page)
+      .get(`faq/question?page=`+ page)
       .then((res)=>{
           setFaqs(res.data)
           console.log(res.data)
@@ -52,7 +52,7 @@ const FAQ = () => {
     
          
         axios
-        .get(`http://127.0.0.1:8000/faq/answer/`+ i)
+        .get(`faq/answer/`+ i)
         .then(res => {
             setAnswer(res.data)
             console.log(res.data)
