@@ -17,9 +17,9 @@ const Home = () => {
                 <button className='mx-auto p-2 w-40 bg-blue-500'>Contact us</button>
             </div>
             <div className='grid grid-cols-3'>
-                <Card/>
-                <Card/>
-                <Card/>
+                <Card title="Workation" />
+                <Card title="Solo Travel"/>
+                <Card title="Pet Friendly"/>
             </div>
             </div>
             <div className="section px-8 items-center justify-center">

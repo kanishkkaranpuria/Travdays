@@ -32,6 +32,7 @@ code {
 }
 
 .navbar{
+  z-index: 5;
   position: sticky;
   top: 0;
   height: 60px;
@@ -59,6 +60,10 @@ padding: 8px;
   border-radius: 20px;
   overflow: hidden;
 }
+.card > p{
+  color: #fff;
+  padding-top: 120%;
+}
 .section{
   display: grid;
   grid-template-columns: 50% 50%;
@@ -71,10 +76,12 @@ padding: 8px;
   width: 100%;
 }
 .gallery-preview{
-  height: 500px;
-  width: 500px;
+  height: 0;
+  padding-bottom: min(100%, 500px);
+  width: min(100%, 500px);
   border-radius: 20px;
   transform: rotate(-4deg);
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
   background-image: url(https://picsum.photos/500/500);
+  background-size: cover;
 }
