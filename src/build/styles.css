@@ -607,6 +607,10 @@ video {
   display: grid;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
 .h-32 {
   height: 8rem;
 }
@@ -639,6 +643,10 @@ video {
   justify-content: space-around;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
@@ -647,6 +655,10 @@ video {
 .bg-\[\#FFA914\] {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 169, 20, var(--tw-bg-opacity));
+}
+
+.object-contain {
+  object-fit: contain;
 }
 
 .p-6 {
@@ -701,7 +713,6 @@ code {
 }
 
 .navbar{
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 60px;
