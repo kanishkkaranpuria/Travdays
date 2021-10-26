@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import Carousel from "../components/Carousel"
+
 
 const Trip = () => {
 
@@ -20,7 +22,13 @@ const Trip = () => {
         .get(`trip/media/${name}`)
         .then(res=>{
             console.log(res.data)
+            setImages(res.data)
         })
+        .catch ((err)=>{
+            console.log(err)
+        })
+        {<Carousel images={images}/>}
+        // <Carousel images={images}/>  why didn't this work and why did have to have it inside {} ??
     }
     // function review(){}
 
