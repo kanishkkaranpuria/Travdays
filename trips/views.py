@@ -33,7 +33,7 @@ class TripUniversalFilterView(APIView, TripsPagination):
     def get(self,request,variable):
         variable = json.loads(variable)
         print(variable)
-        if isinstance(variable,dict) and ('type' or 'location' or 'greaterthan' or 'lesserthan' in variable) :
+        if isinstance(variable,dict) and (variable.keys() - {'type', 'location', 'greaterthan', 'lesserthan' } == set()) :
             qs1 = Trip.objects.all()
             qs2 = Trip.objects.filter(type = variable['type']) if 'type' in variable else qs1
             qs3 = Trip.objects.filter(location = variable['location']) if 'location' in variable else qs1
