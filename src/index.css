@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.App{
+  width: 100%;
+  max-width: 1440px;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -65,6 +69,8 @@ padding: 8px;
   padding-top: 120%;
 }
 .section{
+  padding-right: 2rem;
+  padding-left: 2rem;
   display: grid;
   grid-template-columns: 50% 50%;
   width: 100%;
@@ -72,13 +78,17 @@ padding: 8px;
   /* background-image: url(https://picsum.photos/1440/1080); */
   background-repeat: no-repeat;
 }
+.section.faq{
+  display: block;
+height: calc(100vh - 80px);
+}
 .content{
   width: 100%;
 }
 .gallery-preview{
   height: 0;
-  padding-bottom: min(100%, 500px);
-  width: min(100%, 500px);
+  padding-bottom: min(100%, 550px);
+  width: min(100%, 550px);
   border-radius: 20px;
   transform: rotate(-4deg);
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
@@ -91,4 +101,7 @@ padding: 8px;
 }
 .datas-preview{
   height: 100%;
+}
+.card-grid{
+  /* width: clamp(300px,50%,680px); */
 }
