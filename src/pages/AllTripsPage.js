@@ -126,82 +126,49 @@ const AllTrips = () => {
     <div>
       <button onClick={priceAscending} type="button">↑Price</button>
       <button onClick={priceDescending} type="button">↓Price</button>
-      <div className="trips page">
+      <div className="trips page grid grid-cols-3">
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
-            return (<div ref={lastDataElementRef} className="" key={data.id}>
-              <div className="">
+            return (
+            <div ref={lastDataElementRef} className="p-5" key={data.id}>
+              <div className="max-w-sm rounded overflow-hidden shadow-lg">
+                {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-80"/>}
                 {data.name && <h1 onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</h1>}
                 {data.type && <h3 >{data.type}</h3>}
                 {data.ratings === "No Ratings" && <h3 >{data.ratings}</h3>}
                 {data.ratings !== "No Ratings" && <h3 >{data.ratings}☆</h3>}
                 {data.ratingsCount && <h3 >{data.ratingsCount}</h3>}
                 {data.price && <h3 >₹{data.price}</h3>}
-                {data.displayImage && <img src={data.displayImage} alt="" width="100%" />}
-                {hoverdatas && hoverdatas.map((hoverdata, i) => {
-                  if (globalUrl === data.name){
-                  if (hoverdatas.length === i + 1) {
-                    return (<div ref={lastDataElementRef2} className="" key={hoverdata.id}>
-                      <div className="">
-                        {/* {hoverdata.name && <h1>{hoverdata.name}</h1>} */}
-                        {hoverdata.image && <img src={hoverdata.image} alt="" width="100%" />}
-                        {/* {hoverdata && <img src={hoverdata.image} alt="" width="100%" />} */}
-                      </div>
-
-                    </div>);
-                  } else {
-                    return (<div className="" key={hoverdata.id} >
-                      <div className="">
-                        {/* {data.name && <h1>{data.name}</h1>} */}
-                        {hoverdata.image && <img src={hoverdata.image} alt="" width="100%" />}
+                
+                
 
 
-                      </div>
 
-                    </div>);
-                  }
-                }})
-
-                }
+               
               </div>
 
             </div>);
           } else {
-            return (<div className="" key={data.id} >
-              <div className="">
+            return (
+            <div className="p-5" key={data.id} >
+              <div className="max-w-sm rounded overflow-hidden shadow-lg">
+                {data.displayImage && <img src={data.displayImage} alt=""className ="w-full h-80"/>}
                 {data.name && <h1 onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</h1>}
                 {data.type && <h3 >{data.type}</h3>}
                 {data.ratings === "No Ratings" && <h3 >{data.ratings}</h3>}
                 {data.ratings !== "No Ratings" && <h3 >{data.ratings}☆</h3>}
                 {data.ratingsCount && <h3 >{data.ratingsCount}</h3>}
                 {data.price && <h3 >₹{data.price}</h3>}
-                {data.displayImage && <img src={data.displayImage} alt="" width="100%" />}
                 {/* {if (data.name === )} */}
-                {hoverdatas && hoverdatas.map((hoverdata, i) => {
-                  if (globalUrl === data.name){
-                  if (hoverdatas.length === i + 1) {
-                    return (<div ref={lastDataElementRef2} className="" key={hoverdata.id}>
-                      <div className="">
-                        {/* {hoverdata.name && <h1>{hoverdata.name}</h1>} */}
-                        {hoverdata.image && <img src={hoverdata.image} alt="" width="100%" />}
-                        {/* {hoverdata && <img src={hoverdata.image} alt="" width="100%" />} */}
-                      </div>
-
-                    </div>);
-                  } else {
-                    return (<div className="" key={hoverdata.id} >
-                      <div className="">
-                        {/* {data.name && <h1>{data.name}</h1>} */}
-                        {hoverdata.image && <img src={hoverdata.image} alt="" width="100%" />}
+                
 
 
-                      </div>
 
-                    </div>);
-                  }
-                }})
 
-                }
+
+
+
+
               </div>
 
             </div>);

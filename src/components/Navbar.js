@@ -11,6 +11,9 @@ const Navbar = () => {
                 <Link to='/gallery'><h4>Gallery</h4></Link>
                 <Link to='/contactus'><h4>Contact Us</h4></Link>
                 <Link to='/faq'><h4>FAQ</h4></Link>
+                <Link to='/trips/solo'><h4>Solo</h4></Link>
+                <Link to='/trips/petfriendly'><h4>Pet Friendly</h4></Link>
+                <Link to='/trips/workation'><h4>Workation</h4></Link>
             </nav>
         </navbar>
     );
