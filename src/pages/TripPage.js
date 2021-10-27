@@ -5,7 +5,7 @@ import MediaCarousel from "../components/MediaCarousel"
 
 
 const Trip = () => {
-
+    
     const [media,setMedia]=useState([])
     const [tripDescription,setTripDescription]=useState([])
     const [price,setPrice]=useState(0)
@@ -27,7 +27,7 @@ const Trip = () => {
         .catch ((err)=>{
             console.log(err)
         })      
-        {<MediaCarousel images={images}   />}
+        {<MediaCarousel images={media}   />}
         // <Carousel images={images}/>  why didn't this work and why did have to have it inside {} ??
     }
     // function review(){}
