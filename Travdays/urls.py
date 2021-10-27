@@ -12,4 +12,5 @@ urlpatterns = [
     path('query/', include("query.urls")),
     path('auth/', include("authentication.urls")),
     path('faq/', include("faq.urls")),
+    path('search/', include("searchbar.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

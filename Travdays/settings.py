@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'query',
     'authentication',
     'faq',
+    'searchbar',
 ]
 
 AUTH_USER_MODEL = 'database.User'
