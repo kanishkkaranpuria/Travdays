@@ -8,12 +8,7 @@ class QueryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('choice','query', 'email','name','user','created',)}),
     )
-    # add_fieldsets = (
-    #     (None, {
-    #         'classes': ('wide',),
-    #         'fields': ('choice','query','email', 'name')}
-    #     ),
-    # )
+
     search_fields = ('choice',)
     ordering = ('id',)
     filter_horizontal = ()
