@@ -5,7 +5,9 @@ import { useParams } from "react-router";
 const AllTrips = () => {
   
   const { type } = useParams();
-  var object = useMemo(()=>{return{"type":type} },[])
+
+  var object = useMemo(()=>{return{"type":type} },[type])
+  console.log("object")
   // var object = {"type":type};
   const [globalUrl, setGlobalUrl] = useState('');
   const [datas, setDatas] = useState([]);
@@ -15,6 +17,14 @@ const AllTrips = () => {
   const [location, setLocation] = useState('');
   const prevDatas = useRef([])
   const observer = useRef()
+
+  useEffect(()=>{
+    setDatas([])
+    setPage(1)
+    setLoading(true)
+    setHasMore(true)
+    setGlobalUrl('')
+  },[object])
 
   const priceAscending = () => {
     ("sort" in object) && (object["sort"] = "price")
@@ -52,6 +62,7 @@ const AllTrips = () => {
         console.log(res.data)
         console.log(object)
         prevDatas.current = datas
+        setLoading(false)
       })
       .catch(err => {
         if (err.response){ if (err.response.data.detail === "Invalid page.") {
@@ -60,8 +71,8 @@ const AllTrips = () => {
         // console.log(err)
 
       }})
-    setLoading(false);
-  }, [page])
+    // setLoading(false);
+  }, [page, object])
   // _____________________________________________________________________________________________________________________________________
   const [hoverdatas, setHoveratas] = useState([]);
   const [hoverpage, setHoverpage] = useState(0);
@@ -122,7 +133,8 @@ const AllTrips = () => {
     setHoverloading(false);
   }, [hoverpage])
 
-  return (
+  return (<>
+      {loading ? <div><h1>loading...</h1></div> :
     <div>
       <button onClick={priceAscending} type="button">↑Price</button>
       <button onClick={priceDescending} type="button">↓Price</button>
@@ -176,8 +188,8 @@ const AllTrips = () => {
         })
         }
 
-      </div></div>
-  );
+      </div></div>}
+  </>);
 }
 
 export default AllTrips;
