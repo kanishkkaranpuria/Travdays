@@ -12,7 +12,9 @@ const AllTrips = () => {
   const [globalUrl, setGlobalUrl] = useState('');
   const [datas, setDatas] = useState([]);
   const [page, setPage] = useState(1);
+  const [fetch, setFetch] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [loading1, setLoading1] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [location, setLocation] = useState('');
   const prevDatas = useRef([])
@@ -22,23 +24,32 @@ const AllTrips = () => {
     setDatas([])
     setPage(1)
     setLoading(true)
+    setLoading1(true)
     setHasMore(true)
     setGlobalUrl('')
-  },[object])
+  },[type])
+  console.log(object)
 
   const priceAscending = () => {
-    ("sort" in object) && (object["sort"] = "price")
-    !("sort" in object) && (object = Object.assign(object, {sort:"price"}));
+    if ("sort" in object) object["sort"] = "price"
+    if (!("sort" in object)) object = Object.assign(object, {sort:"price"});
     setHasMore(true)
     setPage(1)
     setDatas([])
+    if (fetch ===true)setFetch(false)
+    else if(fetch === false) setFetch(true)
   }
   const priceDescending = () => {
-    ("sort" in object) && (object["sort"] = "-price")
-    !("sort" in object) && (object = Object.assign(object, {sort:"-price"}));
+    if ("sort" in object)object["sort"] = "-price";
+    if (!("sort" in object))object = Object.assign(object, {sort:"-price"});
     setHasMore(true)
     setPage(1)
     setDatas([])
+    console.log(page)
+    console.log(datas)
+    console.log(hasMore)
+    if (fetch ===true)setFetch(false)
+    else if(fetch=== false) setFetch(true)
   }
 
   const lastDataElementRef = useCallback(node => {
@@ -55,6 +66,7 @@ const AllTrips = () => {
 
 
   useEffect(() => {
+    console.log("i was here")
     axios
       .get(`http://127.0.0.1:8000/trip/universal/` + JSON.stringify(object) + `?page=` + page)
       .then(res => {
@@ -62,7 +74,7 @@ const AllTrips = () => {
         console.log(res.data)
         console.log(object)
         prevDatas.current = datas
-        setLoading(false)
+        setLoading1(false)
       })
       .catch(err => {
         if (err.response){ if (err.response.data.detail === "Invalid page.") {
@@ -72,7 +84,7 @@ const AllTrips = () => {
 
       }})
     // setLoading(false);
-  }, [page, object])
+  }, [page, fetch, object])
   // _____________________________________________________________________________________________________________________________________
   const [hoverdatas, setHoveratas] = useState([]);
   const [hoverpage, setHoverpage] = useState(0);
@@ -134,7 +146,7 @@ const AllTrips = () => {
   }, [hoverpage])
 
   return (<>
-      {loading ? <div><h1>loading...</h1></div> :
+      {loading1 ? <div><h1>loading...</h1></div> :
     <div>
       <button onClick={priceAscending} type="button">↑Price</button>
       <button onClick={priceDescending} type="button">↓Price</button>
