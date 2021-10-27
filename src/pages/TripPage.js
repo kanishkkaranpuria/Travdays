@@ -17,7 +17,7 @@ const Trip = () => {
     // since not using the name as a dynamic fetched idea anymore
 
     const name = useParams();
-    const MediaCarousel= () => {
+    const Carousel= () => {
         axios
         .get(`trip/media/${name}`)
         .then(res=>{
@@ -53,7 +53,7 @@ const Trip = () => {
 
             {details()}
             {review()}
-            {imagesCarousel()}
+            {Carousel()}
 
         </div>
     );
