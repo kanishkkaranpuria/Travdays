@@ -6,7 +6,7 @@ import Carousel from "../components/Carousel"
 
 const Trip = () => {
 
-    const [images,setImages]=useState([])
+    const [media,setMedia]=useState([])
     const [tripDescription,setTripDescription]=useState([])
     const [price,setPrice]=useState(0)
     const [review,setReview]=useState([])
@@ -17,7 +17,7 @@ const Trip = () => {
     // since not using the name as a dynamic fetched idea anymore
 
     const name = useParams();
-    const imagesCarousel= () => {
+    const MediaCarousel= () => {
         axios
         .get(`trip/media/${name}`)
         .then(res=>{
@@ -26,8 +26,8 @@ const Trip = () => {
         })
         .catch ((err)=>{
             console.log(err)
-        })
-        {<Carousel images={images}/>}
+        })      
+        {<MediaCarousel images={images}   />}
         // <Carousel images={images}/>  why didn't this work and why did have to have it inside {} ??
     }
     // function review(){}
