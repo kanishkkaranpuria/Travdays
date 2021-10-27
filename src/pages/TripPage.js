@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
-import Carousel from "../components/Carousel"
+import MediaCarousel from "../components/MediaCarousel"
 
 
 const Trip = () => {
