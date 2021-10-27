@@ -1,10 +1,11 @@
+import { useHistory } from "react-router";
 import WriteABlog from "../components/WriteABlog";
 
 const Blogs = () => {
+    const history = useHistory()
     return (
-    
-    <div className="blog relative ">
-        <img className='fixed bottom-16 right-16' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
+        <div className="blog relative ">
+        <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 z-10 cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
         {/* <WriteABlog/> */}
         <p className='text-5xl font-bold p-4'>Fetured Blogs</p>
         <div className="featured-blogs flex overflow-x-auto gap-x-8 p-4">

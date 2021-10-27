@@ -9,7 +9,7 @@ const Trip = () => {
     const [media,setMedia]=useState([])
     const [tripDescription,setTripDescription]=useState([])
     const [price,setPrice]=useState(0)
-    const [review,setReview]=useState([])
+    // const [review,setReview]=useState([])
     const [tripId,setTripId]=useState(0)
     const [tripType,setTripType]=useState('')
     const [ratings, setRatings]=useState(0)
@@ -30,7 +30,7 @@ const Trip = () => {
         {<MediaCarousel images={media}   />}
         // <Carousel images={images}/>  why didn't this work and why did have to have it inside {} ??
     }
-    // function review(){}
+    function review(){}
 
     const details = () => {
 

@@ -8,6 +8,7 @@ import Home from './pages/Homepage';
 import AllTrips from './pages/AllTripsPage';
 import Trip from './pages/TripPage';
 import FAQ from './components/FAQ';
+import WriteABlog from './components/WriteABlog';
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         <Route exact path = "/trips/:type"> <AllTrips /> </Route>
 
         <Route exact path = "/faq"> <FAQ /> </Route>
+        
+        <Route exact path = "/blogs/write"> <WriteABlog /> </Route>
+        
         </Switch>
       </div>
     </div>
