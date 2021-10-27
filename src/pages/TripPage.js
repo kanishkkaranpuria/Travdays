@@ -22,7 +22,7 @@ const Trip = () => {
         .get(`trip/media/${name}`)
         .then(res=>{
             console.log(res.data)
-            setImages(res.data)
+            setMedia(res.data)
         })
         .catch ((err)=>{
             console.log(err)
