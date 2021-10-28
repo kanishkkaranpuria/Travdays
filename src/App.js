@@ -27,7 +27,7 @@ function App() {
       
         <Route exact path = "/contactus"> <ContactUs /> </Route>
 
-        <Route exact path = "/trip/:name"> <Trip/> </Route>
+        {/* <Route exact path = "/trip/:name"> <Trip/> </Route> */}
         
         <Route exact path = "/trips/:type"> <AllTrips /> </Route>
 
