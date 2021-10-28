@@ -20,9 +20,15 @@ code {
     monospace;
 }
 
-
-
 .gallery{
+  display: grid;
+  height: 90vh;
+  grid-template-columns: 65% 35%;
+  box-shadow: 0 4px 8px 0px #00000088;
+  border-radius: 20px;
+}
+
+/* .gallery{
   display: block;
   
 }
@@ -33,7 +39,7 @@ code {
 }
 .gallerysub{
   display:flex
-}
+} */
 
 .navbar{
   z-index: 5;
