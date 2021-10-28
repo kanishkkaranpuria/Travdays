@@ -58,6 +58,18 @@ class TripMediaView(APIView, TripMediaPagination):
             return Response(serializer.data, status = status.HTTP_200_OK)
         return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
 
+class TripHoverEventView(APIView, TripMediaPagination):
+
+    permission_classes = [AllowAny]
+
+    def get(self,request,name = None):
+        if Trip.objects.filter(name = name).exists():
+            media = AdminMedia.objects.filter(trip__name = name).filter(Q(video__isnull=True) | Q(video__exact=''))
+            results = self.paginate_queryset(media, request, view=self)
+            serializer = SingleTripMediaDisplaySerializer(results,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
+
 
 class ReviewView(APIView, ReviewsPagination):
 

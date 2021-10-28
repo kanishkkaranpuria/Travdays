@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -134,13 +135,16 @@ class AdminMedia(models.Model):
 
     def save(self, *args, **kwargs):
         if self.displayImage:
-            try:
-                temp = AdminMedia.objects.get(displayImage=True, trip = self.trip)
-                if self != temp:
-                    temp.displayImage = False
-                    temp.save()
-            except AdminMedia.DoesNotExist:
-                pass
+            if self.video != None:
+                raise ValidationError('Video cant be used as Display Image')
+            else:
+                try:
+                    temp = AdminMedia.objects.get(displayImage=True, trip = self.trip)
+                    if self != temp:
+                        temp.displayImage = False
+                        temp.save()
+                except AdminMedia.DoesNotExist:
+                    pass
         super(AdminMedia, self).save(*args, **kwargs)
     
 class Review(models.Model):
@@ -180,6 +184,7 @@ class UserMedia(models.Model):
 
 class Blog(models.Model):
     title    = models.CharField(max_length=50)
+    image    = models.ImageField( upload_to='media/images', max_length=None)
     user     = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     blog     = models.TextField()
     likes    = models.ManyToManyField(User, related_name="likes", blank=True)
