@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <navbar className='navbar'>
+        <navbar className='navbar backdrop-filter '>
             <nav className="logo text-lg">
                 <Link className='p-6' to='/'>TravDays</Link>
             </nav>
@@ -10,9 +10,9 @@ const Navbar = () => {
                 <span className='packages btn p-6 flex items-center h-full text-lg font-bold relative'>
                     <Link to='/AllTripsPage'>packages</Link>
                     <span className='package-list absolute left-0 bottom-[-52px] flex w-max z-[4] invisible pointer-events-none'>
-                    <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px]' to='/trips/solo'><h4>Solo</h4></Link>
-                    <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px]' to='/trips/pet friendly'><h4>Pet Friendly</h4></Link>
-                    <Link  className='bg-[#00000088] px-6 pb-6 rounded-b-[10px]' to='/trips/workation'><h4>Workation</h4></Link>
+                    <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/solo'><h4>Solo</h4></Link>
+                    <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/pet friendly'><h4>Pet Friendly</h4></Link>
+                    <Link  className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/workation'><h4>Workation</h4></Link>
                     </span>
                 </span>
                 <Link className='h-full items-center flex' to='/blogs'>Blogs</Link>

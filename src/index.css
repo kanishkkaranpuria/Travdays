@@ -126,7 +126,7 @@ code {
   background-repeat: no-repeat;
 }
 .section.faq{
-  display: block;
+  /* display: block; */
 min-height: calc(100vh - 180px);
 }
 .faq-link{
@@ -169,4 +169,10 @@ pointer-events: auto;
 }
 .packages.btn:hover{
   background: #00000088;
+}
+.profile-img{
+  box-shadow: 2px 2px 6px 0px #00000088 ;
+}
+.p-box-shadow{
+  box-shadow: 0 5px 6px -4px #00000088 ;
 }
