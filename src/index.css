@@ -45,9 +45,6 @@ code {
   align-items: center;
   box-shadow: 0 0 10px 0;
 }
-.navbar > *{
-padding: 8px;
-}
 .card {
   margin: 8px;
   /* max-width: 205px;
@@ -77,6 +74,12 @@ padding: 8px;
   background-position: center; */
   border-radius: 20px;
   overflow: hidden;
+}
+.blog-preview-card.non-featured.v1{
+  margin: 1rem;
+  min-width: 500px;
+  width: 500px;
+  height: 300px;
 }
 .blog-preview-card.featured{
   padding: 0;
@@ -159,4 +162,11 @@ min-height: calc(100vh - 180px);
   /* width: min(1000px,100%); */
   width: 100%;
   min-height: calc(100vh - 60px);
+}
+.packages.btn:hover .package-list{
+visibility: visible;
+pointer-events: auto;
+}
+.packages.btn:hover{
+  background: #00000088;
 }
