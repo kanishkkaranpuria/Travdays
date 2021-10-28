@@ -232,7 +232,7 @@ class Query(models.Model):
         return self.get_choice_display()
 
 class GalleryPageTemp(models.Model):        # for explore page
-    userKey = models.CharField(max_length=100)
+    userKey    = models.CharField(max_length=100)
     previousId = models.CharField( max_length=10000, default='')
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
@@ -257,3 +257,10 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+class WhitelistedTokens(models.Model):
+    token = models.CharField( max_length=500)
+    user  = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    class Meta:
+        verbose_name_plural = 'Whitelisted Tokens'
