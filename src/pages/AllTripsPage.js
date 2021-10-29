@@ -146,23 +146,53 @@ const AllTrips = () => {
   }, [hoverpage])
 
   return (<>
-      {loading1 ? <div><h1>loading...</h1></div> :
-    <div>
-      <button onClick={priceAscending} type="button">↑Price</button>
-      <button onClick={priceDescending} type="button">↓Price</button>
-      <div className="trips page grid grid-cols-3">
+      {loading1 ? <div><p>loading...</p></div> :
+    <div className='section  flex justify-center '>
+      {/* <button onClick={priceAscending} type="button">↑Price</button>
+      <button onClick={priceDescending} type="button">↓Price</button> */}
+
+<svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 fixed bottom-16 right-16" viewBox="0 0 20 20" fill="currentColor">
+  <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
+</svg>
+
+      <div className="trips">
+
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
             return (
-            <div ref={lastDataElementRef} className="p-5" key={data.id}>
-              <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-80"/>}
-                {data.name && <h1 onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</h1>}
-                {data.type && <h3 >{data.type}</h3>}
-                {data.ratings === "No Ratings" && <h3 >{data.ratings}</h3>}
-                {data.ratings !== "No Ratings" && <h3 >{data.ratings}☆</h3>}
-                {data.ratingsCount && <h3 >{data.ratingsCount}</h3>}
-                {data.price && <h3 >₹{data.price}</h3>}
+            <div ref={lastDataElementRef} className="p-5 flex justify-center " key={data.id}>
+              <div className="flex max-w-sm rounded-[20px] overflow-hidden trip-card">
+                <div className='w-[300px] h-[300px] p-box-shadow flex justify-center'>
+                {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-full object-cover"/>}
+                </div>
+                  <div className='p-4 w-full'>
+                  <p className='flex justify-between items-center'>
+                  {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+                {data.type && <p className='text-sm' >{data.type}</p>}
+                  </p>
+                {data.ratings === "No Ratings" && <p className='py-4' >{data.ratings}</p>}
+                {data.ratings !== "No Ratings" && <p className='flex py-4' >{data.ratings}
+                
+                <span className='flex h-6'>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    </span>
+                
+                 <span className='px-4 text-sm'>{data.ratingsCount}</span></p>}
+                 <p className='flex py-4'>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className='pl-4'>x days y nights</span>
+                 </p>
+                 <p className='text-lg font-semibold'>short description</p>
+                 <p className='leading-'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
+                {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
+                {data.price && <p  className='absolute bottom-2 right-4 font-semibold'>₹{data.price}</p>}
+                  </div>
                 
                 
 
@@ -174,28 +204,49 @@ const AllTrips = () => {
             </div>);
           } else {
             return (
-            <div className="p-5" key={data.id} >
-              <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                {data.displayImage && <img src={data.displayImage} alt=""className ="w-full h-80"/>}
-                {data.name && <h1 onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</h1>}
-                {data.type && <h3 >{data.type}</h3>}
-                {data.ratings === "No Ratings" && <h3 >{data.ratings}</h3>}
-                {data.ratings !== "No Ratings" && <h3 >{data.ratings}☆</h3>}
-                {data.ratingsCount && <h3 >{data.ratingsCount}</h3>}
-                {data.price && <h3 >₹{data.price}</h3>}
-                {/* {if (data.name === )} */}
+              <div ref={lastDataElementRef} className="p-5 flex justify-center " key={data.id}>
+              <div className="flex max-w-sm rounded-[20px] overflow-hidden trip-card">
+                <div className='w-[300px] h-[300px] p-box-shadow flex justify-center'>
+                {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-full object-cover"/>}
+                </div>
+                  <div className='p-4 w-full'>
+                  <p className='flex justify-between items-center'>
+                  {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+                {data.type && <p className='text-sm' >{data.type}</p>}
+                  </p>
+                {data.ratings === "No Ratings" && <p className='py-4' >{data.ratings}</p>}
+                {data.ratings !== "No Ratings" && <p className='flex py-4' >{data.ratings}
+                
+                <span className='flex h-6 overflow-hidden' style={{width:data.ratings*24}}>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                    </span>
+                
+                 <span className='px-4 text-sm'>{data.ratingsCount}</span></p>}
+                 <p className='flex py-4'>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className='pl-4'>x days y nights</span>
+                 </p>
+                 <p className='text-lg font-semibold'>short description</p>
+                 <p className='leading-'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
+                {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
+                {data.price && <p  className='absolute bottom-2 right-4 font-semibold'>₹{data.price}</p>}
+                  </div>
+                
                 
 
 
 
-
-
-
-
-
+               
               </div>
 
-            </div>);
+            </div>
+            );
           }
         })
         }
