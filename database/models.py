@@ -3,6 +3,7 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django.core.exceptions import ValidationError
+from datetime import datetime, timedelta 
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -135,7 +136,7 @@ class AdminMedia(models.Model):
 
     def save(self, *args, **kwargs):
         if self.displayImage:
-            if self.video != None:
+            if self.video:
                 raise ValidationError('Video cant be used as Display Image')
             else:
                 try:
@@ -259,8 +260,11 @@ class FAQ(models.Model):
         return self.question
 
 class WhitelistedTokens(models.Model):
-    token = models.CharField( max_length=500)
-    user  = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    def now_plus_7(): 
+        return datetime.now().astimezone() + timedelta(days = 7)
+    token  = models.CharField( max_length=500)
+    user   = models.ForeignKey(User, on_delete=models.CASCADE)
+    expiry = models.DateTimeField(default=now_plus_7)
+
     class Meta:
         verbose_name_plural = 'Whitelisted Tokens'
