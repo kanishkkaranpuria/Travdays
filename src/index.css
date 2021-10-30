@@ -21,6 +21,19 @@ input,textarea{
   padding: 1rem;
   background: #e1e1e1;
 }
+::-webkit-scrollbar{
+  height: 0.75rem;
+  width: 0.75rem;
+}
+::-webkit-scrollbar-track{
+  margin: 0.5em;
+  border-radius: 100vh;
+  background-color: #00000022;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 100vh;
+  background-color: #00000055;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
