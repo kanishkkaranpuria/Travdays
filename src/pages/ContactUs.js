@@ -77,33 +77,37 @@ const ContactUs = () => {
      
 
     return ( 
-        <div className="s">
-            <form  onSubmit={submitquery}  action="">
+        <div className=" section max-w-[1000px] p-box-shadow rounded-lg p-8 profile-img">
+            <form className='flex flex-col'  onSubmit={submitquery}  action="">
                 { !authenticated && <div className="">
-                     name :
-                     <input type="text" onChange={(e) => setName(e.target.value) } /><br />
-                     email : 
-                    <input type="text" onChange={(e) => setEmail(e.target.value) } /><br />
-                     phone no :
-                    <input type="text"   onChange={(e) => setPhonenum(e.target.value) } / ><br />
-                    <br />
+                     <p className='flex items-center'>
+                     <span className='w-24'>name :</span>
+                     <input type="text" onChange={(e) => setName(e.target.value) } />
+                     </p>
+                    <p className='flex items-center'>
+                    <span className='w-24'>email :</span> 
+                    <input type="text" onChange={(e) => setEmail(e.target.value) } />
+                    </p>
+                    <p className='flex items-center'>
+                    <span className='w-24'>phone no :</span>
+                    <input type="text"   onChange={(e) => setPhonenum(e.target.value) } />
+                    </p>
+            
                    
                     </div>
                 
                 }       
-                 
-             <br />
-             <br />
-             <h3>your query is realted to :</h3>
+             <div className='flex'>
+             <p>your query is realted to :</p>
            
-                        <select name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
-                        <option id={i} value={i+1}>{mainqueries[keyName]}</option>   
-            ))}   </select>         
+           <select name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
+           <option id={i} value={i+1}>{mainqueries[keyName]}</option>   
+            ))}   </select>          
+            </div>    
                           
-             enter your qwery: <br />
+             enter your qwery: 
              <textarea name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value) }></textarea>
-             <br />
-             <button type="submit"  >submit</button>
+             <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
              
 
             </form>

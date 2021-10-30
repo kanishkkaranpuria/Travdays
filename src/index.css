@@ -17,8 +17,8 @@ body {
 input,textarea{
   margin: 1rem 0 1rem 0;
   border: 2px solid #c9c9c9;
-  border-radius: 20px;
-  padding: 1rem;
+  border-radius: 10px;
+  padding: 0.5rem;
   background: #e1e1e1;
 }
 ::-webkit-scrollbar{
@@ -199,7 +199,7 @@ pointer-events: auto;
   box-shadow: 2px 2px 6px 0px #00000088 ;
 }
 .p-box-shadow{
-  box-shadow: 0 5px 6px -4px #00000088 ;
+  box-shadow: 0 5px 6px 2px #00000088 ;
 }
 .trips{
 
@@ -212,5 +212,5 @@ pointer-events: auto;
   height: max-content;
   width: 100%;
   max-width: 1000px;
-  box-shadow: 0 3px 6px 0px #00000088  ;
+  box-shadow: 0 3px 6px 0px #00000088 ;
 }

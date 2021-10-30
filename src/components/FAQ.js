@@ -91,22 +91,22 @@ const FAQ = () => {
    
 
     return ( 
-        <div className="block p-20">
-                  {faqs && faqs.map((faq) => (
-                      <div  id ={faq.id} className="">
-                        <option id="selected"  value={faq.id}>{faq.question}</option>
-                        {/* {console.log(faq.id)} */}
-                        {answerstatus[faq.id] ? <button onClick={()=>{Answers(faq.id)}}>hide answer</button> : <button onClick={()=>{Answers(faq.id)}}>req answer</button>}
-                        
-                        {answerstatus[faq.id] && <div><h3>{answer[faq.id]}</h3></div>}
-                        {/* {console.log(answerstatus)} */}
-                        {/* {console.log(answer)} */}
-                        {/* {answer && <div className="">{answer.answer}</div> } */}
-
-                     </div>
-                        
-            ))}  
-        
+        <div className='section max-w-[1000px] p-box-shadow'>
+           
+    <span className='text-6xl font-bold p-6 inline-block faq-link'>FAQ</span>
+        <div className=''>
+        <div className="h-32">
+        <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+        <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p>
+        </div>
+        <div className="h-32">
+        <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+        <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+        </div><div className="h-32">
+        <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+        <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+        </div>
+        </div>
         </div>
      );
 }
