@@ -56,31 +56,40 @@ const WriteABlog = () => {
 
     return ( 
     
-    <section>
-        <h1>Write a blog</h1>
+    <div className=' write-a-blog section pt-8 max-w-[1000px] flex flex-col items-start'>
+        <p className='text-4xl'>Write a blog</p>
         
-        {!numberOfImages && <section>
-            <input type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />    
+        {!numberOfImages && 
+            <input className='w-full' type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />    
+            }
+        {!numberOfImages && 
+<textarea className='w-full' value = {content} onChange = {(e) => {createContent(e)}} placeholder = "Enter your Blog here..." />
 
-            <input type="text" value = {content} onChange = {(e) => {createContent(e)}} placeholder = "Enter your Blog here..." />
+            }
+        {!numberOfImages && 
+<input  style={{display:'none'}} name ="awesome af" onChange={console.log("heck yeah")} ref ={inputRef} type="file" />
 
-            <input  style={{display:'none'}} name ="awesome af" onChange={console.log("heck yeah")} ref ={inputRef} type="file" />
-            <button className="edit-btn" onClick={onClickFocus}>Gimme media</button>
-            </section>}
+            }
+        {!numberOfImages && 
+<button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={onClickFocus}>Gimme media</button>
+
+            }
+
+
 
         {numberOfImages && content.map((content, element)=>(
-            <section>
+            <div>
             <input type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />    
 
             <input type="text" value = {content[element]} onChange = {(e) => {createContent(e)}} placeholder = "Enter your Blog here..." />
 
             <input  style={{display:'none'}} name ="awesome af" onChange={console.log("heck yeah")} ref ={inputRef} type="file" />
             <button className="edit-btn" onClick={onClickFocus}>Gimme media</button>
-            </section>
+            </div>
 
         ) )}
         
-    </section> 
+    </div> 
     
     );
 }

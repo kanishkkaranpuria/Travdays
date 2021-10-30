@@ -14,7 +14,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+input,textarea{
+  margin: 1rem 0 1rem 0;
+  border: 2px solid #c9c9c9;
+  border-radius: 20px;
+  padding: 1rem;
+  background: #e1e1e1;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

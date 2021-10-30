@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useParams } from "react-router";
+import stars from './images/stars.png'
 
 const AllTrips = () => {
   
@@ -160,7 +161,7 @@ const AllTrips = () => {
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
             return (
-            <div ref={lastDataElementRef} className="p-5 flex justify-center " key={data.id}>
+              <div ref={lastDataElementRef} className="p-5 flex justify-center " key={data.id}>
               <div className="flex max-w-sm rounded-[20px] overflow-hidden trip-card">
                 <div className='w-[300px] h-[300px] p-box-shadow flex justify-center'>
                 {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-full object-cover"/>}
@@ -171,17 +172,15 @@ const AllTrips = () => {
                 {data.type && <p className='text-sm' >{data.type}</p>}
                   </p>
                 {data.ratings === "No Ratings" && <p className='py-4' >{data.ratings}</p>}
-                {data.ratings !== "No Ratings" && <p className='flex py-4' >{data.ratings}
-                
-                <span className='flex h-6'>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                {data.ratings !== "No Ratings" && <p className='flex py-4' >
+                <span className='pr-4'>{data.ratings}</span>
+                <span className=' h-6 overflow-hidden relative' >
+                    <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
+                    <img className='w-full h-full' src={stars} alt=""/>
                     </span>
                 
-                 <span className='px-4 text-sm'>{data.ratingsCount}</span></p>}
+                 <span className='px-4 text-sm'>{data.ratingsCount}</span>
+                 </p>}
                  <p className='flex py-4'>
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -215,17 +214,15 @@ const AllTrips = () => {
                 {data.type && <p className='text-sm' >{data.type}</p>}
                   </p>
                 {data.ratings === "No Ratings" && <p className='py-4' >{data.ratings}</p>}
-                {data.ratings !== "No Ratings" && <p className='flex py-4' >{data.ratings}
-                
-                <span className='flex h-6 overflow-hidden' style={{width:data.ratings*24}}>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                    <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                {data.ratings !== "No Ratings" && <p className='flex py-4' >
+                <span className='pr-4'>{data.ratings}</span>
+                <span className=' h-6 overflow-hidden relative' >
+                    <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
+                    <img className='w-full h-full' src={stars} alt=""/>
                     </span>
                 
-                 <span className='px-4 text-sm'>{data.ratingsCount}</span></p>}
+                 <span className='px-4 text-sm'>{data.ratingsCount}</span>
+                 </p>}
                  <p className='flex py-4'>
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
