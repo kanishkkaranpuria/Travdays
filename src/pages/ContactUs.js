@@ -77,7 +77,7 @@ const ContactUs = () => {
      
 
     return ( 
-        <div className=" section max-w-[1000px] p-box-shadow rounded-lg p-8 profile-img">
+        <div className=" section contact-us max-w-[1000px] p-box-shadow rounded-lg p-8 profile-img">
             <form className='flex flex-col'  onSubmit={submitquery}  action="">
                 { !authenticated && <div className="">
                      <p className='flex items-center'>

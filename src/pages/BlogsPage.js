@@ -7,8 +7,8 @@ const Blogs = () => {
         <div className="blog relative ">
         <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
         {/* <WriteABlog/> */}
-        <p className='text-5xl font-bold p-4'>Fetured Blogs</p>
-        <div className="featured-blogs flex overflow-x-auto gap-x-8 p-4">
+        <p className='text-5xl sm:text-2xl font-bold p-4'>Fetured Blogs</p>
+        <div className="featured-blogs flex overflow-x-auto gap-x-8 sm:gap-x-2 p-4">
             <div className="blog-preview-card featured relative">
                 <div className='gradient'></div>
             <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
@@ -31,7 +31,7 @@ const Blogs = () => {
                         </span>
                     </p>
                 </div>
-                <img className='absolute top-0 object-cover bg' src="https://picsum.photos/500/300?random=1" alt=""/>
+                <img className='w-full h-full top-0 object-cover bg' src="https://picsum.photos/500/300?random=1" alt=""/>
                 {/* <p className='leading-tight pt-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem animi iusto, rerum fugit nam aut incidunt impedit reprehenderit a quos explicabo ad doloribus cum quidem! Reiciendis enim cum quam eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est aliquam ut eligendi vitae ea architecto eaque illo, atque reprehenderit? Aperiam maiores repudiandae aspernatur doloribus consectetur commodi voluptate fugit impedit laboriosam.</p> */}
             </div>
 

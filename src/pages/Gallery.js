@@ -157,13 +157,13 @@ const Gallery = () => {
 
     <div className= " w-full gallery ">
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
-        <div className='grid grid-cols-3 overflow-y-auto rounded-b-[20px]'>
+        <div className='grid grid-cols-3 overflow-y-auto rounded-b-[20px] h-[90vh] '>
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="aaa" key={data.id}>
             {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview">
-              {data.image && <img src={data.image}  alt="" className ="object-cover h-full w-full"/>}
+            <div className="datas-preview h-full">
+              {data.image && <img src={data.image}  alt="" className ="object-cover h-full sm:h-[120px] w-full"/>}
               {/* {console.log(number = number + 1)} */}
             </div>
 
@@ -171,8 +171,8 @@ const Gallery = () => {
           }else {
             return ( <div className="aaa" key={data.id} >
             {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview">
-              {data.image && <img src={data.image}  alt="" className ="object-cover h-full w-full"/>}
+            <div className="datas-preview h-full">
+              {data.image && <img src={data.image}  alt="" className ="object-cover h-full sm:h-[120px] w-full"/>}
               {/* {console.log(number = number + 1)} */}
             </div>
 
@@ -183,7 +183,7 @@ const Gallery = () => {
         }
         </div>
       {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
-      <div className='flex h-[90vh]'>
+      <div className='flex h-[90vh] sm:h-[50%]'>
         {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
         <div className='p-4'>
                     <div className='my-8'>

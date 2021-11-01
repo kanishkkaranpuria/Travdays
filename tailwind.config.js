@@ -11,4 +11,9 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  theme: {
+    screens: {
+      'sm': {'max': '450px'},
+    }
+  }
 }

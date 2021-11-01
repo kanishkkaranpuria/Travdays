@@ -41,24 +41,9 @@ code {
 
 .gallery{
   display: grid;
-  height: 90vh;
-  grid-template-columns: 65% 35%;
-  box-shadow: 0 4px 8px 0px #00000088;
+  grid-template-columns: 50% 50%;
   border-radius: 20px;
 }
-
-/* .gallery{
-  display: block;
-  
-}
-.gallery img{
-  width: 250px;
-  height:250px;
-  object-fit:cover;
-}
-.gallerysub{
-  display:flex
-} */
 
 .navbar{
   z-index: 5;
@@ -154,6 +139,10 @@ code {
   /* display: block; */
 min-height: calc(100vh - 180px);
 }
+.section.hero{
+display: grid;
+grid-template-columns: 40% 60%;
+}
 .faq-link{
   transition: all 0.2s ease-in-out ;
 }
@@ -173,15 +162,9 @@ min-height: calc(100vh - 180px);
   background-image: url(https://picsum.photos/500/500);
   background-size: cover;
 }
-.aaa{
-  height: 300px;
-  /* padding-bottom: 100%; */
-}
-.datas-preview{
-  height: 100%;
-}
 .card-grid{
-  /* width: clamp(300px,50%,680px); */
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .blog{
   /* width: min(1000px,100%); */
@@ -213,4 +196,51 @@ pointer-events: auto;
   width: 100%;
   max-width: 1000px;
   box-shadow: 0 3px 6px 0px #00000088 ;
+}
+
+@media only screen and (max-width: 992px) {
+
+.navbar{
+  display: none;
+}
+.section{
+  padding: 2rem 0.5rem 2rem 0.5rem;
+
+}
+.section.hero{
+  display: grid;
+  grid-template-columns: auto;
+  padding: 2rem 0rem 2rem 0rem;
+  /* grid-template-rows: auto auto; */
+}
+.section.faq{
+  grid-template-columns: auto;
+  padding: 2rem 0.5rem 2rem 0.5rem;
+}
+.card{
+  margin: 15px;
+}
+}
+
+@media only screen and (max-width: 800px) {
+
+.section.gallery{
+  grid-template-columns: auto;
+}
+.gallery-preview{
+  width: max(300px, 60%);
+  padding-bottom: max(300px,60%);
+}
+.card-grid{
+  display: grid;
+  grid-template-columns: repeat(3,250px);
+  overflow-x: auto;
+}
+.gallery{
+  grid-template-columns: auto;
+}
+.blog-preview-card.featured{
+  min-width: 300px;
+  height: 200px;
+}
 }
