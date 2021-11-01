@@ -91,22 +91,61 @@ const FAQ = () => {
    
 
     return ( 
-        <div className='section max-w-[1000px] p-box-shadow'>
-           
-    <span className='text-6xl font-bold p-6 inline-block faq-link'>FAQ</span>
-        <div className=''>
-        <div className="h-32">
-        <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-        <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p>
-        </div>
-        <div className="h-32">
-        <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-        <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-        </div><div className="h-32">
-        <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-        <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-        </div>
-        </div>
+        <div className='section max-w-[1000px] p-box-shadow '>
+
+                <div>
+                        {faqs && faqs.map((faq) => (
+                            <div  id ={faq.id} className="">
+                                
+                                {answerstatus[faq.id]
+                                
+                                ?  <div className='mb-4' onClick={()=>{Answers(faq.id)}}>
+
+                                        <span className='cursor-pointer' >
+
+                                        <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        </option>
+
+                                            {/* placeholder for questions in database */}
+                                        <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span>
+
+                                        </span>
+
+                                </div>
+                                
+                                : <div className='mb-4' onClick={()=>{Answers(faq.id)}}>
+
+                                        <span className='cursor-pointer'>
+
+                                        <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        </option>
+
+                                            {/* placeholder for questions in database */}
+                                        <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span>
+
+                                        </span>
+
+                                </div> }
+
+                                {/* {console.log(faq.id)} */}
+                                
+                                {answerstatus[faq.id] && <div>{answer[faq.id]} 
+
+                                {/* placeholder for answers in db */}
+                                <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p>
+
+                                </div>}
+                                
+                                {/* {console.log(answerstatus)} */}
+                                {/* {console.log(answer)} */}
+                                {/* {answer && <div className="">{answer.answer}</div> } */}
+
+                            </div>
+                                
+                    ))}  
+                
+                </div>
+
         </div>
      );
 }
