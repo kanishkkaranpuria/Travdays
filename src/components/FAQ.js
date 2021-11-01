@@ -99,9 +99,9 @@ const FAQ = () => {
                                 
                                 {answerstatus[faq.id]
                                 
-                                ?  <div className='mb-4' onClick={()=>{Answers(faq.id)}}>
+                                ?  <div className='mb-4' >
 
-                                        <span className='cursor-pointer' >
+                                        <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
 
                                         <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
@@ -113,9 +113,9 @@ const FAQ = () => {
 
                                 </div>
                                 
-                                : <div className='mb-4' onClick={()=>{Answers(faq.id)}}>
+                                : <div className='mb-4' >
 
-                                        <span className='cursor-pointer'>
+                                        <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}}>
 
                                         <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
