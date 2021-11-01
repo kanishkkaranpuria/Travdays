@@ -1,0 +1,10 @@
+{% autoescape off%}
+
+Hi {{user.username}}
+please use the OTP or click this link below to verify your account
+
+http://{{domain}}/register/activate/{{uid}}/{{token}}
+
+OTP - {{OTP}}
+
+{% endautoescape %}

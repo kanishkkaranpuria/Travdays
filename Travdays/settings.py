@@ -78,7 +78,7 @@ ROOT_URLCONF = 'Travdays.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -168,3 +168,10 @@ REFRESH_TOKEN_SECRET='0d3bf21da90eeead7d0d4a39c74fd336f75fce8dacbb9775453dfb6246
 SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'Strict'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='aumghag1234@gmail.com'
+EMAIL_HOST_PASSWORD='plmjklqsusurnlhb'
+EMAIL_USE_TLS=True
+EMAIL_PORT=587

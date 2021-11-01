@@ -1,8 +1,8 @@
-# from django.urls import path
-# from .views import 
+from django.urls import path
+from .views import BookingView
 
 
 
 urlpatterns = [
-    # path('', BlogsDisplayView.as_view()),
+    path('', BookingView.as_view()),
 ]

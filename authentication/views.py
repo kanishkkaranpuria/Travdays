@@ -13,8 +13,14 @@ from rest_framework import exceptions
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .utils import generate_access_token, generate_refresh_token
-import datetime
+import datetime,random
 
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.core.mail import EmailMessage
 User = get_user_model()
 
 
@@ -110,7 +116,99 @@ class Refresh_Token_View(APIView):
             access_token = generate_access_token(user)
             return Response({'access_token': access_token})
         return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
+
+class RegisterUserView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        special_characters = '''"!@#$%^&*()-+?_=,<>'/'''
+        data = request.data
+        name = data['name']
+        email = data['email']
+        password = data['password']
+        password2 = data['password2']
+
+        if any(char in special_characters for char in name):
+            return Response({"error":"name cannot have special characters"}, status= status.HTTP_400_BAD_REQUEST)
+        else:
+            if password == password2:
+                if len(password) > 7:
+                    if not User.objects.filter(email=email).exists():
+                        user = User.objects.create_user(
+                            name=name,
+                            email = email,
+                            password=password,
+                        )
+                        user.save()
+                        if User.objects.filter(email=email).exists():
+                            u = User.objects.get(email = email)
+                            current_site = get_current_site(request)
+                            email_subject = 'Account Activation'
+                            token = PasswordResetTokenGenerator().make_token(u) 
+                            otp = Otp(user = user)
+                            otp.otp = random.randint(111111,9999999)
+                            otp.save()
+                            print(u.id)
+                            email_body = render_to_string('AccountActivation.html',
+                            {
+                                'user' : u,
+                                'domain': 'localhost:3000',
+                                'uid': urlsafe_base64_encode(force_bytes(u.id)),
+                                'token': token,
+                                'OTP': otp.otp
+                            })
+                            email_message = EmailMessage(
+                                email_subject,
+                                email_body,                             
+                                settings.EMAIL_HOST_USER,
+                                [u.email],
+                            )
+                            email_message.fail_silently = False
+                            email_message.send()
+                            return Response({'success': 'An OTP has been sent to your Email, Please enter it to activate your account'},status=status.HTTP_201_CREATED)
+                        else:
+                            return Response({'error': 'Something went wrong when trying to create account'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    else:
+                        return Response({'error': 'Email already in use'},status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    return Response({'error': 'Password must be at least 8 characters in length'},status=status.HTTP_400_BAD_REQUEST)         
+            else:
+                return Response({'error': 'Passwords do not match'},status=status.HTTP_400_BAD_REQUEST)
+
+class OTP_Validation(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self,request, *args, **kwargs):
+        otp = request.data['otp']
+        user_email = request.data['email']
+        user = User.objects.get(email = user_email)
+        otp1 = Otp.objects.get(user=user)
+        if str(otp) == str(otp1):
+            user.is_active = True
+            user.save()
+            otp1.delete()
+            return Response({"success":"User Account Activated"},status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     
+
+class ActivateAccountView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, uid, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uid))
+            user = User.objects.get(id=uid)
+        except Exception as identifier:
+            user = None
+        if user is not None and PasswordResetTokenGenerator().check_token(user, token ):
+            if Otp.objects.filter(user_id=uid).exists():
+                user.otp.delete()
+            user.is_active = True
+            user.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 # @api_view(['POST'])
 # @permission_classes([AllowAny])
 # @csrf_protect
@@ -142,4 +240,3 @@ class Refresh_Token_View(APIView):
 #         access_token = generate_access_token(user)
 #         return Response({'access_token': access_token})
 #     return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
-    

@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny
 from .serializers import AllBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
 from rest_framework import status
 from .pagination import BlogPagination
+import json
 # Create your views here.
 
 class AllBlogsDisplayView(APIView,BlogPagination):
@@ -27,7 +28,6 @@ class AllBlogsDisplayView(APIView,BlogPagination):
             return Response(serializer.data)
         else:
             return Response({"error":"somthing went wrong"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
 
@@ -110,3 +110,25 @@ class BlogLikeDislike(APIView):
             blog.dislikes.add(user)
             blog.save()
             return Response({'message':'disliked'})
+
+# class BlogsDisplayUniversalFilter(APIView,BlogPagination):
+
+#     permission_classes = [AllowAny]
+
+#     def get(self,request,variable):
+#         variable = json.loads(variable)
+#         print(variable)
+#         if isinstance(variable,dict) and (variable.keys() - {'vote', 'featured', 'created' } == set()) :
+#             qs1 = Blog.objects.all()
+#             voteblogsSet = sorted(Blog.objects.only('title').filter(approved = True),  key=lambda instance: -instance.netlikes) if 'vote' in variable else qs1
+#             print(voteblogsSet)
+#             ordering = 'FIELD(`title`, %s)' % ','.join(str(title) for title in voteblogsSet)
+#             voteblogs = Blog.objects.filter(title__in = voteblogsSet).extra(
+#            select={'ordering': ordering}, order_by=('ordering',))
+#             print(voteblogs.values_list("id",flat=True))
+#             featuredblogs = Blog.objects.filter(Q(featured = True) & Q(approved = True)) if 'featured' in variable else qs1
+#             qs = voteblogs & featuredblogs
+#             qs = qs.order_by(variable["created"]) if 'created' in variable else qs
+#             results = self.paginate_queryset(qs, request, view=self)
+#             serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
+#             return Response(serializer.data)

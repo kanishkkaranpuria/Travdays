@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserAdminCreationForm, UserAdminChangeForm
 from django.contrib.auth import get_user_model
-from .models import AdminMedia,UserMedia,BlogMedia,Review,FAQ,WhitelistedTokens
+from .models import AdminMedia,UserMedia,BlogMedia,Review,FAQ,WhitelistedTokens,Otp
 
 # Register your models here.
 User = get_user_model()
@@ -14,6 +14,7 @@ admin.site.register(BlogMedia)
 admin.site.register(Review)
 admin.site.register(FAQ)
 admin.site.register(WhitelistedTokens)
+admin.site.register(Otp)
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances

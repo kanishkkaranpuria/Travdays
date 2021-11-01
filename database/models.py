@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, email, name=None, is_active=True, password=None, is_staff=False, is_admin=False, ):
+    def create_user(self, email, name=None, is_active=False, password=None, is_staff=False, is_admin=False, ):
         if not email:
             raise ValueError("Users must have an email address")
         if not password:
@@ -174,8 +174,9 @@ class Booking(models.Model):
     trip           = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="booking") 
     phoneNumber    = models.IntegerField(null=True)
     approved       = models.BooleanField(default=False)
-    created        = models.DateTimeField(auto_now_add=True, null=True)       
+    created        = models.DateTimeField(auto_now_add=True)       
     # additionalUser = models.ManyToManyField("AdditionalUsers", on_delete=models.CASCADE, null=True, blank=True)
+
 
 class UserMedia(models.Model):
     user      = models.ForeignKey(User, on_delete=models.CASCADE, related_name="usermedia")
@@ -268,3 +269,10 @@ class WhitelistedTokens(models.Model):
 
     class Meta:
         verbose_name_plural = 'Whitelisted Tokens'
+
+class Otp(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='otp')
+    otp = models.IntegerField(null=True,blank=True)
+
+    def __str__(self):
+        return str(self.otp)
