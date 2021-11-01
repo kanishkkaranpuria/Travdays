@@ -7,8 +7,8 @@ import { useParams } from 'react-router'
 
 const Trip = () => {
     
-    const [media,setMedia]=useState([])
-    const [tripDescription,setTripDescription]=useState([])
+    const [media,setMedia]=useState([]) // trip images and videos
+    const [tripDescription,setTripDescription]=useState([]) // to be taken from the backend 
     const [price,setPrice]=useState(0)
     const [userId,setUserId] = null
     const [review,setReview]=useState([])
@@ -44,6 +44,7 @@ const Trip = () => {
                     <source src={`${url.video}`} type="video/mp4" />
                 </video>
             }
+            
         })
         
     }
@@ -87,7 +88,14 @@ const Trip = () => {
         })
         .then(res => {
             console.log(res)
-            setPrice(res.data.price)
+            {<div>
+                <h4>{res.data.user}</h4>
+                <h3>type : {res.data.type} </h3>
+                <h3>{res.data.name}</h3>
+                <p> {res.data.description} </p>
+                <h6> price : {res.data.price} </h6>
+                <h4>ratings : {res.data.ratings} </h4>
+            </div>}
         })
         .catch(
 
