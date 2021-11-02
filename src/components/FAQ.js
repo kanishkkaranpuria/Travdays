@@ -91,8 +91,8 @@ const FAQ = () => {
    
 
     return ( 
-        <div className='section max-w-[1000px] p-box-shadow '>
-
+        <div className='section max-w-[1000px] '>
+                <span className='text-6xl sm:text-5xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
                 <div>
                         {faqs && faqs.map((faq) => (
                             <div  id ={faq.id} className="">
@@ -103,7 +103,7 @@ const FAQ = () => {
 
                                         <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
 
-                                        <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        <option className="text-xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
 
                                             {/* placeholder for questions in database */}

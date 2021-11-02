@@ -77,7 +77,7 @@ const ContactUs = () => {
      
 
     return ( 
-        <div className=" section contact-us max-w-[1000px] p-box-shadow rounded-lg p-8 profile-img">
+        <div className=" section contact-us max-w-[1000px]rounded-lg p-8">
             <form className='flex flex-col'  onSubmit={submitquery}  action="">
                 { !authenticated && <div className="">
                      <p className='flex items-center'>
@@ -107,7 +107,7 @@ const ContactUs = () => {
                           
              enter your qwery: 
              <textarea name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value) }></textarea>
-             <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+             <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
              
 
             </form>

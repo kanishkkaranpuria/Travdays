@@ -114,7 +114,7 @@ const Home = () => {
                 <div className='flex w-full justify-around items-center self-center opacity-70 p-4'>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png"/>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/instagram-new--v1.png"/>
-                            <img src="https://img.icons8.com/ios/64/000000/whatsapp--v1.png"/>
+                            <img className='w-[50px]' src="https://img.icons8.com/ios/96/000000/whatsapp--v1.png"/>
                             <img className='w-[40px]' src="https://img.icons8.com/small/64/000000/twitter.png"/>
                             <img  className='w-[40px]' src="https://img.icons8.com/material/64/000000/youtube-play--v1.png"/>
                             </div>

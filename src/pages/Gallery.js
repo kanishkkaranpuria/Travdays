@@ -157,7 +157,7 @@ const Gallery = () => {
 
     <div className= " w-full gallery ">
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
-        <div className='grid grid-cols-3 overflow-y-auto rounded-b-[20px] h-[90vh] '>
+        <div className='grid grid-cols-3 overflow-y-auto rounded-b-[20px] h-[90vh] sm:h-[85vh] '>
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="aaa" key={data.id}>
@@ -185,8 +185,8 @@ const Gallery = () => {
       {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
       <div className='flex h-[90vh] sm:h-[50%]'>
         {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
-        <div className='p-4'>
-                    <div className='my-8'>
+        <div className='p-4 sm:p-[0.5rem]'>
+                    <div className='my-8 sm:my-[1.1rem]'>
                     <p className='text-3xl'>Location</p>
                     <p className='flex text-2xl items-center text-center '><span>x.x </span>
                         <span className='flex'>

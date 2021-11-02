@@ -63,7 +63,7 @@ const WriteABlog = () => {
             <input className='w-full' type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />    
             }
         {!numberOfImages && 
-<textarea className='w-full' value = {content} onChange = {(e) => {createContent(e)}} placeholder = "Enter your Blog here..." />
+<textarea className='w-full min-h-[400px]' value = {content} onChange = {(e) => {createContent(e)}} placeholder = "Enter your Blog here..." />
 
             }
         {!numberOfImages && 
@@ -71,7 +71,7 @@ const WriteABlog = () => {
 
             }
         {!numberOfImages && 
-<button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={onClickFocus}>Gimme media</button>
+<button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>
 
             }
 

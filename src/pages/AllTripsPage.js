@@ -152,7 +152,7 @@ const AllTrips = () => {
       {/* <button onClick={priceAscending} type="button">↑Price</button>
       <button onClick={priceDescending} type="button">↓Price</button> */}
 
-<svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 fixed bottom-16 right-16" viewBox="0 0 20 20" fill="currentColor">
+<svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 sm:right-4 " viewBox="0 0 20 20" fill="currentColor">
   <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
 </svg>
 
@@ -161,18 +161,19 @@ const AllTrips = () => {
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
             return (
-              <div ref={lastDataElementRef} className="p-5 flex justify-center " key={data.id}>
-              <div className="flex max-w-sm rounded-[20px] overflow-hidden trip-card">
-                <div className='w-[300px] h-[300px] p-box-shadow flex justify-center'>
-                {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-full object-cover"/>}
+              <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
+              <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
+                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[500px] p-box-shadow flex justify-center'>
+              <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
+                {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover"/>}
                 </div>
-                  <div className='p-4 w-full'>
+                  <div className='sm:absolute sm:h-full p-4 w-full'>
                   <p className='flex justify-between items-center'>
                   {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
                 {data.type && <p className='text-sm' >{data.type}</p>}
                   </p>
-                {data.ratings === "No Ratings" && <p className='py-4' >{data.ratings}</p>}
-                {data.ratings !== "No Ratings" && <p className='flex py-4' >
+                {data.ratings === "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >{data.ratings}</p>}
+                {data.ratings !== "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >
                 <span className='pr-4'>{data.ratings}</span>
                 <span className=' h-6 overflow-hidden relative' >
                     <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
@@ -181,14 +182,14 @@ const AllTrips = () => {
                 
                  <span className='px-4 text-sm'>{data.ratingsCount}</span>
                  </p>}
-                 <p className='flex py-4'>
+                 <p className='sm:absolute sm:bottom-2 sm:py-0 flex py-4'>
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span className='pl-4'>x days y nights</span>
                  </p>
-                 <p className='text-lg font-semibold'>short description</p>
-                 <p className='leading-'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
+                 <p className='sm:hidden text-lg font-semibold'>short description</p>
+                 <p className='sm:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
                 {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
                 {data.price && <p  className='absolute bottom-2 right-4 font-semibold'>₹{data.price}</p>}
                   </div>
@@ -203,18 +204,19 @@ const AllTrips = () => {
             </div>);
           } else {
             return (
-              <div ref={lastDataElementRef} className="p-5 flex justify-center " key={data.id}>
-              <div className="flex max-w-sm rounded-[20px] overflow-hidden trip-card">
-                <div className='w-[300px] h-[300px] p-box-shadow flex justify-center'>
-                {data.displayImage && <img src={data.displayImage} alt="" className ="w-full h-full object-cover"/>}
+              <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
+              <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
+                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[500px] p-box-shadow flex justify-center'>
+              <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
+                {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover"/>}
                 </div>
-                  <div className='p-4 w-full'>
+                  <div className='sm:absolute sm:h-full p-4 w-full'>
                   <p className='flex justify-between items-center'>
                   {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
                 {data.type && <p className='text-sm' >{data.type}</p>}
                   </p>
-                {data.ratings === "No Ratings" && <p className='py-4' >{data.ratings}</p>}
-                {data.ratings !== "No Ratings" && <p className='flex py-4' >
+                {data.ratings === "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >{data.ratings}</p>}
+                {data.ratings !== "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >
                 <span className='pr-4'>{data.ratings}</span>
                 <span className=' h-6 overflow-hidden relative' >
                     <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
@@ -223,14 +225,14 @@ const AllTrips = () => {
                 
                  <span className='px-4 text-sm'>{data.ratingsCount}</span>
                  </p>}
-                 <p className='flex py-4'>
+                 <p className='sm:absolute sm:bottom-2 sm:py-0 flex py-4'>
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span className='pl-4'>x days y nights</span>
                  </p>
-                 <p className='text-lg font-semibold'>short description</p>
-                 <p className='leading-'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
+                 <p className='sm:hidden text-lg font-semibold'>short description</p>
+                 <p className='sm:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
                 {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
                 {data.price && <p  className='absolute bottom-2 right-4 font-semibold'>₹{data.price}</p>}
                   </div>
