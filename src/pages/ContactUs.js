@@ -12,8 +12,9 @@ const ContactUs = () => {
     const [authenticated,setAuthenticated] = useState(false);
     const [mainqueries, setMainqueries] = useState([]);
     const history = useHistory();
-    
-    
+    const [displayalert, setDisplayalert] = useState(false);
+    const [temp , setTemp] = useState([])
+
 
     const submitquery = (e) => {
         e.preventDefault();
@@ -52,12 +53,40 @@ const ContactUs = () => {
       
     }
     let a 
-    useEffect(() => {
-        console.log(mainqueries[2])
+
+    const phonenumber= (number) => {
         
-        console.log(a)
-        console.log("a")
-    }, [mainqueries])
+        // if (number >= 9999999999){
+
+        // }
+        // console.log (number.length)
+        // console.log (number)
+        if (number.length == 10){
+            // console.log("aum gay")
+            setDisplayalert(false)
+            setPhonenum(number)
+            setTemp(number)
+        }
+        else if(number.length <= 10 && number.length > 0 ){
+            // console.log("aum really gay")
+            setDisplayalert(true)
+            setTemp(number)
+        }
+        else if(number.length === 0 && number === "")
+        {
+            setDisplayalert(true)
+            setTemp("") 
+        }
+    
+    }
+    
+    
+    // useEffect(() => {
+    //     console.log(mainqueries[2])
+        
+    //     console.log(a)
+    //     console.log("a")
+    // }, [mainqueries])
 
     useEffect(() => {
          axios({
@@ -79,24 +108,28 @@ const ContactUs = () => {
     return ( 
         <div className=" section contact-us max-w-[1000px]rounded-lg p-8">
             <form className='flex flex-col'  onSubmit={submitquery}  action="">
-                { !authenticated && <div className="">
+                
+                <div>
+                    { !authenticated && <div className="">
                      <p className='flex items-center'>
-                     <span className='w-24'>name :</span>
-                     <input type="text" onChange={(e) => setName(e.target.value) } />
+                     <span className='w-52'>Enter your name :</span>
+                     <input required type="text" placeholder ="Name" onChange={(e) => setName(e.target.value) } />
                      </p>
                     <p className='flex items-center'>
-                    <span className='w-24'>email :</span> 
-                    <input type="text" onChange={(e) => setEmail(e.target.value) } />
+                    <span className='w-52'>Enter your email :</span> 
+                    <input required type="email" placeholder = "Email" onChange={(e) => setEmail(e.target.value) } />
                     </p>
+                </div>
+                }
                     <p className='flex items-center'>
-                    <span className='w-24'>phone no :</span>
-                    <input type="text"   onChange={(e) => setPhonenum(e.target.value) } />
+                    <span className='w-52'>Enter your Phone Number :</span>
+                    <input type="number" placeholder = "9876543210" value={temp} onChange={(e) => phonenumber(e.target.value)} />
                     </p>
-            
+                    {displayalert && <p>number must contain 10 digits</p>}
                    
                     </div>
                 
-                }       
+                       
              <div className='flex'>
              <p>your query is realted to :</p>
            
@@ -106,7 +139,7 @@ const ContactUs = () => {
             </div>    
                           
              enter your qwery: 
-             <textarea name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value) }></textarea>
+             <textarea placeHolder = "query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value) }></textarea>
              <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
              
 

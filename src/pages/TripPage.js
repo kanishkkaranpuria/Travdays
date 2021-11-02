@@ -10,8 +10,8 @@ const Trip = () => {
     const [media,setMedia]=useState([]) // trip images and videos
     const [tripDescription,setTripDescription]=useState([]) // to be taken from the backend 
     const [price,setPrice]=useState(0)
-    const [userId,setUserId] = null
-    const [review,setReview]=useState([])
+    const [userId,setUserId] = useState(null)
+    // const [review,setReview]=useState([])
     const [description,setDescription]=useState([]) // this is the review entered by a user not the one displayed
     const [tripId,setTripId]=useState(0)
     const [tripType,setTripType]=useState('')
@@ -22,10 +22,10 @@ const Trip = () => {
     // const [name,setName]=useState('')            
     // since not using the name as a dynamic fetched idea anymore
 
-    const name = useParams();
+    const any = useParams();
     const Media = () => {
         axios
-        .get(`trip/media/${name}`)
+        .get(`trip/media/${any.name}`)
         .then(res=>{
             console.log(res.data)
             setMedia(res.data)
@@ -34,24 +34,24 @@ const Trip = () => {
             console.log(err)
         })
 
-        media.map( (url) =>{
-            setUserId(url.id)
-            if(url.image!=null){
-                <img src={require(`${url.image}`)} />
-            }
-            else{
-                <video width="750" height="500" controls >
-                    <source src={`${url.video}`} type="video/mp4" />
-                </video>
-            }
-            
-        })
+        // media.map( (url) =>{
+        //     setUserId(url.id)
+        //     if(url.image!=null){
+        //         <img src={require(`${url.image}`)} />
+        //     }
+        //     else{
+        //         <video width="750" height="500" controls >
+        //             <source src={`${url.video}`} type="video/mp4" />
+        //         </video>
+        //     }
+        // }
+        // )
         
     }
     function review(){
 
         axios
-        .get(`trip/review/${name}`)
+        .get(`trip/review/${any.name}`)
         .then((res)=>{
             setDisplayRatings(res.data)
         })
@@ -64,12 +64,12 @@ const Trip = () => {
     const createReview = () => {
             // after rating submit button is clicked on
             axios
-            .post(`trip/review/${name}`,
+            .post(`trip/review/${any.name}`,
             {
                 rating:rating,
                 description:description,
-                name:tripname,
-                userid : userid
+                name:"Mumbai",
+                userid : "userid"
             })
             .then(res=>{
                 console.log(res)
@@ -83,7 +83,7 @@ const Trip = () => {
     const details = () => {
 
         axios
-        .get(`/trip/${name}`,{
+        .get(`/trip/${any.name}`,{
 
         })
         .then(res => {
@@ -109,16 +109,17 @@ const Trip = () => {
             {details()}
             {review()}
             {Media()}
+            {console.log("can you even hear me !")}
 
             <div className='rating-by-user'>
                 <h6>enter your review</h6>
-                <button className='btn-1'onClick={setRating(1),setSubmitRatingButton(true)}>1</button>
-                <button className='btn-2'onClick={setRating(2),setSubmitRatingButton(true)}>2</button>
-                <button className='btn-3'onClick={setRating(3),setSubmitRatingButton(true)}>3</button>
-                <button className='btn-4'onClick={setRating(4),setSubmitRatingButton(true)}>4</button>
-                <button className='btn-5'onClick={setRating(5),setSubmitRatingButton(true)}>5</button>
+                <button className='btn-1'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>1</button>
+                <button className='btn-2'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>2</button>
+                <button className='btn-3'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>3</button>
+                <button className='btn-4'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>4</button>
+                <button className='btn-5'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>5</button>
 
-                <button className='clear-rating-btn' onClick={setSubmitRatingButton(false)} >clear rating</button>
+                <button className='clear-rating-btn' onClick={() => setSubmitRatingButton(false)} >clear rating</button>
 
             
             <h1>enter your description of the review </h1>
