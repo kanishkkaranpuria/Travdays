@@ -64,7 +64,7 @@ class TripHoverEventView(APIView, TripMediaPagination):
 
     def get(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
-            media = AdminMedia.objects.filter(trip__name = name).filter(Q(video__isnull=True) | Q(video__exact=''))
+            media = AdminMedia.objects.filter(trip__name = name).filter(Q(video__isnull=True) | Q(video__exact='')).exclude(displayImage=True)
             results = self.paginate_queryset(media, request, view=self)
             serializer = SingleTripMediaDisplaySerializer(results,context={"request" : request}, many = True)
             return Response(serializer.data, status = status.HTTP_200_OK)
