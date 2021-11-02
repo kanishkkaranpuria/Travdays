@@ -172,9 +172,10 @@ class Review(models.Model):
 class Booking(models.Model):
     user           = models.ForeignKey(User, on_delete=models.CASCADE, related_name="booking")
     trip           = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="booking") 
-    phoneNumber    = models.IntegerField(null=True)
+    phoneNumber    = models.IntegerField(null=True,blank=True)
     approved       = models.BooleanField(default=False)
-    created        = models.DateTimeField(auto_now_add=True)       
+    created        = models.DateTimeField(auto_now_add=True)
+    query          = models.CharField(max_length=500,null=True,blank=True)
     # additionalUser = models.ManyToManyField("AdditionalUsers", on_delete=models.CASCADE, null=True, blank=True)
     def save(self, *args, **kwargs):
         if self.approved:

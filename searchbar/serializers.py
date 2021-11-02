@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.db.models import Sum
-from database.models import AdminMedia, Review, Trip
+from database.models import AdminMedia, Blog, Trip
 
-class SearchBarSerializer(serializers.ModelSerializer):
+class TripSearchBarSerializer(serializers.ModelSerializer):
 
     displayImage = serializers.SerializerMethodField()
 
@@ -29,3 +29,9 @@ class SearchBarSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(image_url.image.url)
         displayImage  = AdminMedia.objects.get(trip = None, displayImage = True)
         return request.build_absolute_uri(displayImage.image.url)
+
+class BlogSearchBarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Blog
+        fields = ['id','title','image','user','location']

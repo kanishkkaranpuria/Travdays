@@ -7,7 +7,7 @@ class BookingAdmin(admin.ModelAdmin):
     list_display = ('id','user', 'trip','approved',)
     list_filter = ('approved','user__active')
     fieldsets = (
-        (None, {'fields': ('user', 'trip','phoneNumber','approved','created',)}),
+        (None, {'fields': ('user', 'trip','approved','phoneNumber','query','created',)}),
     )
     search_fields = ('user__email','trip__name')
     ordering = ('id',)

@@ -38,91 +38,6 @@ class UserInfoView(APIView):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
-class LoginView(APIView):
-
-    permission_classes = [AllowAny]
-
-    @method_decorator(ensure_csrf_cookie)
-    def post(self,request, *args, **kwargs):
-        response = Response()
-        email = request.data.get('email')
-        password = request.data.get('password') if 'password' in request.data else None
-        if (email is None) :
-            return Response({"error":"email required"}, status=status.HTTP_400_BAD_REQUEST)
-        user = User.objects.filter(email=email).first()
-        if(user is None):
-            return Response({"error":"user not found"}, status=status.HTTP_400_BAD_REQUEST)
-        if (password is not None) and (not user.check_password(password)):
-            return Response({"error":"wrong password"}, status=status.HTTP_400_BAD_REQUEST)
-        if (password is None):
-            otp = request.data["otp"]
-            otp1 = Otp.objects.get(user__email = email) 
-            if (otp!=otp1.otp):
-                return Response({"error":"wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
-            otp1.delete()
-        serializer = UserSerializer(user)
-        access_token = generate_access_token(user)
-        refresh_token = generate_refresh_token(user)
-        if WhitelistedTokens.objects.filter(user = user).exists():
-            a = WhitelistedTokens.objects.get(user = user)
-            a.delete()
-        token = WhitelistedTokens(token = refresh_token, user = user)
-        token.save()
-        response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
-        response.data = {'access_token': access_token,'user': serializer.data,}
-        return response
-
-class LogoutView(APIView):
-    
-    def get(self,request):
-        refresh_token = request.COOKIES.get('refreshtoken')
-        if refresh_token:
-            token = WhitelistedTokens.objects.filter(token = refresh_token).first()
-            if (token is None):
-                if WhitelistedTokens.objects.filter(user = request.user).exists():
-                    a = WhitelistedTokens.objects.get(user = request.user)
-                    a.delete()
-            else:
-                token.delete()
-            return Response({"Success":"Logout"}, status = status.HTTP_200_OK)
-        return Response({"message":"SignIn before you SignOut"}, status = status.HTTP_200_OK)
-
-class Refresh_Token_View(APIView):
-
-    permission_classes = [AllowAny]
-
-    @method_decorator(csrf_protect)
-    def get(self,request):
-        '''
-        To obtain a new access_token this view expects 2 important things:
-            1. a cookie that contains a valid refresh_token
-            2. a header 'X-CSRFTOKEN' with a valid csrf token, client app can get it from cookies "csrftoken"
-        '''
-        now =  datetime.datetime.now().astimezone()
-        refresh_token = request.COOKIES.get('refreshtoken')
-        if refresh_token is None:
-            raise exceptions.AuthenticationFailed('Authentication credentials were not provided.')
-        obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
-        if obj.expiry<now:
-            obj.delete()
-        bool = WhitelistedTokens.objects.filter(token = refresh_token).exists()
-        if not (bool):
-            return Response({"Error":"Token doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
-        elif bool:
-            try:
-                payload = jwt.decode(
-                    refresh_token, settings.REFRESH_TOKEN_SECRET, algorithms=['HS256'])
-            except jwt.ExpiredSignatureError:
-                raise exceptions.AuthenticationFailed('expired refresh token, please login again.')
-            user = User.objects.filter(id=payload.get('user_id')).first()
-            if user is None:
-                raise exceptions.AuthenticationFailed('User not found')
-            if not user.is_active:
-                raise exceptions.AuthenticationFailed('user is inactive')
-            access_token = generate_access_token(user)
-            return Response({'access_token': access_token})
-        return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
-
 class RegisterUserView(APIView):
 
     permission_classes = [AllowAny]
@@ -182,8 +97,7 @@ class RegisterUserView(APIView):
                     return Response({'error': 'Something went wrong when trying to create account'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
                 return Response({'error': 'Email already in use, Please login or use a different Email'},status=status.HTTP_400_BAD_REQUEST)
-                        
-     
+
 
 class OTP_Validation(APIView):
 
@@ -218,6 +132,123 @@ class ActivateAccountView(APIView):
             user.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class LoginView(APIView):
+
+    permission_classes = [AllowAny]
+
+    @method_decorator(ensure_csrf_cookie)
+    def post(self,request, *args, **kwargs):
+        response = Response()
+        email = request.data.get('email')
+        password = request.data.get('password') if 'password' in request.data else None
+        if (email is None) :
+            return Response({"error":"email required"}, status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.filter(email=email).first()
+        if(user is None):
+            return Response({"error":"user not found"}, status=status.HTTP_400_BAD_REQUEST)
+        if (password is not None) and (not user.check_password(password)):
+            return Response({"error":"wrong password"}, status=status.HTTP_400_BAD_REQUEST)
+        if (password is None):
+            otp = request.data["otp"]
+            otp1 = Otp.objects.get(user__email = email) 
+            if (otp!=otp1.otp):
+                return Response({"error":"wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
+            otp1.delete()
+        serializer = UserSerializer(user)
+        access_token = generate_access_token(user)
+        refresh_token = generate_refresh_token(user)
+        if WhitelistedTokens.objects.filter(user = user).exists():
+            a = WhitelistedTokens.objects.get(user = user)
+            a.delete()
+        token = WhitelistedTokens(token = refresh_token, user = user)
+        token.save()
+        response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
+        response.data = {'access_token': access_token,'user': serializer.data,}
+        return response
+
+class LogoutView(APIView):
+    
+    def get(self,request):
+        refresh_token = request.COOKIES.get('refreshtoken')
+        if refresh_token:
+            token = WhitelistedTokens.objects.filter(token = refresh_token).first()
+            if (token is None):
+                if WhitelistedTokens.objects.filter(user = request.user).exists():
+                    a = WhitelistedTokens.objects.get(user = request.user)
+                    a.delete()
+            else:
+                token.delete()
+            return Response({"Success":"Logout"}, status = status.HTTP_200_OK)
+        return Response({"message":"SignIn before you SignOut"}, status = status.HTTP_200_OK)
+
+class GenerateNewOtpView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self,request):
+        email = request.data["email"]
+        otp = Otp.objects.filter(user__email=email).first()
+        if otp is not None:
+            otp.delete()
+        u = User.objects.filter(email = email).first()
+        if u is None:
+            return Response({"error":"User doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
+        email_subject = 'New Otp'    
+        otp = Otp(user = u)
+        otp.otp = random.randint(111111,9999999)
+        otp.save()
+        email_body = render_to_string('NewOtp.html',
+        {
+            'user' : u,
+            'OTP': otp.otp
+        })
+        email_message = EmailMessage(
+            email_subject,
+            email_body,                             
+            settings.EMAIL_HOST_USER,
+            [u.email],
+        )
+        email_message.fail_silently = False
+        email_message.send()
+        return Response({'success': 'An OTP has been sent to your Email'},status=status.HTTP_200_OK)
+
+
+class Refresh_Token_View(APIView):
+
+    permission_classes = [AllowAny]
+
+    @method_decorator(csrf_protect)
+    def get(self,request):
+        '''
+        To obtain a new access_token this view expects 2 important things:
+            1. a cookie that contains a valid refresh_token
+            2. a header 'X-CSRFTOKEN' with a valid csrf token, client app can get it from cookies "csrftoken"
+        '''
+        now =  datetime.datetime.now().astimezone()
+        refresh_token = request.COOKIES.get('refreshtoken')
+        if refresh_token is None:
+            raise exceptions.AuthenticationFailed('Authentication credentials were not provided.')
+        obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
+        if obj.expiry<now:
+            obj.delete()
+        bool = WhitelistedTokens.objects.filter(token = refresh_token).exists()
+        if not (bool):
+            return Response({"Error":"Token doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
+        elif bool:
+            try:
+                payload = jwt.decode(
+                    refresh_token, settings.REFRESH_TOKEN_SECRET, algorithms=['HS256'])
+            except jwt.ExpiredSignatureError:
+                raise exceptions.AuthenticationFailed('expired refresh token, please login again.')
+            user = User.objects.filter(id=payload.get('user_id')).first()
+            if user is None:
+                raise exceptions.AuthenticationFailed('User not found')
+            if not user.is_active:
+                raise exceptions.AuthenticationFailed('user is inactive')
+            access_token = generate_access_token(user)
+            return Response({'access_token': access_token})
+        return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
 # @api_view(['POST'])
 # @permission_classes([AllowAny])
 # @csrf_protect
