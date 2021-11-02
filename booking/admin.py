@@ -3,9 +3,9 @@ from database.models import Booking
 
 class BookingAdmin(admin.ModelAdmin):
 
-    list_display = ('id','user', 'trip','approved')
-    list_filter = ('approved',)
     readonly_fields=('created',)
+    list_display = ('id','user', 'trip','approved',)
+    list_filter = ('approved','user__active')
     fieldsets = (
         (None, {'fields': ('user', 'trip','phoneNumber','approved','created',)}),
     )

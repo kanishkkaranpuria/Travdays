@@ -10,8 +10,8 @@ class UserManager(BaseUserManager):
     def create_user(self, email, name=None, is_active=False, password=None, is_staff=False, is_admin=False, ):
         if not email:
             raise ValueError("Users must have an email address")
-        if not password:
-            raise ValueError("Users must have a password")
+        # if not password:
+        #     raise ValueError("Users must have a password")
         user_obj = self.model(
             email = self.normalize_email(email)
         )
@@ -176,7 +176,11 @@ class Booking(models.Model):
     approved       = models.BooleanField(default=False)
     created        = models.DateTimeField(auto_now_add=True)       
     # additionalUser = models.ManyToManyField("AdditionalUsers", on_delete=models.CASCADE, null=True, blank=True)
-
+    def save(self, *args, **kwargs):
+        if self.approved:
+            if self.user.is_active == False:
+                raise ValidationError('User has not verified their account')
+        super(Booking, self).save(*args, **kwargs)
 
 class UserMedia(models.Model):
     user      = models.ForeignKey(User, on_delete=models.CASCADE, related_name="usermedia")

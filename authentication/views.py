@@ -46,14 +46,20 @@ class LoginView(APIView):
     def post(self,request, *args, **kwargs):
         response = Response()
         email = request.data.get('email')
-        password = request.data.get('password')
-        if (email is None) or (password is None):
-            return Response({"error":"email and password required"}, status=status.HTTP_400_BAD_REQUEST)
+        password = request.data.get('password') if 'password' in request.data else None
+        if (email is None) :
+            return Response({"error":"email required"}, status=status.HTTP_400_BAD_REQUEST)
         user = User.objects.filter(email=email).first()
         if(user is None):
             return Response({"error":"user not found"}, status=status.HTTP_400_BAD_REQUEST)
-        if (not user.check_password(password)):
+        if (password is not None) and (not user.check_password(password)):
             return Response({"error":"wrong password"}, status=status.HTTP_400_BAD_REQUEST)
+        if (password is None):
+            otp = request.data["otp"]
+            otp1 = Otp.objects.get(user__email = email) 
+            if (otp!=otp1.otp):
+                return Response({"error":"wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
+            otp1.delete()
         serializer = UserSerializer(user)
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
@@ -126,55 +132,58 @@ class RegisterUserView(APIView):
         data = request.data
         name = data['name']
         email = data['email']
-        password = data['password']
-        password2 = data['password2']
-
         if any(char in special_characters for char in name):
             return Response({"error":"name cannot have special characters"}, status= status.HTTP_400_BAD_REQUEST)
         else:
-            if password == password2:
-                if len(password) > 7:
-                    if not User.objects.filter(email=email).exists():
-                        user = User.objects.create_user(
-                            name=name,
-                            email = email,
-                            password=password,
-                        )
-                        user.save()
-                        if User.objects.filter(email=email).exists():
-                            u = User.objects.get(email = email)
-                            current_site = get_current_site(request)
-                            email_subject = 'Account Activation'
-                            token = PasswordResetTokenGenerator().make_token(u) 
-                            otp = Otp(user = user)
-                            otp.otp = random.randint(111111,9999999)
-                            otp.save()
-                            print(u.id)
-                            email_body = render_to_string('AccountActivation.html',
-                            {
-                                'user' : u,
-                                'domain': 'localhost:3000',
-                                'uid': urlsafe_base64_encode(force_bytes(u.id)),
-                                'token': token,
-                                'OTP': otp.otp
-                            })
-                            email_message = EmailMessage(
-                                email_subject,
-                                email_body,                             
-                                settings.EMAIL_HOST_USER,
-                                [u.email],
-                            )
-                            email_message.fail_silently = False
-                            email_message.send()
-                            return Response({'success': 'An OTP has been sent to your Email, Please enter it to activate your account'},status=status.HTTP_201_CREATED)
-                        else:
-                            return Response({'error': 'Something went wrong when trying to create account'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                    else:
-                        return Response({'error': 'Email already in use'},status=status.HTTP_400_BAD_REQUEST)
+            if ('password' or 'password2') in data:
+                print("you came here")
+                if not ('password' and 'password2') in data:
+                    return Response({'error': 'something went wrong'},status=status.HTTP_400_BAD_REQUEST) 
+                password = data['password']
+                password2 = data['password2']
+                if password != password2:
+                    return Response({'error': 'Passwords do not match'},status=status.HTTP_400_BAD_REQUEST)     
+                if len(password) < 8:
+                    return Response({'error': 'Password must have at least 8 characters'},status=status.HTTP_400_BAD_REQUEST) 
+            if not User.objects.filter(email=email).exists():
+                user = User(
+                    name=name,
+                    email = email,
+                )
+                user.set_password(data['password'] if ('password' in data) else None)
+                user.save()
+                if User.objects.filter(email=email).exists():
+                    u = User.objects.get(email = email)
+                    current_site = get_current_site(request)
+                    email_subject = 'Account Activation'    
+                    token = PasswordResetTokenGenerator().make_token(u) 
+                    otp = Otp(user = user)
+                    otp.otp = random.randint(111111,9999999)
+                    otp.save()
+                    print(u.id)
+                    email_body = render_to_string('AccountActivation.html',
+                    {
+                        'user' : u,
+                        'domain': 'localhost:3000',
+                        'uid': urlsafe_base64_encode(force_bytes(u.id)),
+                        'token': token,
+                        'OTP': otp.otp
+                    })
+                    email_message = EmailMessage(
+                        email_subject,
+                        email_body,                             
+                        settings.EMAIL_HOST_USER,
+                        [u.email],
+                    )
+                    email_message.fail_silently = False
+                    email_message.send()
+                    return Response({'success': 'An OTP has been sent to your Email, Please enter it to activate your account'},status=status.HTTP_201_CREATED)
                 else:
-                    return Response({'error': 'Password must be at least 8 characters in length'},status=status.HTTP_400_BAD_REQUEST)         
+                    return Response({'error': 'Something went wrong when trying to create account'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
-                return Response({'error': 'Passwords do not match'},status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': 'Email already in use, Please login or use a different Email'},status=status.HTTP_400_BAD_REQUEST)
+                        
+     
 
 class OTP_Validation(APIView):
 
