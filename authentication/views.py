@@ -159,7 +159,7 @@ class LoginView(APIView):
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
         if WhitelistedTokens.objects.filter(user = user).exists():
-            a = WhitelistedTokens.objects.get(user = user)
+            a = WhitelistedTokens.objects.filter(user = user)
             a.delete()
         token = WhitelistedTokens(token = refresh_token, user = user)
         token.save()
@@ -170,17 +170,21 @@ class LoginView(APIView):
 class LogoutView(APIView):
     
     def get(self,request):
+        # if request.user.is_authenticated:
         refresh_token = request.COOKIES.get('refreshtoken')
-        if refresh_token:
+        if refresh_token and request.user.is_authenticated:
             token = WhitelistedTokens.objects.filter(token = refresh_token).first()
             if (token is None):
                 if WhitelistedTokens.objects.filter(user = request.user).exists():
-                    a = WhitelistedTokens.objects.get(user = request.user)
+                    a = WhitelistedTokens.objects.filter(user = request.user)
                     a.delete()
             else:
                 token.delete()
-            return Response({"Success":"Logout"}, status = status.HTTP_200_OK)
-        return Response({"message":"SignIn before you SignOut"}, status = status.HTTP_200_OK)
+            response = Response()
+            response.delete_cookie('refreshtoken')
+            response.data = {"Success":"Logout"}
+            return response
+        return Response({"message":"SignIn before you SignOut"}, status = status.HTTP_400_BAD_REQUEST)
 
 class GenerateNewOtpView(APIView):
 
