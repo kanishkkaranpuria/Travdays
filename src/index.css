@@ -248,7 +248,4 @@ pointer-events: auto;
   grid-template-columns: none;
   grid-template-rows: 50% 50%;
 }
-#mobile-menu{
-  backdrop-filter: blur(8px);
-}
 }
