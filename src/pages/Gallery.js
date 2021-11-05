@@ -151,7 +151,7 @@ const Gallery = () => {
 
 
   return (
-    <div>
+    <div className='max-w-[80%] sm:max-w-full'>
    
 
 
@@ -183,7 +183,8 @@ const Gallery = () => {
         }
         </div>
       {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
-      <div className='flex h-[90vh] sm:h-[50%]'>
+      <div className='flex relative h-[90vh] sm:h-[50%]'>
+        <div className='absolute hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto min-h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
         {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
         <div className='p-4 sm:p-[0.5rem]'>
                     <div className='my-8 sm:my-[1.1rem]'>

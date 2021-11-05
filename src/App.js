@@ -10,13 +10,24 @@ import Trip from './pages/TripPage';
 import FAQ from './components/FAQ';
 import WriteABlog from './components/WriteABlog';
 import IndivisualBlogPage from './pages/IndivisualBlogsPage';
+import MobileMenu from './components/MobileMenu';
+
+const showMenu = () =>{
+  document.getElementById('mobile-menu').style.display='flex'
+}
 
 function App() {
   return (
     <Router>
     <div className="App">
       <Navbar />
-      
+      <div className="berger hidden sm:flex sm:fixed top-0 right-0 p-4 z-[5] bg-gray-400 rounded-bl-lg opacity-80" onClick={showMenu}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            
+        </div>
+        <MobileMenu/>
       <div className="content flex justify-center">
         <Switch>
         
