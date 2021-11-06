@@ -18,8 +18,10 @@ const Home = () => {
                 atque dolores neque est quae tempore veritatis alias nam inventore esse illum illo et dolorem.
             </p>
                 <p className='m-4'>
-                    <button className='m-2 p-2 w-40 sm:m-1 bg-blue-500 font-semibold'>Contact us</button>
-                    <button className='m-2 p-1 w-40 sm:m-1 border-black border-solid border-2 '>Learn more</button>    
+                    <div className="flex sm:justify-center">
+                        <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold'>Contact us</button>
+                        <button className='m-2 p-1 w-40 sm:w-32 sm:m-1 border-black border-solid border-2 '>Learn more</button>       
+                    </div> 
                         <div className='flex sm:justify-around space-x-8 opacity-40 p-4'>
                         <img src="https://img.icons8.com/material/32/000000/facebook-new.png"/>
                         <img src="https://img.icons8.com/material/32/000000/instagram-new--v1.png"/>
@@ -95,7 +97,7 @@ const Home = () => {
 
                 
 
-                <div>
+                <div className='sm:pt-16'>
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>
