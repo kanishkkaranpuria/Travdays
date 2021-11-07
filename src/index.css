@@ -63,13 +63,39 @@ code {
   height: 0px;
   padding-bottom: 130%;
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-  background-image: url(https://picsum.photos/200/300);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  /* overflow: hidden; */
   border-radius: 20px;
-  overflow: hidden;
+  transition: scale 50ms ease-in-out ;
+
+}
+#one.card{
+  position: relative;
+  top: -5px;
+  animation: circle1 12s linear infinite  ;
+  -webkit-animation: circle1 12s linear infinite ;
+  -moz-animation: circle1 12s linear infinite ;
+  -o-animation: circle1 12s linear infinite ;
+}
+#two.card{
+  position: relative;
+  bottom: -5px;
+  animation: circle2 12s linear infinite  ;
+  -webkit-animation: circle2 12s linear infinite ;
+  -moz-animation: circle2 12s linear infinite ;
+  -o-animation: circle2 12s linear infinite ;
+}
+#three.card{
+  position: relative;
+  top: -5px;
+  animation: circle3 12s linear infinite  ;
+  -webkit-animation: circle3 12s linear infinite ;
+  -moz-animation: circle3 12s linear infinite ;
+  -o-animation: circle3 12s linear infinite ;
+}
+
+.card:hover> div{
+  transform: scale(1.1);
+  z-index: 2;
 }
 .blog-preview-card {
   /* max-width: 205px;
@@ -111,8 +137,8 @@ code {
   transform-origin: 50% bottom 0;
   transform: rotate(45deg)
   translateX(-26%)
-  translateY(64%)
-  ;
+  translateY(56%)
+    ;
 }
 .blog-preview-card.non-featured{
   display: grid;
@@ -162,6 +188,10 @@ column-gap: 5%;
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
   background-image: url(https://picsum.photos/500/500);
   background-size: cover;
+  animation: circle1 12s linear infinite;
+  -webkit-animation: circle1 12s linear infinite;
+  -moz-animation: circle1 12s linear infinite;
+  -0-animation: circle1 12s linear infinite;
 }
 .card-grid{
 display: grid;
@@ -248,4 +278,57 @@ pointer-events: auto;
   grid-template-columns: none;
   grid-template-rows: 50% 50%;
 }
+}
+
+/* *****************************************************  keyfrmaes */
+
+    @keyframes circle1 {
+      from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+      to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+      }
+      @-webkit-keyframes circle1 {
+        from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+        to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+        }
+        @-moz-keyframes circle1 {
+  from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+  to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+  }
+@-o-keyframes circle1 {
+  from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+  to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+  }
+
+  @keyframes circle2 {
+    from {-webkit-transform: rotate(0deg) translateX(5px) rotate(0deg) ;}
+    to {-webkit-transform: rotate(360deg) translateX(5px) rotate(-360deg) ;}
+    }
+    @-webkit-keyframes circle2 {
+      from {-webkit-transform: rotate(0deg) translateX(5px) rotate(0deg) ;}
+      to {-webkit-transform: rotate(360deg) translateX(5px) rotate(-360deg) ;}
+      }
+      @-moz-keyframes circle2 {
+from {-webkit-transform: rotate(0deg) translateX(5px) rotate(0deg) ;}
+to {-webkit-transform: rotate(360deg) translateX(5px) rotate(-360deg) ;}
+}
+@-o-keyframes circle2 {
+from {-webkit-transform: rotate(0deg) translateX(5px) rotate(0deg) ;}
+to {-webkit-transform: rotate(360deg) translateX(5px) rotate(-360deg) ;}
+}
+
+@keyframes circle3 {
+  from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+  to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+  }
+  @-webkit-keyframes circle3 {
+    from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+    to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+    }
+    @-moz-keyframes circle3 {
+from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
+}
+@-o-keyframes circle3 {
+from {-webkit-transform: rotate(0deg) translateX(-5px) rotate(0deg) ;}
+to {-webkit-transform: rotate(360deg) translateX(-5px) rotate(-360deg) ;}
 }

@@ -34,10 +34,10 @@ const Home = () => {
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
             </div>
-            <div className='card-grid'>
-                <Card title="Workation" />
-                <Card title="Solo Travel"/>
-                <Card title="Pet Friendly"/>
+            <div className='card-grid sm:py-[20px]'>
+                <Link to='/trips/workation'><Card title="Workation" id='one'  /></Link>
+                <Link to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
+                <Link to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
             </div>
             </div>
             <div className="section gallery grid grid-cols-2 justify-center">
