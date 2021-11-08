@@ -106,10 +106,10 @@ const ContactUs = () => {
      
 
     return ( 
-        <div className=" section contact-us max-w-[1000px]rounded-lg p-8">
-            <form className='flex flex-col'  onSubmit={submitquery}  action="">
+        <div className=" section contact-us rounded-lg p-8">
+            <form className='flex flex-col mx-auto max-w-[700px]'  onSubmit={submitquery}  action="">
                 
-                <div>
+                <div className='sm:pb-4'> 
                     { !authenticated && <div className="">
                      <p className='flex items-center'>
                      <span className='w-52'>Enter your name :</span>
@@ -121,12 +121,11 @@ const ContactUs = () => {
                     </p>
                 </div>
                 }
-                    <p className='flex items-center'>
+                    <p className='flex items-center sm:relative'>
                     <span className='w-52'>Enter your Phone Number :</span>
                     <input type="number" placeholder = "9876543210" value={temp} onChange={(e) => phonenumber(e.target.value)} />
+                    {displayalert && <p className=' sm:absolute sm:bottom-0 sm:right-0 sm:px-0 px-2 text-sm text-red-500'>number must contain 10 digits</p>}
                     </p>
-                    {displayalert && <p>number must contain 10 digits</p>}
-                   
                     </div>
                 
                        

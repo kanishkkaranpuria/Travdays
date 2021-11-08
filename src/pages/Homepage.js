@@ -112,8 +112,8 @@ const Home = () => {
 
 
             </div>
-            <div className="footer flex h-[120] bg-[#FFA914]">
-                <div className='flex w-full justify-around items-center self-center opacity-70 p-4'>
+            <div className="footer pb-[80] flex h-[140] bg-[#FFA914]">
+                <div className='flex h-[60] w-full justify-around items-center opacity-70 p-4'>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png"/>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/instagram-new--v1.png"/>
                             <img className='w-[50px]' src="https://img.icons8.com/ios/96/000000/whatsapp--v1.png"/>
