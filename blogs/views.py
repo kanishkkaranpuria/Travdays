@@ -36,7 +36,7 @@ class BlogsDisplayVoteFilter(APIView,BlogPagination):
     authentication_classes = []
 
     def get(self,request):
-        blogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
+        blogs = sorted(Blog.objects.filter(Q(featured = False) & Q(approved = True)),  key=lambda instance: -instance.netlikes)
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
@@ -47,7 +47,7 @@ class BlogsDisplayCreatedFilter(APIView,BlogPagination):
     authentication_classes = []
 
     def get(self,request):
-        blogs = Blog.objects.filter(approved = True).order_by('-created')
+        blogs = Blog.objects.filter(Q(featured = False) & Q(approved = True)).order_by('-created')
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
