@@ -11,6 +11,7 @@ import json
 class TripView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,name = None):
         if name == None:
@@ -29,6 +30,7 @@ class TripView(APIView, TripsPagination):
 class TripUniversalFilterView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,variable):
         variable = json.loads(variable)
@@ -49,6 +51,7 @@ class TripUniversalFilterView(APIView, TripsPagination):
 class TripMediaView(APIView, TripMediaPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
@@ -61,6 +64,7 @@ class TripMediaView(APIView, TripMediaPagination):
 class TripHoverEventView(APIView, TripMediaPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
@@ -74,6 +78,7 @@ class TripHoverEventView(APIView, TripMediaPagination):
 class ReviewView(APIView, ReviewsPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
@@ -165,6 +170,7 @@ class CreateTripView(APIView):
 class TripTypeFilterView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,type = None):
         if Trip.objects.filter(type = type).exists():
@@ -177,6 +183,7 @@ class TripTypeFilterView(APIView, TripsPagination):
 class TripLocationFilterView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,location = None):
         if Trip.objects.filter(location = location).exists():

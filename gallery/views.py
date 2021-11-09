@@ -3,50 +3,31 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from .serializers import GallerySerializer
 # from .pagination import GalleryPagination
-import datetime
+from django.db.models import Q
+from datetime import datetime, timedelta
 import ast, random
 
 class GalleryView(APIView): 
 
     def get(self,request):
         page = int(self.request.query_params.get('page', None))
-        now = datetime.datetime.now()
-        qs = GalleryPageTemp.objects.only("updated_at")
-        for obj in qs:
-            if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day < now.day:
-                obj.delete()
-            elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day > now.day:
-                pass
-            elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day == now.day:
-                if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).hour < now.hour: 
-                    obj.delete()
-                else:
-                    pass
+        deltaTime = datetime.now().astimezone() - timedelta(days=1)
+        qs = GalleryPageTemp.objects.filter(updated_at__lt=deltaTime)
+        print("1 day has passed, deleter qs - ",qs)
+        qs.delete()
         if page == 1:
-            if GalleryPageTemp.objects.filter(userKey = request.session.get('name')).exists():
-                temp = GalleryPageTemp.objects.get(userKey = request.session.get('name'))
-                temp.previousId = ''
-                temp.save()
-                if request.user.is_authenticated and request.session['name'][:13] == "AnonymousUser":
-                    GalleryPageTemp.objects.get(userKey = request.session.get('name')).delete()
-                    request.session.flush()
-                    print('user is authenticated and previous session should get deleted')
-                if request.user.is_anonymous and request.session['name'][:13] != "AnonymousUser":
-                    GalleryPageTemp.objects.get(userKey = request.session.get('name')).delete()
-                    request.session.flush()
-                    print('user is unauthenticated and previous session should get deleted')
-            if not GalleryPageTemp.objects.filter(userKey = request.session.get('name')).exists():
-                temp = GalleryPageTemp(previousId = '')
-                temp.save()
-                request.session.flush()
-                if request.user.is_authenticated:
-                    request.session['name'] = str(f"{request.user.email}")
-                else:
-                    request.session['name'] = str(f"{request.user}{temp.id}")
-                print('session created',request.session.get('name') )
-                temp.userKey = request.session['name']
-                temp.save()
-                print('created')
+            qs = GalleryPageTemp.objects.filter(userKey = request.session.get('name'))
+            print(qs)
+            if qs.count()>0:
+                qs.delete()
+            a = GalleryPageTemp(previousId = '')
+            a.save()
+            request.session.flush()
+            request.session['name'] = str(f"{request.user}{a.id}")
+            print('session created',request.session.get('name') )
+            a.userKey = request.session['name']
+            a.save()
+            print('created')
         print('session created',request.session.get('name') )
         previousGalleryIds = []
         temp = GalleryPageTemp.objects.get(userKey = request.session.get('name'))
@@ -66,6 +47,19 @@ class GalleryView(APIView):
         print(galleries)
         return Response(serializer.data)
 
+        # now = datetime.datetime.now()
+        # qs = GalleryPageTemp.objects.only("updated_at")
+        # for obj in qs:
+        #     if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day < now.day:
+        #         obj.delete()
+        #     elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day > now.day:
+        #         pass
+        #     elif (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).day == now.day:
+        #         if (obj.updated_at.astimezone() + datetime.timedelta(hours = 1)).hour < now.hour: 
+        #             obj.delete()
+        #         else:
+        #             pass
+        
         # galleries = AdminMedia.objects.exclude(trip = None)
         # results = self.paginate_queryset(galleries, request, view=self)
         # serializer = GallerySerializer(results,context={"request" : request}, many = True)

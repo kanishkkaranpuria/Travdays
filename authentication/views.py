@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Permission
 import jwt
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -27,6 +28,7 @@ User = get_user_model()
 class UserAuthenticationStatus(APIView):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request):
         bool = request.user.is_authenticated
@@ -41,6 +43,7 @@ class UserInfoView(APIView):
 class RegisterUserView(APIView):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request, *args, **kwargs):
         special_characters = '''"!@#$%^&*()-+?_=,<>'/'''
@@ -102,6 +105,7 @@ class RegisterUserView(APIView):
 class OTP_Validation(APIView):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self,request, *args, **kwargs):
         otp = request.data['otp']
@@ -118,6 +122,7 @@ class OTP_Validation(APIView):
 
 class ActivateAccountView(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self, request, uid, token):
         try:
@@ -136,9 +141,11 @@ class ActivateAccountView(APIView):
 class LoginView(APIView):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     @method_decorator(ensure_csrf_cookie)
     def post(self,request, *args, **kwargs):
+        print("it ran")
         response = Response()
         email = request.data.get('email')
         password = request.data.get('password') if 'password' in request.data else None
@@ -157,21 +164,27 @@ class LoginView(APIView):
             otp1.delete()
         serializer = UserSerializer(user)
         access_token = generate_access_token(user)
+        print(access_token)
         refresh_token = generate_refresh_token(user)
+        print(refresh_token)
         if WhitelistedTokens.objects.filter(user = user).exists():
             a = WhitelistedTokens.objects.filter(user = user)
             a.delete()
         token = WhitelistedTokens(token = refresh_token, user = user)
         token.save()
+        print(token)
         response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
+        # response.set_cookie(key='accesstoken', value=access_token)
         response.data = {'access_token': access_token,'user': serializer.data,}
+        print("refresh token should be set")
         return response
 
 class LogoutView(APIView):
-    
+
     def get(self,request):
         # if request.user.is_authenticated:
         refresh_token = request.COOKIES.get('refreshtoken')
+        sessionid = request.COOKIES.get('sessionid')
         if refresh_token and request.user.is_authenticated:
             token = WhitelistedTokens.objects.filter(token = refresh_token).first()
             if (token is None):
@@ -181,6 +194,9 @@ class LogoutView(APIView):
             else:
                 token.delete()
             response = Response()
+            if sessionid is not None:
+                GalleryPageTemp.objects.filter(userKey = request.session.get('name')).delete()
+                response.delete_cookie('sessionid')
             response.delete_cookie('refreshtoken')
             response.data = {"Success":"Logout"}
             return response
@@ -189,6 +205,7 @@ class LogoutView(APIView):
 class GenerateNewOtpView(APIView):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self,request):
         email = request.data["email"]
@@ -221,6 +238,7 @@ class GenerateNewOtpView(APIView):
 class Refresh_Token_View(APIView):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     @method_decorator(csrf_protect)
     def get(self,request):
@@ -231,26 +249,39 @@ class Refresh_Token_View(APIView):
         '''
         now =  datetime.datetime.now().astimezone()
         refresh_token = request.COOKIES.get('refreshtoken')
+        print(1)
         if refresh_token is None:
+            print(1)
             raise exceptions.AuthenticationFailed('Authentication credentials were not provided.')
         obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
-        if obj.expiry<now:
-            obj.delete()
+        if obj:
+            if obj.expiry<now:
+                obj.delete()
+                print(2)
+                return Response({"Error":"Refresh token expired"}, status = status.HTTP_400_BAD_REQUEST)
         bool = WhitelistedTokens.objects.filter(token = refresh_token).exists()
         if not (bool):
+            print(3)
             return Response({"Error":"Token doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
         elif bool:
             try:
                 payload = jwt.decode(
                     refresh_token, settings.REFRESH_TOKEN_SECRET, algorithms=['HS256'])
             except jwt.ExpiredSignatureError:
+                print(4)
                 raise exceptions.AuthenticationFailed('expired refresh token, please login again.')
             user = User.objects.filter(id=payload.get('user_id')).first()
             if user is None:
+                print(5)
                 raise exceptions.AuthenticationFailed('User not found')
             if not user.is_active:
+                print(6)
                 raise exceptions.AuthenticationFailed('user is inactive')
+            print("i was here")
             access_token = generate_access_token(user)
+            print("i was here")
+            print(access_token)
+            print(6)
             return Response({'access_token': access_token})
         return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
 # @api_view(['POST'])

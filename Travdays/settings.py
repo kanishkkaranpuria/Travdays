@@ -155,12 +155,12 @@ MEDIA_URL = '/media/'
 REFRESH_TOKEN_SECRET='0d3bf21da90eeead7d0d4a39c74fd336f75fce8dacbb9775453dfb6246d7807385cf89debb15a9f3d15cf03dd4624a91e87d1c69141e980bd5f467b8f1fde9de'
 
 # REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'authentication.authentication.SafeJWTAuthentication',
 #     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     )
 # }
 
 

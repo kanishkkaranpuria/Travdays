@@ -12,6 +12,7 @@ import json
 class AllBlogsDisplayView(APIView,BlogPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request,pk = None):
         if pk == None:
@@ -32,6 +33,7 @@ class AllBlogsDisplayView(APIView,BlogPagination):
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request):
         blogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
@@ -42,6 +44,7 @@ class BlogsDisplayVoteFilter(APIView,BlogPagination):
 class BlogsDisplayCreatedFilter(APIView,BlogPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request):
         blogs = Blog.objects.filter(approved = True).order_by('-created')
@@ -52,6 +55,7 @@ class BlogsDisplayCreatedFilter(APIView,BlogPagination):
 class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def get(self,request):
         blogs = Blog.objects.filter(Q(featured = True) & Q(approved = True)).order_by('-created')
@@ -114,6 +118,7 @@ class BlogLikeDislike(APIView):
 # class BlogsDisplayUniversalFilter(APIView,BlogPagination):
 
 #     permission_classes = [AllowAny]
+    # authentication_classes = []
 
 #     def get(self,request,variable):
 #         variable = json.loads(variable)
