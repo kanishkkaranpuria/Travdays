@@ -237,6 +237,11 @@ pointer-events: auto;
   max-width: 1000px;
   box-shadow: 0 3px 6px 0px #00000088 ;
 }
+#mobile-menu{
+transform: translateY(-100%);
+transition: all 200ms ease-in-out;
+}
+/* ******************************************************************************************MEDIA QUERIES */
 
 @media only screen and (max-width: 992px) {
 
@@ -244,7 +249,7 @@ pointer-events: auto;
   display: none;
 }
 .section{
-  padding: 2rem 0.5rem 2rem 0.5rem;
+  padding: 60px 0.5rem 2rem 0.5rem;
 
 }
 .section.hero{

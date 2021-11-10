@@ -46,7 +46,7 @@ const Home = () => {
                 </div>
                 </div>
                 <div className="p-6 sm:p-2">
-                <p className= 'text-8xl sm:text-6xl font-bold'>Gallery</p>
+                <p className= 'text-8xl sm:text-6xl font-bold leading-normal'>Gallery</p>
                 <p className='text-3xl pl-4 font-semibold '>select your destination by aesthetics</p>
             <p className="p-4 leading-tight">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 

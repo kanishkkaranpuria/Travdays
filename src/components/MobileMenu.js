@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
 import logo from '../pages/images/TravDays_logos/transparent_logo.png'
 const hideMenu = ()=>{
-    document.getElementById('mobile-menu').style.display='none'
+    document.getElementById('mobile-menu').style.transform='translateY(-100%)';
+    document.getElementById('hide-menu-btn').style.display='none';
+    document.getElementById('show-menu-btn').style.display='flex';
 }
 
 const MobileMenu = () => {
     return ( 
-        <div onClick={hideMenu} id="mobile-menu" className=" hidden flex-col text-white bg-black fixed top-0 z-[6] w-[100vw] h-[100vh] opacity-90">
-        <div className='absolute p-2 top-0 bg-white w-full flex items-center justify-between opacity-80'>
-        {/* <img className='h-10' src={logo} alt=""/> */}
-        <p className='text-black text-lg'>TravDays</p>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="black">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-        </div>
+        <div onClick={hideMenu} id="mobile-menu" className="flex flex-col text-white bg-black fixed top-0 z-[4] w-[100vw] h-[100vh] opacity-90">
         
             <nav className="flex flex-col w-full h-full items-center justify-center">
                 <Link className='p-6 text-3xl' to='/'>TravDays</Link>

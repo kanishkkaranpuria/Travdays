@@ -4,7 +4,7 @@ import WriteABlog from "../components/WriteABlog";
 const Blogs = () => {
     const history = useHistory()
     return (
-        <div className="blog relative ">
+        <div className="blog relative pt-[60px] ">
         <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
         {/* <WriteABlog/> */}
         <p className='text-5xl sm:text-2xl font-bold p-4'>Fetured Blogs</p>
