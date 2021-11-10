@@ -7,7 +7,7 @@ const Home = () => {
     return ( 
         <div className="main w-full items-center justify-center">
             <div className="section hero items-center justify-center">
-            <div className="p-6 sm:p-2 sm:order-2">
+            <div className="p-6 sm:p-4 sm:order-2">
                 <div className='block sm:hidden'>
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
@@ -112,8 +112,8 @@ const Home = () => {
 
 
             </div>
-            <div className="footer pb-[80] flex h-[140] bg-[#FFA914]">
-                <div className='flex h-[60] w-full justify-around items-center opacity-70 p-4'>
+            <div className="footer flex h-[120px] bg-[#FFA914]">
+                <div className='flex w-full justify-around items-center opacity-70 p-4'>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png"/>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/instagram-new--v1.png"/>
                             <img className='w-[50px]' src="https://img.icons8.com/ios/96/000000/whatsapp--v1.png"/>

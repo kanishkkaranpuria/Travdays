@@ -206,9 +206,9 @@ const AllTrips = () => {
             return (
               <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
               <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
-                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[500px] p-box-shadow flex justify-center'>
+                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[500px] flex justify-center p-2'>
               <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
-                {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover"/>}
+                {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover rounded-xl"/>}
                 </div>
                   <div className='sm:absolute sm:h-full p-4 w-full'>
                   <p className='flex justify-between items-center'>
