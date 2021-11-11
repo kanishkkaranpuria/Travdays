@@ -164,34 +164,36 @@ const AllTrips = () => {
               <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
               <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
                 <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[300px] flex justify-center sm:p-0 p-2'>
+              <div className='sm:flex sm:w-full sm:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
               <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
+
                 {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover rounded-[20px]"/>}
                 </div>
-                  <div className='sm:absolute sm:h-full p-4 w-full'>
+                  <div className='sm:absolute sm:h-full p-4 sm:p-2 w-full'>
                   <p className='flex justify-between items-center'>
                   {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
                 {data.type && <p className='text-sm' >{data.type}</p>}
                   </p>
-                {data.ratings === "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >{data.ratings}</p>}
-                {data.ratings !== "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >
-                <span className='pr-4'>{data.ratings}</span>
-                <span className=' h-6 overflow-hidden relative' >
+                {data.ratings === "No Ratings" && <p className='sm:absolute sm:bottom-[60px] sm:py-0 flex items-center py-4' >{data.ratings}</p>}
+                {data.ratings !== "No Ratings" && <p className='sm:absolute sm:bottom-[60px] sm:py-0 flex items-center py-4' >
+                <span className='pr-4 sm:pr-2'>{data.ratings}</span>
+                <span className=' h-6 sm:h-4 overflow-hidden relative' >
                     <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
                     <img className='w-full h-full' src={stars} alt=""/>
                     </span>
                 
                  <span className='px-4 text-sm'>{data.ratingsCount}</span>
                  </p>}
-                 <p className='sm:absolute sm:bottom-2 sm:py-0 flex py-4'>
-                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <p className='sm:absolute sm:bottom-[35px] sm:py-0 flex items-center py-4'>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 sm:h-4 w-6 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className='pl-4'>x days y nights</span>
+                  <span className='pl-4 sm:pl-2'>x days y nights</span>
                  </p>
                  <p className='sm:hidden text-lg font-semibold'>short description</p>
                  <p className='sm:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
                 {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
-                {data.price && <p  className='absolute bottom-2 right-4 font-semibold'>₹{data.price}</p>}
+                {data.price && <p  className='absolute bottom-2  font-semibold'>₹{data.price}</p>}
                   </div>
                 
                 
@@ -201,40 +203,43 @@ const AllTrips = () => {
                
               </div>
 
-            </div>);
+            </div>
+              );
           } else {
             return (
               <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
               <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
                 <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[300px] flex justify-center sm:p-0 p-2'>
+              <div className='sm:flex sm:w-full sm:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
               <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
+
                 {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover rounded-[20px]"/>}
                 </div>
-                  <div className='sm:absolute sm:h-full p-4 w-full'>
+                  <div className='sm:absolute sm:h-full p-4 sm:p-2 w-full'>
                   <p className='flex justify-between items-center'>
                   {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
                 {data.type && <p className='text-sm' >{data.type}</p>}
                   </p>
-                {data.ratings === "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >{data.ratings}</p>}
-                {data.ratings !== "No Ratings" && <p className='sm:absolute sm:bottom-[3rem] sm:py-0 flex py-4' >
-                <span className='pr-4'>{data.ratings}</span>
-                <span className=' h-6 overflow-hidden relative' >
+                {data.ratings === "No Ratings" && <p className='sm:absolute sm:bottom-[60px] sm:py-0 flex items-center py-4' >{data.ratings}</p>}
+                {data.ratings !== "No Ratings" && <p className='sm:absolute sm:bottom-[60px] sm:py-0 flex items-center py-4' >
+                <span className='pr-4 sm:pr-2'>{data.ratings}</span>
+                <span className=' h-6 sm:h-4 overflow-hidden relative' >
                     <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
                     <img className='w-full h-full' src={stars} alt=""/>
                     </span>
                 
                  <span className='px-4 text-sm'>{data.ratingsCount}</span>
                  </p>}
-                 <p className='sm:absolute sm:bottom-2 sm:py-0 flex py-4'>
-                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <p className='sm:absolute sm:bottom-[35px] sm:py-0 flex items-center py-4'>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 sm:h-4 w-6 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className='pl-4'>x days y nights</span>
+                  <span className='pl-4 sm:pl-2'>x days y nights</span>
                  </p>
                  <p className='sm:hidden text-lg font-semibold'>short description</p>
                  <p className='sm:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
                 {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
-                {data.price && <p  className='absolute bottom-2 right-4 font-semibold'>₹{data.price}</p>}
+                {data.price && <p  className='absolute bottom-2  font-semibold'>₹{data.price}</p>}
                   </div>
                 
                 
