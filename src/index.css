@@ -5,6 +5,7 @@
 .App{
   width: 100%;
   /* max-width: 1440px; */
+  background-color: #F8F0E3.;
 }
 body {
   margin: 0;
@@ -121,8 +122,8 @@ code {
   overflow: hidden;
 }
 .blog-preview-card.non-featured.v1{
+  grid-template-columns: 30% 70%;
   margin: 1rem;
-  min-width: 500px;
   width: 500px;
   height: 300px;
 }
@@ -200,7 +201,7 @@ column-gap: 5%;
   animation: circle1 12s linear infinite;
   -webkit-animation: circle1 12s linear infinite;
   -moz-animation: circle1 12s linear infinite;
-  -0-animation: circle1 12s linear infinite;
+  -o-animation: circle1 12s linear infinite;
 }
 .card-grid{
 display: grid;
@@ -208,7 +209,7 @@ grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .blog{
   /* width: min(1000px,100%); */
-  width: 100%;
+  /* width: 100%; */
   min-height: calc(100vh - 60px);
 }
 .packages.btn:hover .package-list{

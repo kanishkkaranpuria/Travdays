@@ -106,8 +106,9 @@ const ContactUs = () => {
      
 
     return ( 
-        <div className=" section contact-us rounded-lg p-8">
-            <form className='flex flex-col mx-auto max-w-[700px]'  onSubmit={submitquery}  action="">
+        <div className=" section contact-us">
+            <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] '  onSubmit={submitquery}  action="">
+            <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Contact Us</span>
                 
                 <div className='sm:pb-4'> 
                     { !authenticated && <div className="">

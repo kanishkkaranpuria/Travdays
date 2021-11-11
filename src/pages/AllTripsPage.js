@@ -156,14 +156,14 @@ const AllTrips = () => {
   <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
 </svg>
 
-      <div className="trips">
+      <div className="trips sm:grid sm:grid-cols-2">
 
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
             return (
               <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
               <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
-                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[500px] flex justify-center sm:p-0 p-2'>
+                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[300px] flex justify-center sm:p-0 p-2'>
               <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
                 {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover rounded-[20px]"/>}
                 </div>
@@ -206,7 +206,7 @@ const AllTrips = () => {
             return (
               <div ref={lastDataElementRef} className="p-5 sm:p-[0.5rem] flex justify-center " key={data.id}>
               <div className=" sm:text-white sm:relative flex sm:flex-col rounded-[20px] overflow-hidden trip-card">
-                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[500px] flex justify-center sm:p-0 p-2'>
+                <div className='sm:relative w-[300px] sm:w-full h-[300px] sm:h-[300px] flex justify-center sm:p-0 p-2'>
               <div className='sm:flex sm:w-full sm:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
                 {data.displayImage && <img src={data.displayImage} alt="" className ="z-[-2] w-full h-full object-cover rounded-[20px]"/>}
                 </div>

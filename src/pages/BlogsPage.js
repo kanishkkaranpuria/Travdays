@@ -4,7 +4,7 @@ import WriteABlog from "../components/WriteABlog";
 const Blogs = () => {
     const history = useHistory()
     return (
-        <div className="blog relative pt-[60px] ">
+        <div className="blog relative pt-[60px] w-full">
         <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
         {/* <WriteABlog/> */}
         <p className='text-5xl sm:text-2xl font-bold p-4'>Fetured Blogs</p>
@@ -162,9 +162,9 @@ const Blogs = () => {
 
 {/* ***********************************************   unfeatured blogs  */}
         {/* <p className='text-5xl font-bold p-4'>Blogs</p> */}
-        <div className=" p-8 w-full flex justify-center">
-        <div className="blog-preview-card non-featured relative">
-                <div className="blog-photos">
+        <div className=" max-w-[1440px] mx-auto p-8 w-full flex flex-col justify-center">
+        <div className="blog-preview-card non-featured v1 relative">
+                <div className="blog-photos overflow-hidden">
                     <img className='object-cover h-full w-full' src="https://picsum.photos/500" alt=""/>
                 </div>
                 <div className='p-8 sm:p-1'>
@@ -180,8 +180,8 @@ const Blogs = () => {
                     </span>
                 </p>
                 </div>
-                <p className='text-3xl font-bold pt-6'>title of the blog</p>
-                <p className='pt-6 leading-tight'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem animi iusto, rerum fugit nam aut incidunt impedit reprehenderit a quos explicabo ad doloribus cum quidem! Reiciendis enim cum quam eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est aliquam ut eligendi vitae ea architecto eaque illo, atque reprehenderit? Aperiam maiores repudiandae aspernatur doloribus consectetur commodi voluptate fugit impedit laboriosam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, corporis perferendis. Facilis, odit et rem error alias accusamus. Necessitatibus commodi deleniti provident iusto ut explicabo! Magni corporis architecto maiores iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nesciunt dignissimos facere labore adipisci ipsa commodi velit molestiae dicta. Cum vero asperiores molestias fugiat exercitationem eos delectus repellendus eveniet rerum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse necessitatibus ex modi voluptates reiciendis magnam vero delectus? Voluptatem consequuntur, quod iusto maiores odit quos! Consequuntur ea eum illum corporis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus eligendi beatae esse molestias iste, et corporis ut nemo praesentium laudantium delectus voluptas nisi explicabo quaerat aperiam reiciendis expedita voluptate quod?</p>
+                <p className='text-4xl font-bold pt-6'>title of the blog</p>
+                <p className='pt-6 leading-tight text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem animi iusto, rerum fugit nam aut incidunt impedit reprehenderit a quos explicabo ad doloribus cum quidem! Reiciendis enim cum quam eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est aliquam ut eligendi vitae ea architecto eaque illo, atque reprehenderit? Aperiam maiores repudiandae aspernatur doloribus consectetur commodi voluptate fugit impedit laboriosam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, corporis perferendis. Facilis, odit et rem error alias accusamus. Necessitatibus commodi deleniti provident iusto ut explicabo! Magni corporis architecto maiores iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nesciunt dignissimos facere labore adipisci ipsa commodi velit molestiae dicta. Cum vero asperiores molestias fugiat exercitationem eos delectus repellendus eveniet rerum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse necessitatibus ex modi voluptates reiciendis magnam vero delectus? Voluptatem consequuntur, quod iusto maiores odit quos! Consequuntur ea eum illum corporis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus eligendi beatae esse molestias iste, et corporis ut nemo praesentium laudantium delectus voluptas nisi explicabo quaerat aperiam reiciendis expedita voluptate quod?</p>
                 </div>
             </div>
 

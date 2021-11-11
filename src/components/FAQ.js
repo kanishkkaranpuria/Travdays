@@ -91,8 +91,8 @@ const FAQ = () => {
    
 
     return ( 
-        <div className='section max-w-[1000px] '>
-                <span className='text-6xl sm:text-5xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
+        <div className=' w-[800px] lg:shadow-xl rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] '>
+                <span className='text-6xl sm:text-xl font-bold sm:p-2 inline-block faq-link'>FAQ</span>
                 <div>
                         {faqs && faqs.map((faq) => (
                             <div  id ={faq.id} className="">
