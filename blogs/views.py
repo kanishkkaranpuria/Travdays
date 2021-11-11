@@ -3,7 +3,7 @@ from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import AllBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
+from .serializers import AllBlogsSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
 from rest_framework import status
 from .pagination import BlogPagination
 import json
@@ -60,7 +60,7 @@ class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
     def get(self,request):
         blogs = Blog.objects.filter(Q(featured = True) & Q(approved = True)).order_by('-created')
         results = self.paginate_queryset(blogs, request, view=self)
-        serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
+        serializer = FeaturedBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
 
 class CreateBlog(APIView): # Change logic to allow users to add multiple images in the blog

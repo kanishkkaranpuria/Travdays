@@ -5,9 +5,36 @@ from database.models import Blog, BlogMedia
 
 class AllBlogsSerializer(serializers.ModelSerializer):
 
+    created = serializers.SerializerMethodField()
+    body = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Blog
+        fields = ['id','title','location','image','created','body']
+
+    def get_created(self,obj):
+        return obj.created.strftime("%d-%m-%Y, %H:%M:%S")
+    
+    def get_body(self,obj):
+        a = obj.blog
+        if len(a)>330:
+            a = a[:330].split(" ")[:-1] 
+            body = ''
+            for word in a: 
+                body = body + word + " " 
+            return body + "..."
+        return a + " ..."
+
+class FeaturedBlogsSerializer(serializers.ModelSerializer):
+
+    created = serializers.SerializerMethodField()
+
     class Meta:
         model = Blog
         fields = ['id','title','location','image','created']
+
+    def get_created(self,obj):
+        return obj.created.strftime("%d-%m-%Y, %H:%M:%S")
 
     # def get_image(self,obj):
     #     if len(obj.blogmedia.all()) != 0:
