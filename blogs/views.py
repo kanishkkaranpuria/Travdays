@@ -3,9 +3,9 @@ from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import AllBlogsSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
+from .serializers import AllBlogsSerializer,BlogMediaSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
 from rest_framework import status
-from .pagination import BlogPagination
+from .pagination import BlogPagination,BlogMediaPagination
 import json
 # Create your views here.
 
@@ -14,21 +14,34 @@ class AllBlogsDisplayView(APIView,BlogPagination):
     permission_classes = [AllowAny]
     authentication_classes = []
 
-    def get(self,request,pk = None):
-        if pk == None:
-            voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
-            print(voteBlogs)
-            featuredBlogs = list(Blog.objects.filter(Q(featured = True) & Q(approved = True))[:6])
-            blogs = list(dict.fromkeys(featuredBlogs + voteBlogs)) 
-            results = self.paginate_queryset(blogs, request, view=self)
-            serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
-            return Response(serializer.data)
-        elif Blog.objects.filter(id = pk).exists():
+    def get(self,request):
+        voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
+        # print(voteBlogs)
+        featuredBlogs = list(Blog.objects.filter(Q(featured = True) & Q(approved = True))[:6])
+        blogs = list(dict.fromkeys(featuredBlogs + voteBlogs)) 
+        results = self.paginate_queryset(blogs, request, view=self)
+        serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
+        return Response(serializer.data)
+
+class BlogDisplayView(APIView,BlogMediaPagination):
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self,request,pk = None,var=None):
+        if Blog.objects.filter(id = pk).exists():
             blog = Blog.objects.get(id = pk)
-            serializer = BlogSerializer(blog,context={"request" : request})
-            return Response(serializer.data)
-        else:
-            return Response({"error":"somthing went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+            if var == "detail":
+                serializer = BlogSerializer(blog,context={"request" : request})
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            elif var == "media":
+                blogMedia = blog.blogmedia.all()
+                results = self.paginate_queryset(blogMedia, request, view=self)
+                serializer = BlogMediaSerializer(results,context={"request" : request},many = True)
+                return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
+        
+
 
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
 
