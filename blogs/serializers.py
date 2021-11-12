@@ -64,7 +64,7 @@ class BlogMediaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlogMedia
-        fields = ['blog','image']
+        fields = ['id','blog','image']
     # def get_image(self,obj):
     #     if len(obj.blogmedia.all()) != 0:
     #         request = self.context.get('request')

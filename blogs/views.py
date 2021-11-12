@@ -39,6 +39,8 @@ class BlogDisplayView(APIView,BlogMediaPagination):
                 results = self.paginate_queryset(blogMedia, request, view=self)
                 serializer = BlogMediaSerializer(results,context={"request" : request},many = True)
                 return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                pass
         return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
         
 
