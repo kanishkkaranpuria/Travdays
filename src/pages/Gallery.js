@@ -160,22 +160,14 @@ const Gallery = () => {
         <div className='grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]'>
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
-         return ( <div ref = {lastDataElementRef} className="aaa" key={data.id}>
-            {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview h-full">
-              {data.image && <img src={data.image}  alt="" className ="object-cover h-full sm:h-[120px] w-full"/>}
-              {/* {console.log(number = number + 1)} */}
-            </div>
+         return ( <div ref = {lastDataElementRef} className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id}>
+              {data.image && <img src={data.image}  alt="" className ="object-cover h-full  w-full"/>}
 
           </div>);
           }else {
-            return ( <div className="aaa" key={data.id} >
-            {/* <img src={data.image} alt-text="goddamit" width="100%"></img> */}
-            <div className="datas-preview h-full">
-              {data.image && <img src={data.image}  alt="" className ="object-cover h-full sm:h-[120px] w-full"/>}
-              {/* {console.log(number = number + 1)} */}
-            </div>
-
+            return ( <div className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id} >
+              {data.image && <img src={data.image}  alt="" className ="object-cover h-full  w-full"/>}
+              
           </div>);
           }
         })
