@@ -7,7 +7,7 @@ const Navbar = () => {
                 <Link className='p-6' to='/'>TravDays</Link>
             </nav>
             <nav className="flex w-2/3 h-full items-center justify-around">
-            <Link to='/IndivisualBlogPage'>indi-blog</Link>
+            {/* <Link to='/IndivisualBlogPage'>indi-blog</Link> */}
                 <span className='packages btn p-6 flex items-center h-full text-lg font-bold relative'>
                     <Link to='/AllTripsPage'>packages</Link>
                     <span className='package-list absolute left-0 bottom-[-52px] flex w-max z-[4] invisible pointer-events-none'>

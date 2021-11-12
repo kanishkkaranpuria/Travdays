@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FAQ from "../components/FAQ";
 import Card from "../components/Card"

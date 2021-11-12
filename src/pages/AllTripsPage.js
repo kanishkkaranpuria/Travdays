@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useParams } from "react-router";
+import fullaxios from "../components/FullAxios";
 import stars from './images/stars.png'
 
 const AllTrips = () => {
@@ -68,8 +69,8 @@ const AllTrips = () => {
 
   useEffect(() => {
     console.log("i was here")
-    axios
-      .get(`http://127.0.0.1:8000/trip/universal/` + JSON.stringify(object) + `?page=` + page)
+
+    fullaxios({url : 'trip/universal/' + JSON.stringify(object) + '?page=' + page})
       .then(res => {
         setDatas(prev => [...prev, ...res.data])
         console.log(res.data)
@@ -130,8 +131,7 @@ const AllTrips = () => {
     if (node) hoverobserver.current.observe(node)
   }, [hoverloading, hoverhasMore])
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/trip/media/` + globalUrl + `?page=` + hoverpage)
+    fullaxios({url : 'trip/media/' + globalUrl + '?page=' + hoverpage})
       .then(res => {
         setHoveratas(prev => [...prev, ...res.data])
         console.log(res.data)

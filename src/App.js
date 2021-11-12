@@ -12,6 +12,8 @@ import WriteABlog from './components/WriteABlog';
 import IndivisualBlogPage from './pages/IndivisualBlogsPage';
 import MobileMenu from './components/MobileMenu';
 import logo from './pages/images/TravDays_logos/transparent_logo.png';
+import Logout from './pages/Logout';
+import Login from './pages/Login';
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -50,7 +52,11 @@ function App() {
         <Route exact path = "/blogs"> <Blogs /> </Route>
 
         <Route exact path = "/gallery"> <Gallery /> </Route>
-      
+        
+        <Route exact path = "/login"> <Login /> </Route>
+
+        <Route exact path = "/logout"> <Logout /> </Route>
+
         <Route exact path = "/contactus"> <ContactUs /> </Route>
 
         <Route exact path = "/trip/:name"> <Trip/> </Route>

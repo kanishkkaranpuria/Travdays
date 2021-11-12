@@ -75,7 +75,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
-
+import fullaxios from '../components/FullAxios';
 
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router';
@@ -117,12 +117,7 @@ const Gallery = () => {
  
 
   useEffect(() => {
-    axios({
-        method:'GET',
-        url: '/gallery/?page='+ page,
-
-        // configuration
-    })
+    fullaxios({url : 'gallery/?page='+page,type : "get",sendcookie : true})
     .then(res => {
       setDatas(prev => [...prev, ...res.data])
       prevDatas.current = datas

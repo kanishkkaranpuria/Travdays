@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import fullaxios from "../components/FullAxios";
 
 
 const ContactUs = () => {
@@ -30,14 +31,13 @@ const ContactUs = () => {
         //     query:query,
         //     choice:e.value,
         // })
-        axios
-        .post(`http://127.0.0.1:8000/query/create`,{
+        fullaxios({url : 'query/create', type : 'post', data : {
             email:email,
                 name:name,
                 query:query,
                 choice:d.value,
         
-          })
+          }, sendcookie : true})
           .then(res => {
             console.log("it worked")
             history.push('/')
@@ -89,10 +89,8 @@ const ContactUs = () => {
     // }, [mainqueries])
 
     useEffect(() => {
-         axios({
-                method:'GET',
-                url: 'http://127.0.0.1:8000/query/create ',   
-                    })
+         
+        fullaxios({url: 'query/create'})
                     .then(res=>{
                         setMainqueries(res.data);
 
