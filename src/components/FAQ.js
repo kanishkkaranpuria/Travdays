@@ -1,5 +1,6 @@
 import { useEffect,useState,useRef } from "react"
 import axios from "axios";
+import fullaxios from "./FullAxios";
 
 const FAQ = () => {
     const [answer, setAnswer] = useState({});
@@ -11,8 +12,8 @@ const FAQ = () => {
     const [answerstatus, setAnswerstatus] = useState({})
     useEffect(() => {
       
-      axios
-      .get(`faq/question?page=`+ page)
+      fullaxios({url : 'faq/question?page=' + page, sendcookie : false})
+    //   .get(`faq/question?page=`+ page)
       .then((res)=>{
           setFaqs(res.data)
           console.log(res.data)
@@ -60,8 +61,8 @@ const FAQ = () => {
                 }))
         }
         else{
-        axios
-        .get(`faq/answer/`+ i)
+        fullaxios({url : 'faq/answer/' + i})
+        // .get(`faq/answer/`+ i)
         .then(res => {
             setAnswer((prev)=>({...prev,
                 [i] : [res.data.answer]

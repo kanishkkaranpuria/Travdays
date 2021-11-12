@@ -84,7 +84,7 @@ const Blogs = () => {
     
     useEffect(() => {
       setLoading(true)
-      fullaxios({url : 'blog/featured?page=' + fpage})
+      fullaxios({url : 'blog/featured?page=' + fpage, sendcookie : false})
       .then(res => {
         setFeatured(prev=>[...prev,...res.data])
       })
@@ -121,8 +121,8 @@ const Blogs = () => {
         <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
         {/* <img onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/> */}
       
-        {sortlink==="created" &&  <button onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' ><p> Sort by </p> <p> Most liked </p> </button>}
-        {sortlink==="votefilter" &&  <button onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' > <p> Sort by </p> Latest</button>}
+        {/* {sortlink==="created" &&  <button onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' ><p> Sort by </p> <p> Most liked </p> </button>}
+        {sortlink==="votefilter" &&  <button onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' > <p> Sort by </p> Latest</button>} */}
 
         {/* <WriteABlog/> */}
         <p className='text-5xl sm:text-2xl font-bold p-4'>Fetured Blogs</p>
