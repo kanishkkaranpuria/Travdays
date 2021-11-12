@@ -72,12 +72,13 @@ const AllTrips = () => {
 
     fullaxios({url : 'trip/universal/' + JSON.stringify(object) + '?page=' + page})
       .then(res => {
+        if (res){
         setDatas(prev => [...prev, ...res.data])
         console.log(res.data)
         console.log(object)
         prevDatas.current = datas
         setLoading1(false)
-      })
+      }})
       .catch(err => {
         if (err.response){ if (err.response.data.detail === "Invalid page.") {
           setHasMore(false);
@@ -133,10 +134,11 @@ const AllTrips = () => {
   useEffect(() => {
     fullaxios({url : 'trip/media/' + globalUrl + '?page=' + hoverpage})
       .then(res => {
+        if (res){
         setHoveratas(prev => [...prev, ...res.data])
         console.log(res.data)
         hoverprevDatas.current = hoverdatas
-      })
+      }})
       .catch(err => {
         if (err.response){if (err.response.data.detail === "Invalid page.") {
           setHoverhasMore(false);

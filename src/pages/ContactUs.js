@@ -39,9 +39,10 @@ const ContactUs = () => {
         
           }, sendcookie : true})
           .then(res => {
+            if (res){
             console.log("it worked")
             history.push('/')
-        })
+          }})
         .catch(res => {
             console.log("hello didnt work")
             // if (res.status === 400)
@@ -92,10 +93,11 @@ const ContactUs = () => {
          
         fullaxios({url: 'query/create'})
                     .then(res=>{
+                        if (res){
                         setMainqueries(res.data);
 
                         // console.log(res.data)
-                    })
+                    }})
                     
     }, [])
     

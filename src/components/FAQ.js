@@ -15,9 +15,11 @@ const FAQ = () => {
       fullaxios({url : 'faq/question?page=' + page, sendcookie : false})
     //   .get(`faq/question?page=`+ page)
       .then((res)=>{
+        if (res){
           setFaqs(res.data)
           console.log(res.data)
-      })
+     
+      }})
       
         
     }, [])
@@ -64,16 +66,13 @@ const FAQ = () => {
         fullaxios({url : 'faq/answer/' + i})
         // .get(`faq/answer/`+ i)
         .then(res => {
-            setAnswer((prev)=>({...prev,
-                [i] : [res.data.answer]
-            }))
-            setAnswerstatus((prev)=>({...prev, 
-            [i] : true
-            }))
+            if (res){
+            setAnswer((prev)=>({...prev,[i] : [res.data.answer]}))
+            setAnswerstatus((prev)=>({...prev, [i] : true}))
             // console.log(res.data)
             // console.log("it worked")
           
-        })
+        }})
         .catch(err => {
             console.log(err)
             // if (res.status === 400)

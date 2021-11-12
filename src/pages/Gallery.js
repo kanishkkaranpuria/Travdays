@@ -119,8 +119,10 @@ const Gallery = () => {
   useEffect(() => {
     fullaxios({url : 'gallery/?page='+page,type : "get",sendcookie : true})
     .then(res => {
+      if (res){
       setDatas(prev => [...prev, ...res.data])
       prevDatas.current = datas
+      }
     })
     .catch(err => console.error(err));
     setLoading(false);

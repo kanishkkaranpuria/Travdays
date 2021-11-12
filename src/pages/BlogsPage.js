@@ -51,8 +51,9 @@ const Blogs = () => {
     
     fullaxios({url : 'blog/' + sortlink +'?page='+ blogpage})
     .then(res => {
+      if (res){
       setAllblogs(prev=>[...prev,...res.data])
-   })
+    }})
     .catch(err => {
        if (err.response){if (err.response.data.detail === "Invalid page.") {
          setHasmore2(false)
@@ -86,8 +87,9 @@ const Blogs = () => {
       setLoading(true)
       fullaxios({url : 'blog/featured?page=' + fpage, sendcookie : false})
       .then(res => {
+        if (res){
         setFeatured(prev=>[...prev,...res.data])
-      })
+      }})
       .catch(err => {
          if (err.response){if (err.response.data.detail === "Invalid page.") {
            setHasmore(false)
