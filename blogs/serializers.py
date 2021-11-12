@@ -1,19 +1,23 @@
 from django.db.models.fields import related
 from rest_framework import serializers
 from database.models import Blog, BlogMedia
-
+import datetime 
 
 class AllBlogsSerializer(serializers.ModelSerializer):
 
     created = serializers.SerializerMethodField()
     body = serializers.SerializerMethodField()
+    user = serializers.SerializerMethodField()
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','image','created','body']
+        fields = ['id','title','location','image','created','body','user']
 
     def get_created(self,obj):
-        return obj.created.strftime("%d-%m-%Y, %H:%M:%S")
+        return obj.created.strftime("%d-%b-%Y")
+
+    def get_user(self,obj):
+        return obj.user.name
     
     def get_body(self,obj):
         a = obj.blog
@@ -34,7 +38,7 @@ class FeaturedBlogsSerializer(serializers.ModelSerializer):
         fields = ['id','title','location','image','created']
 
     def get_created(self,obj):
-        return obj.created.strftime("%d-%m-%Y, %H:%M:%S")
+        return obj.created.strftime("%d-%b-%Y")
 
     # def get_image(self,obj):
     #     if len(obj.blogmedia.all()) != 0:
@@ -50,15 +54,21 @@ class FeaturedBlogsSerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
 
     displayImage = serializers.SerializerMethodField()
+    user = serializers.SerializerMethodField()
+    created = serializers.SerializerMethodField()
     # image        = serializers.SerializerMethodField()
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','displayImage','created','blog']
+        fields = ['id','title','location','displayImage','created','blog','user']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
         return request.build_absolute_uri(obj.image.url)
+    def get_created(self,obj):
+        return obj.created.strftime("%d-%b-%Y")
+    def get_user(self,obj):
+        return obj.user.name
 
 class BlogMediaSerializer(serializers.ModelSerializer):
 
