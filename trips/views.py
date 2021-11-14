@@ -90,6 +90,12 @@ class ReviewView(APIView, ReviewsPagination):
 
 class CreateReviewView(APIView, ReviewsPagination):
 
+    def get(self,request,name = None):
+        if Trip.objects.filter(name = name).exists():
+            bool = Booking.objects.filter(Q(user__id=request.user.id) & Q(trip__name = name) & Q(approved = True)).exists()
+            return Response({"bool":bool}, status = status.HTTP_200_OK)
+        return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
+
     def post(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
             user = request.user
