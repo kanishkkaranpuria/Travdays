@@ -28,11 +28,13 @@ User = get_user_model()
 class UserAuthenticationStatus(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def get(self,request):
         bool = request.user.is_authenticated
-        return Response({'authenticated':bool}, status=status.HTTP_200_OK)
+        admin = False
+        if bool:
+            admin = request.user.is_admin
+        return Response({'authenticated':bool,'admin':admin}, status=status.HTTP_200_OK)
 
 class UserInfoView(APIView):
 
@@ -43,7 +45,6 @@ class UserInfoView(APIView):
 class RegisterUserView(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def post(self, request, *args, **kwargs):
         special_characters = '''"!@#$%^&*()-+?_=,<>'/'''
@@ -105,7 +106,6 @@ class RegisterUserView(APIView):
 class OTP_Validation(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def post(self,request, *args, **kwargs):
         otp = request.data['otp']
@@ -121,8 +121,8 @@ class OTP_Validation(APIView):
     
 
 class ActivateAccountView(APIView):
+
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def get(self, request, uid, token):
         try:
@@ -141,7 +141,6 @@ class ActivateAccountView(APIView):
 class LoginView(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     @method_decorator(ensure_csrf_cookie)
     def post(self,request, *args, **kwargs):
@@ -205,7 +204,6 @@ class LogoutView(APIView):
 class GenerateNewOtpView(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def post(self,request):
         email = request.data["email"]
@@ -238,7 +236,6 @@ class GenerateNewOtpView(APIView):
 class Refresh_Token_View(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     @method_decorator(csrf_protect)
     def get(self,request):

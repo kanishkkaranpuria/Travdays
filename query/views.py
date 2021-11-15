@@ -9,8 +9,7 @@ from rest_framework import status
 
 class CreateQueryView(APIView):
 
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [AllowAny]  
 
     def get(self,request):
         data = {}

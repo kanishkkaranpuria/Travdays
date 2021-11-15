@@ -11,7 +11,6 @@ from datetime import datetime, timedelta
 class BookingView(APIView):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def post(self,request,*args, **kwargs):
 

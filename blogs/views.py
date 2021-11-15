@@ -11,8 +11,7 @@ import json
 
 class AllBlogsDisplayView(APIView,BlogPagination):
 
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [AllowAny]   
 
     def get(self,request):
         voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
@@ -25,8 +24,7 @@ class AllBlogsDisplayView(APIView,BlogPagination):
 
 class BlogDisplayView(APIView,BlogMediaPagination):
 
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [AllowAny] 
 
     def get(self,request,pk = None,var=None):
         if Blog.objects.filter(id = pk).exists():
@@ -47,8 +45,7 @@ class BlogDisplayView(APIView,BlogMediaPagination):
 
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
 
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [AllowAny] 
 
     def get(self,request):
         blogs = sorted(Blog.objects.filter(Q(featured = False) & Q(approved = True)),  key=lambda instance: -instance.netlikes)
@@ -59,7 +56,6 @@ class BlogsDisplayVoteFilter(APIView,BlogPagination):
 class BlogsDisplayCreatedFilter(APIView,BlogPagination):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def get(self,request):
         blogs = Blog.objects.filter(Q(featured = False) & Q(approved = True)).order_by('-created')
@@ -70,7 +66,6 @@ class BlogsDisplayCreatedFilter(APIView,BlogPagination):
 class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def get(self,request):
         blogs = Blog.objects.filter(Q(featured = True) & Q(approved = True)).order_by('-created')
@@ -78,31 +73,35 @@ class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
         serializer = FeaturedBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
 
-class CreateBlog(APIView): # Change logic to allow users to add multiple images in the blog
+class CreateBlog(APIView): 
 
     def post(self,request):
         data = {}
-        blogId = None
+        blog = None
         data['user'] = request.user.id
-        data['blog'] = request.data['blog']
+        data['blog'] = str(request.data['blog'])
         data['title'] = request.data['title']
         data['location'] = request.data['location']
         data['image'] = request.data['displayImage']
         serializer = CreateBlogSerializer(data = data)
         if serializer.is_valid():
-            blogId = serializer.save()
+            blog = serializer.save()
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         data = {}
-        # data['image'] = request.data['image']
-        data['blog'] = blogId.id
-        for img in request.data['image']:
-            data['image'] = img
+        data['blog'] = blog.id
+        i = 0
+        print("start of while loop")
+        while 'image'+str(i) in request.data:
+            data['image'] = request.data['image'+str(i)]
             serializer = CreateBlogMediaSerializer(data = data)
             if serializer.is_valid():
+                i += 1
                 serializer.save()
             else:
+                blog.delete()
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print("end of while loop")
         return Response({'message':'Blog Created'}, status=status.HTTP_200_OK)
         
 
@@ -133,7 +132,6 @@ class BlogLikeDislike(APIView):
 # class BlogsDisplayUniversalFilter(APIView,BlogPagination):
 
 #     permission_classes = [AllowAny]
-    # authentication_classes = []
 
 #     def get(self,request,variable):
 #         variable = json.loads(variable)

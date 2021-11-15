@@ -10,8 +10,7 @@ from .pagination import FaqPagination
 class FaqQuestion(APIView,FaqPagination):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
-
+    
     def get(self,request):
         qs = FAQ.objects.all()
         results = self.paginate_queryset(qs, request, view=self)
@@ -20,8 +19,7 @@ class FaqQuestion(APIView,FaqPagination):
 
 class FaqAnswer(APIView,FaqPagination):
 
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [AllowAny] 
 
     def get(self,request,pk):
         obj = FAQ.objects.get(id = pk)

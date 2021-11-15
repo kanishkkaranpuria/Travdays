@@ -12,8 +12,7 @@ from django.db.models.functions import Lower
 class TripSearchBarView(APIView,SearchbarPagination):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
-
+    
     def get(self, request, searchtext, type = None):
         qs = Trip.objects.filter(Q(name__contains=searchtext) | Q(location__contains=searchtext)).order_by(Lower('name'))
         qs = qs.filter(type = type) if (type != None) else qs
@@ -31,7 +30,6 @@ class TripSearchBarView(APIView,SearchbarPagination):
 class BlogSearchBarView(APIView,SearchbarPagination):
 
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def get(self, request, searchtext):
         qs = Blog.objects.filter(Q(title__contains=searchtext) | Q(location__contains=searchtext)).order_by(Lower('title'))
