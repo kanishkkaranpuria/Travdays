@@ -49,7 +49,6 @@ class TripUniversalFilterView(APIView, TripsPagination):
 class TripMediaView(APIView, TripMediaPagination):
 
     permission_classes = [AllowAny]
-    
 
     def get(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
@@ -96,22 +95,12 @@ class CreateReviewView(APIView, ReviewsPagination):
         if Trip.objects.filter(name = name).exists():
             user = request.user
             data = {}
-            # print(type(data))
             if Booking.objects.filter(Q(user__id=user.id) & Q(trip__name = name) & Q(approved = True)).exists():
-                print(user.id)
-                data["ratings"] = request.data["ratings"]
                 data["description"] = request.data["description"]
                 data['user'] = user.id
                 data["trip"] = Trip.objects.get(name = name).id
-                # data = {
-                #     "description" : request.data["description"],
-                #     'user'        : user.id,
-                #     "trip"        : Trip.objects.get(name = name).id,
-                #     "ratings"     : request.data["ratings"]
-                # }
-                allowedRatings = ['1','2','3','4','5']
-                if any(ratings in allowedRatings for ratings in request.data["ratings"]):
-                    # data["ratings"] = (str(request.data["ratings"]), request.data["ratings"])
+                if {request.data["ratings"]} - {1,2,3,4,5} == set():
+                    data["ratings"] = request.data["ratings"]
                     serializer = CreateReviewSerializer(data = data)
                     if serializer.is_valid():
                         serializer.save()

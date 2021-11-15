@@ -1,7 +1,9 @@
+from rest_framework import status
 from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from .serializers import GallerySerializer
+from trips.serializers import SingleTripDisplaySerializer
 # from .pagination import GalleryPagination
 from django.db.models import Q
 from datetime import datetime, timedelta
@@ -46,6 +48,19 @@ class GalleryView(APIView):
         serializer = GallerySerializer(galleries,context={"request" : request}, many = True)
         print(galleries)
         return Response(serializer.data)
+
+class GalleryPackageView(APIView): 
+
+    def get(self,request,pk):
+        if AdminMedia.objects.filter(id = pk).exists():
+            trip = Trip.objects.get(adminmedia__id = pk)
+            serializer = SingleTripDisplaySerializer(trip)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response({"error":"invalid inpurt"},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 
         # now = datetime.datetime.now()
         # qs = GalleryPageTemp.objects.only("updated_at")
