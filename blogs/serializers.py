@@ -21,8 +21,8 @@ class AllBlogsSerializer(serializers.ModelSerializer):
     
     def get_body(self,obj):
         a = obj.blog
-        if len(a)>330:
-            a = a[:330].split(" ")[:-1] 
+        if len(a)>394:
+            a = a[:394].split(" ")[:-1] 
             body = ''
             for word in a: 
                 body = body + word + " " 
