@@ -84,6 +84,7 @@ code {
   /* overflow: hidden; */
   border-radius: 20px;
   transition: scale 50ms ease-in-out ;
+  overflow: hidden;
 
 }
 #one.card{
@@ -249,23 +250,6 @@ pointer-events: auto;
 transform: translateY(-100%);
 transition: all 200ms ease-in-out;
 }
-.swiper {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-}
 
 /* ******************************************************************************************MEDIA QUERIES */
 
@@ -320,6 +304,13 @@ transition: all 200ms ease-in-out;
 .blog-preview-card.non-featured{
   grid-template-columns: none;
   grid-template-rows: 50% 50%;
+}
+.card{
+  animation: none;
+  /* margin: 20px; */
+  width: 221.95px;
+  padding-bottom: 320.61px;
+  box-shadow: 0 0 4px 0px #00000088;
 }
 }
 

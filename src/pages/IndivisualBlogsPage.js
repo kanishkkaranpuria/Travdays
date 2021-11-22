@@ -17,6 +17,7 @@ const IndivisualBlogPage = ({id , setId}) => {
         if(id){
             fullaxios({url: 'blog/media/' + id })
             .then(res => {
+                console.log(res.data)
               setIblogimg(prev=>[...prev,...res.data])
             })
             .catch(err => {
@@ -64,6 +65,36 @@ const IndivisualBlogPage = ({id , setId}) => {
     }, [iblogdata,iblogimg])
     return ( 
         <div className='section'>
+            {iblogdata && 
+            <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+            <div className="blog-preview-card non-featured v1 relative">
+                    <div className="blog-photos overflow-hidden">
+                        <img className='object-cover h-full w-full' src={iblogdata.displayImage} alt=""/>
+                    </div>
+                    <div className='p-8 sm:p-1'>
+                        <div className="flex justify-between items-center">
+                        <p className='font-semibold sm:text-2xl'>{iblogdata.location}</p>
+                        <p className='font-semibold sm:text-2xl'>{iblogdata.created}</p>
+                    <p className='flex text-2xl items-center h-6'>x.x 
+                        <span className='flex h-6'>
+                  
+                        
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        </span>
+                    </p>
+                    </div>
+                    <p  className='text-4xl font-bold pt-6'>{iblogdata.title}</p>
+                    <p className='pt-6 leading-tight text-xl'>{iblogdata.body}</p>
+                    </div>
+                </div>
+              </div>}
+             
+
+{/*             
             {iblogimg  &&  iblogimg.map((data) => {
                 // if(){
                 //   return(
@@ -77,7 +108,7 @@ const IndivisualBlogPage = ({id , setId}) => {
                     <div className=" px-8 sm:px-1 py-4 sm:py-2 w-full flex justify-center">
                     <div className="blog-preview-card non-featured relative">
                             <div className="blog-photos">
-                                <img className='object-cover h-full w-full' src={data.image} alt=""/>
+                                <img className='object-cover h-full w-full' src={data.dispalyImage} alt=""/>
                             </div>
                             <div className='p-8 sm:p-1'>
                                 <div className="flex justify-between items-center">
@@ -99,29 +130,32 @@ const IndivisualBlogPage = ({id , setId}) => {
                         </div>
                     </div>
                 )
-            })}
-             <div className=" px-8 sm:px-1 py-4 sm:py-2 w-full flex justify-center">
-        <div className="blog-preview-card non-featured relative">
+            })} */}
+             <div className=" px-8 sm:px-1 py-4 sm:py-2 w-full block justify-center">
+             { iblogdata && <div className="blog-preview-card non-featured relative">
                 <div className="blog-photos">
-                    <img className='object-cover h-full w-full' src="https://picsum.photos/500" alt=""/>
+                    <img className='object-cover h-full w-full' src={iblogdata.displayImage} alt=""/>
                 </div>
                 <div className='p-8 sm:p-1'>
-                                <div className="flex justify-between items-center">
-                                <p className='font-semibold sm:text-2xl'></p>
-                            <p className='flex text-2xl items-center h-6'>x.x 
-                                <span className='flex h-6'>
-                                <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                                <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                                <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                                <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                                <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
-                                </span>
-                            </p>
+                        <div className="flex justify-between items-center">
+                        <p className='font-semibold sm:text-2xl'>{iblogdata.location}</p>
+                        <p className='font-semibold sm:text-2xl'>{iblogdata.created}</p>
+                    <p className='flex text-2xl items-center h-6'>x.x 
+                        <span className='flex h-6'>
+                  
+                        
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
+                        </span>
+                    </p>
+                    </div>
+                            {/* <button onClick={test}>wtfff</button> */}
+                            <p className='pt-6 leading-tight'>{iblogdata.blog}</p>
                             </div>
-                            <button onClick={test}>wtfff</button>
-                            <p className='pt-6 leading-tight'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem animi iusto, rerum fugit nam aut incidunt impedit reprehenderit a quos explicabo ad doloribus cum quidem! Reiciendis enim cum quam eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est aliquam ut eligendi vitae ea architecto eaque illo, atque reprehenderit? Aperiam maiores repudiandae aspernatur doloribus consectetur commodi voluptate fugit impedit laboriosam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, corporis perferendis. Facilis, odit et rem error alias accusamus. Necessitatibus commodi deleniti provident iusto ut explicabo! Magni corporis architecto maiores iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nesciunt dignissimos facere labore adipisci ipsa commodi velit molestiae dicta. Cum vero asperiores molestias fugiat exercitationem eos delectus repellendus eveniet rerum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci esse necessitatibus ex modi voluptates reiciendis magnam vero delectus? Voluptatem consequuntur, quod iusto maiores odit quos! Consequuntur ea eum illum corporis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus eligendi beatae esse molestias iste, et corporis ut nemo praesentium laudantium delectus voluptas nisi explicabo quaerat aperiam reiciendis expedita voluptate quod?</p>
-                            </div>
-            </div>
+            </div> }
         </div>
         </div>
      );
