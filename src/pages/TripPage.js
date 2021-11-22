@@ -1,144 +1,339 @@
-// import React, { useState } from 'react'
-// import axios from 'axios'
-// import { useParams } from 'react-router'
+// import React from "react";
+// import fullaxios from "../components/FullAxios";
+// import { useParams } from "react-router";
+// import { useHistory } from 'react-router'
+// import { useState } from "react";
+// import { useEffect } from "react";
 
-// //  fetch reviews and ratings, and then like pick it up display all of it and then send it to the backend
-// // also uncomment the app.js wala shit
+// const Trip2 = () => {
 
-// const Trip = () => {
-    
-//     const [media,setMedia]=useState([]) // trip images and videos
-//     const [tripDescription,setTripDescription]=useState([]) // to be taken from the backend 
-//     const [price,setPrice]=useState(0)
-//     const [userId,setUserId] = useState(null)
-//     // const [review,setReview]=useState([])
-//     const [description,setDescription]=useState([]) // this is the review entered by a user not the one displayed
-//     const [tripId,setTripId]=useState(0)
-//     const [tripType,setTripType]=useState('')
-//     const [displayRatings, setDisplayRatings]=useState(0)
-//     const [rating,setRating]=useState(0)
-//     const [submitRatingButton,setSubmitRatingButton]=useState(0)
-//     const [descriptionEntered,setDescriptionEntered]=useState(false)
-//     // const [name,setName]=useState('')            
-//     // since not using the name as a dynamic fetched idea anymore
+//     let history = useHistory()
 
-//     const any = useParams();
-//     const Media = () => {
-//         axios
-//         .get(`trip/media/${any.name}`)
-//         .then(res=>{
-//             console.log(res.data)
-//             setMedia(res.data)
-//         })
-//         .catch ((err)=>{
-//             console.log(err)
-//         })
+//     const { name } = useParams()
 
-//         // media.map( (url) =>{
-//         //     setUserId(url.id)
-//         //     if(url.image!=null){
-//         //         <img src={require(`${url.image}`)} />
-//         //     }
-//         //     else{
-//         //         <video width="750" height="500" controls >
-//         //             <source src={`${url.video}`} type="video/mp4" />
-//         //         </video>
-//         //     }
-//         // }
-//         // )
-        
-//     }
-//     function review(){
+//     // const [infoBool, setInfoBool] = useState(true)
+//     // const [mediaBool, setMediaBool] = useState(true)
+//     // const [reviewBool, setReviewBool] = useState(true)
+//     // boolean lmao for triggering functions here
 
-//         axios
-//         .get(`trip/review/${any.name}`)
-//         .then((res)=>{
-//             setDisplayRatings(res.data)
-//         })
-//         .catch((err)=>{
-//             console.log(err)
-//         })
+//     const [infoObject, setInfoObject] = useState([])
+//     const [mediaObject, setMediaObject] = useState([])
+//     const [reviewObject, setReviewObject] = useState([])
 
-//     }
+//     const [userGivenStars, setUserGivenStars] = useState(0)    //  clickable stars that really just send back numbers 1-5
+//     const [userGivenDescription, setUserGivenDescription] = useState(null) // basically the review to be sent to the backend
 
-//     const createReview = () => {
-//             // after rating submit button is clicked on
-//             axios
-//             .post(`trip/review/${any.name}`,
-//             {
-//                 rating:rating,
-//                 description:description,
-//                 name:"Mumbai",
-//                 userid : "userid"
+
+//     useEffect(() => {
+
+//         fullaxios({ url: 'trip/' + name, sendcookie: false })
+//             // info fetched
+//             .then(res => { // trip info being fetched as result
+//                 console.log(res.data)
+//                 console.log('data received')
+//                 setInfoObject(res.data)
 //             })
-//             .then(res=>{
-//                 console.log(res)
-//                 alert ('your response has been submitted')
-//             })
-//             .catch(err=>{
+//             .catch(err => {
 //                 console.log(err)
 //             })
-//         }
 
-//     const details = () => {
+//         fullaxios({ url: 'trip/media/' + name, sendcookie: false })
+//             // media is displayed post fetch
+//             .then(res => { // media being fetched, gon be mapped then
+//                 console.log(res.data)
+//                 setMediaObject(res.data)
+//             })
+//             .catch(err => {
+//                 console.log(err)
+//                 alert(err)
+//             })
 
-//         axios
-//         .get(`/trip/${any.name}`,{
+//         fullaxios({ url: 'trip/review/' + name, sendcookie: false }) // trip review to be fetched
+//             .then(res => {
+//                 console.log(res.data)
+//                 setReviewObject(res.data)
+//             })
+//             .catch(err => {
+//                 console.log(err)
+//             })
 
-//         })
-//         .then(res => {
-//             console.log(res)
-//             {<div>
-//                 <h4>{res.data.user}</h4>
-//                 <h3>type : {res.data.type} </h3>
-//                 <h3>{res.data.name}</h3>
-//                 <p> {res.data.description} </p>
-//                 <h6> price : {res.data.price} </h6>
-//                 <h4>ratings : {res.data.ratings} </h4>
+
+
+//     }, [])
+
+//     // const takingRatingsByUser = () => {
+
+//     //     <p>
+//     //         <span style="color:blue;font-weight:bold" className='nice'> Here you can enter your Ratings </span>
+//     //         <input
+//     //             type='text'
+//     //             require
+//     //             placeholder=' write here your review '
+//     //         >
+//     //         </input>
+//     //     </p>
+//     // }
+
+//     return (
+//         <div>
+
+//             {infoObject && <div>
+//                 <p>
+
+//                     {infoObject.name} <br />
+//                     {infoObject.type} <br />
+//                     {infoObject.description}<br />
+//                     {infoObject.price}<br />
+//                     {infoObject.ratings}<br />
+//                 </p>
 //             </div>}
-//         })
-//         .catch(
 
-//         )
-//     }
+//             {
+//                 reviewObject && <div>
+//                     {/* <hr align='center' width='100' /> */}
+//                     {reviewObject.user}
+//                     {reviewObject.ratings}
+//                     {reviewObject.description}
 
-//     return(
-//         <div className='trip-page'>
-//             <h1>Ugly af trip page</h1>
+//                 </div>
+//             }
 
-//             {details()}
-//             {review()}
-//             {Media()}
-//             {console.log("can you even hear me !")}
+//             {
+//                 mediaObject && mediaObject.map(urls => (
+//                     <div>
+//                         {urls.image && <img src={urls.image} />}
+//                         {urls.video && <video controls src={urls.video} alt='' width='100%' />}
+//                     </div>)
+//                 )
+//             }
 
-//             <div className='rating-by-user'>
-//                 <h6>enter your review</h6>
-//                 <button className='btn-1'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>1</button>
-//                 <button className='btn-2'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>2</button>
-//                 <button className='btn-3'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>3</button>
-//                 <button className='btn-4'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>4</button>
-//                 <button className='btn-5'onClick={() => {setRating(1);setSubmitRatingButton(true)}}>5</button>
+//             {/* <button onClick={() => { setMediaObject(false) && setReviewObject(false) && setInfoObject(false) }}>
+//                 send a review
+//             </button> */}
 
-//                 <button className='clear-rating-btn' onClick={() => setSubmitRatingButton(false)} >clear rating</button>
+//             <p> Your review to be entered here: </p>
 
-            
-//             <h1>enter your description of the review </h1>
-//             <form >
-//                 <input type="text" require
-//                     onChange={(e) => setDescription(e.target.value)} />
-                
-//             </form>
-                
+//             <button className='btn-edit-stars' onClick={setUserGivenStars(1)}>1</button>
+//             <button className='btn-edit-stars' onClick={setUserGivenStars(2)}>2</button>
+//             <button className='btn-edit-stars' onClick={setUserGivenStars(3)}>3</button>
+//             <button className='btn-edit-stars' onClick={setUserGivenStars(4)}>4</button>
+//             <button className='btn-edit-stars' onClick={setUserGivenStars(5)}>5</button>
 
-//                 if(submitRatingButton&&descriptionEntered)
-//                 {
-//                     <button onClick={createReview()}>submit</button>
-//                 }
-                
-//             </div>
+//             <input placeholder="write your review here.. " onChange={(e) => setUserGivenDescription(e.target.value)} >  </input>
+
+//             {
+//                 fullaxios({
+//                     url: 'trip/revirecreate', type: 'post', data: {
+//                         ratings: userGivenStars,
+//                         name: (infoObject.name),
+//                         description: userGivenDescription
+//                     }, sendcookie: false
+//                 })
+//                     .then(res => {
+//                         console.log(res.data)
+//                         console.log('ratings by the user were submitted')
+//                         // history.push(`/trip/${name}`)
+//                     })
+//                     .catch(err => {
+//                         console.log(err)
+//                         console.log('error lmao')
+//                     })
+
+//             }
 
 //         </div>
 //     );
 // }
 
-// export default Trip;
+// export default Trip2;
+
+import React from "react";
+import fullaxios from "../components/FullAxios";
+import {  useParams } from "react-router";
+import { useHistory } from 'react-router'
+import { useState,useRef,useCallback } from "react";
+import { useEffect } from "react";
+
+
+const Trip = () => {
+
+    const { name } = useParams()
+
+    let history = useHistory()
+
+    const [page, setPage] = useState(1) // page 1 pe req initial run fir ++ hota jaayega
+    const [loading, setLoading] = useState(true) // initially true 
+    const [hasMore, setHasMore] = useState(true)
+
+    const [infoObject, setInfoObject] = useState([])
+    const [mediaObject, setMediaObject] = useState([])
+    const [reviewObject, setReviewObject] = useState([])
+    const [reviewCreationBool, setReviewCreationBool] = useState(false)
+
+    const observer = useRef('') // has only one attribute - current!
+
+    const [userGivenStars, setUserGivenStars] = useState(0)
+    const [userGivenDescription, setUserGivenDescription] = useState('')
+
+    useEffect(() => {
+
+        fullaxios({ url: 'trip/' + name, sendcookie: false })
+            .then(res => {
+                // console.log('trip info : \n ' + res.data)
+                // console.log('info data received')
+                setInfoObject(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
+
+        fullaxios({ url: 'trip/media/' + name, sendcookie: false })
+            .then(res => {
+                console.log( res.data)
+                setMediaObject(res.data)
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
+        fullaxios({ url: 'trip/review/create/' + name, sendcookie: false })
+            .then(res => {
+                // console.log('review worth :\n' + res.data)
+                setReviewCreationBool(res.data)
+            })
+
+    }, [])
+
+
+    const lastDataElementRef = useCallback(node => {
+        console.log('last element')
+        if (loading) return
+        if (observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPage(prev => prev + 1)
+            }
+        })
+        if (node) observer.current.observe(node)
+    }, [loading, hasMore])
+
+
+    useEffect(() => {
+
+        fullaxios({ url: 'trip/review/' + name + '?page=' + page, sendcookie: false })
+            .then(res => {
+
+                console.log('review info: ' , res.data)
+                setReviewObject(prev => [...prev, ...res.data])
+
+            })
+            .catch(err => {
+                if (err.response.data.detail === "Invalid page.") {
+                    setHasMore(false)
+                }
+            })
+
+        setLoading(false)
+
+    }, [page])
+
+   
+  
+
+
+    const submitReview = () => {
+        fullaxios({
+            url: 'trip/review/create/' + name, type: 'post', data: {
+                ratings: userGivenStars,
+                description: userGivenDescription,
+                name: (infoObject.name)
+            }
+        })
+            .then(res => {
+                console.log('review submitted')
+                history.push(`/trip/${name}`)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    return (
+        <div className="review">
+
+            {infoObject &&
+                <div>
+                    {infoObject.name} <br />
+                    {infoObject.type}<br />
+                    {infoObject.description}<br />
+                    {infoObject.price}<br />
+                    {infoObject.ratings}<br />
+                </div>}
+
+            {
+                mediaObject && mediaObject.map((data) => {
+                    return(
+                        <div >
+                        {data.image && <img src={data.image}/>}
+                        {data.video && <video controls src={data.video} alt='' width='100%'/>}
+                    </div>
+                    )
+                   
+                }
+                )
+            }
+
+            {
+                reviewObject && reviewObject.map((data,index) => {
+                    if (reviewObject.length === index + 1){
+                        return (<div ref={lastDataElementRef}>
+                            {data.user}
+                            <h2>description : {data.description}</h2>
+                            
+                            <h2>rating:{data.ratings}</h2>
+                            
+                            
+                        </div>)
+                    }
+                        
+                    else return (
+                        <div>
+                             {data.user} , {data.created}
+                            <h2>description : {data.description}</h2>
+                            
+                            <h2>rating:{data.ratings}</h2>
+                        </div>)
+                })
+            } 
+
+            {
+
+                reviewCreationBool &&
+                <div>
+                     <h3>enter review here:</h3>
+                    <button onClick={() => { setUserGivenStars(1) }}>1</button><br />
+                    <button onClick={() => { setUserGivenStars(2) }}>2</button><br />
+                    <button onClick={() => { setUserGivenStars(3) }}>3</button><br />
+                    <button onClick={() => { setUserGivenStars(4) }}>4</button><br />
+                    <button onClick={() => { setUserGivenStars(5) }}>5</button><br />
+
+                   
+                    <input require placeholder='reviews..' onChange={(e) => setUserGivenDescription(e.target.value)} />
+
+                    {userGivenDescription && userGivenStars && <div>
+                        <button onClick={() => { submitReview(); console.log('nigga') }}>SUBMIT</button>
+                    </div>}
+
+                </div>
+            }
+
+        </div>
+    );
+}
+
+export default Trip
+;

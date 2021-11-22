@@ -15,6 +15,8 @@ import logo from './pages/images/TravDays_logos/transparent_logo.png';
 import Logout from './pages/Logout';
 import Login from './pages/Login';
 
+import { useState } from 'react';
+
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
   document.getElementById('show-menu-btn').style.display='none';
@@ -26,8 +28,10 @@ const hideMenu = ()=>{
   document.getElementById('hide-menu-btn').style.display='none';
   document.getElementById('show-menu-btn').style.display='flex';
 }
+// aum time 
 
 function App() {
+  const [id, setId] = useState();
   return (
     <Router>
     <div className="App">
@@ -49,7 +53,7 @@ function App() {
         
         <Route exact path = "/"> <Home /> </Route>
       
-        <Route exact path = "/blogs"> <Blogs /> </Route>
+        <Route exact path = "/blogs"> <Blogs id={id} setId={setId} /> </Route>
 
         <Route exact path = "/gallery"> <Gallery /> </Route>
         
@@ -67,7 +71,8 @@ function App() {
         
         <Route exact path = "/blogs/write"> <WriteABlog /> </Route>
 
-        <Route exact path = "/IndivisualBlogPage"> <IndivisualBlogPage /> </Route>
+        <Route exact path = "/blogs/:title"> <IndivisualBlogPage id={id} setId={setId}/> </Route>
+        
         
         </Switch>
       </div>

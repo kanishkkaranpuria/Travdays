@@ -53,7 +53,10 @@ const ContactUs = () => {
 
       
     }
-    let a 
+     
+    
+     
+
 
     const phonenumber= (number) => {
         
@@ -82,13 +85,7 @@ const ContactUs = () => {
     }
     
     
-    // useEffect(() => {
-    //     console.log(mainqueries[2])
-        
-    //     console.log(a)
-    //     console.log("a")
-    // }, [mainqueries])
-
+  
     useEffect(() => {
          
         fullaxios({url: 'query/create'})
@@ -98,6 +95,8 @@ const ContactUs = () => {
 
                         // console.log(res.data)
                     }})
+    document.getElementById("name").setCustomValidity("Teawari gay and that is a fact");
+
                     
     }, [])
     
@@ -118,7 +117,7 @@ const ContactUs = () => {
                      </p>
                     <p className='flex items-center'>
                     <span className='w-52'>Enter your email :</span> 
-                    <input required type="email" placeholder = "Email" onChange={(e) => setEmail(e.target.value) } />
+                    <input  required type="email" placeholder = "Email" id="name" onChange={(e) => setEmail(e.target.value) } />
                     </p>
                 </div>
                 }
@@ -141,6 +140,7 @@ const ContactUs = () => {
              enter your qwery: 
              <textarea placeHolder = "query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value) }></textarea>
              <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+            
              
 
             </form>

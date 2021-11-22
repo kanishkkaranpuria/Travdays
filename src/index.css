@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+ /* soryyyyyyyyyyyyyy param */
+ .review img,video{
+   width: 350px;
+   height:350px;
+   display: flex;
+ }
+
 .App{
   width: 100%;
   /* max-width: 1440px; */

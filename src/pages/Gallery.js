@@ -85,7 +85,7 @@ const Gallery = () => {
 
   const [storage, setStorage] = useState([]);
   const [datas, setDatas] = useState([]);
-
+  const [digit , setDigit] = useState(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -100,7 +100,7 @@ const Gallery = () => {
 
 
   const lastDataElementRef = useCallback(node => {
-    console.log('last element')
+    // console.log('last element')
     if (loading) return
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(entries => {
@@ -108,19 +108,20 @@ const Gallery = () => {
         setPage(prev => prev + 1) 
        
       }
-      console.log(page)
+      // console.log(page)
     })
     if (node) observer.current.observe(node)
   },[loading,hasMore] )
-
-
- 
 
   useEffect(() => {
     fullaxios({url : 'gallery/?page='+page,type : "get",sendcookie : true})
     .then(res => {
       if (res){
       setDatas(prev => [...prev, ...res.data])
+      setLocimg(datas[0].image)
+
+      setDigit(1)
+
       prevDatas.current = datas
       }
     })
@@ -130,21 +131,56 @@ const Gallery = () => {
   
   useEffect(() => {
     setStorage([...datas.map(data => data.id)])
-    console.log('datas-', datas);
-    console.log('prev datas',prevDatas.current)
+    // console.log('datas-', datas);
+    // console.log('prev datas',prevDatas.current)
     if(datas.length!==0 && prevDatas.current.length === datas.length){
-      setHasMore(false)
+      setHasMore(false) 
     }
   }, [datas])
   
   useEffect(() => {
-    console.log('storage', storage)
+    console.log('storage set')
+    console.log(storage)
+    // setLocid(storage[0].id)
+    console.log(storage[0])  
+    setLocid(storage[0])
+    
   }, [storage])
   
   useEffect(() => {
-    console.log('hasMore', hasMore)
+    // console.log('hasMore', hasMore)
   }, [hasMore])
+  
+  //Aummmm time 
+  const [location, setLocation] = useState(null)
+  const [locid, setLocid] = useState()
+  const [locimg,setLocimg]= useState()
+  // const [state, setstate] = useState()
+  const Selected = (data) => {
+    console.log(data)
+    setLocid(data.id)
+    setLocimg(data.image)
+    
+    
+    }
 
+  useEffect(() => {
+    fullaxios({url : 'gallery/package/'+ locid ,type : "get",sendcookie : true})
+    .then(res => {
+      if (res){
+      // setLocation(prev => [...prev, ...res.data])
+      setLocation(res.data)
+      // prevDatas.current = datas
+      }
+    })
+    .catch(err => console.error(err));
+  }, [locid])  
+
+  useEffect(() => {
+    console.log(location)
+    
+  }, [location])
+  
 
 
   return (
@@ -158,12 +194,12 @@ const Gallery = () => {
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id}>
-              {data.image && <img src={data.image}  alt="" className ="object-cover h-full  w-full"/>}
+              {data.image && <img src={data.image} onClick={()=>{Selected(data)}} alt="" className ="object-cover h-full  w-full"/>}
 
           </div>);
           }else {
             return ( <div className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id} >
-              {data.image && <img src={data.image}  alt="" className ="object-cover h-full  w-full"/>}
+              {data.image && < img src={data.image} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full"/>}
               
           </div>);
           }
@@ -175,7 +211,43 @@ const Gallery = () => {
       <div className='flex relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]  '>
         <div className='absolute hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto min-h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
         {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
-        <div className='p-4 sm:p-[0.5rem]'>
+
+        {location && 
+                      <div className='p-4 sm:p-[0.5rem] overflow-y-auto'>
+                                <div className='my-8 sm:my-[1.1rem]'>
+                                <img src={locimg}  alt="" className ="object-cover h-full  w-full"/>
+                                <p className='text-3xl'>{location.location}</p>
+                                <h3 className='flex text-2xl items-center text-center '><span>({location.type})</span></h3>
+                                <p className='flex text-2xl items-center text-center '><span>{location.ratings}</span>
+                                    <span className='flex'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+                                    </span>
+                                </p>   
+                                <p className='flex text-2xl items-center text-center '><span>${location.price}</span></p>
+                                <p className='flex text-2xl items-center text-center '><span>Rating count : {location.ratingsCount}</span></p>
+                                </div>             
+                                <p className='text-3xl'>Description</p>
+                                <p className='leading-tight'>{location.description}</p>
+                                <p className='text-xl py-4'>packages if any available</p>
+                                <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
+                                <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
+                                <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
+
+                            </div>
+                            }
+      
+                 {/* <div className='p-4 sm:p-[0.5rem]'>
                     <div className='my-8 sm:my-[1.1rem]'>
                     <p className='text-3xl'>Location</p>
                     <p className='flex text-2xl items-center text-center '><span>x.x </span>
@@ -202,7 +274,7 @@ const Gallery = () => {
                     <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
                     <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
 
-                </div>
+                </div> */}
                 
       </div>
     </div>
