@@ -12,7 +12,7 @@ const FAQ = () => {
     const [answerstatus, setAnswerstatus] = useState({})
     useEffect(() => {
       
-      fullaxios({url : 'faq/question?page=' + page, sendcookie : false})
+      fullaxios({url : 'faq/question?page=' + page})
     //   .get(`faq/question?page=`+ page)
       .then((res)=>{
         if (res){
@@ -107,7 +107,7 @@ const FAQ = () => {
                                         </option>
 
                                             {/* placeholder for questions in database */}
-                                        <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span>
+                                        {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
                                         </span>
 
@@ -121,7 +121,7 @@ const FAQ = () => {
                                         </option>
 
                                             {/* placeholder for questions in database */}
-                                        <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span>
+                                        {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
                                         </span>
 
@@ -132,7 +132,7 @@ const FAQ = () => {
                                 {answerstatus[faq.id] && <div>{answer[faq.id]} 
 
                                 {/* placeholder for answers in db */}
-                                <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p>
+                                {/* <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p> */}
 
                                 </div>}
                                 

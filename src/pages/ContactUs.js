@@ -15,6 +15,8 @@ const ContactUs = () => {
     const history = useHistory();
     const [displayalert, setDisplayalert] = useState(false);
     const [temp , setTemp] = useState([])
+    const [predefinedname , setPredefinedname] = useState(null)
+    const [predefinedemail , setPredefinedemail] = useState(null)
 
 
     const submitquery = (e) => {
@@ -66,13 +68,11 @@ const ContactUs = () => {
         // console.log (number.length)
         // console.log (number)
         if (number.length == 10){
-            // console.log("aum gay")
             setDisplayalert(false)
             setPhonenum(number)
             setTemp(number)
         }
         else if(number.length <= 10 && number.length > 0 ){
-            // console.log("aum really gay")
             setDisplayalert(true)
             setTemp(number)
         }
@@ -87,18 +87,37 @@ const ContactUs = () => {
     
   
     useEffect(() => {
-         
+        
         fullaxios({url: 'query/create'})
-                    .then(res=>{
-                        if (res){
-                        setMainqueries(res.data);
-
-                        // console.log(res.data)
-                    }})
-    document.getElementById("name").setCustomValidity("Teawari gay and that is a fact");
-
-                    
-    }, [])
+        .then(res=>{
+            if (res){
+                setMainqueries(res.data);
+                
+                // console.log(res.data)
+            }})
+            // document.getElementById("name").setCustomValidity("Teawari gay and that is a fact");
+            
+            
+        }, [])
+        
+        
+        useEffect(() => {
+            fullaxios({url : 'auth/info', type : 'get'})
+              .then(res => {
+                if (res){
+                    setPredefinedname(res.data.name)
+                    setPredefinedemail(res.data.email)
+                    setName(predefinedname)
+                    setEmail(predefinedemail)
+                // console.log("")
+                // history.push('/')1
+              }})
+            .catch(res => {
+                console.log("hello didnt work")
+                // if (res.status === 400)
+                //     alert("invalid OTP!!")
+            })
+        }, [])
     
     //   setChoice = e.value;
     
@@ -113,11 +132,16 @@ const ContactUs = () => {
                     { !authenticated && <div className="">
                      <p className='flex items-center'>
                      <span className='w-52'>Enter your name :</span>
+                     {predefinedname ? 
+                     <input required type="text" value = {predefinedname} placeholder ="Name" />:
                      <input required type="text" placeholder ="Name" onChange={(e) => setName(e.target.value) } />
+                    }
                      </p>
                     <p className='flex items-center'>
                     <span className='w-52'>Enter your email :</span> 
-                    <input  required type="email" placeholder = "Email" id="name" onChange={(e) => setEmail(e.target.value) } />
+                    {predefinedemail ?
+                    <input  required type="email" value = {predefinedemail} placeholder = "Email" id="name"/>:
+                    <input  required type="email" placeholder = "Email" id="name" onChange={(e) => setEmail(e.target.value) } />}
                     </p>
                 </div>
                 }

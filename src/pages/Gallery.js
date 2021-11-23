@@ -118,7 +118,10 @@ const Gallery = () => {
     .then(res => {
       if (res){
       setDatas(prev => [...prev, ...res.data])
-      setLocimg(datas[0].image)
+      // setLocimg(datas[0].image)
+      console.log(res.data[0].image)
+      setLocimg(res.data[0].image)
+      setLocvideo(res.data[0].video)
 
       setDigit(1)
 
@@ -131,6 +134,7 @@ const Gallery = () => {
   
   useEffect(() => {
     setStorage([...datas.map(data => data.id)])
+    
     // console.log('datas-', datas);
     // console.log('prev datas',prevDatas.current)
     if(datas.length!==0 && prevDatas.current.length === datas.length){
@@ -141,9 +145,11 @@ const Gallery = () => {
   useEffect(() => {
     console.log('storage set')
     console.log(storage)
+   
     // setLocid(storage[0].id)
     console.log(storage[0])  
     setLocid(storage[0])
+    // setLocimg(storage[0].image)
     
   }, [storage])
   
@@ -155,13 +161,13 @@ const Gallery = () => {
   const [location, setLocation] = useState(null)
   const [locid, setLocid] = useState()
   const [locimg,setLocimg]= useState()
+  const [locvideo,setLocvideo]= useState()
   // const [state, setstate] = useState()
   const Selected = (data) => {
     console.log(data)
     setLocid(data.id)
     setLocimg(data.image)
-    
-    
+    setLocvideo(data.video)
     }
 
   useEffect(() => {
@@ -194,12 +200,14 @@ const Gallery = () => {
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id}>
-              {data.image && <img src={data.image} onClick={()=>{Selected(data)}} alt="" className ="object-cover h-full  w-full"/>}
+              {data.image && <img src={data.image} onClick={()=>{Selected(data)}} alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
+              {data.video && < video controls src={data.video} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
 
           </div>);
           }else {
             return ( <div className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id} >
-              {data.image && < img src={data.image} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full"/>}
+              {data.image && < img src={data.image} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
+              {data.video && < video controls src={data.video} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
               
           </div>);
           }
@@ -215,7 +223,16 @@ const Gallery = () => {
         {location && 
                       <div className='p-4 sm:p-[0.5rem] overflow-y-auto'>
                                 <div className='my-8 sm:my-[1.1rem]'>
-                                <img src={locimg}  alt="" className ="object-cover h-full  w-full"/>
+                                  
+                                {/* {console.log(locimg)} */}
+                                {/* {console.log(locimg.slice(21,27))}
+                                {console.log(locimg.slice(21,27) === "images")} */}
+                                {console.log(locvideo)}
+                                {console.log(locimg)}
+                                {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
+                                {locimg && <img src={locimg}  alt="" className ="object-cover h-full  w-full"/>}
+                                {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-full  w-full"/>}
+                                {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                                 <p className='text-3xl'>{location.location}</p>
                                 <h3 className='flex text-2xl items-center text-center '><span>({location.type})</span></h3>
                                 <p className='flex text-2xl items-center text-center '><span>{location.ratings}</span>

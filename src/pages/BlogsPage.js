@@ -95,7 +95,7 @@ const Blogs = ({id,setId}) => {
     
     useEffect(() => {
       setLoading(true)
-      fullaxios({url : 'blog/featured?page=' + fpage, sendcookie : false})
+      fullaxios({url : 'blog/featured?page=' + fpage})
       .then(res => {
         if (res){
         setFeatured(prev=>[...prev,...res.data])
@@ -143,7 +143,7 @@ const Blogs = ({id,setId}) => {
         {sortlink==="votefilter" &&  <button onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' > <p> Sort by </p> Latest</button>} */}
 
         {/* <WriteABlog/> */}
-        <p className='text-5xl sm:text-2xl font-bold p-4'>Fetured Blogs</p>
+        <p className='text-5xl sm:text-2xl font-bold p-4'>Featured Blogs</p>
         <div className="featured-blogs flex overflow-x-auto gap-x-8 sm:gap-x-2 p-4">
           {featured && featured.map((data,index) =>{
             if(featured.length===index+1){
@@ -237,7 +237,7 @@ const Blogs = ({id,setId}) => {
                     </span>
                 </p>
                 </div>
-                <p onClick={()=>{history.push('/blogs/'+ data.title);ID(data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
+                <p className='text-4xl font-bold pt-6'>{data.title}</p>
                 <p className='pt-6 leading-tight text-xl'>{data.body}</p>
 
                 </div>
@@ -268,7 +268,7 @@ const Blogs = ({id,setId}) => {
                           </span>
                       </p>
                       </div>
-                      <p onClick={()=>{history.push('/blogs/'+ data.title);ID(data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
+                      <p  className='text-4xl font-bold pt-6'>{data.title}</p>
                       <p className='pt-6 leading-tight text-xl'>{data.body}</p>
                       </div>
                   </div>

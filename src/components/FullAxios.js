@@ -60,7 +60,10 @@ const fullaxios = (object) => {
 				: null
 			,
 			'Content-Type': 'application/json',
-			accept: 'application/json',
+			'Accept': 'application/json',
+			'X-CSRFToken': Cookie('getCookie', 'csrftoken')
+            						? Cookie('getCookie', 'csrftoken')
+            						: null
 		}
 		// , 
 		// proxy:{
@@ -112,8 +115,23 @@ const fullaxios = (object) => {
 				console.log("goddamit")
 				// if (tokenParts.exp > now) {
 				sendcookie = true;
-				console.log (sendcookie)
-				return axiosInstance
+				// console.log (sendcookie)
+				// Cookie('setCookie', 'access_token', null)
+				const axiosInstance1 = axios.create({
+					baseURL: baseURL,
+					timeout: 10000,
+					headers: {
+						Authorization: null,
+						'Content-Type': 'application/json',
+						'Accept': 'application/json'
+					}
+					// , 
+					// proxy:{
+					//     host : 'localhost',
+					//     port : 8000
+					// }
+				});
+				return axiosInstance1
 					.get('auth/newaccess')
 					.then((response) => {
 						Cookie('setCookie', 'access_token', response.data.access_token);
@@ -139,6 +157,8 @@ const fullaxios = (object) => {
 		return axiosInstance.get(url)
 	}
 	else if (type === "post") {
+		// console.log(data)
+		console.log(...data)
 		return axiosInstance.post(url, { ...data })
 	}
 }

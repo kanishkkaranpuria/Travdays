@@ -14,6 +14,7 @@ import MobileMenu from './components/MobileMenu';
 import logo from './pages/images/TravDays_logos/transparent_logo.png';
 import Logout from './pages/Logout';
 import Login from './pages/Login';
+import PackagesPage from './pages/PackagesPage';
 
 import { useState } from 'react';
 
@@ -66,6 +67,8 @@ function App() {
         <Route exact path = "/trip/:name"> <Trip/> </Route>
         
         <Route exact path = "/trips/:type"> <AllTrips /> </Route>
+
+        <Route exact path = "/packagespage"> <PackagesPage /> </Route>
 
         <Route exact path = "/faq"> <FAQ /> </Route>
         
