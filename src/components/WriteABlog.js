@@ -119,7 +119,7 @@ const WriteABlog = () => {
         // for (var pair of data.entries()) {
         //     console.log(pair[0]+ ' - ' + pair[1]); 
         // }
-        fullaxios({type : "post", url : "blog/create", data : data })
+        fullaxios({type : "post", url : "blog/create", data : data, formdata : true })
         .then(res =>{
             if(res){
                 console.log(res)

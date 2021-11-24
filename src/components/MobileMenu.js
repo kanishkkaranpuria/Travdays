@@ -13,8 +13,8 @@ const MobileMenu = () => {
             <nav className="flex flex-col w-full h-full items-center justify-center">
                 <Link className='p-6 text-3xl' to='/'>TravDays</Link>
                 {/* <Link className='p-4 text-xl' to='/IndivisualBlogPage'>indi-blog</Link> */}
-                <Link className='p-4 text-xl' to='/trips/solo'>packages</Link>
-                <Link className='p-4 text-xl' to='/blogs'>Blogs</Link>
+                <Link className='p-4 text-xl' to='/packagespage'>Packages</Link>
+                {/* <Link className='p-4 text-xl' to='/blogs'>Blogs</Link> */}
                 <Link className='p-4 text-xl' to='/gallery'>Gallery</Link>
                 <Link className='p-4 text-xl' to='/contactus'>Contact Us</Link>
                 <Link className='p-4 text-xl' to='/faq'>FAQ</Link>

@@ -252,12 +252,39 @@ transition: all 200ms ease-in-out;
 }
 
 /* ******************************************************************************************MEDIA QUERIES */
+/* Some extra shit added by naman */
 
+@media only screen and (max-width: 800px) {
+  
+  .navbar{
+    display: none;
+  }
+}
+  
+@media only screen and (min-width : 650px) and (max-width: 800px) {
+.trips{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+}
+@media only screen and (min-width : 330px) and (max-width: 650px) {
+.trips{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+}
+@media only screen and (max-width: 330px) {
+.trips{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+}
+
+/* ******************************************************************************************MEDIA QUERIES */
+/* ******************************************************************************************MEDIA QUERIES */
+/* Param's css continues */
 @media only screen and (max-width: 992px) {
 
-.navbar{
-  display: none;
-}
 .section{
   padding: 60px 0.5rem 2rem 0.5rem;
 

@@ -3,23 +3,23 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FAQ from "../components/FAQ";
 import Card from "../components/Card"
 
-import Swiper from 'swiper';
-var swiper = new Swiper(".mySwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: "auto",
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-    },
-  });
+// import Swiper from 'swiper';
+// var swiper = new Swiper(".mySwiper", {
+//     effect: "coverflow",
+//     grabCursor: true,
+//     centeredSlides: true,
+//     slidesPerView: "auto",
+//     coverflowEffect: {
+//       rotate: 50,
+//       stretch: 0,
+//       depth: 100,
+//       modifier: 1,
+//       slideShadows: true,
+//     },
+//     pagination: {
+//       el: ".swiper-pagination",
+//     },
+//   });
 
 const Home = () => {
     return ( 
@@ -52,12 +52,12 @@ const Home = () => {
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
             </div>
-            <div className='card-grid sm:hidden sm:py-[20px]'>
+            <div className='card-grid sm:py-[20px]'>
                 <Link to='/trips/workation'><Card title="Workation" id='one'  /></Link>
                 <Link to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
                 <Link to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
             </div>
-                        <div class="swiper mySwiper hidden sm:flex">
+                        {/* <div class="swiper mySwiper hidden sm:flex">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                     <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
@@ -88,7 +88,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
-                </div>
+                </div> */}
             </div>
             <div className="section gallery grid grid-cols-2 justify-center">
                 <div className="flex items-center justify-center">

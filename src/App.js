@@ -15,7 +15,7 @@ import logo from './pages/images/TravDays_logos/transparent_logo.png';
 import Logout from './pages/Logout';
 import Login from './pages/Login';
 import PackagesPage from './pages/PackagesPage';
-
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const showMenu = () =>{
@@ -37,9 +37,9 @@ function App() {
     <Router>
     <div className="App">
       <Navbar />
-      <div className="berger hidden w-full sm:flex items-center justify-between sm:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
+      <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
         {/* <img className='h-10' src={logo} alt=""/> */}
-        <p className='text-lg'>TravDays</p>
+        <Link to = '/'><p className='text-lg'>TravDays</p></Link>
             <svg xmlns="http://www.w3.org/2000/svg" id='show-menu-btn' className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={showMenu}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>

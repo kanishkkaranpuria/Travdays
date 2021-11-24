@@ -16,11 +16,13 @@ const fullaxios = (object) => {
 	let type = object.type
 	let data = object.data
 	let sendcookie = object.sendcookie
+	let formdata = object.formdata
 	let infinitloopstopper = 0;
 	if (url === undefined) return;
 	if (type === undefined || (type !== "get" && type !== "post" )) type = "get";
 	if (data === undefined) data = null;
 	if (sendcookie === undefined)sendcookie = true;
+	if (formdata === undefined)formdata = false;
 
 	// if (url === null){
 	// 	return "URL MUST BE GIVEN";
@@ -158,8 +160,13 @@ const fullaxios = (object) => {
 	}
 	else if (type === "post") {
 		// console.log(data)
-		console.log(...data)
+		// console.log(...data)
+		if (formdata === true){
+			return axiosInstance.post(url, data)
+		}
+		else{
 		return axiosInstance.post(url, { ...data })
+		}
 	}
 }
 
