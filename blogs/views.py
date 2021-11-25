@@ -66,10 +66,6 @@ class BlogDisplayView2(APIView,BlogMediaPagination):
                     data[j+1] = request.build_absolute_uri(image[i].image.url) + " img"
                 j = j+2
                 i = i+1
-            # print('data')
-            # print(len(data))
-            # print('data')
-            print(data)
             data2 = {}
             j = 0
             for i in range(0,len(data)):
