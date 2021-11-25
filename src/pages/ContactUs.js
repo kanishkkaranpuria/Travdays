@@ -19,6 +19,12 @@ const ContactUs = () => {
     const [predefinedemail, setPredefinedemail] = useState(null)
 
 
+    useEffect(() => {
+        
+      console.log(email)
+    }, [email])
+
+
     const submitquery = (e) => {
         e.preventDefault();
         console.log("well this works")

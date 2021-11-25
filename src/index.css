@@ -2,7 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
- /* soryyyyyyyyyyyyyy param */
+/* soryyyyyyyyyyyyyy param */
+.row {
+  display: flex;
+}
+.column {
+  display: flex;
+}
+.column img{
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  padding: 5px;
+}
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+/* soryyyyyyyyyyyyyy param */
+
+
+
+
  .review img,video{
    width: 350px;
    height:350px;

@@ -149,9 +149,9 @@
 
 import React from "react";
 import fullaxios from "../components/FullAxios";
-import {  useParams } from "react-router";
+import { useParams } from "react-router";
 import { useHistory } from 'react-router'
-import { useState,useRef,useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useEffect } from "react";
 
 
@@ -165,10 +165,13 @@ const Trip = () => {
     const [loading, setLoading] = useState(true) // initially true 
     const [hasMore, setHasMore] = useState(true)
 
+    const [backToDisplay,setBackToDisplay]=useState(false) // to come back from book now feature
+
     const [infoObject, setInfoObject] = useState([])
     const [mediaObject, setMediaObject] = useState([])
     const [reviewObject, setReviewObject] = useState([])
     const [reviewCreationBool, setReviewCreationBool] = useState(false)
+    const [isbooking, setIsbooking] = useState(false)
 
     const observer = useRef('') // has only one attribute - current!
 
@@ -176,7 +179,8 @@ const Trip = () => {
     const [userGivenDescription, setUserGivenDescription] = useState('')
 
     useEffect(() => {
-
+        setIsbooking(false);
+        setBackToDisplay(false);
         fullaxios({ url: 'trip/' + name, sendcookie: false })
             .then(res => {
                 // console.log('trip info : \n ' + res.data)
@@ -191,7 +195,7 @@ const Trip = () => {
 
         fullaxios({ url: 'trip/media/' + name, sendcookie: false })
             .then(res => {
-                console.log( res.data)
+                console.log(res.data)
                 setMediaObject(res.data)
                 console.log(res.data)
             })
@@ -206,7 +210,7 @@ const Trip = () => {
                 setReviewCreationBool(res.data)
             })
 
-    }, [])
+    }, [backToDisplay])
 
 
     const lastDataElementRef = useCallback(node => {
@@ -227,7 +231,7 @@ const Trip = () => {
         fullaxios({ url: 'trip/review/' + name + '?page=' + page, sendcookie: false })
             .then(res => {
 
-                console.log('review info: ' , res.data)
+                console.log('review info: ', res.data)
                 setReviewObject(prev => [...prev, ...res.data])
 
             })
@@ -241,8 +245,16 @@ const Trip = () => {
 
     }, [page])
 
-   
-  
+
+    const booking = () => {
+
+        setMediaObject(null);
+        setInfoObject(null);
+        setReviewObject(null);
+        setReviewCreationBool(false);
+         setIsbooking(true);
+      
+    }
 
 
     const submitReview = () => {
@@ -261,6 +273,11 @@ const Trip = () => {
                 console.log(err)
             })
     }
+    
+    useEffect(() => {
+        console.log(isbooking)
+        console.log(backToDisplay,"backtodisplay")
+    }, [isbooking,backToDisplay])
 
     return (
         <div className="review">
@@ -276,64 +293,73 @@ const Trip = () => {
 
             {
                 mediaObject && mediaObject.map((data) => {
-                    return(
+                    return (
                         <div >
-                        {data.image && <img src={data.image}/>}
-                        {data.video && <video controls src={data.video} alt='' width='100%'/>}
-                    </div>
+                            {data.image && <img src={data.image} />}
+                            {data.video && <video controls src={data.video} alt='' width='100%' />}
+                        </div>
                     )
-                   
+
                 }
                 )
             }
 
             {
-                reviewObject && reviewObject.map((data,index) => {
-                    if (reviewObject.length === index + 1){
+                reviewObject && reviewObject.map((data, index) => {
+                    if (reviewObject.length === index + 1) {
                         return (<div ref={lastDataElementRef}>
                             {data.user}
                             <h2>description : {data.description}</h2>
-                            
+
                             <h2>rating:{data.ratings}</h2>
-                            
-                            
+
+
                         </div>)
                     }
-                        
+
                     else return (
                         <div>
-                             {data.user} , {data.created}
+                            {data.user} , {data.created}
                             <h2>description : {data.description}</h2>
-                            
+
                             <h2>rating:{data.ratings}</h2>
                         </div>)
                 })
-            } 
+            }
 
             {
 
                 reviewCreationBool &&
                 <div>
-                     <h3>enter review here:</h3>
+                    <h3>enter review here:</h3>
                     <button onClick={() => { setUserGivenStars(1) }}>1</button><br />
                     <button onClick={() => { setUserGivenStars(2) }}>2</button><br />
                     <button onClick={() => { setUserGivenStars(3) }}>3</button><br />
                     <button onClick={() => { setUserGivenStars(4) }}>4</button><br />
                     <button onClick={() => { setUserGivenStars(5) }}>5</button><br />
 
-                   
+
                     <input require placeholder='reviews..' onChange={(e) => setUserGivenDescription(e.target.value)} />
 
                     {userGivenDescription && userGivenStars && <div>
-                        <button onClick={() => { submitReview(); console.log('nigga') }}>SUBMIT</button>
+                        <button onClick={() => { submitReview() }}>SUBMIT</button>
                     </div>}
+                    <button onClick={() => {  booking() }}> BOOK NOW </button>
 
                 </div>
             }
+            <br />
 
+           
+
+            {
+                isbooking && <div className="">
+                     <button onClick={()=>{setBackToDisplay(true) ;console.log("wtaf")}} >back to trip page</button>
+                </div>            }
         </div>
+
     );
 }
 
 export default Trip
-;
+    ;

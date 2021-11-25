@@ -17,6 +17,9 @@ import Login from './pages/Login';
 import PackagesPage from './pages/PackagesPage';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import Addtrips from './ADMIN/Addtrips';
+import Edittrips from './ADMIN/Edittrips';
+import ApproveBlogs from './ADMIN/ApproveBlogs';
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -75,6 +78,15 @@ function App() {
         <Route exact path = "/blogs/write"> <WriteABlog /> </Route>
 
         <Route exact path = "/blogs/:title"> <IndivisualBlogPage id={id} setId={setId}/> </Route>
+
+        {/* ADMINS ONLY */}
+        <Route exact path = "/addtrips"> <Addtrips /> </Route>
+        
+        <Route exact path = "/edittrips"> <Edittrips /> </Route>
+        <Route exact path = "/approveblogs"> <ApproveBlogs id={id} setId={setId} /> </Route>
+        
+
+
         
         
         </Switch>
