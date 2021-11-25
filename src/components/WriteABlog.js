@@ -88,22 +88,24 @@ const WriteABlog = () => {
         //   })
         // var numberofimagesinthe = newimage.length
         // var imagesobject = {}
-        var blogobject = {};
+        // var blogobject = {};
         for(var i = 0; i < numberOfImages; i ++)
         {
             // blogobject
-            blogobject = Object.assign(blogobject,{ [i] :  [content[i]] })
+            // blogobject = Object.assign(blogobject,{ [i] :  [content[i]] })
             // imagesobject = Object.assign(imagesobject,JSON.stringify({ [i] : [newimage[i]]}))
             // imagesobject = {...imagesobject, `image${i}` : [newimage[i]]}
             data.append(`image${i}`, newimage[i])
+            data.append(`blog${i}`,content[i]) 
         }
+        data.append(`blog${numberOfImages}`,content[numberOfImages])
         // console.log("sdkfjlaskdjfldskjflkds0")
         // console.log("sdkfjlaskdjfldskjflkds0")
         // console.log(imagesobject)
         // console.log("sdkfjlaskdjfldskjflkds0")
         // console.log("sdkfjlaskdjfldskjflkds0")
-        data.append("blog", content)
-        data.append("blogobject", JSON.stringify(blogobject))
+        // data.append("blog", content)
+        // data.append("blogobject", JSON.stringify(blogobject))
         data.append("displayImage", newimage[0])
         data.append("location", "mumbai")
         // data.append("imageinobject", JSON.stringify(imagesobject))
