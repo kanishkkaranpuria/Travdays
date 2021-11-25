@@ -6,7 +6,7 @@ class QueryAdmin(admin.ModelAdmin):
     list_filter = ('choice',)
     readonly_fields=('created',)
     fieldsets = (
-        (None, {'fields': ('choice','query', 'email','name','user','created',)}),
+        (None, {'fields': ('choice','query', 'email','phoneNumber','name','user','created',)}),
     )
 
     search_fields = ('choice',)

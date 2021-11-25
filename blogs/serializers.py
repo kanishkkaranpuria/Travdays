@@ -11,7 +11,7 @@ class AllBlogsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','image','created','body','user']
+        fields = ['id','title','location','image','created','body','user','anonymous']
 
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
@@ -21,8 +21,8 @@ class AllBlogsSerializer(serializers.ModelSerializer):
     
     def get_body(self,obj):
         a = obj.blog
-        if len(a)>394:
-            a = a[:394].split(" ")[:-1] 
+        if len(a)>478:
+            a = a[:478].split(" ")[:-1] 
             body = ''
             for word in a: 
                 body = body + word + " " 
@@ -35,7 +35,7 @@ class FeaturedBlogsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','image','created']
+        fields = ['id','title','location','image','created','anonymous']
 
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
@@ -60,7 +60,7 @@ class BlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','displayImage','created','blog','user']
+        fields = ['id','title','location','displayImage','created','blog','user','anonymous']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
@@ -69,6 +69,12 @@ class BlogSerializer(serializers.ModelSerializer):
         return obj.created.strftime("%d-%b-%Y")
     def get_user(self,obj):
         return obj.user.name
+
+class BlogEditSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Blog
+        fields = ['featured','approved']
 
 class BlogMediaSerializer(serializers.ModelSerializer):
 
@@ -90,7 +96,7 @@ class CreateBlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['user','title','blog','location','image']
+        fields = ['user','title','blog','location','image','anonymous']
 
 class CreateBlogMediaSerializer(serializers.ModelSerializer):
 

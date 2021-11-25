@@ -4,13 +4,19 @@ from database.models import AdminMedia, Review, Trip
 
 class SingleTripDisplaySerializer(serializers.ModelSerializer):
 
-    ratings = serializers.ReadOnlyField()
+    ratings      = serializers.ReadOnlyField()
     ratingsCount = serializers.ReadOnlyField()
+    duration     = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
-        fields = ['id','type','name','location','description','price', 'ratings','ratingsCount']
+        fields = ['id','type','name','location','description','price', 'ratings','ratingsCount','duration']
 
+    def get_duration(self,obj):
+        dur = "" if obj.duration == '' else obj.duration.split(",")
+        if dur != "":
+            return f"{dur[0]} Days {dur[1]} Nights"
+        return ""
 
 class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 
@@ -46,10 +52,11 @@ class TripDisplaySerializer(serializers.ModelSerializer):
     displayImage = serializers.SerializerMethodField()
     ratings = serializers.ReadOnlyField()
     ratingsCount = serializers.ReadOnlyField()
+    duration     = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
-        fields = ['id','name','type','location','displayImage','price', 'ratings','ratingsCount']
+        fields = ['id','name','type','location','displayImage','price', 'ratings','ratingsCount','duration']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
@@ -71,9 +78,17 @@ class TripDisplaySerializer(serializers.ModelSerializer):
         displayImage  = AdminMedia.objects.get(trip = None, displayImage = True)
         return request.build_absolute_uri(displayImage.image.url)
 
+    def get_duration(self,obj):
+        dur = "" if obj.duration == '' else obj.duration.split(",")
+        if dur != "":
+            return f"{dur[0]} Days {dur[1]} Nights"
+        return ""
+
+
 class ReviewDisplaySerializer(serializers.ModelSerializer):
 
     user = serializers.SerializerMethodField()
+    created = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
@@ -81,6 +96,8 @@ class ReviewDisplaySerializer(serializers.ModelSerializer):
 
     def get_user(sef,obj):
         return obj.user.name
+    def get_created(self,obj):
+        return obj.created.strftime("%d-%b-%Y")
 
 class CreateReviewSerializer(serializers.ModelSerializer):
 
@@ -93,7 +110,7 @@ class CreateTripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ['type','name','location','description','price']
+        fields = ['type','name','location','description','price','duration']
 
 class CreateTripMediaSerializer(serializers.ModelSerializer):
 

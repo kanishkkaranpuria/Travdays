@@ -13,4 +13,7 @@ urlpatterns = [
     path('api/auth/', include("authentication.urls")),
     path('api/faq/', include("faq.urls")),
     path('api/search/', include("searchbar.urls")),
+    path('api/password/', include("password.urls")),
+    path('accounts/', include('allauth.urls')),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

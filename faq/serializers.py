@@ -13,3 +13,9 @@ class FaqAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
         fields = ['id','answer']
+
+class FaqSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FAQ
+        fields = ['id','question','answer']

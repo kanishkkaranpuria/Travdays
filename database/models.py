@@ -3,7 +3,9 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django.core.exceptions import ValidationError
-from datetime import datetime, timedelta 
+from datetime import datetime, timedelta
+
+from django.db.models.fields import CharField 
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -104,6 +106,7 @@ class Trip(models.Model):
     location    = models.CharField( max_length=50)
     description = models.TextField(null=True)
     price       = models.IntegerField(null=True, default=None)
+    duration    = CharField(null=True, default="", max_length=20)
 
 
     def __str__(self):
@@ -122,6 +125,12 @@ class Trip(models.Model):
         if net:
             return round(net/self.reviews.all().count(), 1)
         return "No Ratings"
+
+    def save(self, *args, **kwargs):
+        if self.duration:
+            if len(self.duration.split(",")) != 2:                
+                raise ValidationError('This field requires two integers seperated by a comma (,)')
+        super(Trip, self).save(*args, **kwargs)
 
 class AdminMedia(models.Model):
     trip         = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="adminmedia",blank=True, null=True)
@@ -190,16 +199,17 @@ class UserMedia(models.Model):
     approved  = models.BooleanField(default=False)
 
 class Blog(models.Model):
-    title    = models.CharField(max_length=50)
-    image    = models.ImageField( upload_to='media/images', max_length=None)
-    user     = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    blog     = models.TextField()
-    likes    = models.ManyToManyField(User, related_name="likes", blank=True)
-    dislikes = models.ManyToManyField(User, related_name="dislikes", blank=True)
-    location = models.CharField(max_length=100)
-    created  = models.DateTimeField(auto_now_add=True,null=True)    
-    featured = models.BooleanField(default=False)   
-    approved = models.BooleanField(default=False)   
+    anonymous  = models.BooleanField(default=False)
+    title      = models.CharField(max_length=50)
+    image      = models.ImageField( upload_to='media/images', max_length=None)
+    user       = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    blog       = models.TextField()
+    likes      = models.ManyToManyField(User, related_name="likes", blank=True)
+    dislikes   = models.ManyToManyField(User, related_name="dislikes", blank=True)
+    location   = models.CharField(max_length=100)
+    created    = models.DateTimeField(auto_now_add=True,null=True)    
+    featured   = models.BooleanField(default=False)   
+    approved   = models.BooleanField(default=False)   
 
     def __str__(self):
         return self.title
@@ -245,7 +255,7 @@ class GalleryPageTemp(models.Model):        # for explore page
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
     class Meta:
-        verbose_name = 'Temp'
+        verbose_name = 'GalleryPageTemp'
 
     def __str__(self):
         return self.userKey
@@ -281,3 +291,9 @@ class Otp(models.Model):
 
     def __str__(self):
         return str(self.otp)
+
+class Temp(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='temp')
+
+    def __str__(self):
+        return self.user.email

@@ -7,6 +7,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from authentication.views import RegisterUserView
 from datetime import datetime, timedelta
+from .pagination import BookingPagination
+from .serializers import BookingSerializer
 
 class BookingView(APIView):
 
@@ -39,14 +41,51 @@ class BookingView(APIView):
         return Response({"success":"Booking created"},status=status.HTTP_200_OK)
 
 
-# class BookingView(APIView):
+class BookingAdminView(APIView,BookingPagination):
 
-#     def post(self,request,*args, **kwargs):
-#         user = request.user
-#         trip = Trip.objects.filter(name = request.data["trip"]).first()
-#         if trip == None:
-#             return Response({"error":"Trip doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
-#         phone = request.data["phone"]
-#         obj = Booking(user = user, trip = trip, phoneNumber = phone)
-#         obj.save()
-#         return Response({"success":"Booking created"},status=status.HTTP_200_OK)
+    def get(self, request, pk = None):
+        if request.user.is_admin:
+            if pk == None:
+                booking = Booking.objects.all()
+                results = self.paginate_queryset(booking, request, view=self)
+                serializer = BookingSerializer(results,many = True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            elif Booking.objects.filter(id = pk).exists():
+                booking = Booking.objects.get(id = pk)
+                serializer = BookingSerializer(booking)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({"error":"Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # def post(self, request):
+    #     if request.user.is_admin:
+    #         serializer = BookingSerializer(data = request.data)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response({"success":"values changed"}, status=status.HTTP_200_OK)
+    #         else:
+    #             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self,request):
+        if request.user.is_admin:
+            booking = Booking.objects.get(id = request.data["id"])
+            data = {}
+            data["approved"] = request.data["approved"]
+            serializer = BookingSerializer(booking,data = data,partial = True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"success":"values changed"}, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk = None):
+        if request.user.is_admin:
+            if pk != None:
+                booking = Booking.objects.get(id = pk)
+                booking.delete()
+                return Response({'success':'booking deleted'})
+            return Response({'error':'choose a booking that needs to be deleted'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST) 

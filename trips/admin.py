@@ -5,7 +5,7 @@ class TripAdmin(admin.ModelAdmin):
     list_display = ('id','name', 'type','location')
     list_filter = ('type','location')
     fieldsets = (
-        (None, {'fields': ('name','location', 'type','description','price',)}),
+        (None, {'fields': ('name','location', 'type','duration','description','price',)}),
     )
     search_fields = ('name','location','type')
     ordering = ('id',)

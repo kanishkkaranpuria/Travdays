@@ -26,6 +26,13 @@ class TripView(APIView, TripsPagination):
             else:
                 return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
 
+    def delete(self,request,name):
+        if request.user.is_admin:
+            trip = Trip.objects.get(name = name)
+            trip.delete()
+            return Response({'msg':'trip deleted'})
+        return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST) 
+
 class TripUniversalFilterView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
@@ -122,6 +129,8 @@ class CreateTripView(APIView):
                     data["name"] = request.data["name"]
                     data["description"] = request.data["description"]
                     data["price"] = request.data["price"]
+                    data["location"] = request.data["location"]
+                    data["duration"] = request.data["duration"]
                     if Trip.objects.filter(name = data["name"]).exists():
                         return Response({"error":"trip with this name already exists"}, status=status.HTTP_400_BAD_REQUEST)
                     serializer = CreateTripSerializer(data = data)
@@ -133,30 +142,43 @@ class CreateTripView(APIView):
                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
                 if "image" or 'video' in request.data:
                     data = {}
-                    # if 'id' in request.data:
-                    #     data["id"] = request.data["id"]
-                    # else:
-                    #     data["id"] = None
                     data["trip"] = TripId or request.data["id"]
-                    if "image" in request.data:
-                        for img in request.data['image']:
-                            data['image'] = img
-                            serializer = CreateTripMediaSerializer(data = data)
-                            if serializer.is_valid():
-                                serializer.save()
-                            else:
-                                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-                    if "video" in request.data:
-                        for vid in request.data['video']:
-                            data['video'] = vid
-                            serializer = CreateTripMediaSerializer(data = data)
-                            if serializer.is_valid():
-                                serializer.save()
-                            else:
-                                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+                    i = 0
+                    while 'image'+str(i) in request.data:
+                        data['image'] = request.data['image'+str(i)]
+                        serializer = CreateTripMediaSerializer(data = data)
+                        if serializer.is_valid():
+                            i += 1
+                            serializer.save()
+                        else:
+                            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+                    i = 0
+                    while 'video'+str(i) in request.data:
+                        data['image'] = request.data['image'+str(i)]
+                        serializer = CreateTripMediaSerializer(data = data)
+                        if serializer.is_valid():
+                            i += 1
+                            serializer.save()
+                        else:
+                            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                            
                 return Response({"success":"Trip created/media added"}, status = status.HTTP_200_OK)
             return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"user not allowed"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self,request):
+        if request.user.is_admin:
+            trip = Trip.objects.get(id = request.data["id"])
+            serializer = CreateTripSerializer(trip,data=request.data,partial = True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"success":"Value changed successfully"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error":"Invalid Input"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class TripTypeFilterView(APIView, TripsPagination):
 

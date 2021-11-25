@@ -1,12 +1,12 @@
+import re
 from django.db.models import Q
 from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import AllBlogsSerializer,BlogMediaSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
+from .serializers import AllBlogsSerializer,BlogSerializer,BlogEditSerializer,BlogMediaSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
 from rest_framework import status
 from .pagination import BlogPagination,BlogMediaPagination
-import json
 # Create your views here.
 
 class AllBlogsDisplayView(APIView,BlogPagination):
@@ -15,7 +15,6 @@ class AllBlogsDisplayView(APIView,BlogPagination):
 
     def get(self,request):
         voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
-        # print(voteBlogs)
         featuredBlogs = list(Blog.objects.filter(Q(featured = True) & Q(approved = True))[:6])
         blogs = list(dict.fromkeys(featuredBlogs + voteBlogs)) 
         results = self.paginate_queryset(blogs, request, view=self)
@@ -40,7 +39,47 @@ class BlogDisplayView(APIView,BlogMediaPagination):
             else:
                 pass
         return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
-        
+
+    def delete(self,request,pk,var=None):
+        if Blog.objects.filter(Q(id = pk) & Q(user = request.user.id)).exists() or request.user.is_admin:
+            blog = Blog.objects.get(id = pk)
+            blog.delete()
+            return Response({'msg':'Blog deleted'})
+        return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST)   
+
+class BlogDisplayView2(APIView,BlogMediaPagination):
+
+    permission_classes = [AllowAny] 
+
+    def get(self,request,pk = None,page = None):
+        if Blog.objects.filter(id = pk).exists():
+            blog = Blog.objects.get(id = pk)
+            image= BlogMedia.objects.filter(blog = blog).all()
+            blog = blog.blog.split(",")
+            data = {}
+            i = 0
+            j = 0
+            while(i<len(blog)):
+                if i < len(blog):
+                    data[j] = blog[i] + " par"
+                if i < len(image):
+                    data[j+1] = request.build_absolute_uri(image[i].image.url) + " img"
+                j = j+2
+                i = i+1
+            # print('data')
+            # print(len(data))
+            # print('data')
+            print(data)
+            data2 = {}
+            j = 0
+            for i in range(0,len(data)):
+                print(i)
+                if data[i] != ' par' and data[i] != '  par':
+                    data2[j]= data[i]
+                    j = j+1
+            n = (page-1)*3 if page !=1 else 0
+            m = page*3
+            return Response(dict(list(data2.items())[n:m]))
 
 
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
@@ -78,11 +117,12 @@ class CreateBlog(APIView):
     def post(self,request):
         data = {}
         blog = None
-        data['user'] = request.user.id
+        data['user'] = request.user.id 
         data['blog'] = str(request.data['blog'])
         data['title'] = request.data['title']
         data['location'] = request.data['location']
         data['image'] = request.data['displayImage']
+        data['anonymous'] = request.data['anonymous'] if 'anonymous' in request.data else False
         serializer = CreateBlogSerializer(data = data)
         if serializer.is_valid():
             blog = serializer.save()
@@ -103,7 +143,24 @@ class CreateBlog(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print("end of while loop")
         return Response({'message':'Blog Created'}, status=status.HTTP_200_OK)
-        
+
+    def patch(self,request):
+        if request.user.is_admin:
+            blog = Blog.objects.get(id = request.data["id"])
+            print(blog)
+            data = {}
+            data["featured"] = request.data["featured"] if "featured" in request.data else blog.featured
+            data["approved"] = request.data["approved"] if "approved" in request.data else blog.approved
+            print("data")
+            print(data)
+            print("data")
+            serializer = BlogEditSerializer(blog,data=data,partial = True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"success":"Value changed successfully"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error":"Invalid Input"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
 
 class BlogLikeDislike(APIView):
 

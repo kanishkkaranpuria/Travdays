@@ -41,6 +41,11 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     #APPS
     'database',
@@ -52,9 +57,16 @@ INSTALLED_APPS = [
     'authentication',
     'faq',
     'searchbar',
+    'password',
 ]
 
 AUTH_USER_MODEL = 'database.User'
+
+SITE_ID = 1
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,6 +116,10 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -154,14 +170,14 @@ MEDIA_URL = '/media/'
 
 REFRESH_TOKEN_SECRET='0d3bf21da90eeead7d0d4a39c74fd336f75fce8dacbb9775453dfb6246d7807385cf89debb15a9f3d15cf03dd4624a91e87d1c69141e980bd5f467b8f1fde9de'
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'authentication.authentication.SafeJWTAuthentication',
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'authentication.authentication.SafeJWTAuthentication',
+#     ),
+# }
 
 
 # CSRF_COOKIE_SECURE = True
