@@ -157,7 +157,7 @@ class CreateTripView(APIView):
 
                 i = 0
                 while 'video'+str(i) in request.data:
-                    data['image'] = request.data['image'+str(i)]
+                    data['video'] = request.data['video'+str(i)]
                     serializer = CreateTripMediaSerializer(data = data)
                     if serializer.is_valid():
                         i += 1
