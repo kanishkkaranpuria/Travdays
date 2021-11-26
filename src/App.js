@@ -20,6 +20,10 @@ import { useState } from 'react';
 import Addtrips from './ADMIN/Addtrips';
 import Edittrips from './ADMIN/Edittrips';
 import ApproveBlogs from './ADMIN/ApproveBlogs';
+import Addtestimonials from './ADMIN/Addtestimonials';
+import AdmContactUs from './ADMIN/AdmContactUs';
+import AdmFaq from './ADMIN/AdmFaq';
+import AdmBooking from './ADMIN/AdmBooking';
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -83,12 +87,16 @@ function App() {
         <Route exact path = "/addtrips"> <Addtrips /> </Route>
         
         <Route exact path = "/edittrips"> <Edittrips /> </Route>
+        
         <Route exact path = "/approveblogs"> <ApproveBlogs id={id} setId={setId} /> </Route>
-        
 
+        <Route exact path = "/addtestimonials"> <Addtestimonials /> </Route>
 
+        <Route exact path = "/admcontactus"> <AdmContactUs /> </Route>
         
+        <Route exact path = "/admfaq"> <AdmFaq /> </Route>
         
+        <Route exact path = "/admbooking"> <AdmBooking /> </Route>
         </Switch>
       </div>
     </div>

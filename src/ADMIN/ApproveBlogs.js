@@ -12,6 +12,9 @@ const ApproveBlogs = ({id,setId}) => {
       const [sortlink, setSortlink] = useState("votefilter")
       const [loading, setLoading] = useState(false)
       const [unapproved,setUnapproved] = useState(false);
+      //for blogs approval
+      const [featured, setFeatured] = useState(false)
+      const [approved, setApproved] = useState(false)
       let blogsort
       const Sorted = () => {
         if (sortlink==="votefilter"){
@@ -38,7 +41,101 @@ const ApproveBlogs = ({id,setId}) => {
         
       }, [id])
     
+      //Approvee
+
+      const Approve = (data,approval) => {
+          console.log(data)
+          console.log(approval)
+
+          
+        
+
+          if(approval){
+
+            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+                id : id,
+                // featured : featured,
+                approved : approval,
+            }, })
+            .then(res => {  
+              console.log(res) 
+            })
+            .catch(err => {
+               if (err.response){if (err.response.data.detail === "Invalid page.") {
+                 setHasmore2(false)
+               }
+        
+             }})
+          }
+          else if (!approval){
+            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+                id : id,
+                // featured : featured,
+                approved : approval,
+            }, })
+            .then(res => {
+              if (res){
+              setAllblogs(prev=>[...prev,...res.data])
+            }})
+            .catch(err => {
+               if (err.response){if (err.response.data.detail === "Invalid page.") {
+                 setHasmore2(false)
+               }
+        
+             }})
+          }
+          
+
+      }
+
+
+
+      //Featuredd
+
+
+      const Feature = (data,feature) => {
+
+        
+        if(feature){
+
+            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+                id : id,
+                featured : feature,
+                approved : feature,
+            }, })
+            .then(res => {
+              if (res){
+              setAllblogs(prev=>[...prev,...res.data])
+            }})
+            .catch(err => {
+               if (err.response){if (err.response.data.detail === "Invalid page.") {
+                 setHasmore2(false)
+               }
+        
+             }})
+          }
+          else if (!feature){
+            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+                id : id,
+                featured : feature,
+                approved : feature ,
+            }, })
+            .then(res => {
+              if (res){
+              setAllblogs(prev=>[...prev,...res.data])
+            }})
+            .catch(err => {
+               if (err.response){if (err.response.data.detail === "Invalid page.") {
+                 setHasmore2(false)
+               }
+        
+             }})
+          }
+          
+
+      }
     
+
       // allblogssss
       const observer = useRef()
       const [allblogs, setAllblogs] = useState([])
@@ -80,7 +177,7 @@ const ApproveBlogs = ({id,setId}) => {
       //featured blogs
       const observer2 = useRef()
       const [hasmore, setHasmore] = useState(true)
-      const [featured, setFeatured] = useState([])
+     
       const [fpage, setFpage] = useState(1)
       
       const lastDataElementRef = useCallback(node1 => {
@@ -96,22 +193,7 @@ const ApproveBlogs = ({id,setId}) => {
         }, [loading, hasmore])
         
         
-        useEffect(() => {
-          setLoading(true)
-          fullaxios({url : 'blog/featured?page=' + fpage, sendcookie : false})
-          .then(res => {
-            if (res){
-            setFeatured(prev=>[...prev,...res.data])
-          }})
-          .catch(err => {
-             if (err.response){if (err.response.data.detail === "Invalid page.") {
-               setHasmore(false)
-               setLoading(false)
-             }
-     
-           }})
-           setLoading(false)
-      }, [fpage])
+       
     
       useEffect(() => {
      console.log("sorted")
@@ -139,73 +221,7 @@ const ApproveBlogs = ({id,setId}) => {
     
         return (
             <div className="blog relative pt-[60px] w-full">
-            {/* <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/> */}
-             {unapproved && <button onClick = {(()=>{ setUnapproved(false) })} className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' > Unapproved blogs </button>}
-             {!unapproved && <button onClick = {(()=>{ setUnapproved(true) })} className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' > Approved blogs </button>}
-            <p className='text-5xl sm:text-2xl font-bold p-4'>Approved Blogs</p>
-            <div className="featured-blogs flex overflow-x-auto gap-x-8 sm:gap-x-2 p-4">
-              {featured && featured.map((data,index) =>{
-                if(featured.length===index+1){
-                  return(
-                    <div ref={lastDataElementRef} className="blog-preview-card featured relative">
-                      <div className='gradient'></div>
-                  <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
-                      <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
-                          <p className='text-3xl sm:text-xl'>{data.title}</p>
-                          <p className='flex text-2xl items-center text-center '><span>x.x </span>
-                              <span className='flex'>
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                              </span>
-                          </p>
-                      </div>
-                      <img className='w-full h-full top-0 object-cover bg' src={data.image} alt=""/>
-                  </div>
-                  );
-                }
-                else{
-                  return(
-                    <div  className="blog-preview-card featured relative">
-                      <div className='gradient'></div>
-                  <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
-                      <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
-                          <p  className='text-3xl sm:text-xl'>{data.title}</p>
-                          <p className='flex text-2xl items-center text-center '><span>x.x </span>
-                              <span className='flex'>
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-                              </span>
-                          </p>
-                      </div>
-                      <img className='w-full h-full top-0 object-cover bg' src={data.image} alt=""/>
-                  </div>
-                  );
-                }
-               
-              }
-             )}
-               
-            </div>
+           
             <p className='text-5xl sm:text-2xl font-bold p-4'>Unapproved Blogs</p>
             {allblogs && allblogs.map((data,index)=> {
               if(allblogs.length === index+1){
@@ -262,7 +278,11 @@ const ApproveBlogs = ({id,setId}) => {
                               </span>
                           </p>
                           </div>
+                          <div className="flex justify-between items-center">
                           <p onClick={()=>{history.push('/blogs/'+ data.title);ID(data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
+                          <button onClick={(()=>{Approve(data,true);ID(data.id)})} style={{border:"solid",backgroundColor:"red"}}>approve</button>
+                          <button onClick={(()=>{Feature(data,true);ID(data.id)})} style={{border:"solid",backgroundColor:"white"}} > Feature the blog </button>
+                          </div>
                           <p className='pt-6 leading-tight text-xl'>{data.body}</p>
                           </div>
                       </div>

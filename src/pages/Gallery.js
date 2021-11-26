@@ -168,6 +168,7 @@ const Gallery = () => {
     setLocid(data.id)
     setLocimg(data.image)
     setLocvideo(data.video)
+    // console.log(data.video)
     }
 
   useEffect(() => {

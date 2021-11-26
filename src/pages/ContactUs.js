@@ -45,6 +45,7 @@ const ContactUs = () => {
                 name: name,
                 query: query,
                 choice: d.value,
+                phoneNumber: phonenum
 
             }, sendcookie: true
         })
