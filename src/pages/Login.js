@@ -19,7 +19,7 @@ const Login = () => {
             })
             .then(res =>{
                 console.log(res.data)
-                Cookie('setCookie','access_token', res.data.access_token, 1)
+                Cookie('setCookie','accesstoken', res.data.access_token, 1)
                 history.push("/")
             })
     }

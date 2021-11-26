@@ -19,7 +19,7 @@ const fullaxios = (object) => {
 	let formdata = object.formdata
 	let infinitloopstopper = 0;
 	if (url === undefined) return;
-	if (type === undefined || (type !== "get" && type !== "post" )) type = "get";
+	if (type === undefined || (type !== "get" && type !== "post" && type !== "patch" && type !== "delete")) type = "get";
 	if (data === undefined) data = null;
 	if (sendcookie === undefined)sendcookie = true;
 	if (formdata === undefined)formdata = false;
@@ -57,8 +57,8 @@ const fullaxios = (object) => {
 		baseURL: sendcookie ? baseURL : baseURL2,
 		timeout: 10000,
 		headers: {
-			Authorization: Cookie('getCookie', 'access_token')
-				? Cookie('getCookie', 'access_token')
+			Authorization: Cookie('getCookie', 'accesstoken')
+				? Cookie('getCookie', 'accesstoken')
 				: null
 			,
 			'Content-Type': 'application/json',
@@ -82,6 +82,7 @@ const fullaxios = (object) => {
 		async function (error) {
 			console.log("here")
 			const originalRequest = error.config;
+			console.log(error.config)
 
 			if (typeof error.response === 'undefined') {
 				alert(
@@ -91,12 +92,13 @@ const fullaxios = (object) => {
 				);
 				return Promise.reject(error);
 			}
-			console.log(originalRequest.url)
+			console.log(originalRequest.url,"line 94")
+			console.log(error.response.status,"line 95")
 			if (
 				error.response.status === 403 &&
 				originalRequest.url === 'auth/newaccess'
 			) {
-				window.location.href = '/login/';
+				// window.location.href = '/login/';
 				return Promise.reject(error);
 			}
 
@@ -118,45 +120,49 @@ const fullaxios = (object) => {
 				// if (tokenParts.exp > now) {
 				sendcookie = true;
 				// console.log (sendcookie)
-				// Cookie('setCookie', 'access_token', null)
-				const axiosInstance1 = axios.create({
-					baseURL: baseURL,
-					timeout: 10000,
-					headers: {
-						Authorization: null,
-						'Content-Type': 'application/json',
-						'Accept': 'application/json'
-					}
-					// , 
-					// proxy:{
-					//     host : 'localhost',
-					//     port : 8000
-					// }
-				});
-				return axiosInstance1
-					.get('auth/newaccess')
+				// Cookie('setCookie', 'accesstoken', null)
+				// const axiosInstance1 = axios.create({
+				// 	baseURL: baseURL,
+				// 	timeout: 10000,
+				// 	headers: {
+				// 		Authorization: null,
+				// 		'Content-Type': 'application/json',
+				// 		'Accept': 'application/json'
+				// 	}
+				// 	// , 
+				// 	// proxy:{
+				// 	//     host : 'localhost',
+				// 	//     port : 8000
+				// 	// }
+				// });
+				console.log("axios instance")
+				return axiosInstance
+					.get('auth/newaccess',{headers : {Authorization : null}})
 					.then((response) => {
-						Cookie('setCookie', 'access_token', response.data.access_token);
+						console.log(response.data.accesstoken,"line 140")
+						console.log(Cookie('getCookie', 'accesstoken'))
+						Cookie('setCookie', 'accesstoken', response.data.accesstoken);
 						// localStorage.setItem('refresh_token', response.data.refresh);
 						console.log("i was in here")
-						axiosInstance.defaults.headers['Authorization'] =
-							response.data.access_token;
-						originalRequest.headers['Authorization'] =
-							response.data.access_token;
-
+						console.log(Cookie('getCookie', 'accesstoken'))
+						// axiosInstance.defaults.headers['Authorization'] = Cookie('getCookie', 'accesstoken')
+						// axiosInstance.headers['Authorization'] = Cookie('getCookie', 'accesstoken')
+						originalRequest.headers['Authorization'] = Cookie('getCookie', 'accesstoken')
+						// originalRequest.headers['Authorization'] =response.data.accesstoken;
+						
 						return axiosInstance(originalRequest);
 					})
 					.catch((err) => {
 						console.log(err);
 					});
+				}
+				
+				// specific error handling done elsewhere
+				return Promise.reject(error);
 			}
-
-			// specific error handling done elsewhere
-			return Promise.reject(error);
-		}
-	);
-	if (type === "get") {
-		return axiosInstance.get(url)
+			);
+			if (type === "get") {
+				return axiosInstance.get(url)
 	}
 	else if (type === "post") {
 		// console.log(data)
@@ -165,8 +171,21 @@ const fullaxios = (object) => {
 			return axiosInstance.post(url, data)
 		}
 		else{
-		return axiosInstance.post(url, { ...data })
+			return axiosInstance.post(url, { ...data })
 		}
+	}
+	else if (type === "patch"){
+		if (formdata === true){
+			return axiosInstance.patch(url, data)
+		}
+		else{
+			// axiosInstance.headers['Authorization'] = Cookie('getCookie', 'accesstoken')
+			
+			return axiosInstance.patch(url, { ...data })
+		}
+	}
+	else if (type === "delete"){
+		return axiosInstance.delete(url)
 	}
 }
 

@@ -6,10 +6,10 @@ const Logout = () => {
     useEffect(()=>{
         // axiosInstance
         // .get('/api/auth/logout')
-        fullaxios({url : 'auth/logout',sendcookie : true})
+        fullaxios({url : 'auth/logout'})
         .then(res =>{
-            console.log(res.data)
-            Cookie('setCookie',"access_token",0,-1)
+            console.log("here",res.data)
+            // Cookie('setCookie',"accesstoken",0,-1)
             Cookie('setCookie',"csrftoken", 0, -1)
             Cookie('setCookie',"sessionid", 0, -1)
         })
