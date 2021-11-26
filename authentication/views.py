@@ -1,11 +1,12 @@
 from django.contrib.auth.models import Permission
 import jwt
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 from django.db.models import Q
+from rest_framework import response
 from database.models import *
-from rest_framework.decorators import APIView
+from rest_framework.decorators import APIView, authentication_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
@@ -173,7 +174,7 @@ class LoginView(APIView):
         token.save()
         print(token)
         response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
-        # response.set_cookie(key='accesstoken', value=access_token)
+        response.set_cookie(key='accesstoken', value=access_token)
         response.data = {'access_token': access_token,'user': serializer.data,}
         print("refresh token should be set")
         return response
@@ -181,7 +182,6 @@ class LoginView(APIView):
 class LogoutView(APIView):
 
     def get(self,request):
-        # if request.user.is_authenticated:
         refresh_token = request.COOKIES.get('refreshtoken')
         sessionid = request.COOKIES.get('sessionid')
         if refresh_token and request.user.is_authenticated:
@@ -197,6 +197,7 @@ class LogoutView(APIView):
                 GalleryPageTemp.objects.filter(userKey = request.session.get('name')).delete()
                 response.delete_cookie('sessionid')
             response.delete_cookie('refreshtoken')
+            response.delete_cookie('accesstoken')
             response.data = {"Success":"Logout"}
             return response
         return Response({"message":"SignIn before you SignOut"}, status = status.HTTP_400_BAD_REQUEST)
@@ -244,9 +245,11 @@ class Refresh_Token_View(APIView):
             1. a cookie that contains a valid refresh_token
             2. a header 'X-CSRFTOKEN' with a valid csrf token, client app can get it from cookies "csrftoken"
         '''
+        response = Response() 
         now =  datetime.datetime.now().astimezone()
         refresh_token = request.COOKIES.get('refreshtoken')
         print(1)
+        print(refresh_token)
         if refresh_token is None:
             print(1)
             raise exceptions.AuthenticationFailed('Authentication credentials were not provided.')
@@ -279,7 +282,8 @@ class Refresh_Token_View(APIView):
             print("i was here")
             print(access_token)
             print(6)
-            return Response({'access_token': access_token})
+            response.set_cookie(key='accesstoken', value=access_token)
+            return response
         return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
 # @api_view(['POST'])
 # @permission_classes([AllowAny])

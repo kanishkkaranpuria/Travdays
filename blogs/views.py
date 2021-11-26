@@ -242,7 +242,6 @@ class AllBlogsDisplayView(APIView,BlogPagination):
         # array = []
         # array1= [*array[:1]]
         # for i in range(1,len(array)):
-        #     print(array1)
         #     j = len(array1)-1
         #     if type(array1[j]) == type(array[i]) and isinstance(array[i],str):
         #         array1[j] = array1[j] +"\n\n" + array[i]
