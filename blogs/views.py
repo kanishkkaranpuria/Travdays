@@ -21,33 +21,8 @@ class AllBlogsDisplayView(APIView,BlogPagination):
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
 
+
 class BlogDisplayView(APIView,BlogMediaPagination):
-
-    permission_classes = [AllowAny] 
-
-    def get(self,request,pk = None,var=None):
-        if Blog.objects.filter(id = pk).exists():
-            blog = Blog.objects.get(id = pk)
-            if var == "detail":
-                serializer = BlogSerializer(blog,context={"request" : request})
-                return Response(serializer.data,status=status.HTTP_200_OK)
-            elif var == "media":
-                blogMedia = blog.blogmedia.all()
-                results = self.paginate_queryset(blogMedia, request, view=self)
-                serializer = BlogMediaSerializer(results,context={"request" : request},many = True)
-                return Response(serializer.data,status=status.HTTP_200_OK)
-            else:
-                pass
-        return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self,request,pk,var=None):
-        if Blog.objects.filter(Q(id = pk) & Q(user = request.user.id)).exists() or request.user.is_admin:
-            blog = Blog.objects.get(id = pk)
-            blog.delete()
-            return Response({'msg':'Blog deleted'})
-        return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST)   
-
-class BlogDisplayView2(APIView,BlogMediaPagination):
 
     permission_classes = [AllowAny] 
 
@@ -55,27 +30,42 @@ class BlogDisplayView2(APIView,BlogMediaPagination):
         if Blog.objects.filter(id = pk).exists():
             blog = Blog.objects.get(id = pk)
             image= BlogMedia.objects.filter(blog = blog).all()
-            blog = blog.blog.split(",")
+            blog = blog.blog.split("  QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")
+            i = 0
+            length = len(blog) if len(blog)>len(image) else len(image)
+            array = []
+            while(i<length):
+                if i < len(blog) and i < len(image):
+                    array.append(f'{blog[i]} par')
+                    array.append(f'{request.build_absolute_uri(image[i].image.url)} img')
+                elif i <= len(image) and i >= len(blog):
+                    array.append(f'{request.build_absolute_uri(image[i].image.url)} img')
+                elif i >= len(image) and i <= len(blog):
+                    array.append(f'{blog[i]} par')
+                i += 1
+            if array[-1:][0] == '':
+                array = array[:-1]
             data = {}
             i = 0
-            j = 0
-            while(i<len(blog)):
-                if i < len(blog):
-                    data[j] = blog[i] + " par"
-                if i < len(image):
-                    data[j+1] = request.build_absolute_uri(image[i].image.url) + " img"
-                j = j+2
-                i = i+1
+            while(i<len(array)):
+                data[i] = array[i]
+                i += 1
             data2 = {}
             j = 0
             for i in range(0,len(data)):
-                print(i)
                 if data[i] != ' par' and data[i] != '  par':
                     data2[j]= data[i]
                     j = j+1
             n = (page-1)*3 if page !=1 else 0
             m = page*3
             return Response(dict(list(data2.items())[n:m]))
+
+    def delete(self,request,pk):
+        if Blog.objects.filter(Q(id = pk) & Q(user = request.user.id)).exists() or request.user.is_admin:
+            blog = Blog.objects.get(id = pk)
+            blog.delete()
+            return Response({'msg':'Blog deleted'})
+        return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST) 
 
 
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
@@ -114,22 +104,58 @@ class CreateBlog(APIView):
         data = {}
         blog = None
         data['user'] = request.user.id 
-        data['blog'] = str(request.data['blog'])
         data['title'] = request.data['title']
         data['location'] = request.data['location']
         data['image'] = request.data['displayImage']
         data['anonymous'] = request.data['anonymous'] if 'anonymous' in request.data else False
+
+        #Converting Data1,Data2....Data"n" dictionary into one array
+
+        array = []
+        i = 0
+        while 'data'+str(i) in request.data:
+            array.append(request.data['data'+str(i)])
+            i += 1
+
+        #Logic to arrange make consecutive elements of the array of different types 
+
+        i = 0
+        bool = True
+        while(bool):
+            while(i+1<len(array)):
+                if (type(array[i]) == type(array[i+1]) or type(array[i]) == type(array[i-1])) and isinstance(array[i],str):
+                    array = [*array[:i],array[i] +"\n\n"+ array[i+1],*array[i+2:]]
+                else:
+                    if type(array[i]) == type(array[i+1]):
+                        array = [*array[:i+1],"",*array[i+1:]]
+                    i += 1
+                break
+            if i+1 >= len(array):
+                bool = False
+
+        # alternative elements are images and blog paras
+        # adding a para ending marker and adding entire blog in one variable
+        blog = ''
+        for i in range(len(array[::2])):
+            blog = blog + array[::2][i] + "  QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,"
+
+        # saving para
+
+        data['blog'] = blog
         serializer = CreateBlogSerializer(data = data)
         if serializer.is_valid():
             blog = serializer.save()
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # saving images
+
         data = {}
         data['blog'] = blog.id
         i = 0
         print("start of while loop")
-        while 'image'+str(i) in request.data:
-            data['image'] = request.data['image'+str(i)]
+        for img in array[1::2]:
+            data['image'] = img
             serializer = CreateBlogMediaSerializer(data = data)
             if serializer.is_valid():
                 i += 1
@@ -137,19 +163,14 @@ class CreateBlog(APIView):
             else:
                 blog.delete()
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        print("end of while loop")
         return Response({'message':'Blog Created'}, status=status.HTTP_200_OK)
 
     def patch(self,request):
         if request.user.is_admin:
             blog = Blog.objects.get(id = request.data["id"])
-            print(blog)
             data = {}
             data["featured"] = request.data["featured"] if "featured" in request.data else blog.featured
             data["approved"] = request.data["approved"] if "approved" in request.data else blog.approved
-            print("data")
-            print(data)
-            print("data")
             serializer = BlogEditSerializer(blog,data=data,partial = True)
             if serializer.is_valid():
                 serializer.save()
@@ -181,6 +202,45 @@ class BlogLikeDislike(APIView):
             blog.dislikes.add(user)
             blog.save()
             return Response({'message':'disliked'})
+
+# class BlogDisplayView2(APIView,BlogMediaPagination):
+
+#     permission_classes = [AllowAny] 
+
+#     def get(self,request,pk = None,var=None):
+#         if Blog.objects.filter(id = pk).exists():
+#             blog = Blog.objects.get(id = pk)
+#             if var == "detail":
+#                 serializer = BlogSerializer(blog,context={"request" : request})
+#                 return Response(serializer.data,status=status.HTTP_200_OK)
+#             elif var == "media":
+#                 blogMedia = blog.blogmedia.all()
+#                 results = self.paginate_queryset(blogMedia, request, view=self)
+#                 serializer = BlogMediaSerializer(results,context={"request" : request},many = True)
+#                 return Response(serializer.data,status=status.HTTP_200_OK)
+#             else:
+#                 pass
+#         return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
+
+#     def delete(self,request,pk,var=None):
+#         if Blog.objects.filter(Q(id = pk) & Q(user = request.user.id)).exists() or request.user.is_admin:
+#             blog = Blog.objects.get(id = pk)
+#             blog.delete()
+#             return Response({'msg':'Blog deleted'})
+#         return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST)   
+        # array1 = []
+        # array = []
+        # array1= [*array[:1]]
+        # for i in range(1,len(array)):
+        #     print(array1)
+        #     j = len(array1)-1
+        #     if type(array1[j]) == type(array[i]) and isinstance(array[i],str):
+        #         array1[j] = array1[j] +"\n\n" + array[i]
+        #     elif type(array1[j]) == type(array[i]):
+        #         array1.append(" ")
+        #         array1.append(array[i])
+        #     else:
+        #         array1.append(array[i])
 
 # class BlogsDisplayUniversalFilter(APIView,BlogPagination):
 

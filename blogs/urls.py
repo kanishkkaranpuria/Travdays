@@ -5,13 +5,13 @@ from .views import BlogDisplayView2,AllBlogsDisplayView,BlogDisplayView,BlogsDis
 
 urlpatterns = [
     path('display', AllBlogsDisplayView.as_view()),
-    path('indi/<var>/<int:pk>', BlogDisplayView.as_view()),
-    path('blog2/<int:pk>/<int:page>', BlogDisplayView2.as_view()),
+    path('indi/<int:pk>/<int:page>', BlogDisplayView.as_view()),
     path('votefilter', BlogsDisplayVoteFilter.as_view()),
     path('created', BlogsDisplayCreatedFilter.as_view()),
     path('featured', BlogsDisplayFeaturedFilter.as_view()),
     path('create', CreateBlog.as_view()),
     path('vote', BlogLikeDislike.as_view()),
+    # path('singleblog/<var>/<int:pk>', BlogDisplayView.as_view()),
     # path('universal/<variable>', BlogsDisplayUniversalFilter.as_view()),
     # path('display/<int:pk>', AllBlogsDisplayView.as_view()),
 ] 

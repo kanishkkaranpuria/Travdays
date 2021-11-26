@@ -123,49 +123,53 @@ class CreateTripView(APIView):
         if request.user.is_admin:
             TripId = None
             data = {}
-            if 'type' and 'name' and 'description' and 'price' or 'image' or 'video' in request.data:
-                if 'type' and 'name' and 'description' and 'price' in request.data:
-                    data["type"] = request.data["type"]
-                    data["name"] = request.data["name"]
-                    data["description"] = request.data["description"]
-                    data["price"] = request.data["price"]
-                    data["location"] = request.data["location"]
-                    data["duration"] = request.data["duration"]
-                    if Trip.objects.filter(name = data["name"]).exists():
-                        return Response({"error":"trip with this name already exists"}, status=status.HTTP_400_BAD_REQUEST)
-                    serializer = CreateTripSerializer(data = data)
+            ran = False
+            if 'type' and 'name' and 'description' and 'price' and 'duration' and 'location' in request.data:
+                data["type"] = request.data["type"]
+                data["name"] = request.data["name"]
+                data["description"] = request.data["description"]
+                data["price"] = request.data["price"]
+                data["location"] = request.data["location"]
+                data["duration"] = request.data["duration"]
+                if Trip.objects.filter(name = data["name"]).exists():
+                    return Response({"error":"trip with this name already exists"}, status=status.HTTP_400_BAD_REQUEST)
+                serializer = CreateTripSerializer(data = data)
+                if serializer.is_valid():
+                    obj = serializer.save()
+                    TripId = obj.id
+                    ran = True
+                else:
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            if "image" or 'video' in request.data:
+                data = {}
+                data["trip"] = TripId or request.data["id"]
+
+                i = 0
+                while 'image'+str(i) in request.data:
+                    data['image'] = request.data['image'+str(i)]
+                    serializer = CreateTripMediaSerializer(data = data)
                     if serializer.is_valid():
-                        obj = serializer.save()
-                        TripId = obj.id
-                        print(TripId)
+                        i += 1
+                        serializer.save()
                     else:
                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-                if "image" or 'video' in request.data:
-                    data = {}
-                    data["trip"] = TripId or request.data["id"]
 
-                    i = 0
-                    while 'image'+str(i) in request.data:
-                        data['image'] = request.data['image'+str(i)]
-                        serializer = CreateTripMediaSerializer(data = data)
-                        if serializer.is_valid():
-                            i += 1
-                            serializer.save()
-                        else:
-                            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-                    i = 0
-                    while 'video'+str(i) in request.data:
-                        data['image'] = request.data['image'+str(i)]
-                        serializer = CreateTripMediaSerializer(data = data)
-                        if serializer.is_valid():
-                            i += 1
-                            serializer.save()
-                        else:
-                            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-                            
-                return Response({"success":"Trip created/media added"}, status = status.HTTP_200_OK)
-            return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+                i = 0
+                while 'video'+str(i) in request.data:
+                    data['image'] = request.data['image'+str(i)]
+                    serializer = CreateTripMediaSerializer(data = data)
+                    if serializer.is_valid():
+                        i += 1
+                        serializer.save()
+                    else:
+                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)     
+                if ran:
+                    return Response({"success":"Trip created and media added"}, status = status.HTTP_200_OK)
+                return Response({"success":"Trip media added"}, status = status.HTTP_200_OK)
+            if ran:
+                return Response({"success":"Trip created"}, status = status.HTTP_200_OK)
+            return Response({"error":"Not all datas were provided"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"user not allowed"}, status=status.HTTP_400_BAD_REQUEST)
     
     def patch(self,request):

@@ -202,7 +202,7 @@ class Blog(models.Model):
     anonymous  = models.BooleanField(default=False)
     title      = models.CharField(max_length=50)
     image      = models.ImageField( upload_to='media/images', max_length=None)
-    user       = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user       = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog")
     blog       = models.TextField()
     likes      = models.ManyToManyField(User, related_name="likes", blank=True)
     dislikes   = models.ManyToManyField(User, related_name="dislikes", blank=True)
