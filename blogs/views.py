@@ -9,18 +9,6 @@ from rest_framework import status
 from .pagination import BlogPagination,BlogMediaPagination
 # Create your views here.
 
-class AllBlogsDisplayView(APIView,BlogPagination):
-
-    permission_classes = [AllowAny]   
-
-    def get(self,request):
-        voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
-        featuredBlogs = list(Blog.objects.filter(Q(featured = True) & Q(approved = True))[:6])
-        blogs = list(dict.fromkeys(featuredBlogs + voteBlogs)) 
-        results = self.paginate_queryset(blogs, request, view=self)
-        serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
-        return Response(serializer.data)
-
 
 class BlogDisplayView(APIView,BlogMediaPagination):
 
@@ -57,16 +45,18 @@ class BlogDisplayView(APIView,BlogMediaPagination):
                     data2[j]= data[i]
                     j = j+1
             n = (page-1)*3 if page !=1 else 0
-            m = page*3
+            m = page*3 
             return Response(dict(list(data2.items())[n:m]))
+        return Response({"error":"invalid input"}, status = status.HTTP_400_BAD_REQUEST)
+
+class BlogDelete(APIView):
 
     def delete(self,request,pk):
         if Blog.objects.filter(Q(id = pk) & Q(user = request.user.id)).exists() or request.user.is_admin:
             blog = Blog.objects.get(id = pk)
             blog.delete()
-            return Response({'msg':'Blog deleted'})
+            return Response({'msg':'Blog deleted'}, status=status.HTTP_200_OK)
         return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST) 
-
 
 class BlogsDisplayVoteFilter(APIView,BlogPagination):
 
@@ -76,7 +66,7 @@ class BlogsDisplayVoteFilter(APIView,BlogPagination):
         blogs = sorted(Blog.objects.filter(Q(featured = False) & Q(approved = True)),  key=lambda instance: -instance.netlikes)
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BlogsDisplayCreatedFilter(APIView,BlogPagination):
 
@@ -86,7 +76,7 @@ class BlogsDisplayCreatedFilter(APIView,BlogPagination):
         blogs = Blog.objects.filter(Q(featured = False) & Q(approved = True)).order_by('-created')
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
 class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
 
@@ -96,7 +86,7 @@ class BlogsDisplayFeaturedFilter(APIView,BlogPagination):
         blogs = Blog.objects.filter(Q(featured = True) & Q(approved = True)).order_by('-created')
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = FeaturedBlogsSerializer(results,context={"request" : request}, many = True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CreateBlog(APIView): 
 
@@ -203,6 +193,26 @@ class BlogLikeDislike(APIView):
             blog.save()
             return Response({'message':'disliked'})
 
+class UnapprovedBlogs(APIView):
+    def get(self,request):
+        if request.user.is_admin:
+            blogs = Blog.objects.filter(approved = False).order_by('-created')
+            results = self.paginate_queryset(blogs, request, view=self)
+            serializer = FeaturedBlogsSerializer(results,context={"request" : request}, many = True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"error","something went wrong"}, status = status.HTTP_400_BAD_REQUEST)
+
+class AllBlogsDisplayView(APIView,BlogPagination):
+
+    permission_classes = [AllowAny]   
+
+    def get(self,request):
+        voteBlogs = sorted(Blog.objects.filter(approved = True),  key=lambda instance: -instance.netlikes)
+        featuredBlogs = list(Blog.objects.filter(Q(featured = True) & Q(approved = True))[:6])
+        blogs = list(dict.fromkeys(featuredBlogs + voteBlogs)) 
+        results = self.paginate_queryset(blogs, request, view=self)
+        serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
+        return Response(serializer.data)
 # class BlogDisplayView2(APIView,BlogMediaPagination):
 
 #     permission_classes = [AllowAny] 

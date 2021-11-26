@@ -8,3 +8,14 @@ class CreateQuerySerializer(serializers.ModelSerializer):
         model = Query
         fields = ['name','email','user','choice','query','phoneNumber']
 
+class QuerySerializer(serializers.ModelSerializer):
+
+    user = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Query
+        fields = ['id','name','email','user','choice','query','phoneNumber','created']
+    
+    def get_user(self,obj):
+        return obj.user.email
+

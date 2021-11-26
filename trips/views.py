@@ -183,7 +183,6 @@ class CreateTripView(APIView):
                 return Response({"error":"Invalid Input"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
 
-
 class TripTypeFilterView(APIView, TripsPagination):
 
     permission_classes = [AllowAny]
