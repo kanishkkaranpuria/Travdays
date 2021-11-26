@@ -4,7 +4,7 @@ from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import AllBlogsSerializer,BlogSerializer,BlogEditSerializer,BlogMediaSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer,BlogSerializer
+from .serializers import AllBlogsSerializer,BlogEditSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer
 from rest_framework import status
 from .pagination import BlogPagination,BlogMediaPagination
 # Create your views here.
