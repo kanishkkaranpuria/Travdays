@@ -17,5 +17,7 @@ class QuerySerializer(serializers.ModelSerializer):
         fields = ['id','name','email','user','choice','query','phoneNumber','created']
     
     def get_user(self,obj):
-        return obj.user.email
+        if obj.user :
+            return obj.user.email
+        return None
 
