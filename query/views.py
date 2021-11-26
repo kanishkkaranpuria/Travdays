@@ -54,16 +54,16 @@ class QueryView(APIView,QueryPagination):
                 return Response({"error":"Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self,request):
-        if request.user.is_admin:
-            query = Query.objects.get(id = request.data["id"])
-            serializer = QuerySerializer(query,data = request.data,partial = True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response({"success":"values changed"}, status=status.HTTP_200_OK)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+    # def patch(self,request):
+    #     if request.user.is_admin:
+    #         query = Query.objects.get(id = request.data["id"])
+    #         serializer = QuerySerializer(query,data = request.data,partial = True)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response({"success":"values changed"}, status=status.HTTP_200_OK)
+    #         else:
+    #             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk = None):
         if request.user.is_admin:

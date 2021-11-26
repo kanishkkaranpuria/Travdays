@@ -6,5 +6,6 @@ from .views import CreateQueryView,QueryView
 urlpatterns = [
     path('create', CreateQueryView.as_view()),
     path('<int:pk>', QueryView.as_view()),
+    path('', QueryView.as_view()),
 
 ] 
