@@ -118,8 +118,8 @@ const ContactUs = () => {
                     console.log(res.data)
                     setPredefinedname(res.data.name)
                     setPredefinedemail(res.data.email)
-                    setName(predefinedname)
-                    setEmail(predefinedemail)
+                    // setName(res.data.name)
+                    // setEmail(res.data.email)
                     // console.log("")
                     // history.push('/')1
                 }

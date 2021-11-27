@@ -127,7 +127,7 @@ const IndivisualBlogPage = () => {
             .then(res => {
               setIblogdata(res.data)
                 //   setIblogdata(res.data)
-                  console.log(res.data)   
+                  console.log(res.data)  
                   console.log(res.data[0].slice(-3,))   
                   console.log()         
             console.log(res.data)

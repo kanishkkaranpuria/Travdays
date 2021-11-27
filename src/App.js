@@ -85,7 +85,7 @@ function App() {
         <Route exact path = "/faq"> <FAQ /> </Route>
         
         <Route exact path = "/blogs/write"> <WriteABlog /> </Route>
-
+        
         <Route exact path = "/blogs/:title/:id"> <IndivisualBlogPage /> </Route>
 
         {/* ADMINS ONLY */}
