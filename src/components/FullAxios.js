@@ -19,11 +19,7 @@ const fullaxios = (object) => {
 	let formdata = object.formdata
 	let infinitloopstopper = 0;
 	if (url === undefined) return;
-<<<<<<< Updated upstream
 	if (type === undefined || (type !== "get" && type !== "post" && type !== "patch" && type !== "delete")) type = "get";
-=======
-	if (type === undefined || (type !== "get" && type !== "post" && type !== "patch"  )) type = "get";
->>>>>>> Stashed changes
 	if (data === undefined) data = null;
 	if (sendcookie === undefined)sendcookie = true;
 	if (formdata === undefined)formdata = false;
@@ -170,8 +166,8 @@ const fullaxios = (object) => {
 	}
 	else if (type === "post") {
 		// console.log(data)
+		// console.log(...data)
 		if (formdata === true){
-			console.log(...data)
 			return axiosInstance.post(url, data)
 		}
 		else{
@@ -188,20 +184,8 @@ const fullaxios = (object) => {
 			return axiosInstance.patch(url, { ...data })
 		}
 	}
-<<<<<<< Updated upstream
 	else if (type === "delete"){
 		return axiosInstance.delete(url)
-=======
-	else if (type === "patch"){
-		if (formdata === true){
-			console.log(...data)
-			console.log(url)
-			return axiosInstance.patch(url, data)
-		}
-		else{
-		return axiosInstance.patch(url, { ...data })
-		}
->>>>>>> Stashed changes
 	}
 }
 

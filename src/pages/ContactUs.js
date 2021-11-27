@@ -52,7 +52,7 @@ const ContactUs = () => {
             .then(res => {
                 if (res) {
                     console.log("it worked")
-                    history.push('/')
+                    // history.push('/')
                 }
             })
             .catch(res => {

@@ -29,14 +29,18 @@ const Home = () => {
                 <div className='block sm:hidden'>
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
+                
                 </div>
                 <p className="p-4 leading-tight">
+                    
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
                 Nostrum voluptatem ut sed tempora rerum vitae, 
                 atque dolores neque est quae tempore veritatis alias nam inventore esse illum illo et dolorem.
             </p>
                 <p className='m-4'>
                     <div className="flex sm:justify-center">
+
+                      <Link className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold' to='/adminOnly'>Admin Only</Link> 
                         <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold'>Contact us</button>
                         <button className='m-2 p-1 w-40 sm:w-32 sm:m-1 border-black border-solid border-2 '>Learn more</button>       
                     </div> 

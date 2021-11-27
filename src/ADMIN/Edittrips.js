@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+
+import { useEffect, useRef, useState } from "react";
+import fullaxios from "../components/FullAxios";
 
 
 const Edittrips = () => {
-    
-    
+   
     const [newimages, setNewimages ] = useState([]);
     const [imagepreview, setImagepreview] = useState([])
     const [tripname, setTripname] = useState(null)
@@ -17,7 +18,8 @@ const Edittrips = () => {
      
     const [error,setError] = useState([]);
     const [datas, setDatas] = useState([]);
-    
+    const [vdatas, setVdatas] = useState([]);
+    const [videopreview, setVideopreview] = useState([])
     var [type, setType] = useState(null)
 
     useEffect(() => {
@@ -40,99 +42,128 @@ const Edittrips = () => {
     },[price,tripname])
 
     const Imagechangehandler = (e) => {
-        // setNewimages(e.target.files)
-        console.log(e.target.files )
-        const fileArray = Array.from(e.target.files).map((file)=>URL.createObjectURL(file))
+        console.log(e.target.files)
+        // console.log(e.target.files.length )
+        for (let i= 0 ; i < e.target.files.length ; i++ ){
+            // console.log("rubbish")
+         }
+ 
+        const fileArray = Array.from(e.target.files).map((file,index)=>[{  
+                     "type": file.type, 
+                     "media" :URL.createObjectURL(file),
+                    //   "videos" : URL.createObjectURL(file)
+        }] )
         // console.log("has it changed",e.target.value)
         // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
         console.log(fileArray)
-        setImagepreview((prevImages)=>prevImages.concat(fileArray))
-        setDatas([Array.from(e.target.files).map((file)=>file)])
-       
+        setImagepreview((prevVideos)=>prevVideos.concat(fileArray))
+        setDatas(prev=>[...prev,...Array.from(e.target.files).map((file)=>file)])
     }
-
-
-    useEffect(() => {
-        console.log(datas)
-        let formData = new FormData();
-        // formData.append('pictu',newimages)
-        // for (const File of newimages){
-        //     console.log("lets gooo",File)
-            formData.append('value[]',datas)
-    
-    for (const value of formData.values()) {
-        console.log("value",value);
-     }
-    }, [datas])
-     
-    const Submit = () => {
-       
-        
-    
-    }
-     
-   
-  
-
-     
-     const inputRef =useRef();
-     const handleImageChange = (e) => { 
-         const selected = e.target.files[0];
-            console.log(type)
-         
-
-             
-          
-         if ( selected  ){
-           
-              console.log(type)
-              let reader = new FileReader();
-              console.log("there you go")
-              reader.onloadend = () => {
-                  setImagepreview(reader.result);
-                  // console.log("is this even working")
-                  
-              }; 
-              reader.readAsDataURL(selected);
-              //  imageabout();
-              setNewimages(selected);
-              console.log(selected.type)
-              type = selected.type
-              type && setType(type.slice(0,5))
-              // console.log(type) 
-          }
-        
-        else if (type === "video"  || type === "audio") {
-          alert("Pls select an image !")
-        }
-    }
-
-        const onClickFocus = () => {
-            console.log('Focus input');
-            inputRef.current.click();
-        }
  
+    const Videohandler = (e) => {
+        // setNewimages(e.target.files)
+        console.log(e.target.files )
+        const VfileArray = Array.from(e.target.files).map((file)=>URL.createObjectURL(file))
+        // console.log("has it changed",e.target.value)
+        // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
+        console.log(VfileArray)
+        setVideopreview((prevVideos)=>prevVideos.concat(VfileArray))
+        setVdatas(Array.from(e.target.files).map((file)=>file))
+    }
+    
+useEffect(() => {
+console.log(datas)
+console.log(imagepreview)
+}, [datas,imagepreview])
+
+  
+     
+    const Submit = (e) => {
+        e.preventDefault();
+      
+        let formData = new FormData();
+        console.log(datas[0])
+        let m=0
+        let n=0
+        for (let i= 0;  i < datas.length ; i++ ){
+            console.log("rubbish")
+            console.log(datas[i])
+        
+            if(datas[i].type === "image/png" ){
+              formData.append(`image${m}`, datas[i])
+              m++
+            }
+             else if (datas[i].type === "video/mp4" ){
+                 
+                 formData.append(`video${n}`, datas[i])
+                 n++
+             }
+                console.log(datas[i].type)
+         }
+
+    
+
+        formData.append(`type`,d.value)
+        formData.append(`name`,tripname)
+        formData.append(`location`,location)
+        formData.append(`description`,descripition)
+        formData.append(`price`,price)
+        formData.append(`duration`,duration)
+        
+       
+        console.log(...formData)
+       
+        fullaxios({ url: 'trip/create/' , type:'post', data : formData , formdata : true   })
+        .then((res)=>{
+        console.log("res", res.data)
+        // console.log('info data received')
+        console.log("done")}
+            
+        )
+        .catch(err => {
+            console.log(err)
+    
+    })
+ 
+  }
+  var d = document.getElementById("selected");
+
     return ( 
         <div className="">
             <div >
-            <input type="file" multiple style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler} ref ={inputRef}  />
+            <input type="file" multiple style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler}   />
                                     <label htmlFor="file">
                                         <i className="materail-icon">ADD IMAGE</i>
                                     </label>
+                                    
+            
                         <div className="row">  
-                             
+                      
                         {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
-                        {imagepreview &&  imagepreview.map((data)=>{
-                            return(
-                                <div className="column">
-                                  <img src={data} alt=""  />   
-                                </div>
-                                )
-                            })
-                       }
+                     
                         <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] '   action="">
                             <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Add trips</span>
-                                
+                            <p className='flex items-center'> 
+                                    {imagepreview &&  imagepreview.map((data,index)=>{
+                                        console.log(data[0].type)
+                                        console.log(data[0].image)
+                                      if( data[0].type === 'image/png' || data[0].type === 'image/jpeg') { 
+                                          return(
+                                        <div className="column">
+                                              <img src={data[0].media} alt=""  />  
+                                        </div>
+                                        )
+                                      }
+                                      else if (data[0].type === "video/mp4"){
+                                        return(
+                                            <div className="column">
+                                               <video controls src={data[0].media }alt="" />
+                                            </div>
+                                            )
+                                      }
+                                    })
+                                     }
+                                </p>
                                 <div className='sm:pb-4'> 
                                      <div className="">
                                     <p className='flex items-center'>
@@ -160,7 +191,7 @@ const Edittrips = () => {
                                 
                                     <p className='flex items-center sm:relative'>
                                     <span className='w-52'>Enter Trip price....................: Rs</span>
-                                    <input type="number" placeholder = "Price"  onChange={(e) => setPrice(e.target.value)} />
+                                    <input required type="number" placeholder = "Price"  onChange={(e) => setPrice(e.target.value)} />
                                     {/* {displayalert && <p className=' sm:absolute sm:bottom-0 sm:right-0 sm:px-0 px-2 text-sm text-red-500'>number must contain 10 digits</p>} */}
                                     </p>
                                     </div>
@@ -169,7 +200,7 @@ const Edittrips = () => {
                             <div className='flex'>
                             <p>Select Trip type : </p>
                         
-                                <select name="val" id="selected">
+                                <select  name="val" id="selected">
                                 <option> solo </option>   
                                 <option> petfriendly </option>   
                                 <option> workation </option>   
@@ -177,10 +208,10 @@ const Edittrips = () => {
                          </div>    
                                         
                           
-                            <textarea placeHolder = "Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value) }></textarea>
-                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+                            <textarea required placeHolder = "Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value) }></textarea>
+                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit" onClick={Submit} >submit</button>
                             
-             
+                            
 
             </form>                       
                         </div>
@@ -188,5 +219,5 @@ const Edittrips = () => {
         </div>
      );
 }
- 
+
 export default Edittrips;

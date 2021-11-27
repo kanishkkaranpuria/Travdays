@@ -53,9 +53,6 @@ const Addtestimonials = () => {
                
             </div>
 
-
-            
-
             enter the Testimonial :
             <textarea placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setTestimonial(e.target.value)}></textarea>
             <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>

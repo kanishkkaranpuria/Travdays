@@ -83,17 +83,20 @@ console.log(imagepreview)
       
         let formData = new FormData();
         console.log(datas[0])
-
-        for (let i= 0 ; i < datas.length ; i++ ){
+        let m=0
+        let n=0
+        for (let i= 0;  i < datas.length ; i++ ){
             console.log("rubbish")
             console.log(datas[i])
+        
             if(datas[i].type === "image/png" ){
-              formData.append(`image${i}`, datas[i])
-
-             }
-             else if (datas[i].type === "video/mp4"){
+              formData.append(`image${m}`, datas[i])
+              m++
+            }
+             else if (datas[i].type === "video/mp4" ){
                  
-                 formData.append(`video`, datas[i])
+                 formData.append(`video${n}`, datas[i])
+                 n++
              }
                 console.log(datas[i].type)
          }
@@ -123,46 +126,8 @@ console.log(imagepreview)
     })
  
   }
-   
-     
-   
   var d = document.getElementById("selected");
 
-     
-     const inputRef =useRef();
-     const handleImageChange = (e) => { 
-         const selected = e.target.files[0];
-            console.log(type)
-        
-         if ( selected  ){
-           
-              console.log(type)
-              let reader = new FileReader();
-              console.log("there you go")
-              reader.onloadend = () => {
-                  setImagepreview(reader.result);
-                  // console.log("is this even working")
-                  
-              }; 
-              reader.readAsDataURL(selected);
-              //  imageabout();
-              setNewimages(selected);
-              console.log(selected.type)
-              type = selected.type
-              type && setType(type.slice(0,5))
-              // console.log(type) 
-          }
-        
-        else if (type === "video"  || type === "audio") {
-          alert("Pls select an image !")
-        }
-    }
-
-        const onClickFocus = () => {
-            console.log('Focus input');
-            inputRef.current.click();
-        }
- 
     return ( 
         <div className="">
             <div >
@@ -198,14 +163,6 @@ console.log(imagepreview)
                                       }
                                     })
                                      }
-                                     {/* {videopreview &&  videopreview.map((data)=>{
-                                    return(
-                                        <div className="column">
- 
-                                        </div>
-                                        )
-                                    })
-                                     } */}
                                 </p>
                                 <div className='sm:pb-4'> 
                                      <div className="">
@@ -254,10 +211,7 @@ console.log(imagepreview)
                             <textarea required placeHolder = "Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value) }></textarea>
                             <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit" onClick={Submit} >submit</button>
                             
-                            <input type="file" multiple style={{display:'none'}}  onChange={Videohandler}   />
-                                    <label htmlFor="file">
-                                        <i className="materail-icon">ADD Video</i>
-                                    </label>
+                            
 
             </form>                       
                         </div>

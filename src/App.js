@@ -16,7 +16,7 @@ import Logout from './pages/Logout';
 import Login from './pages/Login';
 import PackagesPage from './pages/PackagesPage';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState ,useParams} from 'react';
 import Addtrips from './ADMIN/Addtrips';
 import Edittrips from './ADMIN/Edittrips';
 import ApproveBlogs from './ADMIN/ApproveBlogs';
@@ -24,6 +24,7 @@ import Addtestimonials from './ADMIN/Addtestimonials';
 import AdmContactUs from './ADMIN/AdmContactUs';
 import AdmFaq from './ADMIN/AdmFaq';
 import AdmBooking from './ADMIN/AdmBooking';
+import MainAdmin from './ADMIN/MainAdmin';
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -40,6 +41,7 @@ const hideMenu = ()=>{
 
 function App() {
   const [id, setId] = useState();
+
   return (
     <Router>
     <div className="App">
@@ -81,9 +83,11 @@ function App() {
         
         <Route exact path = "/blogs/write"> <WriteABlog /> </Route>
 
-        <Route exact path = "/blogs/:title"> <IndivisualBlogPage id={id} setId={setId}/> </Route>
+        <Route exact path = "/blogs/:title/:id"> <IndivisualBlogPage /> </Route>
 
         {/* ADMINS ONLY */}
+        <Route exact path = "/adminOnly"> <MainAdmin /> </Route>
+        
         <Route exact path = "/addtrips"> <Addtrips /> </Route>
         
         <Route exact path = "/edittrips"> <Edittrips /> </Route>
@@ -95,12 +99,13 @@ function App() {
         <Route exact path = "/admcontactus"> <AdmContactUs /> </Route>
         
         <Route exact path = "/admfaq"> <AdmFaq /> </Route>
-        
+
         <Route exact path = "/admbooking"> <AdmBooking /> </Route>
+        
         </Switch>
+    
       </div>
     </div>
-    
     </Router>
   );
 }

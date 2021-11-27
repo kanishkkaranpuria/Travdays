@@ -1,4 +1,4 @@
-import { useState ,useEffect, useRef, useCallback,} from "react";
+import { useState ,useEffect, useRef, useCallback,useParams} from "react";
 import { useHistory } from "react-router";
 import WriteABlog from "../components/WriteABlog";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { waitFor } from "@testing-library/react";
 const ApproveBlogs = ({id,setId}) => {
    
       const history = useHistory()
+
       const [sortlink, setSortlink] = useState("votefilter")
       const [loading, setLoading] = useState(false)
       const [unapproved,setUnapproved] = useState(false);
@@ -47,7 +48,7 @@ const ApproveBlogs = ({id,setId}) => {
           console.log(data)
           console.log(approval)
 
-          
+          setApproved((prev)=>({...prev, [data.id] : approval}))
         
 
           if(approval){
@@ -58,7 +59,7 @@ const ApproveBlogs = ({id,setId}) => {
                 approved : approval,
             }, })
             .then(res => {  
-              console.log(res) 
+              console.log("well approved") 
             })
             .catch(err => {
                if (err.response){if (err.response.data.detail === "Invalid page.") {
@@ -70,7 +71,7 @@ const ApproveBlogs = ({id,setId}) => {
           else if (!approval){
             fullaxios({url : 'blog/create' ,type:'patch' ,data : {
                 id : id,
-                // featured : featured,
+                featured : !featured,
                 approved : approval,
             }, })
             .then(res => {
@@ -95,17 +96,20 @@ const ApproveBlogs = ({id,setId}) => {
 
       const Feature = (data,feature) => {
 
+        setFeatured((prev)=>({...prev, [data.id] : feature}))
+         
         
         if(feature){
 
             fullaxios({url : 'blog/create' ,type:'patch' ,data : {
-                id : id,
+                id : data.id,
                 featured : feature,
                 approved : feature,
             }, })
             .then(res => {
               if (res){
-              setAllblogs(prev=>[...prev,...res.data])
+                console.log(res.data)
+              // setAllblogs(prev=>[...prev,...res.data])
             }})
             .catch(err => {
                if (err.response){if (err.response.data.detail === "Invalid page.") {
@@ -136,7 +140,7 @@ const ApproveBlogs = ({id,setId}) => {
       }
     
 
-      // allblogssss
+      // aklUnapproved blogs
       const observer = useRef()
       const [allblogs, setAllblogs] = useState([])
       const [blogpage, setBlogpage] = useState(1)
@@ -159,11 +163,11 @@ const ApproveBlogs = ({id,setId}) => {
         console.log("useeffect")
         setLoading(true)
         
-        fullaxios({url : 'blog/' + sortlink +'?page='+ blogpage})
+        fullaxios({url : 'blog/unapproved?page='+ blogpage})
         .then(res => {
-          if (res){
+          console.log(res.data)
           setAllblogs(prev=>[...prev,...res.data])
-        }})
+        })
         .catch(err => {
            if (err.response){if (err.response.data.detail === "Invalid page.") {
              setHasmore2(false)
@@ -171,7 +175,7 @@ const ApproveBlogs = ({id,setId}) => {
     
          }})
          setLoading(false)
-    }, [blogpage,sortlink])
+    }, [blogpage])
     
          
       //featured blogs
@@ -247,7 +251,7 @@ const ApproveBlogs = ({id,setId}) => {
                         </span>
                     </p>
                     </div>
-                    <p onClick={()=>{history.push('/blogs/'+ data.title);ID(data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
+                    <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
                     <p className='pt-6 leading-tight text-xl'>{data.body}</p>
     
                     </div>
@@ -278,12 +282,18 @@ const ApproveBlogs = ({id,setId}) => {
                               </span>
                           </p>
                           </div>
-                          <div className="flex justify-between items-center">
-                          <p onClick={()=>{history.push('/blogs/'+ data.title);ID(data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
-                          <button onClick={(()=>{Approve(data,true);ID(data.id)})} style={{border:"solid",backgroundColor:"red"}}>approve</button>
-                          <button onClick={(()=>{Feature(data,true);ID(data.id)})} style={{border:"solid",backgroundColor:"white"}} > Feature the blog </button>
+                          <div className="flex justify-start items-center">
+                          <p onClick={()=>{history.push('/blogs/'+ data.title +'/' +data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
+
+                         {approved[data.id] ? <button onClick={(()=>{Approve(data,false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Approve:&#9745;</button> :
+                         <button onClick={(()=>{Approve(data,true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Approve:&#9744;</button>  } 
+                          {featured[data.id] ? <button onClick={(()=>{Feature(data,false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Feature:&#9745;</button> :
+                         <button onClick={(()=>{Feature(data,true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Feature:&#9744;</button>  } 
+                          
+                          {/* <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >Delete</button> */}
                           </div>
-                          <p className='pt-6 leading-tight text-xl'>{data.body}</p>
+                             <p className='pt-6 leading-tight text-xl'>{data.body}</p>
+
                           </div>
                       </div>
                     </div>
