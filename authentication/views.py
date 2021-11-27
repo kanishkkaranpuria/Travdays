@@ -1,12 +1,9 @@
-from django.contrib.auth.models import Permission
 import jwt
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
-from django.db.models import Q
-from rest_framework import response
 from database.models import *
-from rest_framework.decorators import APIView, authentication_classes
+from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
@@ -20,28 +17,11 @@ import datetime,random
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import EmailMessage
+
 User = get_user_model()
-
-
-class UserAuthenticationStatus(APIView):
-
-    permission_classes = [AllowAny]
-
-    def get(self,request):
-        bool = request.user.is_authenticated
-        admin = False
-        if bool:
-            admin = request.user.is_admin
-        return Response({'authenticated':bool,'admin':admin}, status=status.HTTP_200_OK)
-
-class UserInfoView(APIView):
-
-    def get(self,request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
 
 class RegisterUserView(APIView):
 
@@ -120,7 +100,6 @@ class OTP_Validation(APIView):
             return Response({"success":"User Account Activated"},status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
-
 class ActivateAccountView(APIView):
 
     permission_classes = [AllowAny]

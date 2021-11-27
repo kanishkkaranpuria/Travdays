@@ -210,7 +210,7 @@ class BlogLikeDislike(APIView):
             blog.save()
             return Response({'message':'disliked'})
 
-class UnapprovedBlogs(APIView):
+class UnapprovedBlogs(APIView,BlogPagination):
     def get(self,request):
         if request.user.is_admin:
             blogs = Blog.objects.filter(approved = False).order_by('-created')

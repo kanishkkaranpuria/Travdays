@@ -14,6 +14,7 @@ urlpatterns = [
     path('api/faq/', include("faq.urls")),
     path('api/search/', include("searchbar.urls")),
     path('api/password/', include("password.urls")),
+    path('api/userinfo/', include("userinfo.urls")),
     path('accounts/', include('allauth.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

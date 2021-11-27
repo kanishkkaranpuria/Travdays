@@ -1,11 +1,9 @@
 from django.urls import path
-from .views import UserAuthenticationStatus,ActivateAccountView,OTP_Validation,GenerateNewOtpView,RegisterUserView,UserInfoView,LoginView,LogoutView,Refresh_Token_View
+from .views import ActivateAccountView,OTP_Validation,GenerateNewOtpView,RegisterUserView,LoginView,LogoutView,Refresh_Token_View
 
 
 
 urlpatterns = [
-    path('status', UserAuthenticationStatus.as_view()),
-    path('info', UserInfoView.as_view()),
     path('login', LoginView.as_view()),
     path('logout', LogoutView.as_view()),
     path('newotp', GenerateNewOtpView.as_view()),

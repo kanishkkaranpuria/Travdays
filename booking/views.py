@@ -1,45 +1,36 @@
-from os import pardir
-from django.db.models import Q
 from database.models import *
-from rest_framework.decorators import APIView, permission_classes
+from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from authentication.views import RegisterUserView
-from datetime import datetime, timedelta
 from .pagination import BookingPagination
-from .serializers import BookingSerializer
+from .serializers import BookingSerializer,PreviousBookingSerializer
 
 class BookingView(APIView):
 
     permission_classes = [AllowAny]
 
-    def post(self,request,*args, **kwargs):
-
-        deltaTime = datetime.now() - timedelta(days=1)
-        qs = Booking.objects.filter(Q(user__active=False) & Q(created__lt=deltaTime))
-        qs.delete()
-        
-        user = None
-        if request.user.is_anonymous:
-            response = RegisterUserView().post(request, *args, **kwargs)
-            user = User.objects.get(email = request.data["email"])
-        else:
-            user = request.user
-        trip = Trip.objects.filter(name = request.data["trip"]).first()
-        if trip == None:
-            return Response({"error":"Trip doesn't exist"},status=status.HTTP_400_BAD_REQUEST)
+    def post(self,request):
+        user = request.user
         phone = request.data["phone"] if 'phone' in request.data else None
         query = request.data["query"] if 'query' in request.data else None
-        if request.user.is_anonymous:
-            if response.status_code == 400:
-                return Response(response.data, response.status_code)
-            elif response.status_code == 201:
-                obj = Booking(user = user, trip = trip, phoneNumber = phone, query = query )
-                obj.save()
-                return Response({"success":"Your Account has been Created. An OTP has been sent in your email, please verify your account using that OTP to confirm your Booking"}, response.status_code)
+        trip = Trip.objects.filter(name = request.data["trip"])
+        if trip.exists():
+            trip = trip.first()
+        else:
+            return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
+        obj = Booking(user = user, trip = trip, phoneNumber = phone, query = query )
+        obj.save()
         return Response({"success":"Booking created"},status=status.HTTP_200_OK)
 
+class PreviousBookingView(APIView,BookingPagination):
+
+    def get(self, request):
+        user = request.user
+        bookings = Booking.objects.filter(user = user)
+        results = self.paginate_queryset(bookings, request, view=self)
+        serializer = PreviousBookingSerializer(results,many = True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BookingAdminView(APIView,BookingPagination):
 
