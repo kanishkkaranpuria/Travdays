@@ -18,7 +18,7 @@ class BlogDisplayView(APIView,BlogMediaPagination):
         if Blog.objects.filter(id = pk).exists():
             blog = Blog.objects.get(id = pk)
             image= BlogMedia.objects.filter(blog = blog).all()
-            blog = blog.blog.split("  QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")
+            blog = blog.blog.split("    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")
             i = 0
             length = len(blog) if len(blog)>len(image) else len(image)
             array = []
@@ -33,20 +33,37 @@ class BlogDisplayView(APIView,BlogMediaPagination):
                 i += 1
             if array[-1:][0] == '':
                 array = array[:-1]
+
+            #Separating Paras from single paras
+            i = 0
+            bool = True
+            while (bool):
+                while(i<len(array) and array[i][-3:] == 'par'):
+                    if i == len(array)-1:
+                        array = array[:i]+[(s + " par" if s[-3:]!= "par" else s)for s in array[i].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  ")]
+                    else:
+                        array = array[:i]+[(s + " par" if s[-3:]!= "par" else s) for s in array[i].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  ")] + array[i+1:]
+                    i += len(array[i].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  "))-1
+                    break
+                i += 1
+                if i>=len(array):
+                    bool = False
+
+            #sending array as dictionary with proper index
             data = {}
             i = 0
             while(i<len(array)):
                 data[i] = array[i]
                 i += 1
-            data2 = {}
-            j = 0
-            for i in range(0,len(data)):
-                if data[i] != ' par' and data[i] != '  par':
-                    data2[j]= data[i]
-                    j = j+1
+            # data2 = {}
+            # j = 0
+            # for i in range(0,len(data)):
+            #     if data[i] != ' par' and data[i] != '  par':
+            #         data2[j]= data[i]
+            #         j = j+1
             n = (page-1)*3 if page !=1 else 0
             m = page*3 
-            return Response(dict(list(data2.items())[n:m]))
+            return Response(dict(list(data.items())[n:m]))
         return Response({"error":"invalid input"}, status = status.HTTP_400_BAD_REQUEST)
 
 class BlogDelete(APIView):
@@ -114,7 +131,7 @@ class CreateBlog(APIView):
         while(bool):
             while(i+1<len(array)):
                 if (type(array[i]) == type(array[i+1]) or type(array[i]) == type(array[i-1])) and isinstance(array[i],str):
-                    array = [*array[:i],array[i] +"\n\n"+ array[i+1],*array[i+2:]]
+                    array = [*array[:i],array[i] +" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  "+ array[i+1],*array[i+2:]]
                 else:
                     if type(array[i]) == type(array[i+1]):
                         array = [*array[:i+1],"",*array[i+1:]]
@@ -127,7 +144,7 @@ class CreateBlog(APIView):
         # adding a para ending marker and adding entire blog in one variable
         blog = ''
         for i in range(len(array[::2])):
-            blog = blog + array[::2][i] + "  QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,"
+            blog = blog + array[::2][i] + "    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,"
 
         # saving para
 

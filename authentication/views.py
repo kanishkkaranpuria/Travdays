@@ -248,11 +248,12 @@ class Refresh_Token_View(APIView):
         response = Response() 
         now =  datetime.datetime.now().astimezone()
         refresh_token = request.COOKIES.get('refreshtoken')
-        print(1)
-        print(refresh_token)
         if refresh_token is None:
+            response.delete_cookie('accesstoken')
             print(1)
-            raise exceptions.AuthenticationFailed('Authentication credentials were not provided.')
+            response.status_code = 403
+            response.data =  {"Error":"refresh token missing"}
+            return response
         obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
         if obj:
             if obj.expiry<now:
@@ -277,12 +278,11 @@ class Refresh_Token_View(APIView):
             if not user.is_active:
                 print(6)
                 raise exceptions.AuthenticationFailed('user is inactive')
-            print("i was here")
+            print("NEW ACCESS TOKEN CODE WORKED")
             access_token = generate_access_token(user)
-            print("i was here")
-            print(access_token)
-            print(6)
             response.set_cookie(key='accesstoken', value=access_token)
+            response.status_code = 200
+            response.data = {"Success":"new access token created"}
             return response
         return Response({'Error':"Glitch"}, status = status.HTTP_400_BAD_REQUEST)
 # @api_view(['POST'])
