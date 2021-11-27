@@ -25,6 +25,7 @@ import AdmContactUs from './ADMIN/AdmContactUs';
 import AdmFaq from './ADMIN/AdmFaq';
 import AdmBooking from './ADMIN/AdmBooking';
 import MainAdmin from './ADMIN/MainAdmin';
+import Profilepage from './pages/Profilepage';
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -72,6 +73,8 @@ function App() {
         <Route exact path = "/logout"> <Logout /> </Route>
 
         <Route exact path = "/contactus"> <ContactUs /> </Route>
+        
+        <Route exact path = "/profile"> <Profilepage /> </Route>
 
         <Route exact path = "/trip/:name"> <Trip/> </Route>
         

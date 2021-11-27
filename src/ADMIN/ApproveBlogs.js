@@ -42,102 +42,14 @@ const ApproveBlogs = ({id,setId}) => {
         
       }, [id])
     
-      //Approvee
-
-      const Approve = (data,approval) => {
-          console.log(data)
-          console.log(approval)
-
-          setApproved((prev)=>({...prev, [data.id] : approval}))
-        
-
-          if(approval){
-
-            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
-                id : id,
-                // featured : featured,
-                approved : approval,
-            }, })
-            .then(res => {  
-              console.log("well approved") 
-            })
-            .catch(err => {
-               if (err.response){if (err.response.data.detail === "Invalid page.") {
-                 setHasmore2(false)
-               }
-        
-             }})
-          }
-          else if (!approval){
-            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
-                id : id,
-                featured : !featured,
-                approved : approval,
-            }, })
-            .then(res => {
-              if (res){
-              setAllblogs(prev=>[...prev,...res.data])
-            }})
-            .catch(err => {
-               if (err.response){if (err.response.data.detail === "Invalid page.") {
-                 setHasmore2(false)
-               }
-        
-             }})
-          }
-          
-
-      }
+  
 
 
 
       //Featuredd
 
 
-      const Feature = (data,feature) => {
-
-        setFeatured((prev)=>({...prev, [data.id] : feature}))
-         
-        
-        if(feature){
-
-            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
-                id : data.id,
-                featured : feature,
-                approved : feature,
-            }, })
-            .then(res => {
-              if (res){
-                console.log(res.data)
-              // setAllblogs(prev=>[...prev,...res.data])
-            }})
-            .catch(err => {
-               if (err.response){if (err.response.data.detail === "Invalid page.") {
-                 setHasmore2(false)
-               }
-        
-             }})
-          }
-          else if (!feature){
-            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
-                id : id,
-                featured : feature,
-                approved : feature ,
-            }, })
-            .then(res => {
-              if (res){
-              setAllblogs(prev=>[...prev,...res.data])
-            }})
-            .catch(err => {
-               if (err.response){if (err.response.data.detail === "Invalid page.") {
-                 setHasmore2(false)
-               }
-        
-             }})
-          }
-          
-
-      }
+     
     
 
       // aklUnapproved blogs
@@ -285,10 +197,7 @@ const ApproveBlogs = ({id,setId}) => {
                           <div className="flex justify-start items-center">
                           <p onClick={()=>{history.push('/blogs/'+ data.title +'/' +data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
 
-                         {approved[data.id] ? <button onClick={(()=>{Approve(data,false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Approve:&#9745;</button> :
-                         <button onClick={(()=>{Approve(data,true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Approve:&#9744;</button>  } 
-                          {featured[data.id] ? <button onClick={(()=>{Feature(data,false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Feature:&#9745;</button> :
-                         <button onClick={(()=>{Feature(data,true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Feature:&#9744;</button>  } 
+
                           
                           {/* <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >Delete</button> */}
                           </div>

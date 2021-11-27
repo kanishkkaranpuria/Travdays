@@ -10,26 +10,115 @@ const IndivisualBlogPage = () => {
     const [state, setstate] = useState()
     const [loading, setLoading] = useState()
     const [hasmore, setHasmore] = useState(true)
+    const [featured, setFeatured] = useState(false)
+    const [approved, setApproved] = useState(false)
     const {id} = useParams();
     const {title} = useParams();
 
-    useEffect(() => {
-        console.log(id)
-        console.log(title)
-        if(id){
-            fullaxios({url: 'blog/media/' + id })
-            .then(res => {
-                console.log(res.data)
-              setIblogimg(prev=>[...prev,...res.data])
+ // featureeeeee
+    const Feature = (feature) => {
+      setFeatured(feature )       
+      
+      if(feature){
+
+          fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+              id :id,
+              featured : feature,
+              approved : feature,
+          }, })
+          .then(res => {
+            if (res){
+              console.log(res.data)
+            // setAllblogs(prev=>[...prev,...res.data])
+          }})
+          .catch(err => {
+             if (err.response){if (err.response.data.detail === "Invalid page.") {
+             }
+      
+           }})
+        }
+        else if (!feature){
+          fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+              id : id,
+              featured : feature,
+              approved : feature ,
+          }, })
+          .then(res => {
+            if (res){
+          }})
+          .catch(err => {
+             if (err.response){if (err.response.data.detail === "Invalid page.") {
+             }
+      
+           }})
+        }
+    }
+
+
+
+        //Approvee
+
+        const Approve = (approval) => {
+          console.log(approval)
+          setApproved(approval)
+
+        
+        
+
+          if(approval){
+
+            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+                id : id,
+                // featured : featured,
+                approved : approval,
+            }, })
+            .then(res => {  
+              console.log("well approved") 
             })
             .catch(err => {
                if (err.response){if (err.response.data.detail === "Invalid page.") {
-                 setHasmore(false)
-                 setLoading(false)
                }
+        
              }})
-        }
-    }, [])
+          }
+          else if (!approval){
+            fullaxios({url : 'blog/create' ,type:'patch' ,data : {
+                id : id,
+                // featured : !featured,
+                approved : approval,
+            }, })
+            .then(res => {
+              if (res){
+            }})
+            .catch(err => {
+               if (err.response){if (err.response.data.detail === "Invalid page.") {
+               }
+        
+             }})
+          }
+          
+
+      }
+
+      //indblog info
+
+    // useEffect(() => {
+    //     console.log(id)
+    //     console.log(title)
+    //     if(id){
+    //         fullaxios({url: 'blog/media/' + id })
+    //         .then(res => {
+    //             console.log(res.data)
+    //           setIblogimg(prev=>[...prev,...res.data])
+    //         })
+    //         .catch(err => {
+    //            if (err.response){if (err.response.data.detail === "Invalid page.") {
+    //              setHasmore(false)
+    //              setLoading(false)
+    //            }
+    //          }})
+    //     }
+    // }, [])
 
     useEffect(() => {
         console.log(id)
@@ -77,6 +166,10 @@ const IndivisualBlogPage = () => {
                       <div className='p-8 sm:p-1'>
                           <div className="flex justify-between items-center">
                               <div className="flex flex-col">
+                              {approved ? <button onClick={(()=>{Approve(false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Approve:&#9745;</button> :
+                         <button onClick={(()=>{Approve(true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Approve:&#9744;</button>  } 
+                          {featured ? <button onClick={(()=>{Feature(false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Feature:&#9745;</button> :
+                         <button onClick={(()=>{Feature(true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Feature:&#9744;</button>  } 
                               <p  className='text-3xl font-semibold  pt-2 '></p>
                               </div>
                       

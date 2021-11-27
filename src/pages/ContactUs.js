@@ -112,9 +112,10 @@ const ContactUs = () => {
 
 
     useEffect(() => {
-        fullaxios({ url: 'auth/info', type: 'get' })
+        fullaxios({ url: 'userinfo/info', type: 'get' })
             .then(res => {
                 if (res) {
+                    console.log(res.data)
                     setPredefinedname(res.data.name)
                     setPredefinedemail(res.data.email)
                     setName(predefinedname)

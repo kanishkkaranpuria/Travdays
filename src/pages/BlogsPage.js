@@ -208,7 +208,7 @@ const Blogs = ({id,setId}) => {
                     </span>
                 </p>
                 </div>
-                <p className='text-4xl font-bold pt-6'>{data.title}</p>
+                <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
                 <p className='pt-6 leading-tight text-xl'>{data.body}</p>
 
                 </div>
@@ -239,7 +239,7 @@ const Blogs = ({id,setId}) => {
                           </span>
                       </p>
                       </div>
-                      <p   className='text-4xl font-bold pt-6'>{data.title}</p>
+                      <p  onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
                       <p className='pt-6 leading-tight text-xl'>{data.body}</p>
                       </div>
                   </div>

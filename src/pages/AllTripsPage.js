@@ -16,7 +16,7 @@ const AllTrips = () => {
   const [datas, setDatas] = useState([]);
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [location, setLocation] = useState('');
@@ -70,6 +70,7 @@ const AllTrips = () => {
 
   useEffect(() => {
     console.log("i was here")
+    setLoading(true)
 
     fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
       .then(res => {
@@ -79,6 +80,7 @@ const AllTrips = () => {
           console.log(object)
           prevDatas.current = datas
           setLoading1(false)
+          setLoading(false)
         }
       })
       .catch(err => {

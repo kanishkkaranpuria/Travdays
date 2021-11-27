@@ -1,6 +1,23 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import fullaxios from "./FullAxios";
 
 const Navbar = () => {
+    useEffect(() => {
+        console.log("uerinfo status")
+        fullaxios({url : 'userinfo/status' 
+        })
+        .then(res => {
+          if (res){
+            console.log(res.data)
+        }})
+        .catch(err => {
+           if (err.response){if (err.response.data.detail === "Invalid page.") {
+           }
+    
+         }})
+      
+    }, [])
     return (
         <navbar className='navbar backdrop-filter '>
             <nav className="logo text-lg">
@@ -20,6 +37,8 @@ const Navbar = () => {
                 <Link className='h-full items-center flex' to='/gallery'>Gallery</Link>
                 <Link className='h-full items-center flex' to='/contactus'>Contact Us</Link>
                 <Link className='h-full items-center flex' to='/faq'>FAQ</Link>
+                <Link className='h-full items-center flex' to='/login'>Login</Link>
+                <Link className='h-full items-center flex' to='/logout'>Logout</Link>
             </nav>
         </navbar>
     );
