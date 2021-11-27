@@ -1,4 +1,3 @@
-import re
 from django.db.models import Q
 from database.models import *
 from rest_framework.decorators import APIView
@@ -219,6 +218,14 @@ class UnapprovedBlogs(APIView,BlogPagination):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({"error","something went wrong"}, status = status.HTTP_400_BAD_REQUEST)
 
+class UserBlogs(APIView,BlogPagination):
+
+    def get(self,request):
+        blogs = Blog.objects.filter(user = request.user)
+        results = self.paginate_queryset(blogs, request, view=self)
+        serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class AllBlogsDisplayView(APIView,BlogPagination):
 
     permission_classes = [AllowAny]   
@@ -230,6 +237,23 @@ class AllBlogsDisplayView(APIView,BlogPagination):
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data)
+
+class BlogApprovalStatus(APIView):
+
+    def get(self,request,pk = None):
+        if request.user.is_admin:
+            blog = Blog.objects.filter(id = pk)
+            if blog.exists():
+                blog = blog.first()
+                data = {}
+                data['approved'] = blog.approved
+                data['featured'] = blog.featured
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({"error":"invalid input"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"action not allowed"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 # class BlogDisplayView2(APIView,BlogMediaPagination):
 
 #     permission_classes = [AllowAny] 
