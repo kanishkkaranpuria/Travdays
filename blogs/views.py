@@ -215,7 +215,7 @@ class UnapprovedBlogs(APIView):
         if request.user.is_admin:
             blogs = Blog.objects.filter(approved = False).order_by('-created')
             results = self.paginate_queryset(blogs, request, view=self)
-            serializer = FeaturedBlogsSerializer(results,context={"request" : request}, many = True)
+            serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({"error","something went wrong"}, status = status.HTTP_400_BAD_REQUEST)
 

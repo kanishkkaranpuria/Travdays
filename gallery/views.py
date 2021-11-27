@@ -1,6 +1,6 @@
 from rest_framework import status
 from database.models import *
-from rest_framework.decorators import APIView
+from rest_framework.decorators import APIView, permission_classes
 from rest_framework.response import Response
 from .serializers import GallerySerializer
 from trips.serializers import SingleTripDisplaySerializer
@@ -8,8 +8,11 @@ from trips.serializers import SingleTripDisplaySerializer
 from django.db.models import Q
 from datetime import datetime, timedelta
 import ast, random
+from rest_framework.permissions import AllowAny
 
 class GalleryView(APIView): 
+
+    permission_classes = [AllowAny]
 
     def get(self,request):
         page = int(self.request.query_params.get('page', None))
