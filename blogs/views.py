@@ -114,7 +114,7 @@ class CreateBlog(APIView):
         data['location'] = request.data['location']
         data['image'] = request.data['displayImage']
         data['anonymous'] = request.data['anonymous'] if 'anonymous' in request.data else False
-
+        
         #Converting Data1,Data2....Data"n" dictionary into one array
 
         array = []
@@ -122,14 +122,14 @@ class CreateBlog(APIView):
         while 'data'+str(i) in request.data:
             array.append(request.data['data'+str(i)])
             i += 1
-
+        
         #Logic to arrange make consecutive elements of the array of different types 
 
         i = 0
         bool = True
         while(bool):
             while(i+1<len(array)):
-                if (type(array[i]) == type(array[i+1]) or type(array[i]) == type(array[i-1])) and isinstance(array[i],str):
+                if (type(array[i]) == type(array[i+1]) and isinstance(array[i],str)):
                     array = [*array[:i],array[i] +" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  "+ array[i+1],*array[i+2:]]
                 else:
                     if type(array[i]) == type(array[i+1]):
