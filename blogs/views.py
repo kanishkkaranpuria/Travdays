@@ -62,8 +62,10 @@ class BlogDisplayView(APIView,BlogMediaPagination):
             #         j = j+1
             n = (page-1)*3 if page !=1 else 0
             m = page*3 
+            if dict(list(data.items())[n:m]) == {}:
+                return Response({"error":"invalid input"}, status = status.HTTP_400_BAD_REQUEST)
             return Response(dict(list(data.items())[n:m]))
-        return Response({"error":"invalid input"}, status = status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"invalid id"}, status = status.HTTP_400_BAD_REQUEST)
 
 class BlogDelete(APIView):
 
