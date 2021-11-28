@@ -15,7 +15,8 @@ class ConfirmChangePassword(APIView):      #1st step : sending OTP in the email 
 
     permission_classes = [AllowAny]
 
-    def post(self, request):    
+    def post(self, request):  
+        print("1stran", request.data["email"])  
         if request.user.is_authenticated:
             user = request.user
         else:
@@ -27,6 +28,8 @@ class ConfirmChangePassword(APIView):      #1st step : sending OTP in the email 
         email_subject = 'Password Reset'
         if Otp.objects.filter(user=user).exists():
             user.otp.delete()
+        if Temp.objects.filter(user=user).exists():
+            user.temp.delete()
         otp = Otp.objects.create(user=user,otp = random.randint(111111,9999999))
         otp.save()
         email_body = render_to_string('passwordOtp.html',
@@ -51,6 +54,8 @@ class PasswordOtpVerify(APIView):        #2nd step : checking if entered OTP is 
     permission_classes = [AllowAny]
 
     def post(self,request, *args, **kwargs):
+        print(request.user.is_authenticated)
+        print(request.user)
         if request.user.is_authenticated:
             user = request.user
         else:
@@ -87,7 +92,7 @@ class NewPasswordSet(APIView):             #3rd step : changing the password
                 user = user.first()
             else:
                 return Response({'error':'Incorrect email id'}, status=status.HTTP_400_BAD_REQUEST)
-        if Temp.objects.filter(user = user.id).exists():
+        if Temp.objects.filter(user = user).exists():
             password = request.data['password']
             password2 = request.data['password2']
             if  password2 == password:

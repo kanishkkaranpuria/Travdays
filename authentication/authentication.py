@@ -36,19 +36,19 @@ class SafeJWTAuthentication(BaseAuthentication):
             print(access_token)
             payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
-            print("it came till here1")
+            print("access_token expired (authentication.py)")
             raise exceptions.AuthenticationFailed('access_token expired')
         except IndexError:
-            print("it came till here2")
+            print("Token prefix missing (authentication.py)")
             raise exceptions.AuthenticationFailed(None,'Token prefix missing')
 
         user = User.objects.filter(id=payload['user_id']).first()
         if user is None:
-            print("it came till here3")
+            print("User not found (authentication.py)")
             raise exceptions.AuthenticationFailed('User not found')
 
         if not user.is_active:
-            print("it came till here4")
+            print("user is inactive  (authentication.py)")
             raise exceptions.AuthenticationFailed('user is inactive')
 
         self.enforce_csrf(request)

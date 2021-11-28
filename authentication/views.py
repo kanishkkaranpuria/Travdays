@@ -43,14 +43,14 @@ class RegisterUserView(APIView):
                 password2 = data['password2']
                 if password != password2:
                     return Response({'error': 'Passwords do not match'},status=status.HTTP_400_BAD_REQUEST)     
-                if len(password) < 8:
-                    return Response({'error': 'Password must have at least 8 characters'},status=status.HTTP_400_BAD_REQUEST) 
+                if len(password) < 6:
+                    return Response({'error': 'Password must have at least 6 characters'},status=status.HTTP_400_BAD_REQUEST) 
             if not User.objects.filter(email=email).exists():
                 user = User(
                     name=name,
                     email = email,
                 )
-                user.set_password(data['password'] if ('password' in data) else None)
+                user.set_password(data['password'] if ('password' in data) else '#hf$xayu3brq7ifPg9ub6x@Gw8FwwF8wG@x6bu9gPfi7qrb3uyax$fh#')
                 user.save()
                 if User.objects.filter(email=email).exists():
                     u = User.objects.get(email = email)
@@ -90,14 +90,28 @@ class OTP_Validation(APIView):
 
     def post(self,request, *args, **kwargs):
         otp = request.data['otp']
-        user_email = request.data['email']
-        user = User.objects.get(email = user_email)
+        email = request.data['email']
+        user = User.objects.get(email = email)
         otp1 = Otp.objects.get(user=user)
         if str(otp) == str(otp1):
             user.is_active = True
             user.save()
             otp1.delete()
-            return Response({"success":"User Account Activated"},status=status.HTTP_201_CREATED)
+            if user.check_password('#hf$xayu3brq7ifPg9ub6x@Gw8FwwF8wG@x6bu9gPfi7qrb3uyax$fh#'):
+                response = Response()
+                access_token = generate_access_token(user)
+                refresh_token = generate_refresh_token(user)
+                token = WhitelistedTokens(token = refresh_token, user = user)
+                token.save()
+                response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
+                response.set_cookie(key='accesstoken', value=access_token)
+                print("refresh token and access token should be set")
+                response.data = {"success":"account verified"}
+                response.status_code = 200
+                print("response is sent")
+                return response
+            print("Response is sent")
+            return Response({"success":"User Account Activated"},status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
 class ActivateAccountView(APIView):
@@ -135,6 +149,8 @@ class LoginView(APIView):
             return Response({"error":"user not found"}, status=status.HTTP_400_BAD_REQUEST)
         if (password is not None) and (not user.check_password(password)):
             return Response({"error":"wrong password"}, status=status.HTTP_400_BAD_REQUEST)
+        if password == '#hf$xayu3brq7ifPg9ub6x@Gw8FwwF8wG@x6bu9gPfi7qrb3uyax$fh#':
+            return Response({"error":"Your password is not set, use OTP Login to sign in or reset your password"}, status=status.HTTP_400_BAD_REQUEST)
         if (password is None):
             otp = request.data["otp"]
             otp1 = Otp.objects.get(user__email = email) 
@@ -155,7 +171,7 @@ class LoginView(APIView):
         response.set_cookie(key='refreshtoken', value=refresh_token, httponly=True)
         response.set_cookie(key='accesstoken', value=access_token)
         response.data = {'access_token': access_token,'user': serializer.data,}
-        print("refresh token should be set")
+        print("refresh token and access token should be set")
         return response
 
 class LogoutView(APIView):
@@ -229,7 +245,7 @@ class Refresh_Token_View(APIView):
         refresh_token = request.COOKIES.get('refreshtoken')
         if refresh_token is None:
             response.delete_cookie('accesstoken')
-            print(1)
+            print("refresh token missing from cookies (new accesstoken)")
             response.status_code = 403
             response.data =  {"Error":"refresh token missing"}
             return response
@@ -237,25 +253,25 @@ class Refresh_Token_View(APIView):
         if obj:
             if obj.expiry<now:
                 obj.delete()
-                print(2)
+                print("Refresh token expired (new accesstoken)")
                 return Response({"Error":"Refresh token expired"}, status = status.HTTP_400_BAD_REQUEST)
         bool = WhitelistedTokens.objects.filter(token = refresh_token).exists()
         if not (bool):
-            print(3)
+            print("Token doesn't exist in backend (new accesstoken)")
             return Response({"Error":"Token doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
         elif bool:
             try:
                 payload = jwt.decode(
                     refresh_token, settings.REFRESH_TOKEN_SECRET, algorithms=['HS256'])
             except jwt.ExpiredSignatureError:
-                print(4)
+                print('expired refresh token, please login again.')
                 raise exceptions.AuthenticationFailed('expired refresh token, please login again.')
             user = User.objects.filter(id=payload.get('user_id')).first()
             if user is None:
-                print(5)
+                print('User not found (new accesstoken)')
                 raise exceptions.AuthenticationFailed('User not found')
             if not user.is_active:
-                print(6)
+                print('user is inactive (new accesstoken)')
                 raise exceptions.AuthenticationFailed('user is inactive')
             print("NEW ACCESS TOKEN CODE WORKED")
             access_token = generate_access_token(user)

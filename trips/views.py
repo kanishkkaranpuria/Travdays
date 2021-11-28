@@ -155,6 +155,8 @@ class CreateTripView(APIView):
                     else:
                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+                data = {}
+                data["trip"] = TripId or request.data["id"]
                 i = 0
                 while 'video'+str(i) in request.data:
                     data['video'] = request.data['video'+str(i)]
