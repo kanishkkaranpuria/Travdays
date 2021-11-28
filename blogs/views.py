@@ -223,7 +223,7 @@ class UnapprovedBlogs(APIView,BlogPagination):
 class UserBlogs(APIView,BlogPagination):
 
     def get(self,request):
-        blogs = Blog.objects.filter(user = request.user)
+        blogs = Blog.objects.filter(user = request.user).order_by("-created")
         results = self.paginate_queryset(blogs, request, view=self)
         serializer = AllBlogsSerializer(results,context={"request" : request}, many = True)
         return Response(serializer.data, status=status.HTTP_200_OK)
