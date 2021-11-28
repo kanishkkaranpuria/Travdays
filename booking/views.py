@@ -27,7 +27,7 @@ class PreviousBookingView(APIView,BookingPagination):
 
     def get(self, request):
         user = request.user
-        bookings = Booking.objects.filter(user = user)
+        bookings = Booking.objects.filter(user = user).order_by("-created")
         results = self.paginate_queryset(bookings, request, view=self)
         serializer = PreviousBookingSerializer(results,many = True)
         return Response(serializer.data, status=status.HTTP_200_OK)

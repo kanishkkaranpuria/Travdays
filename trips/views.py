@@ -77,7 +77,6 @@ class TripHoverEventView(APIView, TripMediaPagination):
             return Response(serializer.data, status = status.HTTP_200_OK)
         return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
 
-
 class ReviewView(APIView, ReviewsPagination):
 
     permission_classes = [AllowAny]
@@ -184,6 +183,17 @@ class CreateTripView(APIView):
             else:
                 return Response({"error":"Invalid Input"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteTripMedia(APIView):
+
+    def delete(self,request,pk):
+        if request.user.is_admin:
+            tripmedia = AdminMedia.objects.filter(id = pk)
+            if tripmedia.exists():
+                tripmedia = tripmedia
+                tripmedia.delete()
+            return Response({'msg':'media deleted'})
+        return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST) 
 
 class TripTypeFilterView(APIView, TripsPagination):
 

@@ -11,6 +11,7 @@ class BookingSerializer(serializers.ModelSerializer):
 class PreviousBookingSerializer(serializers.ModelSerializer):
 
     created = serializers.SerializerMethodField()
+    trip = serializers.SerializerMethodField()
 
     class Meta:
         model = Booking
@@ -18,3 +19,6 @@ class PreviousBookingSerializer(serializers.ModelSerializer):
 
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
+
+    def get_trip(self,obj):
+        return obj.trip.name
