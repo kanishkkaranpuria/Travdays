@@ -20,7 +20,7 @@ class AllBlogsSerializer(serializers.ModelSerializer):
         return obj.user.name
     
     def get_body(self,obj):
-        a = obj.blog.split("    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")[0]
+        a = obj.blog.split("    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")[0].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  ")[0]
         if len(a)>478:
             a = a[:478].split(" ")[:-1] 
             body = ''
