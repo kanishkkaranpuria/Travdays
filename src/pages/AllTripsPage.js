@@ -162,11 +162,11 @@ const AllTrips = () => {
   const ShowData = (data) => {
 
     return (
-      <div className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card">
-        <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2'>
+      <div className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card ">
+        <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2 z-[0]'>
           <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
           <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
-
+        {console.log(data.displayImage)}  
           {data.displayImage && <img src={data.displayImage} alt="" className="z-[-2] w-full h-full object-cover rounded-[20px]" />}
         </div>
         <div className='md:absolute md:h-full p-4 md:p-2 w-full'>

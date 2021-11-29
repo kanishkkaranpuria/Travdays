@@ -55,7 +55,7 @@ const fullaxios = (object) => {
 
 	const axiosInstance = axios.create({
 		baseURL: sendcookie ? baseURL : baseURL2,
-		timeout: 10000,
+		timeout: 30000,
 		headers: {
 			Authorization: Cookie('getCookie', 'accesstoken')
 				? Cookie('getCookie', 'accesstoken')

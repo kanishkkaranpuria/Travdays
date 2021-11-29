@@ -81,7 +81,7 @@
 .App{
   width: 100%;
   /* max-width: 1440px; */
-  background-color: #F8F0E3 ;
+  background-color: #ffffff ;
 }
 body {
   margin: 0;
@@ -320,10 +320,19 @@ transform: translateY(-100%);
 transition: all 200ms ease-in-out;
 }
 
-/* ******************************************************************************************MEDIA QUERIES */
 /* Some extra shit added by naman */
 
-@media only screen and (max-width: 800px) {
+.namans-textarea {
+  border: none;
+  overflow: auto;
+  outline: none;
+  
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+  /* ******************************************************************************************MEDIA QUERIES */
+  @media only screen and (max-width: 800px) {
   
   .navbar{
     display: none;

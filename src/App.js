@@ -14,7 +14,6 @@ import FAQ from './components/FAQ';
 import WriteABlog from './components/WriteABlog';
 import IndivisualBlogPage from './pages/IndivisualBlogsPage';
 import MobileMenu from './components/MobileMenu';
-import logo from './pages/images/TravDays_logos/transparent_logo.png';
 import Logout from './pages/Logout';
 import Login from './pages/Login';
 import PackagesPage from './pages/PackagesPage';
@@ -63,14 +62,15 @@ function App() {
             console.log(err)
        } )
   }, [])
+
   const Onlyadmin = () => {
     if(isadmin===true){
       console.log("yes welcome admin")
       return(
-        <div>
-           <Switch>
+        
+        <div className = "w-full justify-center flex content">
 
-          <Route exact path = "/adminOnly"> <MainAdmin /> </Route>
+        <Route exact path = "/adminOnly"> <MainAdmin /> </Route>
         
         <Route exact path = "/addtrips"> <Addtrips  /> </Route>
         
@@ -85,8 +85,8 @@ function App() {
         <Route exact path = "/admfaq"> <AdmFaq  /> </Route>
 
         <Route exact path = "/admbooking"> <AdmBooking  /> </Route>
-           </Switch>
-           </div>
+        
+        </div>
       )
     }
   }
@@ -122,7 +122,7 @@ function App() {
 
         <Route exact path = "/register"> <Registration/> </Route>
 
-        <Route exact path = "/logout"> <Logout /> </Route>
+        <Route exact path = "/logout"> <Logout setIsadmin={setIsadmin}/> </Route>
 
         <Route exact path = "/contactus"> <ContactUs /> </Route>
         

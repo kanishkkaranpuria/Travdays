@@ -36,8 +36,8 @@ const IndivisualBlogPage = ({isadmin}) => {
             .then(res => {
               if(Object.keys(res.data).length===0){
                 setHasmore(false)
-              }
                 console.log("hasmore false")
+              }
               setIblogdata({...iblogdata,...res.data})
                 //   setIblogdata(res.data)
                   console.log(res.data[0].slice(-3,))   
@@ -45,8 +45,8 @@ const IndivisualBlogPage = ({isadmin}) => {
             console.log(res.data)
             })
             .catch(err => {
-              setHasmore(false)
-               if (err.response){if (err.response.data.detail === "Invalid page.") {
+              if (err.response){if (err.response.data.detail === "Invalid page.") {
+                 setHasmore(false)
                  setLoading(false)
                }
              }})
@@ -131,6 +131,7 @@ const IndivisualBlogPage = ({isadmin}) => {
             })
             .catch(err => {
                if (err.response){if (err.response.data.detail === "Invalid page.") {
+                 console.log("wtf is happening")
                  setHasmore(false)
                  setLoading(false)
                }
@@ -218,8 +219,7 @@ const IndivisualBlogPage = ({isadmin}) => {
     useEffect(() => {
         // console.log(iblogimg,"img")
       console.log(page)
-
-        
+      console.log(hasmore)
     }, [iblogdata,iblogimg,page])
     return ( 
         <div className='section'>
@@ -244,13 +244,14 @@ const IndivisualBlogPage = ({isadmin}) => {
                       </div>
                       <p className=' px-60 py-10 text-4xl'>{title}</p>
                       
-                    
+                              {console.log(iblogdata)}
                       <p className='px-8 py-2 pt-3 leading-tight text-xl'> {Object.keys(iblogdata).map((keyName, i) => {
                          console.log(i+1)
                         if(Object.keys(iblogdata).length === i +1 ){
                           return(
                             <div ref={lastDataElementRef} className="">
                                 { iblogdata[keyName].slice(-3,)==="par" &&<div id={i} value={i + 1}>{iblogdata[keyName].slice(0,-4)}</div>}
+                                <br />
                                 { iblogdata[keyName].slice(-3,)==="img" && <img src= {iblogdata[keyName].slice(0,-4)} alt="" /> }
 
                             </div>
@@ -260,6 +261,7 @@ const IndivisualBlogPage = ({isadmin}) => {
                           return(
                             <div  className="">
                                 { iblogdata[keyName].slice(-3,)==="par" &&<div id={i} value={i + 1}>{iblogdata[keyName].slice(0,-4)}</div>}
+                                <br />
                                 { iblogdata[keyName].slice(-3,)==="img" && <img src= {iblogdata[keyName].slice(0,-4)} alt="" /> }
 
                             </div>
