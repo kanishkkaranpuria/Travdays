@@ -26,6 +26,10 @@ import AdmFaq from './ADMIN/AdmFaq';
 import AdmBooking from './ADMIN/AdmBooking';
 import MainAdmin from './ADMIN/MainAdmin';
 import Profilepage from './pages/Profilepage';
+import Registration from './pages/Registration';
+import ResetPassword from './pages/ResetPassword';
+import BookingHistory from './pages/Bookinghistory';
+import MyBlogs from './pages/MyBlogs';
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -70,6 +74,8 @@ function App() {
         
         <Route exact path = "/login"> <Login /> </Route>
 
+        <Route exact path = "/register"> <Registration/> </Route>
+
         <Route exact path = "/logout"> <Logout /> </Route>
 
         <Route exact path = "/contactus"> <ContactUs /> </Route>
@@ -104,6 +110,12 @@ function App() {
         <Route exact path = "/admfaq"> <AdmFaq /> </Route>
 
         <Route exact path = "/admbooking"> <AdmBooking /> </Route>
+
+        <Route exact path = "/resetpassword"> <ResetPassword/> </Route>
+
+        <Route exact path = "/bookings"> <BookingHistory/> </Route>
+
+        <Route exact path = "/myblogs"> <MyBlogs/> </Route>
         
         </Switch>
     

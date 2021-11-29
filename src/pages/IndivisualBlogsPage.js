@@ -180,6 +180,7 @@ const IndivisualBlogPage = () => {
                           return(
                               <div>
                                   { iblogdata[keyName].slice(-3,)==="par" &&<div id={i} value={i + 1}>{iblogdata[keyName].slice(0,-4)}</div>}
+                                  <br/>
                                   { iblogdata[keyName].slice(-3,)==="img" && <img src= {iblogdata[keyName].slice(0,-4)} alt="" /> }
 
                               </div>

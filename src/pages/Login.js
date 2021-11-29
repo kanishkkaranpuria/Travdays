@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from 'react';
 import { useHistory } from "react-router";
 import Cookie from "../components/Cookie";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -19,7 +20,7 @@ const Login = () => {
             })
             .then(res =>{
                 console.log(res.data)
-                Cookie('setCookie','accesstoken', res.data.access_token, 1)
+                // Cookie('setCookie','accesstoken', res.data.access_token, 1)
                 history.push("/")
             })
     }
@@ -40,6 +41,7 @@ const Login = () => {
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
                 </div>
             </form>
+            New to Travdays?<Link to="/register"> Click here to Sign Up </Link>
         </div>
     );
 }

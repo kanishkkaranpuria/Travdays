@@ -113,7 +113,7 @@ const WriteABlog = () => {
 
             
             // console.log(e.target.files[0])
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && type ==="para") {
                 // console.log('do validate');
                 if (element + 1 === numberOfAllDatas) {
                     // let tempalldataforcontent = [];
@@ -152,6 +152,18 @@ const WriteABlog = () => {
                     temp.current = element + 1;
                     var temp2 = [alldata[element].slice(0, selectionStart).replace(/\n/g, ""), alldata[element].slice(selectionStart, alldata[element].length).replace(/\n/g, "")]
                     setAlldata([...alldata.slice(0, element), ...temp2, ...alldata.slice(element + 1)])
+
+                }
+
+            }
+            if (e.key === 'Enter' && type ==="image") {
+                if (element + 1 === numberOfAllDatas) {
+                    temp.current = null
+                    setAlldata([...alldata.slice(0,element+1),""])
+                }
+                else if (element + 1 < numberOfAllDatas) {
+                    temp.current = element + 1;
+                    setAlldata([...alldata.slice(0, element+1), "", ...alldata.slice(element + 1)])
 
                 }
 
@@ -352,7 +364,7 @@ const WriteABlog = () => {
             if (alldata[i].slice(5, 10) === "image")
             {
                 // data.append(newimage[i]
-                data.append(`data{i}`, newimage[i])
+                data.append(`data${i}`, newimage[i])
                 if (j === 0){
                 data.append("displayImage", newimage[i]);
                     j++;
