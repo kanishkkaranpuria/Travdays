@@ -11,13 +11,15 @@ class AllBlogsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','image','created','body','user','anonymous']
+        fields = ['id','title','location','image','created','body','user']
 
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
 
     def get_user(self,obj):
-        return obj.user.name
+        if obj.anonymous == False:
+            return obj.user.name
+        return "Anonymous"
     
     def get_body(self,obj):
         a = obj.blog.split("    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")[0].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  ")[0]
@@ -35,7 +37,7 @@ class FeaturedBlogsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','image','created','anonymous']
+        fields = ['id','title','location','image','created']
 
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
@@ -60,15 +62,19 @@ class BlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id','title','location','displayImage','created','blog','user','anonymous']
+        fields = ['id','title','location','displayImage','created','blog','user']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
         return request.build_absolute_uri(obj.image.url)
+
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
+
     def get_user(self,obj):
-        return obj.user.name
+        if obj.anonymous == False:
+            return obj.user.name
+        return "Anonyous"
 
 class BlogEditSerializer(serializers.ModelSerializer):
 
