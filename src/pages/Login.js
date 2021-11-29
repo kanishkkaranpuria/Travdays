@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import Cookie from "../components/Cookie";
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setIsadmin}) => {
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');

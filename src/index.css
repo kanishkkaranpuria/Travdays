@@ -3,6 +3,52 @@
 @tailwind utilities;
 
 /* soryyyyyyyyyyyyyy param */
+  /* edit trips page  */
+.Arealcontainer{
+  display: inline-block;
+}  
+.Acontainer{
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+}
+.imageee {
+  opacity: 1;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.Atext {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+.Amiddle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #04AA6D;
+  padding: 10px,10px;
+}
+
+.Acontainer:hover .imageee{
+  opacity: 0.3;
+}
+
+.Acontainer:hover .Amiddle{
+  opacity: 1;
+}
+ /* edittrips page */
 .row {
   display: flex;
 }
@@ -35,7 +81,7 @@
 .App{
   width: 100%;
   /* max-width: 1440px; */
-  background-color: #F8F0E3.;
+  background-color: #F8F0E3 ;
 }
 body {
   margin: 0;

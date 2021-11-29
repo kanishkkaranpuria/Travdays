@@ -119,9 +119,8 @@ const Gallery = () => {
       if (res){
       setDatas(prev => [...prev, ...res.data])
       // setLocimg(datas[0].image)
-      console.log(res.data[0].image)
-      setLocimg(res.data[0].image)
-      setLocvideo(res.data[0].video)
+      // setLocimg(res.data[0].image)
+      // setLocvideo(res.data[0].video)
 
       setDigit(1)
 
@@ -131,23 +130,29 @@ const Gallery = () => {
     .catch(err => console.error(err));
     setLoading(false);
   }, [page])
+
+
+  useEffect(() => {
+    if(datas[0]!==undefined){
+    setLocimg(datas[0].image)
+    setLocvideo(datas[0].video)
+    }   
+  }, [datas])
   
   useEffect(() => {
     setStorage([...datas.map(data => data.id)])
     
-    // console.log('datas-', datas);
-    // console.log('prev datas',prevDatas.current)
     if(datas.length!==0 && prevDatas.current.length === datas.length){
       setHasMore(false) 
     }
   }, [datas])
   
+  const [locid, setLocid] = useState()
   useEffect(() => {
     console.log('storage set')
     console.log(storage)
    
     // setLocid(storage[0].id)
-    console.log(storage[0])  
     setLocid(storage[0])
     // setLocimg(storage[0].image)
     
@@ -159,12 +164,10 @@ const Gallery = () => {
   
   //Aummmm time 
   const [location, setLocation] = useState(null)
-  const [locid, setLocid] = useState()
   const [locimg,setLocimg]= useState()
   const [locvideo,setLocvideo]= useState()
   // const [state, setstate] = useState()
   const Selected = (data) => {
-    console.log(data)
     setLocid(data.id)
     setLocimg(data.image)
     setLocvideo(data.video)
@@ -172,8 +175,9 @@ const Gallery = () => {
     }
 
   useEffect(() => {
-    fullaxios({url : 'gallery/package/'+ locid ,type : "get",sendcookie : true})
+    fullaxios({url : 'gallery/package/'+ locid })
     .then(res => {
+      console.log("resssssssssss",res.data)
       if (res){
       // setLocation(prev => [...prev, ...res.data])
       setLocation(res.data)
@@ -184,7 +188,7 @@ const Gallery = () => {
   }, [locid])  
 
   useEffect(() => {
-    console.log(location)
+    // console.log("location",location)
     
   }, [location])
   
@@ -228,8 +232,6 @@ const Gallery = () => {
                                 {/* {console.log(locimg)} */}
                                 {/* {console.log(locimg.slice(21,27))}
                                 {console.log(locimg.slice(21,27) === "images")} */}
-                                {console.log(locvideo)}
-                                {console.log(locimg)}
                                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                                 {locimg && <img src={locimg}  alt="" className ="object-cover h-full  w-full"/>}
                                 {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-full  w-full"/>}

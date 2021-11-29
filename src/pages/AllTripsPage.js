@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { useParams } from "react-router";
+import { useParams,useHistory} from "react-router";
 import fullaxios from "../components/FullAxios";
 import stars from './images/stars.png'
 
@@ -21,6 +21,8 @@ const AllTrips = () => {
   const [hasMore, setHasMore] = useState(true);
   const [location, setLocation] = useState('');
   const prevDatas = useRef([])
+  const history = useHistory();
+
   const observer = useRef()
 
   useEffect(() => {
@@ -169,7 +171,7 @@ const AllTrips = () => {
         </div>
         <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
           <p className='flex justify-between items-center'>
-            {data.name && <p className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+            {data.name && <p onClick={()=>{history.push('/trip/'+ data.name +'/'+ data.id)}}className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
             {data.type && <p className='text-sm' >{data.type}</p>}
           </p>
           {data.ratings === "No Ratings" && <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >{data.ratings}</p>}

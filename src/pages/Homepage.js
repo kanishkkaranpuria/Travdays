@@ -2,26 +2,27 @@ import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FAQ from "../components/FAQ";
 import Card from "../components/Card"
+import { useEffect } from "react";
+import fullaxios from "../components/FullAxios";
 
-// import Swiper from 'swiper';
-// var swiper = new Swiper(".mySwiper", {
-//     effect: "coverflow",
-//     grabCursor: true,
-//     centeredSlides: true,
-//     slidesPerView: "auto",
-//     coverflowEffect: {
-//       rotate: 50,
-//       stretch: 0,
-//       depth: 100,
-//       modifier: 1,
-//       slideShadows: true,
-//     },
-//     pagination: {
-//       el: ".swiper-pagination",
-//     },
-//   });
 
-const Home = () => {
+
+
+
+const Home = ({isadmin,setIsadmin}) => {
+
+    useEffect(() => {
+        fullaxios({url : 'userinfo/status'})
+        //   .get(`faq/question?page=`+ page)
+          .then((res)=>{
+              console.log(res.data.admin)
+              setIsadmin(res.data.admin)
+           
+          })
+          .catch(err => {
+                console.log(err)
+           } )
+      }, [])
     return ( 
         <div className="main w-full items-center justify-center">
             <div className="section hero items-center justify-center">
@@ -40,7 +41,7 @@ const Home = () => {
                 <p className='m-4'>
                     <div className="flex sm:justify-center">
 
-                      <Link className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold' to='/adminOnly'>Admin Only</Link> 
+                     {isadmin&& <Link className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold' to='/adminOnly'>Admin Only</Link> }
                         <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold'>Contact us</button>
                         <button className='m-2 p-1 w-40 sm:w-32 sm:m-1 border-black border-solid border-2 '>Learn more</button>       
                     </div> 

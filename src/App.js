@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+ 
+//aums imports?
+import fullaxios from './components/FullAxios';
+//aums imports?
 import Navbar from './components/Navbar';
 import Blogs from './pages/BlogsPage';
 import ContactUs from './pages/ContactUs';
@@ -16,7 +19,7 @@ import Logout from './pages/Logout';
 import Login from './pages/Login';
 import PackagesPage from './pages/PackagesPage';
 import { Link } from 'react-router-dom';
-import { useState ,useParams} from 'react';
+import { useState ,useParams,useEffect} from 'react';
 import Addtrips from './ADMIN/Addtrips';
 import Edittrips from './ADMIN/Edittrips';
 import ApproveBlogs from './ADMIN/ApproveBlogs';
@@ -30,6 +33,7 @@ import Registration from './pages/Registration';
 import ResetPassword from './pages/ResetPassword';
 import BookingHistory from './pages/Bookinghistory';
 import MyBlogs from './pages/MyBlogs';
+
 
 const showMenu = () =>{
   document.getElementById('mobile-menu').style.transform="translateY(0%)";
@@ -45,7 +49,49 @@ const hideMenu = ()=>{
 // aum time 
 
 function App() {
-  const [id, setId] = useState();
+  const [isadmin, setIsadmin] = useState(false);
+
+  useEffect(() => {
+    fullaxios({url : 'userinfo/status'})
+    //   .get(`faq/question?page=`+ page)
+      .then((res)=>{
+          console.log(res.data.admin)
+          setIsadmin(res.data.admin)
+       
+      })
+      .catch(err => {
+            console.log(err)
+       } )
+  }, [])
+  const Onlyadmin = () => {
+    if(isadmin===true){
+      console.log("yes welcome admin")
+      return(
+        <div>
+           <Switch>
+
+          <Route exact path = "/adminOnly"> <MainAdmin /> </Route>
+        
+        <Route exact path = "/addtrips"> <Addtrips  /> </Route>
+        
+        <Route exact path = "/trip/:name/:id"> <Edittrips  /> </Route>
+        
+        <Route exact path = "/approveblogs"> <ApproveBlogs  /> </Route>
+
+        <Route exact path = "/addtestimonials"> <Addtestimonials  /> </Route>
+
+        <Route exact path = "/admcontactus"> <AdmContactUs  /> </Route>
+        
+        <Route exact path = "/admfaq"> <AdmFaq  /> </Route>
+
+        <Route exact path = "/admbooking"> <AdmBooking  /> </Route>
+           </Switch>
+           </div>
+      )
+    }
+  }
+   
+
 
   return (
     <Router>
@@ -66,13 +112,13 @@ function App() {
       <div className="content flex justify-center">
         <Switch>
         
-        <Route exact path = "/"> <Home /> </Route>
+        <Route exact path = "/"> <Home isadmin={isadmin} setIsadmin={setIsadmin} /> </Route>
       
-        <Route exact path = "/blogs"> <Blogs id={id} setId={setId} /> </Route>
+        <Route exact path = "/blogs"> <Blogs  /> </Route>
 
         <Route exact path = "/gallery"> <Gallery /> </Route>
         
-        <Route exact path = "/login"> <Login /> </Route>
+        <Route exact path = "/login"> <Login setIsadmin={setIsadmin} /> </Route>
 
         <Route exact path = "/register"> <Registration/> </Route>
 
@@ -91,19 +137,10 @@ function App() {
         <Route exact path = "/faq"> <FAQ /> </Route>
         
         <Route exact path = "/blogs/write"> <WriteABlog /> </Route>
-        
-        <Route exact path = "/blogs/:title/:id"> <IndivisualBlogPage /> </Route>
 
-        {/* ADMINS ONLY */}
-        <Route exact path = "/adminOnly"> <MainAdmin /> </Route>
+        <Route exact path = "/blogs/:title/:id"> <IndivisualBlogPage isadmin={isadmin} setIsadmin={setIsadmin} /> </Route>
         
-        <Route exact path = "/addtrips"> <Addtrips /> </Route>
-        
-        <Route exact path = "/edittrips"> <Edittrips /> </Route>
-        
-        <Route exact path = "/approveblogs"> <ApproveBlogs id={id} setId={setId} /> </Route>
-
-        <Route exact path = "/addtestimonials"> <Addtestimonials /> </Route>
+           { Onlyadmin()}
 
         <Route exact path = "/admcontactus"> <AdmContactUs /> </Route>
         
@@ -118,6 +155,7 @@ function App() {
         <Route exact path = "/myblogs"> <MyBlogs/> </Route>
         
         </Switch>
+        {/* ADMINS ONLY */}
     
       </div>
     </div>

@@ -48,11 +48,11 @@ const Addtrips = () => {
             // console.log("rubbish")
          }
  
-        const fileArray = Array.from(e.target.files).map((file,index)=>[{  
+        const fileArray = Array.from(e.target.files).map((file,index)=>({  
                      "type": file.type, 
                      "media" :URL.createObjectURL(file),
                     //   "videos" : URL.createObjectURL(file)
-        }] )
+        }) )
         // console.log("has it changed",e.target.value)
         // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
         console.log(fileArray)
@@ -60,23 +60,27 @@ const Addtrips = () => {
         setDatas(prev=>[...prev,...Array.from(e.target.files).map((file)=>file)])
     }
  
-    const Videohandler = (e) => {
-        // setNewimages(e.target.files)
-        console.log(e.target.files )
-        const VfileArray = Array.from(e.target.files).map((file)=>URL.createObjectURL(file))
-        // console.log("has it changed",e.target.value)
-        // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
-        console.log(VfileArray)
-        setVideopreview((prevVideos)=>prevVideos.concat(VfileArray))
-        setVdatas(Array.from(e.target.files).map((file)=>file))
-    }
+  
     
 useEffect(() => {
 console.log(datas)
 console.log(imagepreview)
+console.log(imagepreview.slice(2,3)) 
+console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
 }, [datas,imagepreview])
 
+
+const test = (n) => {
+
+    // console.log(document.getElementById("1").innerHTML)
+    // document.getElementById("1").innerHTML= null
+    setImagepreview(prev=>[...prev.slice(0,n),...prev.slice(n+1,)])
+    setDatas(prev=>[...prev.slice(0,n),...prev.slice(n+1,)])
+    console.log(imagepreview)
+
+}
   
+
      
     const Submit = (e) => {
         e.preventDefault();
@@ -89,11 +93,12 @@ console.log(imagepreview)
             console.log("rubbish")
             console.log(datas[i])
         
-            if(datas[i].type === "image/png" ){
+            if(datas[i].type.slice(0,5) === "image" ){
+                console.log("image gang")
               formData.append(`image${m}`, datas[i])
               m++
             }
-             else if (datas[i].type === "video/mp4" ){
+             else if (datas[i].type.slice(0,5) === "video" ){
                  
                  formData.append(`video${n}`, datas[i])
                  n++
@@ -141,24 +146,30 @@ console.log(imagepreview)
                       
                         {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
                      
-                        <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] '   action="">
+                        <form className='flex flex-col mx-auto max-w-[1000px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] '   action="">
                             <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Add trips</span>
-                            <p className='flex items-center'> 
-                                    {imagepreview &&  imagepreview.map((data,index)=>{
-                                        console.log(data[0].type)
-                                        console.log(data[0].image)
-                                      if( data[0].type === 'image/png' || data[0].type === 'image/jpeg') { 
+                            <p className=''> 
+                                    {imagepreview &&  imagepreview.map((data,i)=>{
+                                        console.log(data.type)
+                                        console.log(data.image)
+                                      if( data.type.slice(0,5) === 'image' ) { 
                                           return(
-                                        <div className="column">
-                                              <img src={data[0].media} alt=""  />  
-                                        </div>
+                                            <div className="Acontainer">
+                                            <img className="imageee"  src={data.media} alt=""  /> 
+                                            <div onClick={()=>{test(i)}} className="Amiddle">
+                                            <div className="Atext">Delete</div>
+                                            </div> 
+                                      </div>
                                         )
                                       }
-                                      else if (data[0].type === "video/mp4"){
+                                      else if (data.type.slice(0,5) === "video"){
                                         return(
-                                            <div className="column">
-                                               <video controls src={data[0].media }alt="" />
-                                            </div>
+                                            <div className="Acontainer">
+                                            <video className="imageee"  controls src={data.media }alt="" />
+                                               <div onClick={()=>{test(i)}} className="Amiddle">
+                                                   <div className="Atext">Delete</div>
+                                                   </div> 
+                                         </div>
                                             )
                                       }
                                     })

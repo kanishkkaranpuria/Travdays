@@ -152,7 +152,7 @@ const Blogs = ({id,setId}) => {
                   <div className='gradient'></div>
               <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
                   <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
-                      <p className='text-3xl sm:text-xl'>{data.title}</p>
+                      <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-3xl sm:text-xl'>{data.title}</p>
                      
                   </div>
                   <img className='w-full h-full top-0 object-cover bg' src={data.image} alt=""/>
@@ -166,7 +166,7 @@ const Blogs = ({id,setId}) => {
                   <div className='gradient'></div>
               <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
                   <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
-                      <p  className='text-3xl sm:text-xl'>{data.title}</p>
+                      <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-3xl sm:text-xl'>{data.title}</p>
                       <p className='flex text-2xl items-center text-center '><span>{data.location}</span>
                       </p>
                   </div>

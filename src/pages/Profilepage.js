@@ -33,6 +33,24 @@ const Profilepage = () => {
     const Submit = (e) => {
         e.preventDefault();
         setNamechange(true)
+
+        fullaxios({
+            url: 'query/create', type: 'post', data: {    
+                name: name,
+            }, sendcookie: true
+        })
+            .then(res => {
+                if (res) {
+                    console.log("it worked")
+                    // history.push('/')
+                }
+            })
+            .catch(res => {
+                console.log("hello didnt work")
+                // if (res.status === 400)
+                //     alert("invalid OTP!!")
+            })
+
     }
 
     const Goback = (e) => {
@@ -76,7 +94,6 @@ const Profilepage = () => {
     
                     <div className='sm:pb-4'>
                         <div className="">
-                       
                         <p className='flex items-center'>
                             <span className='w-52'>Enter your name :</span>
                                 <input required type="text" placeholder="Name"defaultValue="" onChange={(e) => setName(e.target.value)}/>

@@ -4,55 +4,56 @@ import fullaxios from "../components/FullAxios";
 const AdmFaq = () => {
     const [query, setQuery] = useState();
     const [querytype, setQuerytype] = useState();
+    const [answer, setAnswer] = useState();
     const [mainqueries, setMainqueries] = useState();
 
     //existiong query types
     useEffect(() => {
 
-        fullaxios({ url: 'query/create' })
-            .then(res => {
-                if (res) {
-                    setMainqueries(res.data);
-                }
-            })
+            fullaxios({
+                url: 'faq/'  })
+                .then(res => {
+                    console.log(res.data)
+                    if (res) {
+                        console.log("it worked")
+                    }
+                })
+                .catch(res => {
+                    console.log("hello didnt work")
+                })    
 
 
     }, [])
 
     //submitt
 
-    // const Submit = (e) => {
-    //     e.preventDefault();
-    //     console.log("well this works")
-    //     fullaxios({
-    //         url: 'query/create', type: 'post', data: {
-    //             email: email,
-    //             name: name,
-    //             query: query,
-    //             choice: d.value,
-    //             phoneNumber: phonenum
+    const Submit = (e) => {
+        e.preventDefault();
+        fullaxios({
+            url: 'faq/' ,type:'post' , data:{
+                question: query,
+                answer: answer
 
-    //         }, sendcookie: true
-    //     })
-    //         .then(res => {
-    //             if (res) {
-    //                 console.log("it worked")
-    //                 history.push('/')
-    //             }
-    //         })
-    //         .catch(res => {
-    //             console.log("hello didnt work")
-    //         })
-    // }
+            } })
+            .then(res => {
+                console.log(res.data)
+                if (res) {
+                    console.log("it worked")
+                }
+            })
+            .catch(res => {
+                console.log("hello didnt work")
+            })    
+    }
 
     return (  
         <div className=" section contact-us">
-        <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] '  action="">
-            <span className='text-3xl sm:text-xl font-bold sm:p-2 inline-block '>Add Query type </span>
+        <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] ' onSubmit={Submit} action="">
+            {/* <span className='text-3xl sm:text-xl font-bold sm:p-2 inline-block '>Add Query type </span> */}
 
             <div className='sm:pb-4'>
             
-                 <div className="">
+                 {/* <div className="">
                     <p className='flex items-center'>
                         <span className='w-52'>Add the query type  :</span>
                         <input required type="text" placeholder="Query type" id="name" onChange={(e) => setQuerytype(e.target.value)} />
@@ -61,18 +62,18 @@ const AdmFaq = () => {
                     ))}   </select>}
                     </p>
                    
-                </div>
+                </div> */}
                 
             <span className='text-3xl sm:text-xl font-bold sm:p-2 inline-block '>Add faqs </span>
                 
             </div>
             The FAQ :
-            <textarea placeHolder="query..." name="" id="" cols="70" rows="2" onChange={(e) => setQuery(e.target.value)}></textarea>
+            <textarea required placeHolder="query..." name="" id="" cols="70" rows="2" onChange={(e) => setQuery(e.target.value)}></textarea>
 
             
             The Answer to the querry :
-            <textarea placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)}></textarea>
-            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+            <textarea required placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setAnswer(e.target.value)}></textarea>
+            <button  className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
 
         </form>
     </div>
