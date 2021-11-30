@@ -86,7 +86,18 @@ const WriteABlog = () => {
             var firstlinestatus;
             // console.log(e.target.value.length)
             // console.log(window.innerWidth)
-            var char = parseFloat(window.innerWidth / 15).toFixed()
+            // window.innerWidth/15 = w-2/3
+            // window.innerWidth/10 = w-full
+            console.log(window.innerWidth)
+            var char;
+            if (window.innerWidth > 450)
+            {
+            char = parseFloat(window.innerWidth / 15).toFixed()
+            }
+            else if (window.innerWidth <= 450)
+            {
+            char = parseFloat(window.innerWidth/10).toFixed()
+            }
             // console.log("number of characters in every line", char)
             char = char - 1
             var charpercent = ((e.target.value.length / char) - Math.floor(e.target.value.length / char)) * char
@@ -535,8 +546,14 @@ const WriteABlog = () => {
     //     }
     // },[temp.current])
     const ActuallyPublishingtheBlog = () => {
-        // setWriteblog(false)
-        // setPublishblog(true)
+
+        return(
+            <div>
+                <h1>let's fucking go</h1>
+                <button onClick={()=>{setPublishblog(false); setWriteblog(true);}}>back</button>
+                <button onClick={()=>{submitBlog()}}>Submit</button>
+            </div>
+        )
         
     }
     const submitBlog = () => {
@@ -556,18 +573,26 @@ const WriteABlog = () => {
             // blogobject = Object.assign(blogobject,{ [i] :  [content[i]] })
             // imagesobject = Object.assign(imagesobject,JSON.stringify({ [i] : [newimage[i]]}))
             // imagesobject = {...imagesobject, `image${i}` : [newimage[i]]}
+            
+            
+            
             if (alldata[i].slice(5, 10) === "image") {
-                // data.append(newimage[i]
-                // console.log(newimage[i])
-                data.append(`data${i}`, newimage[i])
+            //     // data.append(newimage[i]
+            //     // console.log(newimage[i])
+            //     data.append(`data${i}`, newimage[i])
+
+                data.append(`data${i}`, alldata[i])
                 if (j === 0) {
                     data.append("displayImage", newimage[i]);
                     j++;
                 }
             }
+            
             else {
+            
                 // data.append(`image${i}`, newimage[i])
                 data.append(`data${i}`, alldata[i])
+            
             }
         }
         // data.append(`blog${numberOfAllDatas}`, content[numberOfAllDatas])
@@ -610,11 +635,11 @@ const WriteABlog = () => {
         // console.log("wtf")
         return (
 
-            <div className='write-a-blog pt-8 flex flex-col items-start w-2/3'>
+            <div className='write-a-blog pt-8 flex flex-col items-start w-2/3 sm:w-full'>
                 {/* <p className='text-4xl'>Write a blog</p> */}
 
 
-                <input className='namans-textarea w-full text-3xl bg-transparent border-transparent outline-none' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} onKeyDown={(e) => { paraKeyControl(e, -1, "title") }} placeholder="Enter your title here..." />
+                <input className='namans-textarea w-full text-3xl leading-none bg-transparent border-transparent outline-none' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} onKeyDown={(e) => { paraKeyControl(e, -1, "title") }} placeholder="Enter your title here..." />
                 {/* {!numberOfAllDatas && content && 
 <textarea className='w-full min-h-auto' value = {content[0]} onChange = {(e) => {createContent(e, 0)}} placeholder = "Enter your Blog here..." />
 } */}
@@ -694,7 +719,7 @@ const WriteABlog = () => {
                 {/* {console.log(element)} */}
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
-                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={submitBlog}>Publish Blog</button>}
+                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={()=>{setPublishblog(true); setWriteblog(false);}}>Publish Blog</button>}
             </div>
         );
     }
@@ -702,7 +727,7 @@ const WriteABlog = () => {
     return (
         <div className='content flex justify-center'>
             {writeblog && Actuallywritingtheblog()}
-            {/* {publishblog && ActuallyPublishingtheBlog()} */}
+            {publishblog && ActuallyPublishingtheBlog()}
         </div>
 
     );

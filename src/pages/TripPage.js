@@ -165,13 +165,15 @@ const Trip = () => {
     const [loading, setLoading] = useState(true) // initially true 
     const [hasMore, setHasMore] = useState(true)
 
-    const [backToDisplay,setBackToDisplay]=useState(false) // to come back from book now feature
+    const [backToDisplay, setBackToDisplay] = useState(false) // to come back from book now feature
 
     const [infoObject, setInfoObject] = useState([])
     const [mediaObject, setMediaObject] = useState([])
     const [reviewObject, setReviewObject] = useState([])
     const [reviewCreationBool, setReviewCreationBool] = useState(false)
+
     const [isbooking, setIsbooking] = useState(false)
+    const [isAuth, setIsAuth] = useState(0)
 
     const observer = useRef('') // has only one attribute - current!
 
@@ -191,7 +193,11 @@ const Trip = () => {
                 console.log(err)
             })
 
-
+        fullaxios({ url: 'userinfo/status' })
+            .then(res => {
+                if (res) { console.log(res.data) }
+                // setIsAuth(res.data.authenticated)
+            })
 
         fullaxios({ url: 'trip/media/' + name, sendcookie: false })
             .then(res => {
@@ -236,7 +242,7 @@ const Trip = () => {
 
             })
             .catch(err => {
-                if (err.response.data.detail === "Invalid page.") {
+                if (err && (err.response.data.detail === "Invalid page.")) {
                     setHasMore(false)
                 }
             })
@@ -252,8 +258,10 @@ const Trip = () => {
         setInfoObject(null);
         setReviewObject(null);
         setReviewCreationBool(false);
-         setIsbooking(true);
-      
+        setIsbooking(true);
+
+
+
     }
 
 
@@ -273,11 +281,11 @@ const Trip = () => {
                 console.log(err)
             })
     }
-    
+
     useEffect(() => {
         console.log(isbooking)
-        console.log(backToDisplay,"backtodisplay")
-    }, [isbooking,backToDisplay])
+        console.log(backToDisplay, "backtodisplay")
+    }, [isbooking, backToDisplay])
 
     return (
         <div className="review">
@@ -344,22 +352,27 @@ const Trip = () => {
                     {userGivenDescription && userGivenStars && <div>
                         <button onClick={() => { submitReview() }}>SUBMIT</button>
                     </div>}
-                    <button onClick={() => {  booking() }}> BOOK NOW </button>
+                    <button onClick={() => { booking() }}> BOOK NOW </button>
 
                 </div>
             }
             <br />
 
-           
+
 
             {
-                isbooking && <div className="">
-                     <button onClick={()=>{setBackToDisplay(true) ;console.log("wtaf")}} >back to trip page</button>
-                </div>            }
+                isAuth && isbooking && <div className="">
+                    <button onClick={() => { setBackToDisplay(true); console.log("wtaf") }} >back to trip page</button>
+                </div>}
+            {
+                (isAuth === false)
+                && <div>
+                    {alert('you arent logged in, to make a booking, log in.')}
+                </div>
+            }
         </div>
 
     );
 }
 
-export default Trip
-    ;
+export default Trip;
