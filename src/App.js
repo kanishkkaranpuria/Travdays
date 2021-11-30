@@ -74,7 +74,7 @@ function App() {
         
         <Route exact path = "/addtrips"> <Addtrips  /> </Route>
         
-        <Route exact path = "/trip/:name/:id"> <Edittrips  /> </Route>
+        <Route exact path = "/tripedit/:name/:id"> <Edittrips  /> </Route>
         
         <Route exact path = "/approveblogs"> <ApproveBlogs  /> </Route>
 

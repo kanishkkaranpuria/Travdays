@@ -5,13 +5,29 @@ import { useHistory } from "react-router";
 // var temp = null;
 const WriteABlog = () => {
 
+    var pretitle = ""
+    var prenumberOfAllDatas = 0
+    var prealldata = [""];
+
+    useEffect(() => {
+        pretitle = localStorage.getItem("title")
+        prenumberOfAllDatas = localStorage.getItem("numberofalldatas")
+        for (let i = 0; i < prenumberOfAllDatas; i++) {
+            prealldata[i] = localStorage.getItem(`alldata${i}`)
+        }
+        setNumberOfAllDatas(parseInt(prenumberOfAllDatas))
+        setAlldata(prealldata)
+        setTitle(pretitle)
+        setnotfirstrender(true)
+    }, [])
+
     const inputRef = useRef();
     const onClickFocus = () => {
         // console.log('Focus input');
         inputRef.current.click();
     }
     const history = useHistory();
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState(pretitle)
     const [content, setContent] = useState(null)
     const [image, setImages] = useState()
     const [numberOfAllDatas, setNumberOfAllDatas] = useState(0)
@@ -27,6 +43,11 @@ const WriteABlog = () => {
     const [temp1, setTemp1] = useState(null)
     const [writeblog, setWriteblog] = useState(true)
     const [publishblog, setPublishblog] = useState(false)
+    const [notfirstrender, setnotfirstrender] = useState(false)
+    const [displayImage, setDisplayImage] = useState(null)
+    const [previewdisplayImage, setPreviewdisplayImage] = useState(null)
+    const [anonymous, setAnonymous] = useState(false)
+    const [bloglocation, setBloglocation] = useState(null)
     // console.log(temp.current)
     // useEffect(() => {
     //     console.log(title, content)
@@ -90,13 +111,11 @@ const WriteABlog = () => {
             // window.innerWidth/10 = w-full
             console.log(window.innerWidth)
             var char;
-            if (window.innerWidth > 450)
-            {
-            char = parseFloat(window.innerWidth / 15).toFixed()
+            if (window.innerWidth > 450) {
+                char = parseFloat(window.innerWidth / 15).toFixed()
             }
-            else if (window.innerWidth <= 450)
-            {
-            char = parseFloat(window.innerWidth/10).toFixed()
+            else if (window.innerWidth <= 450) {
+                char = parseFloat(window.innerWidth / 10).toFixed()
             }
             // console.log("number of characters in every line", char)
             char = char - 1
@@ -115,15 +134,15 @@ const WriteABlog = () => {
         if (type !== "para" && type !== "image" && type !== "title") {
             // console.log('stop wasting your time')
         }
-        else if ((type === "para" && selectionStart === selectionEnd) || (type === 'title' && selectionStart === selectionEnd) || type === 'image'){
+        else if ((type === "para" && selectionStart === selectionEnd) || (type === 'title' && selectionStart === selectionEnd) || type === 'image') {
             if (type === "title") {
                 // // console.log(document.getElementById(`this 0`))
-                if (e.key === "Enter" || e.key === "ArrowDown" || (e.key === "ArrowRight" && selectionStart === title.length)) {
+                if (e.key === "Enter" || e.key === "ArrowDown" || (e.key === "ArrowRight" && !title) || (e.key === "ArrowRight" && title && selectionStart === title.length)) {
                     e.preventDefault();
-                
+
                     document.getElementById(`this 0`).focus();
-                    if (e.key === "ArrowRight"){
-                        document.getElementById(`this 0`).setSelectionRange(0,0);
+                    if (e.key === "ArrowRight") {
+                        document.getElementById(`this 0`).setSelectionRange(0, 0);
 
                     }
                 }
@@ -135,7 +154,7 @@ const WriteABlog = () => {
                 if (e.key === 'Enter' && type === "para") {
                     // console.log('do validate');
                     e.preventDefault();
-                    backspacedlocation.current = null;
+                    backspacedlocation.current = "zero";
                     if (numberOfAllDatas === 0 && e.target.value === "") {
                         // console.log(element)
                         temp.current = element + 1
@@ -158,6 +177,7 @@ const WriteABlog = () => {
                         var temp1 = [alldata[element].slice(0, selectionStart).replace(/\n/g, ""), alldata[element].slice(selectionStart, alldata[element].length).replace(/\n/g, "")]
                         // removespace = true
                         // backspacedlocation.current = null;
+                        // backspacedlocation.current = "zero";
                         setAlldata([...alldata.slice(0, element), ...temp1])
                         // console.log("anpad")
                         // console.log(document.getElementById(`this ${element}`))
@@ -187,7 +207,11 @@ const WriteABlog = () => {
                 if (e.key === 'Enter' && type === "image") {
                     backspacedlocation.current = null;
                     e.preventDefault();
+                    console.log('here')
+                    console.log(element + 1)
+                    console.log(numberOfAllDatas)
                     if (element + 1 === numberOfAllDatas) {
+                        console.log('here')
                         temp.current = null
                         setAlldata([...alldata.slice(0, element + 1), ""])
                     }
@@ -198,8 +222,7 @@ const WriteABlog = () => {
                     }
 
                 }
-                else if (e.key === 'Backspace' && type === "para" && selectionStart === 0) 
-                {
+                else if (e.key === 'Backspace' && type === "para" && selectionStart === 0) {
                     e.preventDefault();
                     if (element + 1 === numberOfAllDatas && element !== 0) {
                         temp.current = null
@@ -207,14 +230,15 @@ const WriteABlog = () => {
                         // console.log(alldata[element - 1])
                         // console.log(alldata[element - 1].length)
                         // console.log(alldata[element])
-                        if (alldata[element-1].slice(5, 10) === "image"){
+                        if (alldata[element - 1].slice(0, 11) === "data:image/") {
                             backspacedlocation.current = null
                         }
-                        else if (alldata[element - 1].length === 0){
+                        else if (alldata[element - 1].length === 0) {
                             backspacedlocation.current = "zero"
                         }
-                        else{
-                        backspacedlocation.current = alldata[element-1].length
+                        else {
+                            backspacedlocation.current = alldata[element - 1].length
+                            console.log(backspacedlocation.current)
                         }
                         var temptrial1 = alldata[element - 1] + alldata[element]
                         // console.log(temptrial1)
@@ -223,21 +247,20 @@ const WriteABlog = () => {
                     else if (element + 1 < numberOfAllDatas && element !== 0) {
                         temp.current = element - 1
                         // setAlldata([...alldata.slice(0,element)])
-                        if (alldata[element-1].slice(5, 10) === "image"){
+                        if (alldata[element - 1].slice(0, 11) === "data:image/") {
                             backspacedlocation.current = null
                         }
-                        else if (alldata[element - 1].length === 0){
+                        else if (alldata[element - 1].length === 0) {
                             backspacedlocation.current = "zero"
                         }
-                        else{
-                        backspacedlocation.current = alldata[element-1].length
+                        else {
+                            backspacedlocation.current = alldata[element - 1].length
                         }
                         var temptrial2 = alldata[element - 1] + alldata[element]
                         setAlldata([...alldata.slice(0, element - 1), temptrial2, ...alldata.slice(element + 1)])
                     }
                 }
-                else if ((e.key === 'Backspace') && (type === "image")) 
-                {
+                else if ((e.key === 'Backspace') && (type === "image")) {
                     backspacedlocation.current = null;
                     e.preventDefault();
                     if (element + 1 === numberOfAllDatas && element !== 0) {
@@ -252,79 +275,69 @@ const WriteABlog = () => {
                 }
                 // else if((e.key === 'Backspace' && e.target.files))
 
-                else if ((e.key === 'ArrowUp' && firstlinestatus) || (e.key === 'ArrowUp' && type === "image"))
-                {
+                else if ((e.key === 'ArrowUp' && firstlinestatus) || (e.key === 'ArrowUp' && type === "image")) {
                     // backspacedlocation.current = null;
                     e.preventDefault();
                     // temp.current = element - 1
                     if (element !== 0) {
                         document.getElementById(`this ${element - 1}`).focus();
                         // console.log("this works")
-                        if (alldata[element-1].slice(5, 10) !== "image")
-                        {
-                            
-                            document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length)
+                        if (alldata[element - 1].slice(0, 11) !== "data:image/") {
+
+                            document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element - 1].length, alldata[element - 1].length)
                             // console.log(document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length))
                         }
                     }
-                    else 
-                    {
+                    else {
                         document.getElementById(`title`).focus();
                         // console.log(title.length)
-                        document.getElementById(`title`).setSelectionRange(title.length, title.length)
+                        title && document.getElementById(`title`).setSelectionRange(title.length, title.length)
                         // console.log(document.getElementById(`title`).setSelectionRange(title.length, title.length))
                     }
                 }
 
-                else if ((e.key === 'ArrowDown' && element + 1 < numberOfAllDatas && lastlinestatus) || (e.key === 'ArrowDown' && type === "image")) 
-                {
+                else if ((e.key === 'ArrowDown' && element + 1 < numberOfAllDatas && lastlinestatus) || (e.key === 'ArrowDown' && element + 1 < numberOfAllDatas && type === "image")) {
                     e.preventDefault();
                     // backspacedlocation.current = null;
                     // temp.current = element + 1
                     document.getElementById(`this ${element + 1}`).focus();
                     // if (alldata[element+1])
                 }
-                else if (e.key === 'ArrowRight' && element + 1 < numberOfAllDatas && type === "para" && selectionStart === e.target.value.length)
-                {
+                else if (e.key === 'ArrowRight' && element + 1 < numberOfAllDatas && type === "para" && selectionStart === e.target.value.length) {
                     // console.log("it works")
                     e.preventDefault();
                     // backspacedlocation.current = null;
                     // temp.current = element + 1
                     document.getElementById(`this ${element + 1}`).focus();
                     // if (alldata[element+1])
-                    if (alldata[element+1].slice(5, 10) !== "image")
-                        {
-                            
-                            document.getElementById(`this ${element + 1}`).setSelectionRange(0,0)
-                            // console.log(document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length))
-                        }
-                }
-                else if (e.key === 'ArrowLeft' && type === "para" && selectionStart === 0)
-                {   
-                    e.preventDefault();
-                    if (element !== 0)
-                    {
-                    // console.log("it works")
-                    // backspacedlocation.current = null;
-                    // temp.current = element + 1
-                    document.getElementById(`this ${element - 1}`).focus();
-                    // if (alldata[element+1])
-                    if (alldata[element-1].slice(5, 10) !== "image")
-                        {
-                            
-                            document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length)
-                            // console.log(document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length))
-                        }
-                
+                    if (alldata[element + 1].slice(0, 11) !== "data:image/") {
+
+                        document.getElementById(`this ${element + 1}`).setSelectionRange(0, 0)
+                        // console.log(document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length))
                     }
-                    else if (element === 0)
-                    {
-                    // console.log("it works")
-                    // backspacedlocation.current = null;
-                    // temp.current = element + 1
-                    document.getElementById(`title`).focus();
-                    document.getElementById(`title`).setSelectionRange(title.length, title.length)
-                
+                }
+                else if (e.key === 'ArrowLeft' && type === "para" && selectionStart === 0) {
+                    e.preventDefault();
+                    if (element !== 0) {
+                        // console.log("it works")
+                        // backspacedlocation.current = null;
+                        // temp.current = element + 1
+                        document.getElementById(`this ${element - 1}`).focus();
+                        // if (alldata[element+1])
+                        if (alldata[element - 1].slice(0, 11) !== "data:image/") {
+
+                            document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element - 1].length, alldata[element - 1].length)
+                            // console.log(document.getElementById(`this ${element - 1}`).setSelectionRange(alldata[element-1].length, alldata[element-1].length))
+                        }
+
+                    }
+                    else if (element === 0) {
+                        // console.log("it works")
+                        // backspacedlocation.current = null;
+                        // temp.current = element + 1
+                        document.getElementById(`title`).focus();
+                        title && document.getElementById(`title`).setSelectionRange(title.length, title.length)
+
                     }
 
                 }
@@ -412,39 +425,38 @@ const WriteABlog = () => {
             alert("you can't add any format other than image")
         }
     }
-    if (document.activeElement) {
 
-    }
+
     // var inputURL ="";
-  
+
     // var blobObject = blobCreationFromURL(inputURL);
-  
+
     // Create Blob file from URL
     // function blobCreationFromURL(inputURI) {
-  
+
     //     var binaryVal;
-  
+
     //     // mime extension extraction
     //     var inputMIME = inputURI.split(',')[0].split(':')[1].split(';')[0];
-  
+
     //     // Extract remaining part of URL and convert it to binary value
     //     if (inputURI.split(',')[0].indexOf('base64') >= 0)
     //         binaryVal = atob(inputURI.split(',')[1]);
-  
+
     //     // Decoding of base64 encoded string
     //     else
     //         binaryVal = unescape(inputURI.split(',')[1]);
-  
+
     //     // Computation of new string in which hexadecimal
     //     // escape sequences are replaced by the character 
     //     // it represents
-  
+
     //     // Store the bytes of the string to a typed array
     //     var blobArray = [];
     //     for (var index = 0; index < binaryVal.length; index++) {
     //         blobArray.push(binaryVal.charCodeAt(index));
     //     }
-  
+
     //     return new Blob([blobArray], {
     //         type: "image/jpeg"
     //     });
@@ -463,11 +475,14 @@ const WriteABlog = () => {
         //         setAlldata(...alldata.splice(0, temp),alldata[temp].replace(/\n/g, ""))
         //     }
         // }
-        const form = new FormData();
-        for(var i = 0; i< alldata.length; i++)
-        {   
-            localStorage.setItem(`alldata${i}`, alldata[i])
-            // if(alldata[i].slice(5,10) === "image"){
+        console.log(alldata)
+        console.log(title)
+        console.log(alldata.length)
+        console.log(notfirstrender)
+        if (notfirstrender) {
+            for (var i = 0; i < alldata.length; i++) {
+                localStorage.setItem(`alldata${i}`, alldata[i])
+                // if(alldata[i].slice(5,10) === "image"){
                 // console.log(URL.createObjectURL(alldata[i]))
                 // console.log(alldata[i])
                 // var binaryData = [];
@@ -480,58 +495,73 @@ const WriteABlog = () => {
                 // console.log(form[`newimage${i}`])
                 // localStorage.setItem(`newimage${i}`, newimage[i])
                 // localStorage.setItem(`newimage${i+1}`, form[`newimage${i}`])
-            // }
-        }
-        // for(var newimage.length
-        setNumberOfAllDatas(alldata.length)
-        if (alldata[0] === '' && alldata.length === 1) {
-            document.getElementById('title').focus();
-        }
-        else if (alldata.length > 0) {
-
-            if (temp.current === null) {
-                // console.log (document.getElementById(`this ${alldata.length-1}`))
-                //  .focus();
-                document.getElementById(`this ${alldata.length - 1}`).focus();
-                if (backspacedlocation.current) document.getElementById(`this ${alldata.length - 1}`).setSelectionRange(backspacedlocation.current, backspacedlocation.current);
-                else if (backspacedlocation.current === "zero") document.getElementById(`this ${alldata.length - 1}`).setSelectionRange(0,0);
-                // if (alldata[alldata.length-1].includes("\n")){
-                //     var tempforenter = [...alldata]
-                //     console.log("this should work")
-                //     tempforenter[alldata.length-1] = alldata[alldata.length-1].replace(/\n/g, "")
-                //     setAlldata(...tempforenter)
                 // }
-                // setTemp1(alldata.length -1)
             }
-            else if (temp.current === "title") {
-
+            let tempnumber = parseInt(localStorage.getItem("numberofalldatas"))
+            if (tempnumber > alldata.length) {
+                for (let i = alldata.length; i < tempnumber; i++) {
+                    localStorage.removeItem(`alldata${i}`)
+                }
+            }
+            localStorage.setItem("numberofalldatas", alldata.length)
+            // for(var newimage.length
+            setNumberOfAllDatas(alldata.length)
+            if (alldata[0] === '' && alldata.length === 1) {
                 document.getElementById('title').focus();
             }
-            else {
+            else if (alldata.length > 0) {
 
-                // console.log(document.getElementById(`this ${temp.current}`))
-                // console.
-                document.getElementById(`this ${temp.current}`).focus();
-                if (backspacedlocation.current) {
-                    document.getElementById(`this ${temp.current}`).setSelectionRange(backspacedlocation.current, backspacedlocation.current)
+                if (temp.current === null) {
+                    // console.log (document.getElementById(`this ${alldata.length-1}`))
+                    //  .focus();
+                    document.getElementById(`this ${alldata.length - 1}`).focus();
+                    if (backspacedlocation.current) document.getElementById(`this ${alldata.length - 1}`).setSelectionRange(backspacedlocation.current, backspacedlocation.current);
+                    else if (backspacedlocation.current === "zero") document.getElementById(`this ${alldata.length - 1}`).setSelectionRange(0, 0);
+                    // if (alldata[alldata.length-1].includes("\n")){
+                    //     var tempforenter = [...alldata]
+                    //     console.log("this should work")
+                    //     tempforenter[alldata.length-1] = alldata[alldata.length-1].replace(/\n/g, "")
+                    //     setAlldata(...tempforenter)
+                    // }
+                    // setTemp1(alldata.length -1)
                 }
-                else if (backspacedlocation.current === "zero") document.getElementById(`this ${alldata.length - 1}`).setSelectionRange(0,0);
+                else if (temp.current === "title") {
 
-                // if (alldata[temp.current].includes("\n")){
-                //     var tempforenter = [...alldata]
-                //     tempforenter[temp.current] = alldata[temp.current].replace(/\n/g, "")
-                //     console.log("this should work")
-                //     console.log(tempforenter)
-                //     setAlldata(...tempforenter)
-                //     // setAlldata(...alldata.splice(0, temp),alldata[temp].replace(/\n/g, ""))
-                // }
-                // setTemp1(temp.current)
+                    document.getElementById('title').focus();
+                }
+                else {
+
+                    // console.log(document.getElementById(`this ${temp.current}`))
+                    // console.
+                    document.getElementById(`this ${temp.current}`).focus();
+                    if (backspacedlocation.current) {
+                        document.getElementById(`this ${temp.current}`).setSelectionRange(backspacedlocation.current, backspacedlocation.current)
+                    }
+                    else if (backspacedlocation.current === "zero") document.getElementById(`this ${alldata.length - 1}`).setSelectionRange(0, 0);
+
+                    // if (alldata[temp.current].includes("\n")){
+                    //     var tempforenter = [...alldata]
+                    //     tempforenter[temp.current] = alldata[temp.current].replace(/\n/g, "")
+                    //     console.log("this should work")
+                    //     console.log(tempforenter)
+                    //     setAlldata(...tempforenter)
+                    //     // setAlldata(...alldata.splice(0, temp),alldata[temp].replace(/\n/g, ""))
+                    // }
+                    // setTemp1(temp.current)
+                }
             }
         }
+        else {
+            setnotfirstrender(true);
+        }
+
     }, [alldata])
 
-
-    // useEffect(()=>{
+    useEffect(() => {
+        title && localStorage.setItem("title", title)
+        !title && localStorage.setItem("title", "")
+    }, [title])
+    // useEffec1t(()=>{
     //     console.log("total number of data:", numberOfAllDatas)
     // },[numberOfAllDatas])
 
@@ -545,91 +575,155 @@ const WriteABlog = () => {
     //         setTemp1(temp.current)
     //     }
     // },[temp.current])
+    const handledisplayimage = (e) => {
+        const selected = e.target.files[0];
+        // console.log(selected.type)
+        if (selected && (selected.type.slice(0, 5)) === "image") {
+            // if (alldata[element-1] === "")element = element - 1;
+            // backspacedlocation.current = null;
+            // newimage = Object.assign(newimage, { [element]: selected })
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                // setImagepreview(reader.result);
+                // let tempalldataForImage = [];
+                // let tempalldataForImage = [];
+                // if (alldata) tempalldataForImage = [...alldata]
+                // tempalldataForImage[element] = reader.result
+                // return reader.result
+                setPreviewdisplayImage(reader.result);
+            };
+            reader.readAsDataURL(selected);
+            setDisplayImage(selected);
+        }
+        else {
+            alert("you can't add any format other than image")
+        }
+    }
     const ActuallyPublishingtheBlog = () => {
 
-        return(
-            <div>
-                <h1>let's fucking go</h1>
-                <button onClick={()=>{setPublishblog(false); setWriteblog(true);}}>back</button>
-                <button onClick={()=>{submitBlog()}}>Submit</button>
+        return (
+            <div className="w-1/3 flex flex-col justify-center items-center">
+                <p className="text-4xl p-5 font-bold">Blog Preview</p>
+                <input style={{ display: 'none' }} name="awesome af" onChange={e => (handledisplayimage(e))} ref={inputRef} type="file" accept="image/*" />
+                {/* {displayImage && <img src= {handledisplayimage(displayImage)}/>}  */}
+                {console.log(previewdisplayImage)}
+                {console.log(displayImage)}
+
+                {previewdisplayImage && <img src={previewdisplayImage} />}
+                {!previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Set Display Image</button>}
+                {previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Change Display Image</button>}
+
+                <input maxLength="100" minLength="1" className='w-full font-semibold text-lg leading-none bg-transparent' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} placeholder="Enter your title here..." />
+
+                <div className="flex p-5 w-full justify-between items-center">
+                    <p className="text-xl font-semibold">Location of Your Blog:</p>
+                    <input type="text" className="text-xl leading-none bg-transparent w-1/2 font-semibold" placeholder="For eg: Mumbai" onChange={(e) => { setBloglocation(e.target.value) }} />
+                </div>
+
+                {anonymous ? <button onClick={(() => { setAnonymous(false) })} className=' sm:mx-auto text-xl  w-full bg-white-500 font-semibold rounded-lg'> Do you want to keep your identity hidden? &#9745;</button> :
+                    <button onClick={(() => { setAnonymous(true) })} className=' sm:mx-auto text-xl  w-full bg-white-500 font-semibold rounded-lg'> Do you want to keep your identity hidden? &#9744;</button>}
+
+                <div className="flex p-5 w-full justify-between">
+                    <button className="p-3 w-1/3 bg-red-800 font-semibold rounded-lg sm:mx-auto" onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
+                    <button className="p-3 w-1/3 bg-green-500 font-semibold rounded-lg sm:mx-auto" onClick={() => { submitBlog() }}>Publish Now</button>
+                </div>
             </div>
         )
-        
+
     }
     const submitBlog = () => {
 
-        let data = new FormData();
-        data.append("title", title)
-        // newimage.forEach(file=>{
-        //     data.append("image", file);
-        //   })
-        // var numberOfAllDatasinthe = newimage.length
-        // var imagesobject = {}
-        // var blogobject = {};
-        var j = 0;
-        // console.log(newimage)
-        for (var i = 0; i < numberOfAllDatas; i++) {
-            // blogobject
-            // blogobject = Object.assign(blogobject,{ [i] :  [content[i]] })
-            // imagesobject = Object.assign(imagesobject,JSON.stringify({ [i] : [newimage[i]]}))
-            // imagesobject = {...imagesobject, `image${i}` : [newimage[i]]}
-            
-            
-            
-            if (alldata[i].slice(5, 10) === "image") {
-            //     // data.append(newimage[i]
-            //     // console.log(newimage[i])
-            //     data.append(`data${i}`, newimage[i])
+        if (title && numberOfAllDatas && displayImage && bloglocation) {
+            let data = new FormData();
+            data.append("title", title)
+            // newimage.forEach(file=>{
+            //     data.append("image", file);
+            //   })
+            // var numberOfAllDatasinthe = newimage.length
+            // var imagesobject = {}
+            // var blogobject = {};
+            var j = 0;
+            // console.log(newimage)
+            for (var i = 0; i < numberOfAllDatas; i++) {
+                // blogobject
+                // blogobject = Object.assign(blogobject,{ [i] :  [content[i]] })
+                // imagesobject = Object.assign(imagesobject,JSON.stringify({ [i] : [newimage[i]]}))
+                // imagesobject = {...imagesobject, `image${i}` : [newimage[i]]}
 
-                data.append(`data${i}`, alldata[i])
-                if (j === 0) {
-                    data.append("displayImage", newimage[i]);
-                    j++;
+
+
+                if (alldata[i].slice(0, 11) === "data:image/") {
+                    //     // data.append(newimage[i]
+                    //     // console.log(newimage[i])
+                    if (newimage[i]) {
+                        data.append(`data${i}`, newimage[i])
+                        // if (j === 0) {
+                        // // data.append("displayImage", newimage[i])
+                        //     data.append("displayImage", newimage[i]);
+                        //     j++;
+                        // }
+                    }
+                    // else {
+                    //     data.append(`data${i}`, alldata[i])
+                    //     // if (j === 0) {
+                    //     //     data.append("displayImage", alldata[i]);
+                    //     //     j++;
+                    //     // }
+                    // }
+                    console.log(newimage)
+
+
+                }
+
+                else {
+
+                    // data.append(`image${i}`, newimage[i])
+                    data.append(`data${i}`, alldata[i])
+
                 }
             }
-            
-            else {
-            
-                // data.append(`image${i}`, newimage[i])
-                data.append(`data${i}`, alldata[i])
-            
-            }
+            // data.append(`blog${numberOfAllDatas}`, content[numberOfAllDatas])
+            // console.log("sdkfjlaskdjfldskjflkds0")
+            // console.log("sdkfjlaskdjfldskjflkds0")
+            // console.log(imagesobject)
+            // console.log("sdkfjlaskdjfldskjflkds0")
+            // console.log("sdkfjlaskdjfldskjflkds0")
+            // data.append("blog", content)
+            // data.append("blogobject", JSON.stringify(blogobject))
+            // data.append("displayImage");
+            data.append("displayImage", displayImage)
+            data.append("location", bloglocation)
+            data.append("anonymous", anonymous)
+            // data.append("imageinobject", JSON.stringify(imagesobject))
+            // console.log(newimage)
+            // let data = {
+            //     "title" : title,
+            //     "image" : [...newimage],
+            //     "blog": [...content],
+            //     "displayImage": newimage[0]
+            // }
+            // data = JSON.stringify(data)
+            // console.log(data)
+            // for (var pair of data.entries()) {
+            //     console.log(pair[0]+ ' - ' + pair[1]); 
+            // }
+            console.log(...data)
+            fullaxios({ type: "post", url: "blog/create", data: data, formdata: true })
+                .then(res => {
+                    if (res) {
+                        console.log(res)
+                        console.log(res.data)
+                        localStorage.clear()
+                        history.push('/blogs')
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
-        // data.append(`blog${numberOfAllDatas}`, content[numberOfAllDatas])
-        // console.log("sdkfjlaskdjfldskjflkds0")
-        // console.log("sdkfjlaskdjfldskjflkds0")
-        // console.log(imagesobject)
-        // console.log("sdkfjlaskdjfldskjflkds0")
-        // console.log("sdkfjlaskdjfldskjflkds0")
-        // data.append("blog", content)
-        // data.append("blogobject", JSON.stringify(blogobject))
-        // data.append("displayImage");
-        data.append("location", "mumbai")
-        // data.append("imageinobject", JSON.stringify(imagesobject))
-        // console.log(newimage)
-        // let data = {
-        //     "title" : title,
-        //     "image" : [...newimage],
-        //     "blog": [...content],
-        //     "displayImage": newimage[0]
-        // }
-        // data = JSON.stringify(data)
-        // console.log(data)
-        // for (var pair of data.entries()) {
-        //     console.log(pair[0]+ ' - ' + pair[1]); 
-        // }
-        console.log(...data)
-        fullaxios({ type: "post", url: "blog/create", data: data, formdata: true })
-            .then(res => {
-                if (res) {
-                    console.log(res)
-                    console.log(res.data)
-                    history.push('/blogs')
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        else {
+            alert("You need to add the Title, some Data, the Display Image and the Blog Location before you submit the blog.")
+        }
     }
     const Actuallywritingtheblog = () => {
         // console.log("wtf")
@@ -639,7 +733,7 @@ const WriteABlog = () => {
                 {/* <p className='text-4xl'>Write a blog</p> */}
 
 
-                <input className='namans-textarea w-full text-3xl leading-none bg-transparent border-transparent outline-none' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} onKeyDown={(e) => { paraKeyControl(e, -1, "title") }} placeholder="Enter your title here..." />
+                <input maxLength="100" minLength="1" className='namans-textarea w-full text-3xl leading-none bg-transparent border-transparent outline-none' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} onKeyDown={(e) => { paraKeyControl(e, -1, "title") }} placeholder="Enter your title here..." />
                 {/* {!numberOfAllDatas && content && 
 <textarea className='w-full min-h-auto' value = {content[0]} onChange = {(e) => {createContent(e, 0)}} placeholder = "Enter your Blog here..." />
 } */}
@@ -659,6 +753,8 @@ const WriteABlog = () => {
             } */}
 
                 {/* <input  className='w-full' type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />     */}
+                {/* {console.log(numberOfAllDatas)} */}
+                {/* {console.log(alldata)} */}
                 {numberOfAllDatas && alldata.map((data, element) => (
                     <div className="w-full flex flex-row-reverse items-center">
                         {/* {console.log(image)} */}
@@ -672,7 +768,7 @@ const WriteABlog = () => {
                     {console.log(imagepreview[element])}
                     {console.log("everythign is working!!!!!!!!!!!!!!!")} */}
                         {
-                            (data && (data.slice(5, 10) === "image"))
+                            (data && (data.slice(0, 11) === "data:image/"))
                                 ?
                                 <>
                                     <img src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
@@ -680,9 +776,9 @@ const WriteABlog = () => {
                                 </>
                                 :
                                 <>
-                                    
+
                                     {element === 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }} placeholder="Your story starts here..." />}
-                                    {element !== 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }}/>}
+                                    {element !== 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }} />}
                                 </>
 
                         }
@@ -702,7 +798,7 @@ const WriteABlog = () => {
                                 {/* {console.log("DISPLAY")} */}
                                 {/* {console.log(temp1)} */}
                                 <svg onClick={onClickFocus} className="cursor-pointer" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
-                                <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element+1)} ref={inputRef} type="file" accept="image/*" />
+                                <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element + 1)} ref={inputRef} type="file" accept="image/*" />
                                 {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
                             </>
                         }
@@ -719,7 +815,7 @@ const WriteABlog = () => {
                 {/* {console.log(element)} */}
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
-                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={()=>{setPublishblog(true); setWriteblog(false);}}>Publish Blog</button>}
+                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
             </div>
         );
     }

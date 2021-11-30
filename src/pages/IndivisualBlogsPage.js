@@ -213,7 +213,20 @@ const IndivisualBlogPage = ({isadmin}) => {
 
 
     }
-     
+    const FullBlog = (keyName,i) =>{
+      return(
+        <div>
+          { iblogdata[keyName].slice(-3,)==="par" && iblogdata[keyName].slice(0,11) !== "data:image/" &&
+          <div id={i} value={i + 1}>
+            {iblogdata[keyName].slice(0,-4)}
+          </div>
+          }
+          <br />
+          { iblogdata[keyName].slice(-3,)==="img" && <img src= {iblogdata[keyName].slice(0,-4)} alt="" /> }
+          { iblogdata[keyName].slice(0,11) === "data:image/" && <img src = {iblogdata[keyName].slice(0,-4)} />}
+        </div>
+      )
+    }
 
     //test useeffect
     useEffect(() => {
@@ -250,21 +263,16 @@ const IndivisualBlogPage = ({isadmin}) => {
                         if(Object.keys(iblogdata).length === i +1 ){
                           return(
                             <div ref={lastDataElementRef} className="">
-                                { iblogdata[keyName].slice(-3,)==="par" &&<div id={i} value={i + 1}>{iblogdata[keyName].slice(0,-4)}</div>}
-                                <br />
-                                { iblogdata[keyName].slice(-3,)==="img" && <img src= {iblogdata[keyName].slice(0,-4)} alt="" /> }
-
+                                {FullBlog(keyName,i)}
                             </div>
                         )
-                        }
-                        else{
-                          return(
-                            <div  className="">
-                                { iblogdata[keyName].slice(-3,)==="par" &&<div id={i} value={i + 1}>{iblogdata[keyName].slice(0,-4)}</div>}
-                                <br />
-                                { iblogdata[keyName].slice(-3,)==="img" && <img src= {iblogdata[keyName].slice(0,-4)} alt="" /> }
-
-                            </div>
+                      }
+                      else{
+                        return(
+                          <div  className="">
+                              {FullBlog(keyName,i)}
+                               
+                          </div>
                         )
                         }
                           

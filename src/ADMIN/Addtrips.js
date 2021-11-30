@@ -24,7 +24,7 @@ const Addtrips = () => {
 
     useEffect(() => {
         if(durationnights && durationdays)
-        setDuration(`${durationdays},${durationnights}`)
+        setDuration(durationdays,durationnights)
         console.log("it should set")
     
     },[durationnights,durationdays])

@@ -167,11 +167,11 @@ const AllTrips = () => {
           <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
           <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
         {console.log(data.displayImage)}  
-          {data.displayImage && <img src={data.displayImage} alt="" className="z-[-2] w-full h-full object-cover rounded-[20px]" />}
+          {data.displayImage && <img src={data.displayImage} onClick={()=>{history.push('/trip/'+ data.name)}} alt="" className="z-[-2] w-full h-full object-cover rounded-[20px] cursor-pointer" />}
         </div>
         <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
           <p className='flex justify-between items-center'>
-            {data.name && <p onClick={()=>{history.push('/trip/'+ data.name +'/'+ data.id)}}className='text-lg font-bold' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+            {data.name && <p onClick={()=>{history.push('/trip/'+ data.name)}}className='text-lg font-bold cursor-pointer' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
             {data.type && <p className='text-sm' >{data.type}</p>}
           </p>
           {data.ratings === "No Ratings" && <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >{data.ratings}</p>}
@@ -213,7 +213,7 @@ const AllTrips = () => {
                 // allstars[2] = "url(#partial)"
               }
             }
-              ()}
+              ()} 
             <svg width="0" height="0" viewBox="0 0 20 20">
               <defs>
                 <linearGradient id="full" x1="0" x2="100%" y1="0" y2="0">

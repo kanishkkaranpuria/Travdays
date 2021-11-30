@@ -320,6 +320,15 @@ transform: translateY(-100%);
 transition: all 200ms ease-in-out;
 }
 
+
+
+
+
+
+
+
+
+
 /* Some extra shit added by naman */
 
 .namans-textarea {
@@ -331,7 +340,9 @@ transition: all 200ms ease-in-out;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-  /* ******************************************************************************************MEDIA QUERIES */
+
+
+/* ******************************************************************************************MEDIA QUERIES */
   @media only screen and (max-width: 800px) {
   
   .navbar{
@@ -357,10 +368,20 @@ transition: all 200ms ease-in-out;
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 }
+/* ******************************************************************************************MEDIA QUERIES */
 
-/* ******************************************************************************************MEDIA QUERIES */
-/* ******************************************************************************************MEDIA QUERIES */
+
+
+
+
+
+
+
+
+
+
 /* Param's css continues */
+/* ******************************************************************************************MEDIA QUERIES */
 @media only screen and (max-width: 992px) {
 
 .section{
