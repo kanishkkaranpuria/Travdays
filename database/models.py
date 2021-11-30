@@ -200,7 +200,7 @@ class UserMedia(models.Model):
 
 class Blog(models.Model):
     anonymous  = models.BooleanField(default=False)
-    title      = models.CharField(max_length=50)
+    title      = models.CharField(max_length=100)
     image      = models.ImageField( upload_to='media/images', max_length=None)
     user       = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog")
     blog       = models.TextField()
