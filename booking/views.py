@@ -8,8 +8,6 @@ from .serializers import BookingSerializer,PreviousBookingSerializer
 
 class BookingView(APIView):
 
-    permission_classes = [AllowAny]
-
     def post(self,request):
         user = request.user
         phone = request.data["phone"] if 'phone' in request.data else None
