@@ -173,7 +173,7 @@ const Trip = () => {
     const [reviewCreationBool, setReviewCreationBool] = useState(false)
 
     const [isbooking, setIsbooking] = useState(false)
-    const [isAuth, setIsAuth] = useState(0)
+    const [isAuth, setIsAuth] = useState(null)
 
     const observer = useRef('') // has only one attribute - current!
 
@@ -201,9 +201,11 @@ const Trip = () => {
 
         fullaxios({ url: 'trip/media/' + name, sendcookie: false })
             .then(res => {
-                console.log(res.data)
-                setMediaObject(res.data)
-                console.log(res.data)
+                if (res){
+                    console.log(res.data)
+                    setMediaObject(res.data)
+                    console.log(res.data)
+                  }
             })
             .catch(err => {
                 console.log(err)
@@ -212,8 +214,10 @@ const Trip = () => {
 
         fullaxios({ url: 'trip/review/create/' + name, sendcookie: false })
             .then(res => {
-                // console.log('review worth :\n' + res.data)
-                setReviewCreationBool(res.data)
+                if (res){
+                    // console.log('review worth :\n' + res.data)
+                    setReviewCreationBool(res.data)
+                  }
             })
 
     }, [backToDisplay])
@@ -236,9 +240,11 @@ const Trip = () => {
 
         fullaxios({ url: 'trip/review/' + name + '?page=' + page, sendcookie: false })
             .then(res => {
-
-                console.log('review info: ', res.data)
-                setReviewObject(prev => [...prev, ...res.data])
+                if (res){
+                    // setFeatured(prev=>[...prev,...res.data])
+                    console.log('review info: ', res.data)
+                    setReviewObject(prev => [...prev, ...res.data])
+                  }
 
             })
             .catch(err => {
