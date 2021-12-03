@@ -6,6 +6,9 @@ from rest_framework.permissions import AllowAny
 from .serializers import AllBlogsSerializer,BlogEditSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer
 from rest_framework import status
 from .pagination import BlogPagination,BlogMediaPagination
+import base64
+import datetime 
+
 # Create your views here.
 
 
@@ -117,6 +120,7 @@ class CreateBlog(APIView):
         data['image'] = request.data['displayImage']
         data['anonymous'] = request.data['anonymous'] if 'anonymous' in request.data else False
         
+
         #Converting Data1,Data2....Data"n" dictionary into one array
 
         array = []
@@ -125,6 +129,16 @@ class CreateBlog(APIView):
             array.append(request.data['data'+str(i)])
             i += 1
         
+        #Converting Base64 image type to image
+        
+        for i in range(len(array)):
+            if array[i] == 'data:image/':
+                imgdata = base64.b64decode(array[i])
+                # filename = f'{request.user.id} {datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")}'
+                # with open(filename, 'wb') as f:
+                #     f.write(imgdata)
+                array[i] = imgdata
+
         #Logic to arrange make consecutive elements of the array of different types 
 
         i = 0

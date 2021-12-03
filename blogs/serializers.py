@@ -1,7 +1,6 @@
 from django.db.models.fields import related
 from rest_framework import serializers
 from database.models import Blog, BlogMedia
-import datetime 
 
 class AllBlogsSerializer(serializers.ModelSerializer):
 
