@@ -206,13 +206,13 @@ const Gallery = () => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id}>
               {data.image && <img src={data.image} onClick={()=>{Selected(data)}} alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
-              {data.video && < video controls src={data.video} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
+              {data.video && < video src={data.video} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
 
           </div>);
           }else {
             return ( <div className="overflow-hidden min-h-[200px] sm:min-h-[120px]" key={data.id} >
               {data.image && < img src={data.image} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
-              {data.video && < video controls src={data.video} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
+              {data.video && < video src={data.video} onClick={()=>{Selected(data)}}  alt="" className ="object-cover h-full  w-full cursor-pointer"/>}
               
           </div>);
           }
@@ -233,8 +233,8 @@ const Gallery = () => {
                                 {/* {console.log(locimg.slice(21,27))}
                                 {console.log(locimg.slice(21,27) === "images")} */}
                                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
-                                {locimg && <img src={locimg}  alt="" className ="object-cover h-full  w-full"/>}
-                                {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-full  w-full"/>}
+                                {locimg && <img src={locimg}  alt="" className ="object-cover h-[500px]  w-[750px]"/>}
+                                {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-[500px]  w-[750px]"/>}
                                 {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                                 <p className='text-3xl'>{location.location}</p>
                                 <h3 className='flex text-2xl items-center text-center '><span>({location.type})</span></h3>

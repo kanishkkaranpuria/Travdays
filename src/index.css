@@ -127,7 +127,7 @@ code {
     monospace;
 }
 
-.gallery{
+.gallery, .tripPage{
   display: grid;
   grid-template-columns: 50% 50%;
   border-radius: 20px;
@@ -302,6 +302,9 @@ pointer-events: auto;
 }
 .p-box-shadow{
   box-shadow: 0 5px 6px 2px #00000088 ;
+}
+.p-box-shadow-2{
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
 }
 .trips{
 
