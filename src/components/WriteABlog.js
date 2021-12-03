@@ -746,7 +746,7 @@ const WriteABlog = () => {
                         console.log(res)
                         console.log(res.data)
                         localStorage.clear()
-                        // history.push('/blogs')
+                        history.push('/blogs')
                     }
                 })
                 .catch(err => {
