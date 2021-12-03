@@ -39,6 +39,7 @@ const Navbar = () => {
                 <Link className='h-full items-center flex' to='/faq'>FAQ</Link>
                 <Link className='h-full items-center flex' to='/login'>Login</Link>
                 <Link className='h-full items-center flex' to='/logout'>Logout</Link>
+                <Link className='h-full items-center flex' to=''>Our AI Coming Soon</Link>
             </nav>
         </navbar>
     );

@@ -7,20 +7,27 @@ const WriteABlog = () => {
 
     var pretitle = ""
     var prenumberOfAllDatas = 0
+    var prenumberOfAllImages = 0
     var prealldata = [""];
-
+    // var numberOfAllImages = 0;
+    
     useEffect(() => {
         pretitle = localStorage.getItem("title")
         prenumberOfAllDatas = localStorage.getItem("numberofalldatas")
+        prenumberOfAllImages = localStorage.getItem("numberofallimages")
         for (let i = 0; i < prenumberOfAllDatas; i++) {
             prealldata[i] = localStorage.getItem(`alldata${i}`)
         }
         setNumberOfAllDatas(parseInt(prenumberOfAllDatas))
+        console.log(prenumberOfAllImages)
+        console.log(prenumberOfAllImages !== NaN)
+        console.log(prenumberOfAllImages !== "NaN")
+        if (prenumberOfAllImages !== NaN && prenumberOfAllImages !== "NaN" ){numberOfAllImages.current = (parseInt(prenumberOfAllImages))}
         setAlldata(prealldata)
         setTitle(pretitle)
         setnotfirstrender(true)
     }, [])
-
+    var numberOfAllImages = useRef(0)
     const inputRef = useRef();
     const onClickFocus = () => {
         // console.log('Focus input');
@@ -31,6 +38,7 @@ const WriteABlog = () => {
     const [content, setContent] = useState(null)
     const [image, setImages] = useState()
     const [numberOfAllDatas, setNumberOfAllDatas] = useState(0)
+    // const [numberOfAllImages, setNumberOfAllImages] = useState(0)
     var [newimage, setNewimage] = useState({});
     const [error, setError] = useState([]);
     const [imagepreview, setImagepreview] = useState([]);
@@ -109,7 +117,7 @@ const WriteABlog = () => {
             // console.log(window.innerWidth)
             // window.innerWidth/15 = w-2/3
             // window.innerWidth/10 = w-full
-            console.log(window.innerWidth)
+            // console.log(window.innerWidth)
             var char;
             if (window.innerWidth > 450) {
                 char = parseFloat(window.innerWidth / 15).toFixed()
@@ -132,7 +140,7 @@ const WriteABlog = () => {
             // console.log("your first line status:", firstlinestatus)
         }
         if (type !== "para" && type !== "image" && type !== "title") {
-            // console.log('stop wasting your time')
+            console.log('stop wasting your time')
         }
         else if ((type === "para" && selectionStart === selectionEnd) || (type === 'title' && selectionStart === selectionEnd) || type === 'image') {
             if (type === "title") {
@@ -207,11 +215,11 @@ const WriteABlog = () => {
                 if (e.key === 'Enter' && type === "image") {
                     backspacedlocation.current = null;
                     e.preventDefault();
-                    console.log('here')
-                    console.log(element + 1)
-                    console.log(numberOfAllDatas)
+                    // console.log('here')
+                    // console.log(element + 1)
+                    // console.log(numberOfAllDatas)
                     if (element + 1 === numberOfAllDatas) {
-                        console.log('here')
+                        // console.log('here')
                         temp.current = null
                         setAlldata([...alldata.slice(0, element + 1), ""])
                     }
@@ -238,7 +246,7 @@ const WriteABlog = () => {
                         }
                         else {
                             backspacedlocation.current = alldata[element - 1].length
-                            console.log(backspacedlocation.current)
+                            // console.log(backspacedlocation.current)
                         }
                         var temptrial1 = alldata[element - 1] + alldata[element]
                         // console.log(temptrial1)
@@ -262,6 +270,7 @@ const WriteABlog = () => {
                 }
                 else if ((e.key === 'Backspace') && (type === "image")) {
                     backspacedlocation.current = null;
+                    numberOfAllImages.current = numberOfAllImages.current - 1;
                     e.preventDefault();
                     if (element + 1 === numberOfAllDatas && element !== 0) {
                         temp.current = null
@@ -351,75 +360,81 @@ const WriteABlog = () => {
         const selected = e.target.files[0];
         // console.log(selected.type)
         if (selected && (selected.type.slice(0, 5)) === "image") {
-            // if (alldata[element-1] === "")element = element - 1;
-            backspacedlocation.current = null;
-            newimage = Object.assign(newimage, { [element]: selected })
-            let reader = new FileReader();
-            reader.onloadend = () => {
-                // setImagepreview(reader.result);
+            if (numberOfAllImages.current <= 10) {
+                // if (alldata[element-1] === "")element = element - 1;
+                backspacedlocation.current = null;
+                newimage = Object.assign(newimage, { [element]: selected })
+                let reader = new FileReader();
+                reader.onloadend = () => {
+                    // setImagepreview(reader.result);
+                    // let tempalldataForImage = [];
+                    let tempalldataForImage = [];
+                    if (alldata) tempalldataForImage = [...alldata]
+                    tempalldataForImage[element] = reader.result
+                    // setAlldata([...tempalldataForImage])
+                    // setAlldata([...alldata, reader.result, ])
+                    numberOfAllImages.current = numberOfAllImages.current + 1
+                    if (element + 1 === numberOfAllDatas) {
+                        let tempalldataForContent = [];
+                        tempalldataForContent = [...tempalldataForImage]
+                        tempalldataForContent[element + 1] = "";
+                        temp.current = null;
+                        setAlldata([...tempalldataForContent])
+                    }
+                    else if (numberOfAllDatas === 1) {
+                        let tempalldataForContent = [];
+                        tempalldataForContent = [...tempalldataForImage]
+                        tempalldataForContent[element + 1] = "";
+                        temp.current = element + 1;
+                        setAlldata([...tempalldataForContent])
+                    }
+                    else {
+                        temp.current = element + 1
+                        setAlldata([...tempalldataForImage])
+                    }
+                    // setAlldata([...tempalldataForImage,])
+                    // setImagepreview((prev)=> ({
+                    //     ...prev, [element] : [reader.result] 
+                    // }))
+                };
+                reader.readAsDataURL(selected);
+                //  imageabout();
+
                 // let tempalldataForImage = [];
-                let tempalldataForImage = [];
-                if (alldata) tempalldataForImage = [...alldata]
-                tempalldataForImage[element] = reader.result
-                // setAlldata([...tempalldataForImage])
-                // setAlldata([...alldata, reader.result, ])
-                if (element + 1 === numberOfAllDatas) {
-                    let tempalldataForContent = [];
-                    tempalldataForContent = [...tempalldataForImage]
-                    tempalldataForContent[element + 1] = "";
-                    temp.current = null;
-                    setAlldata([...tempalldataForContent])
-                }
-                else if (numberOfAllDatas === 1) {
-                    let tempalldataForContent = [];
-                    tempalldataForContent = [...tempalldataForImage]
-                    tempalldataForContent[element + 1] = "";
-                    temp.current = element + 1;
-                    setAlldata([...tempalldataForContent])
-                }
-                else {
-                    temp.current = element + 1
-                    setAlldata([...tempalldataForImage])
-                }
-                // setAlldata([...tempalldataForImage,])
-                // setImagepreview((prev)=> ({
-                //     ...prev, [element] : [reader.result] 
-                // }))
-            };
-            reader.readAsDataURL(selected);
-            //  imageabout();
-
-            // let tempalldataForImage = [];
-            // if (alldata) tempalldataForImage = [...alldata]
-            // tempalldataForImage[element] = selected
-            // console.log(tempalldataForImage)
-            // setAlldata([...tempalldataForImage]);
-            // console.log(tempalldataForImage)
+                // if (alldata) tempalldataForImage = [...alldata]
+                // tempalldataForImage[element] = selected
+                // console.log(tempalldataForImage)
+                // setAlldata([...tempalldataForImage]);
+                // console.log(tempalldataForImage)
 
 
-            // let tempnewimage = [];
-            // if (newimage) tempnewimage = [...newimage]
-            // tempnewimage[element] = selected
-            // newimage = Object.assign(newimage, {[element] : selected})
-            // newimage[element] = selected;
-            // setNewimage([...tempnewimage])
+                // let tempnewimage = [];
+                // if (newimage) tempnewimage = [...newimage]
+                // tempnewimage[element] = selected
+                // newimage = Object.assign(newimage, {[element] : selected})
+                // newimage[element] = selected;
+                // setNewimage([...tempnewimage])
 
 
-            // console.log(tempnewimage)
-            // console.log(tempnewimage[element])
+                // console.log(tempnewimage)
+                // console.log(tempnewimage[element])
 
-            // console.log(selected.type)
-            // type = selected.type
-            // type && setType(type.slice(0, 5))
-            // console.log(type)
-            // if (alldata !== {}) {
-            //     if (setNumberOfAllDatas) {
-            //         setNumberOfAllDatas(numberOfAllDatas + 2)
-            //     }
-            //     else {
-            //         setNumberOfAllDatas(2)
-            //     }
-            // }
+                // console.log(selected.type)
+                // type = selected.type
+                // type && setType(type.slice(0, 5))
+                // console.log(type)
+                // if (alldata !== {}) {
+                //     if (setNumberOfAllDatas) {
+                //         setNumberOfAllDatas(numberOfAllDatas + 2)
+                //     }
+                //     else {
+                //         setNumberOfAllDatas(2)
+                //     }
+                // }
+            }
+            else{
+                alert("the maximum number of images in one blog is 10")
+            }
         }
         else {
             alert("you can't add any format other than image")
@@ -475,37 +490,54 @@ const WriteABlog = () => {
         //         setAlldata(...alldata.splice(0, temp),alldata[temp].replace(/\n/g, ""))
         //     }
         // }
-        console.log(alldata)
-        console.log(title)
-        console.log(alldata.length)
-        console.log(notfirstrender)
+        // console.log(alldata)
+        // console.log(title)
+        // console.log(alldata.length)
+        // console.log(notfirstrender)
         if (notfirstrender) {
-            for (var i = 0; i < alldata.length; i++) {
-                localStorage.setItem(`alldata${i}`, alldata[i])
-                // if(alldata[i].slice(5,10) === "image"){
-                // console.log(URL.createObjectURL(alldata[i]))
-                // console.log(alldata[i])
-                // var binaryData = [];
-                // binaryData.push(alldata[i]);
-                // var trial = blobCreationFromURL(alldata[i])
-                // newimage[i] = trial;
-                // console.log(trial)
-                // form.append(`newimage${i}`,newimage[i])
-                // console.log(newimage[i])
-                // console.log(form[`newimage${i}`])
-                // localStorage.setItem(`newimage${i}`, newimage[i])
-                // localStorage.setItem(`newimage${i+1}`, form[`newimage${i}`])
-                // }
-            }
-            let tempnumber = parseInt(localStorage.getItem("numberofalldatas"))
-            if (tempnumber > alldata.length) {
-                for (let i = alldata.length; i < tempnumber; i++) {
-                    localStorage.removeItem(`alldata${i}`)
+
+            try {
+            
+                for (var i = 0; i < alldata.length; i++) {
+                    localStorage.setItem(`alldata${i}`, alldata[i])
+                    // if(alldata[i].slice(5,10) === "image"){
+                    // console.log(URL.createObjectURL(alldata[i]))
+                    // console.log(alldata[i])
+                    // var binaryData = [];
+                    // binaryData.push(alldata[i]);
+                    // var trial = blobCreationFromURL(alldata[i])
+                    // newimage[i] = trial;
+                    // console.log(trial)
+                    // form.append(`newimage${i}`,newimage[i])
+                    // console.log(newimage[i])
+                    // console.log(form[`newimage${i}`])
+                    // localStorage.setItem(`newimage${i}`, newimage[i])
+                    // localStorage.setItem(`newimage${i+1}`, form[`newimage${i}`])
+                    // }
                 }
+                let tempnumber = parseInt(localStorage.getItem("numberofalldatas"))
+                if (tempnumber > alldata.length) {
+                    for (let i = alldata.length; i < tempnumber; i++) {
+                        localStorage.removeItem(`alldata${i}`)
+                    }
+                }
+                localStorage.setItem("numberofalldatas", alldata.length)
+                console.log(numberOfAllImages.current)
+                console.log(numberOfAllImages)
+                console.log(numberOfAllImages.current !== NaN)
+                console.log(numberOfAllImages.current !== "NaN")
+                if(numberOfAllImages.current !== NaN && numberOfAllImages.current !== "NaN")localStorage.setItem("numberofallimages", numberOfAllImages.current)
+                // for(var newimage.length
+                setNumberOfAllDatas(alldata.length)    
+           
             }
-            localStorage.setItem("numberofalldatas", alldata.length)
-            // for(var newimage.length
-            setNumberOfAllDatas(alldata.length)
+            catch (e) {
+                console.log("This is the maximum data you can add in a blog, either replace the photos with lower quality photos or decrease the number of photos");
+                alert("This is the maximum data you can add in a blog, either replace the photos with lower quality photos or decrease the number of photos");
+                // fires When localstorage gets full
+                // you can handle error here or empty the local storage
+            }
+            
             if (alldata[0] === '' && alldata.length === 1) {
                 document.getElementById('title').focus();
             }
@@ -606,8 +638,8 @@ const WriteABlog = () => {
                 <p className="text-4xl p-5 font-bold">Blog Preview</p>
                 <input style={{ display: 'none' }} name="awesome af" onChange={e => (handledisplayimage(e))} ref={inputRef} type="file" accept="image/*" />
                 {/* {displayImage && <img src= {handledisplayimage(displayImage)}/>}  */}
-                {console.log(previewdisplayImage)}
-                {console.log(displayImage)}
+                {/* {console.log(previewdisplayImage)} */}
+                {/* {console.log(displayImage)} */}
 
                 {previewdisplayImage && <img src={previewdisplayImage} />}
                 {!previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Set Display Image</button>}
@@ -663,14 +695,14 @@ const WriteABlog = () => {
                         //     j++;
                         // }
                     }
-                    // else {
-                    //     data.append(`data${i}`, alldata[i])
-                    //     // if (j === 0) {
-                    //     //     data.append("displayImage", alldata[i]);
-                    //     //     j++;
-                    //     // }
-                    // }
-                    console.log(newimage)
+                    else {
+                        data.append(`data${i}`, alldata[i])
+                        //     // if (j === 0) {
+                        //     //     data.append("displayImage", alldata[i]);
+                        //     //     j++;
+                        //     // }
+                    }
+                    // console.log(newimage)
 
 
                 }
@@ -714,7 +746,7 @@ const WriteABlog = () => {
                         console.log(res)
                         console.log(res.data)
                         localStorage.clear()
-                        history.push('/blogs')
+                        // history.push('/blogs')
                     }
                 })
                 .catch(err => {
