@@ -188,16 +188,20 @@ const Blogs = ({id,setId}) => {
         {allblogs && allblogs.map((data,index)=> {
           if(allblogs.length === index+1){
             return(
-              <div ref={lastDataElementRef2} className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+              <div ref={lastDataElementRef2}  className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
         <div className="blog-preview-card non-featured v1 relative cursor-pointer" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
+
+              {/* <div ref={lastDataElementRef2} className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
+        <div className="blog-preview-card non-featured v1 relative"> */}
+        
                 <div className="blog-photos overflow-hidden">
                     <img className='object-cover h-full w-full' src={data.image} alt=""/>
                 </div>
-                <div className='p-8 sm:p-1'>
-                    <div className="flex justify-between items-center">
+                <div className='sm:flex sm:w-full sm:flex-col p-8 sm:p-1'>
+                    <div className="flex sm:flex-col justify-between items-center">
                     <p className='font-semibold sm:text-2xl'>{data.location}</p>
                     <p className='font-semibold sm:text-2xl'>{data.created}</p>
-                <p className='flex text-2xl items-center h-6'>x.x 
+                {/* <p className='flex text-2xl items-center h-6'>x.x 
                     <span className='flex h-6'>
               
                     
@@ -207,10 +211,13 @@ const Blogs = ({id,setId}) => {
                     <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
                     <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
                     </span>
-                </p>
+                </p> */}
                 </div>
                 <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
-                <p className='pt-6 leading-tight text-xl'>{data.body}</p>
+                <p className='flex w-full pt-6 leading-tight text-xl'>{data.body}</p>
+
+                {/* <p className='text-4xl font-bold pt-6'>{data.title}</p>
+                <p className='flex w-full pt-6 leading-tight text-xl'>{data.body}</p> */}
 
                 </div>
             </div>
@@ -219,16 +226,19 @@ const Blogs = ({id,setId}) => {
           }
           else{
             return(
-              <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+              <div className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
               <div className="blog-preview-card non-featured v1 relative cursor-pointer" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
+
+              {/* <div  className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
+              <div className="blog-preview-card non-featured v1 relative"> */}
                       <div className="blog-photos overflow-hidden">
                           <img className='object-cover h-full w-full' src={data.image} alt=""/>
                       </div>
                       <div className='p-8 sm:p-1'>
-                          <div className="flex justify-between items-center">
+                          <div className="flex sm:flex-col sm:items-start justify-between items-center">
                           <p className='font-semibold sm:text-2xl'>{data.location}</p>
                           <p className='font-semibold sm:text-2xl'>{data.created}</p>
-                      <p className='flex text-2xl items-center h-6'>x.x 
+                      {/* <p className='flex text-2xl items-center h-6'>x.x 
                           <span className='flex h-6'>
                     
                           
@@ -238,10 +248,13 @@ const Blogs = ({id,setId}) => {
                           <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
                           <img src="https://img.icons8.com/material-rounded/32/000000/star--v1.png"/>
                           </span>
-                      </p>
+                      </p> */}
                       </div>
-                      <p  onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-4xl font-bold pt-6'>{data.title}</p>
-                      <p className='pt-6 leading-tight text-xl'>{data.body}</p>
+                      <p  onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-4xl break-all whitespace-normal overflow-ellipsis font-bold pt-6'>{data.title}</p>
+                      <p className='pt-6 overflow-hidden h-[150px] break-all whitespace-normal overflow-ellipsis leading-tight text-xl'>{data.body}</p>
+
+                      {/* <p  className='text-4xl break-all whitespace-normal overflow-ellipsis font-bold pt-6'>{data.title}</p>
+                      <p className='pt-6 overflow-hidden h-[150px] break-all whitespace-normal overflow-ellipsis leading-tight text-xl'>{data.body}</p> */}
                       </div>
                   </div>
                 </div>

@@ -4,6 +4,7 @@ import FAQ from "../components/FAQ";
 import Card from "../components/Card"
 import { useEffect } from "react";
 import fullaxios from "../components/FullAxios";
+import Logo from "./images/TravDays_logos/1trans.png"
 
 
 
@@ -23,11 +24,16 @@ const Home = ({isadmin,setIsadmin}) => {
                 console.log(err)
            } )
       }, [])
+
+
+// const Home = () => {
     return ( 
         <div className="main w-full items-center justify-center">
             <div className="section hero items-center justify-center">
-            <div className="p-6 sm:p-4 sm:order-2">
+            <div className="p-6 relative sm:p-4 sm:order-2">
+                
                 <div className='block sm:hidden'>
+                {/* <img src={Logo} alt='' className='absolute h-[300px] top-[-50%] right-[10%] ' /> */}
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
                 
@@ -58,9 +64,9 @@ const Home = ({isadmin,setIsadmin}) => {
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
             </div>
             <div className='card-grid sm:py-[20px]'>
-                <Link to='/trips/workation'><Card title="Workation" id='one'  /></Link>
-                <Link to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
-                <Link to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
+                <Link className='card-grid__link__hover' to='/trips/workation'><Card title="Workation" id='one'  /></Link>
+                <Link className='card-grid__link__hover' to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
+                <Link className='card-grid__link__hover' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
             </div>
                         {/* <div class="swiper mySwiper hidden sm:flex">
                 <div class="swiper-wrapper">
@@ -111,11 +117,39 @@ const Home = ({isadmin,setIsadmin}) => {
                 
             </div>
             </div>
-            <div className="section faq grid grid-cols-2 ">
+            <div>
+            <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block'>Testimonials</span>
+            <div className="section grid grid-cols-2 ">
+                    <div className='flex h-32 '>
+                        <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
+                    <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1528001100577-c6b2f16d5276?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"/>
+                        </div>
+                        <div className='px-8'>
+                            <p className="text-2xl font-semibold">username</p>
+                        <p className="leading-tight">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>    
+                        </div>
+                    </div>
 
-                <div>
-                <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block'>Testimonials</span>
-                <div>
+                    <div className='flex h-32'>
+                    <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
+                    <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1598587741472-cb50fcba42be?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"/>
+                        </div>
+                        <div className='px-8'>
+                            <p className="text-2xl font-semibold">username</p>
+                        <p className="leading-tight">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>    
+                        </div>
+                    </div>
+
+                    <div className='flex h-32'>
+                    <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
+                    <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1557977275-d261356f567f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=699&q=80"/>
+                        </div>
+                        <div className='px-8'>
+                            <p className="text-2xl font-semibold">username</p>
+                        <p className="leading-tight">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>    
+                        </div>
+                    </div>
+                
                     <div className='flex h-32 '>
                         <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
                     <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1528001100577-c6b2f16d5276?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"/>
@@ -147,16 +181,32 @@ const Home = ({isadmin,setIsadmin}) => {
                     </div>
 
 
-                </div>
-                </div>
-
                 
+                </div>
 
-                <div className='sm:pt-16'>
+            </div>
+
+            <div className='section faq sm:pt-16'>
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>
                 <div className=''>
+                <div className="h-32 ">
+                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                </div>
+                <div className="h-32 ">
+                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                </div>
+                <div className="h-32 ">
+                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                </div>
+                <div className="h-32 ">
+                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                </div>
                 <div className="h-32 ">
                 <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
                 <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
@@ -166,7 +216,6 @@ const Home = ({isadmin,setIsadmin}) => {
                 </div>
 
 
-            </div>
             <div className="footer flex h-[120px] bg-[#FFA914]">
                 <div className='flex w-full justify-around items-center opacity-70 p-4'>
                             <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png"/>
