@@ -63,7 +63,7 @@ class BlogDisplayView(APIView,BlogMediaPagination):
             n = (page-1)*3 if page !=1 else 0
             m = page*3 
             if dict(list(data.items())[n:m]) == {}:
-                return Response({"error":"invalid input"}, status = status.HTTP_400_BAD_REQUEST)
+                return Response({"error":"invalid input"}, status = status.HTTP_404_NOT_FOUND)
             return Response(dict(list(data.items())[n:m]))
         return Response({"error":"invalid id"}, status = status.HTTP_400_BAD_REQUEST)
 
@@ -159,11 +159,15 @@ class CreateBlog(APIView):
         # saving images
 
         data = {}
-        data['blog'] = blog.id
         i = 0
+        data['blog'] = blog.id
         print("start of while loop")
-        for img in array[1::2]:
-            data['image'] = img
+        for i in range(len(array[1::2])):
+            data['image'] = array[1::2][i]
+
+            if array[1::2][i].size > 4194304:
+                return Response({"error":f'size of Image Number {i+1} is greater than 4Mb'}, status=status.HTTP_400_BAD_REQUEST)
+
             serializer = CreateBlogMediaSerializer(data = data)
             if serializer.is_valid():
                 i += 1

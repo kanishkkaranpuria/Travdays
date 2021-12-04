@@ -1,12 +1,14 @@
 from django.db.models.fields import related
 from rest_framework import serializers
 from database.models import Blog, BlogMedia
+import string
 
 class AllBlogsSerializer(serializers.ModelSerializer):
 
-    created = serializers.SerializerMethodField()
-    body = serializers.SerializerMethodField()
-    user = serializers.SerializerMethodField()
+    created  = serializers.SerializerMethodField()
+    body     = serializers.SerializerMethodField()
+    user     = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
 
     class Meta:
         model = Blog
@@ -30,9 +32,14 @@ class AllBlogsSerializer(serializers.ModelSerializer):
             return body + "..."
         return a + " ..."
 
+    def get_location(self,obj):
+        loc = obj.location
+        return string.capwords(loc)
+
 class FeaturedBlogsSerializer(serializers.ModelSerializer):
 
     created = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
 
     class Meta:
         model = Blog
@@ -40,6 +47,10 @@ class FeaturedBlogsSerializer(serializers.ModelSerializer):
 
     def get_created(self,obj):
         return obj.created.strftime("%d-%b-%Y")
+
+    def get_location(self,obj):
+        loc = obj.location
+        return string.capwords(loc)
 
     # def get_image(self,obj):
     #     if len(obj.blogmedia.all()) != 0:
@@ -57,6 +68,7 @@ class BlogSerializer(serializers.ModelSerializer):
     displayImage = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
     created = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
     # image        = serializers.SerializerMethodField()
 
     class Meta:
@@ -75,6 +87,10 @@ class BlogSerializer(serializers.ModelSerializer):
             return obj.user.name
         return "Anonyous"
 
+    def get_location(self,obj):
+        loc = obj.location
+        return string.capwords(loc) 
+        
 class BlogEditSerializer(serializers.ModelSerializer):
 
     class Meta:
