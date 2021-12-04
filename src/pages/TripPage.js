@@ -77,7 +77,7 @@ const Trip = () => {
             .then(res => {
                 if (res) {
                     // console.log('review worth :\n' + res.data)
-                    setReviewCreationBool(res.data)
+                    setReviewCreationBool(res.data.bool)
                 }
             })
 
@@ -287,7 +287,7 @@ const Trip = () => {
                             })
                         }
                     </div>
-
+                        {console.log("asdfdsf",reviewCreationBool)}
                     {
 
                         reviewCreationBool &&
