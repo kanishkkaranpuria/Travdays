@@ -22,7 +22,7 @@ const WriteABlog = () => {
         console.log(prenumberOfAllImages)
         console.log(prenumberOfAllImages !== NaN)
         console.log(prenumberOfAllImages !== "NaN")
-        if (prenumberOfAllImages !== NaN && prenumberOfAllImages !== "NaN" ){numberOfAllImages.current = (parseInt(prenumberOfAllImages))}
+        if (prenumberOfAllImages !== NaN && prenumberOfAllImages !== "NaN" && prenumberOfAllImages !== null   ){numberOfAllImages.current = (parseInt(prenumberOfAllImages))}
         setAlldata(prealldata)
         setTitle(pretitle)
         setnotfirstrender(true)
@@ -477,6 +477,26 @@ const WriteABlog = () => {
     //     });
     // }
 
+    function dataURLtoFile(dataurl, filename) {
+ 
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        filename = filename + "."+ mime.slice(-4)
+        return new File([u8arr], filename, {type:mime});
+    }
+    
+
+    //Usage example:
+    // var file = dataURLtoFile('data:text/plain;base64,aGVsbG8gd29ybGQ=','hello.txt');
+    // console.log(file);
+
     useEffect(() => {
         // console.log(alldata)
         // console.log(alldata.length)
@@ -497,7 +517,7 @@ const WriteABlog = () => {
         if (notfirstrender) {
 
             try {
-            
+                console.log("whyyyyyyyyy tfffffffff am i working")
                 for (var i = 0; i < alldata.length; i++) {
                     localStorage.setItem(`alldata${i}`, alldata[i])
                     // if(alldata[i].slice(5,10) === "image"){
@@ -526,7 +546,7 @@ const WriteABlog = () => {
                 console.log(numberOfAllImages)
                 console.log(numberOfAllImages.current !== NaN)
                 console.log(numberOfAllImages.current !== "NaN")
-                if(numberOfAllImages.current !== NaN && numberOfAllImages.current !== "NaN")localStorage.setItem("numberofallimages", numberOfAllImages.current)
+                if(numberOfAllImages.current !== NaN && numberOfAllImages.current !== "NaN" && numberOfAllImages.current !== undefined)localStorage.setItem("numberofallimages", numberOfAllImages.current)
                 // for(var newimage.length
                 setNumberOfAllDatas(alldata.length)    
            
@@ -696,7 +716,7 @@ const WriteABlog = () => {
                         // }
                     }
                     else {
-                        data.append(`data${i}`, alldata[i])
+                        data.append(`data${i}`, dataURLtoFile(alldata[i], `image${i}`))
                         //     // if (j === 0) {
                         //     //     data.append("displayImage", alldata[i]);
                         //     //     j++;
@@ -757,6 +777,7 @@ const WriteABlog = () => {
             alert("You need to add the Title, some Data, the Display Image and the Blog Location before you submit the blog.")
         }
     }
+    var lmao;
     const Actuallywritingtheblog = () => {
         // console.log("wtf")
         return (
@@ -848,6 +869,10 @@ const WriteABlog = () => {
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
                 {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
+                        <button onClick = {() => {
+                            lmao = dataURLtoFile(alldata[1],"youshouldwork") 
+                            console.log("let's goooooooooooooooooooo",lmao)
+                            } }>convert to file</button>
             </div>
         );
     }

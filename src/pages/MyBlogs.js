@@ -23,6 +23,7 @@ const MyBlogs = ({id,setId}) => {
     .then(res => {
       if (res){
       setAllblogs(prev=>[...prev,...res.data])
+      console.log(res.data)
     }})
     .catch(err => {
        if (err.response){if (err.response.data.detail === "Invalid page.") {
