@@ -313,8 +313,8 @@ const Trip = () => {
 
                    
                     {
-                        (isAuth === false)
-                        && <div>
+                        (isAuth === false) && isbooking &&
+                        <div>
                             {alert('you arent logged in, to make a booking, log in.')}
                         </div>
                     }
