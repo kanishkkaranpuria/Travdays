@@ -142,7 +142,7 @@ function App() {
 
             
             {(isadmin === true) &&
-            <div className = "for-admin-only">
+            <>
             <Route exact path="/addtrips"> <Addtrips /> </Route>
               
             <Route exact path="/tripedit/:name/:id"> <Edittrips /> </Route>
@@ -156,7 +156,7 @@ function App() {
             <Route exact path="/admfaq"> <AdmFaq /> </Route>
               
             <Route exact path="/admbooking"> <AdmBooking /> </Route>
-            </div>
+            </>
             }
 
           </Switch>
