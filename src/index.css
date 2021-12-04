@@ -102,8 +102,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible{
   outline-color: #9d9d9d;
 }
 ::-webkit-scrollbar{
-  height: 0.75rem;
-  width: 0.75rem;
+  position: absolute;
+  height: 0.5rem;
+  width: 0.5rem;
 }
 ::-webkit-scrollbar-track{
   margin: 0.5em;
@@ -126,7 +127,7 @@ code {
     monospace;
 }
 
-.gallery{
+.gallery, .tripPage{
   display: grid;
   grid-template-columns: 50% 50%;
   border-radius: 20px;
@@ -180,11 +181,11 @@ code {
   -moz-animation: circle3 12s linear infinite ;
   -o-animation: circle3 12s linear infinite ;
 }
-
-.card:hover> div{
+.card-grid__link__hover:hover{
   transform: scale(1.1);
   z-index: 2;
 }
+
 .blog-preview-card {
   /* max-width: 205px;
   height: 245px; */
@@ -200,7 +201,7 @@ code {
 }
 .blog-preview-card.non-featured.v1{
   grid-template-columns: 30% 70%;
-  margin: 1rem;
+  /* margin: 1rem; */
   width: 500px;
   height: 300px;
 }
@@ -302,6 +303,9 @@ pointer-events: auto;
 .p-box-shadow{
   box-shadow: 0 5px 6px 2px #00000088 ;
 }
+.p-box-shadow-2{
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
+}
 .trips{
 
   display: flex;
@@ -320,6 +324,15 @@ transform: translateY(-100%);
 transition: all 200ms ease-in-out;
 }
 
+
+
+
+
+
+
+
+
+
 /* Some extra shit added by naman */
 
 .namans-textarea {
@@ -331,7 +344,9 @@ transition: all 200ms ease-in-out;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-  /* ******************************************************************************************MEDIA QUERIES */
+
+
+/* ******************************************************************************************MEDIA QUERIES */
   @media only screen and (max-width: 800px) {
   
   .navbar{
@@ -357,10 +372,20 @@ transition: all 200ms ease-in-out;
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 }
+/* ******************************************************************************************MEDIA QUERIES */
 
-/* ******************************************************************************************MEDIA QUERIES */
-/* ******************************************************************************************MEDIA QUERIES */
+
+
+
+
+
+
+
+
+
+
 /* Param's css continues */
+/* ******************************************************************************************MEDIA QUERIES */
 @media only screen and (max-width: 992px) {
 
 .section{
@@ -406,10 +431,6 @@ transition: all 200ms ease-in-out;
   min-width: 300px;
   height: 180px;
 }
-.blog-preview-card.non-featured{
-  grid-template-columns: none;
-  grid-template-rows: 50% 50%;
-}
 .card{
   animation: none;
   /* margin: 20px; */
@@ -417,6 +438,15 @@ transition: all 200ms ease-in-out;
   padding-bottom: 320.61px;
   box-shadow: 0 0 4px 0px #00000088;
 }
+}
+@media screen and (max-width: 450px) {
+  .blog-preview-card.non-featured.v1{
+    margin: 0px;
+    height: 500px;
+    width: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 40% 60%;
+  }
 }
 
 /* *****************************************************  keyfrmaes */
