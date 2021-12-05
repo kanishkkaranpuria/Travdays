@@ -315,10 +315,16 @@ min-height: calc(100vh - 180px);
 display: grid;
 grid-template-columns: 40% 55%;
 column-gap: 5%;
+/* background-image: linear-gradient(to right,#000000,#00000011, #00000000); */
 }
-.hero{
-/* background-color: var(--primary);
-color: var(--secondary-1); */
+.section.hero, .section.testimonial{
+  background-color: var(--primary);
+color: var(--secondary-1);
+}
+.section.gallery, .section.faq{
+  background-color: var(--secondary-2);
+  color: var(--primary);
+  border-radius: 0px;
 }
 .section button{
   /* background-color:var(--secondary-2);
