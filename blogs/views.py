@@ -214,6 +214,7 @@ class BlogLikeDislike(APIView):
             blog.dislikes.add(user)
             blog.save()
             return Response({'message':'disliked'})
+        return Response({'error':'invalid input'},status = status.HTTP_400_BAD_REQUEST)
 
 class BlogLikeDislikeStatus(APIView):
 
