@@ -55,7 +55,7 @@ function App() {
     fullaxios({ url: 'userinfo/status' })
       //   .get(`faq/question?page=`+ page)
       .then((res) => {
-        if(res){  
+        if (res) {
           console.log(res.data.admin)
           console.log(res.data)
           setIsadmin(res.data.admin)
@@ -85,7 +85,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar isauthenticated = {isauthenticated}/>
+        <Navbar isauthenticated={isauthenticated} />
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}
           <Link to='/'><p className='text-lg'>TravDays</p></Link>
@@ -107,17 +107,17 @@ function App() {
 
             <Route exact path="/gallery"> <Gallery /> </Route>
 
-            <Route exact path="/login"> <Login setIsauthenticated ={setIsauthenticated} /> </Route>
+            <Route exact path="/login"> <Login setIsauthenticated={setIsauthenticated} /> </Route>
 
             <Route exact path="/register"> <Registration /> </Route>
 
-            <Route exact path="/logout"> <Logout setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/> </Route>
+            <Route exact path="/logout"> <Logout setIsadmin={setIsadmin} setIsauthenticated={setIsauthenticated} /> </Route>
 
             <Route exact path="/contactus"> <ContactUs /> </Route>
 
             <Route exact path="/profile"> <Profilepage /> </Route>
 
-            <Route exact path="/trip/:name"> <Trip /> </Route>
+            <Route exact path="/trip/:name"> <Trip isAuth={isauthenticated} /> </Route>
 
             <Route exact path="/trips/:type"> <AllTrips /> </Route>
 
@@ -143,23 +143,23 @@ function App() {
 
             <Route exact path="/adminOnly"> <MainAdmin /> </Route>
 
-            
+
             {(isadmin === true) &&
-            <>
-            <Route exact path="/addtrips"> <Addtrips /> </Route>
-              
-            <Route exact path="/tripedit/:name/:id"> <Edittrips /> </Route>
-              
-            <Route exact path="/approveblogs"> <ApproveBlogs /> </Route>
-              
-            <Route exact path="/addtestimonials"> <Addtestimonials /> </Route>
-              
-            <Route exact path="/admcontactus"> <AdmContactUs /> </Route>
-              
-            <Route exact path="/admfaq"> <AdmFaq /> </Route>
-              
-            <Route exact path="/admbooking"> <AdmBooking /> </Route>
-            </>
+              <>
+                <Route exact path="/addtrips"> <Addtrips /> </Route>
+
+                <Route exact path="/tripedit/:name/:id"> <Edittrips /> </Route>
+
+                <Route exact path="/approveblogs"> <ApproveBlogs /> </Route>
+
+                <Route exact path="/addtestimonials"> <Addtestimonials /> </Route>
+
+                <Route exact path="/admcontactus"> <AdmContactUs /> </Route>
+
+                <Route exact path="/admfaq"> <AdmFaq /> </Route>
+
+                <Route exact path="/admbooking"> <AdmBooking /> </Route>
+              </>
             }
 
           </Switch>
