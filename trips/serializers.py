@@ -50,13 +50,14 @@ class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 class TripDisplaySerializer(serializers.ModelSerializer):
 
     displayImage = serializers.SerializerMethodField()
-    ratings = serializers.ReadOnlyField()
+    ratings      = serializers.ReadOnlyField()
     ratingsCount = serializers.ReadOnlyField()
     duration     = serializers.SerializerMethodField()
+    description  = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
-        fields = ['id','name','type','location','displayImage','price', 'ratings','ratingsCount','duration']
+        fields = ['id','name','type','location','displayImage','price', 'ratings','ratingsCount','duration','description']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
@@ -83,6 +84,16 @@ class TripDisplaySerializer(serializers.ModelSerializer):
         if dur != "":
             return f"{dur[0]} Days {dur[1]} Nights"
         return ""
+
+    def get_description(self,obj):
+        a = obj.description
+        if len(a)>200:
+            a = a[:200].split(" ")[:-1] 
+            body = ''
+            for word in a: 
+                body = body + word + " " 
+            return body + "..."
+        return a + " ..."
 
 
 class ReviewDisplaySerializer(serializers.ModelSerializer):
