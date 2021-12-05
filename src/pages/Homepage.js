@@ -9,7 +9,6 @@ import Logo from "./images/TravDays_logos/1trans.png"
 
 
 
-
 const Home = ({isadmin,setIsadmin}) => {
 
     useEffect(() => {
@@ -48,8 +47,8 @@ const Home = ({isadmin,setIsadmin}) => {
                     <div className="flex sm:justify-center">
 
                      {isadmin&& <Link className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold' to='/adminOnly'>Admin Only</Link> }
-                        <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold'>Contact us</button>
-                        <button className='m-2 p-1 w-40 sm:w-32 sm:m-1 border-black border-solid border-2 '>Learn more</button>       
+                        <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold'>Contact us</button>
+                        <button id='learn-more-btn' className='m-2 p-1 w-40 sm:w-32 sm:m-1'>Learn more</button>       
                     </div> 
                         <div className='flex sm:justify-around space-x-8 opacity-40 p-4'>
                         <img src="https://img.icons8.com/material/32/000000/facebook-new.png"/>
@@ -63,7 +62,7 @@ const Home = ({isadmin,setIsadmin}) => {
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                 <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
             </div>
-            <div className='card-grid sm:py-[20px]'>
+            <div className='card-grid sm:py-[20px] w-[800px] mx-auto'  >
                 <Link className='card-grid__link__hover' to='/trips/workation'><Card title="Workation" id='one'  /></Link>
                 <Link className='card-grid__link__hover' to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
                 <Link className='card-grid__link__hover' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
@@ -118,8 +117,9 @@ const Home = ({isadmin,setIsadmin}) => {
             </div>
             </div>
             <div>
+            <div className="section">
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block'>Testimonials</span>
-            <div className="section grid grid-cols-2 ">
+            <div className="grid grid-cols-2 ">
                     <div className='flex h-32 '>
                         <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
                     <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1528001100577-c6b2f16d5276?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"/>
@@ -181,7 +181,7 @@ const Home = ({isadmin,setIsadmin}) => {
                     </div>
 
 
-                
+                </div>
                 </div>
 
             </div>
@@ -190,26 +190,46 @@ const Home = ({isadmin,setIsadmin}) => {
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>
-                <div className=''>
-                <div className="h-32 ">
-                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                <div className=' flex flex-col justify-center w-[1000px] mx-auto divide-y-2 divide-gray-300'>
+                <div className="my-4">
+                <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </p>
+                <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                 </div>
-                <div className="h-32 ">
-                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                <div className="my-4">
+                <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </p>
+                <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                 </div>
-                <div className="h-32 ">
-                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                <div className="my-4">
+                <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </p>
+                <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                 </div>
-                <div className="h-32 ">
-                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                <div className="my-4">
+                <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </p>
+                <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                 </div>
-                <div className="h-32 ">
-                <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
-                <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                <div className="my-4">
+                <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </p>
+                <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                 </div>
                
                 </div>
