@@ -73,7 +73,7 @@ const AllTrips = () => {
 
   useEffect(() => {
     console.log("i was here")
-    setLoading(true)
+    setLoading1(true)
     if (searchtext === "" || searchtext === null) {
       fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
         .then(res => {
@@ -83,7 +83,7 @@ const AllTrips = () => {
             console.log(object)
             prevDatas.current = datas
             setLoading1(false)
-            setLoading(false)
+            // setLoading(false)
           }
         })
         .catch(err => {
@@ -92,6 +92,8 @@ const AllTrips = () => {
               setHasMore(false);
             }
             // console.log(err)
+            // setLoading(false)
+
 
           }
         })
@@ -106,7 +108,7 @@ const AllTrips = () => {
             console.log(object)
             prevDatas.current = datas
             setLoading1(false)
-            setLoading(false)
+            // setLoading(false)
           }
         })
         .catch(err => {
@@ -114,6 +116,7 @@ const AllTrips = () => {
             if (err.response.data.detail === "Invalid page.") {
               setHasMore(false);
             }
+            // setLoading(false)
             // console.log(err)
 
           }
@@ -242,7 +245,7 @@ const AllTrips = () => {
               {data.name && <p onClick={() => { history.push('/trip/' + data.name) }} className='text-xl font-bold cursor-pointer' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
               {/* {data.type[0] = data.type[0].toUpperCase()} */}
               {/* {data.type && <p className='text-sm'>{data.type}</p>} */}
-            {data.location && <p className='font-semibold mx-2'>{data.location}</p>}
+              {data.location && <p className='font-semibold mx-2'>{data.location}</p>}
 
             </p>
 
@@ -252,88 +255,88 @@ const AllTrips = () => {
               </svg>
               <span className='pl-2 md:pl-2'>{data.duration}</span>
             </p>
-            
+
             {data.ratings === "No Ratings" && <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >{data.ratings}</p>}
-            {data.ratings !== "No Ratings" && 
-            <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >
-              {/* <span className='pr-4 md:pr-2' >{data.ratings}</span> */}
-              {/* <span className=' h-6 sm:h-4 overflow-hidden relative' >
+            {data.ratings !== "No Ratings" &&
+              <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >
+                {/* <span className='pr-4 md:pr-2' >{data.ratings}</span> */}
+                {/* <span className=' h-6 sm:h-4 overflow-hidden relative' >
           <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
           <img className='w-full h-full' src={stars} alt=""/>
           </span> */}
-              <div className="stars flex" >
-                {calculation(data)}
-                <svg width="0" height="0" viewBox="0 0 20 20">
-                  <defs>
-                    <linearGradient id="full" x1="0" x2="100%" y1="0" y2="0">
-                      <stop offset="0" stop-color="#F3C117"></stop>
-                      <stop offset="100%" stop-color="#F3C117"></stop>
-                      <stop offset="36%" stop-color="#E8E8E8"></stop>
-                      <stop offset="1" stop-color="#E8E8E8"></stop>
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <svg width="0" height="0" viewBox="0 0 20 20">
-                  <defs>
-                    <linearGradient id="partial" x1="0" x2="100%" y1="0" y2="0">
-                      <stop offset="0" stop-color="#F3C117"></stop>
-                      {console.log(percentage)}
-                      <stop offset={percentage} stop-color="#F3C117"></stop>
-                      <stop offset={percentage} stop-color="#E8E8E8"></stop>
-                      <stop offset="1" stop-color="#E8E8E8"></stop>
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <svg width="0" height="0" viewBox="0 0 20 20">
-                  <defs>
-                    <linearGradient id="empty" x1="0" x2="100%" y1="0" y2="0">
-                      <stop offset="0" stop-color="#F3C117"></stop>
-                      <stop offset="0" stop-color="#F3C117"></stop>
-                      <stop offset="0" stop-color="#E8E8E8"></stop>
-                      <stop offset="0" stop-color="#E8E8E8"></stop>
-                    </linearGradient>
-                  </defs>
-                </svg>
+                <div className="stars flex" >
+                  {calculation(data)}
+                  <svg width="0" height="0" viewBox="0 0 20 20">
+                    <defs>
+                      <linearGradient id="full" x1="0" x2="100%" y1="0" y2="0">
+                        <stop offset="0" stop-color="#F3C117"></stop>
+                        <stop offset="100%" stop-color="#F3C117"></stop>
+                        <stop offset="36%" stop-color="#E8E8E8"></stop>
+                        <stop offset="1" stop-color="#E8E8E8"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <svg width="0" height="0" viewBox="0 0 20 20">
+                    <defs>
+                      <linearGradient id="partial" x1="0" x2="100%" y1="0" y2="0">
+                        <stop offset="0" stop-color="#F3C117"></stop>
+                        {console.log(percentage)}
+                        <stop offset={percentage} stop-color="#F3C117"></stop>
+                        <stop offset={percentage} stop-color="#E8E8E8"></stop>
+                        <stop offset="1" stop-color="#E8E8E8"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <svg width="0" height="0" viewBox="0 0 20 20">
+                    <defs>
+                      <linearGradient id="empty" x1="0" x2="100%" y1="0" y2="0">
+                        <stop offset="0" stop-color="#F3C117"></stop>
+                        <stop offset="0" stop-color="#F3C117"></stop>
+                        <stop offset="0" stop-color="#E8E8E8"></stop>
+                        <stop offset="0" stop-color="#E8E8E8"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
 
-                <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[1]} />
-                </svg>
-                {/* </path> */}
-                <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[2]} />
-                </svg>
-                <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[3]} />
-                </svg>
-                <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[4]} />
-                </svg>
-                <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[5]} />
-                </svg>
+                  <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[1]} />
+                  </svg>
+                  {/* </path> */}
+                  <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[2]} />
+                  </svg>
+                  <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[3]} />
+                  </svg>
+                  <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[4]} />
+                  </svg>
+                  <svg width="25" height="25" className="md:hidden" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[5]} />
+                  </svg>
 
 
-                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[1]} />
-                </svg>
-                {/* </path> */}
-                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[2]} />
-                </svg>
-                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[3]} />
-                </svg>
-                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[4]} />
-                </svg>
-                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
-                  <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[5]} />
-                </svg>
+                  <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[1]} />
+                  </svg>
+                  {/* </path> */}
+                  <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[2]} />
+                  </svg>
+                  <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[3]} />
+                  </svg>
+                  <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[4]} />
+                  </svg>
+                  <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[5]} />
+                  </svg>
 
-              </div>
-              <span className='px-4 text-sm'>{data.ratingsCount} Ratings</span>
-            </p>}
-            
+                </div>
+                <span className='px-4 text-sm'>{data.ratingsCount} Ratings</span>
+              </p>}
+
             <p className='md:hidden text-lg font-semibold'>Short Description</p>
             <p className='md:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
             <p className='md:hidden leading-tight'>{data.description}</p>
@@ -353,24 +356,23 @@ const AllTrips = () => {
 
 
   return (<>
-    {loading1 ? <div><p>loading...</p></div> :
-      <div className='section  flex flex-col justify-center items-center '>
+    <div className='section  flex flex-col items-center '>
 
-        <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 " viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
-        </svg>
-        <div className="searchAndfilter flex w-full justify-center">
-          <button onClick={priceAscending} type="button">↓Price</button>
-          <button onClick={priceDescending} type="button"> ↑Price</button>
-          <input type="text" className="w-1/3 sm:w-full" placeholder=" Search...." onChange={(e) => { fetchSearchedDataFromBackend(e.target.value) }} />
+      <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 " viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
+      </svg>
+      <div className="searchAndfilter flex w-full justify-center">
+        <button onClick={priceAscending} type="button">↓Price</button>
+        <button onClick={priceDescending} type="button"> ↑Price</button>
+        <input type="text" className="w-1/3 sm:w-full" placeholder=" Search...." onChange={(e) => { fetchSearchedDataFromBackend(e.target.value) }} />
 
-          {/* godly method to lose and gain focus */}
-          {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
-
+        {/* godly method to lose and gain focus */}
+        {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
 
 
 
-          {/* {displaysearchresults && (
+
+        {/* {displaysearchresults && (
                 <div className="search-results-container">
                     <div className = 'w-[500px]'></div>
                     <div className="search-results">
@@ -380,31 +382,32 @@ const AllTrips = () => {
             )} */}
 
 
-        </div>
+      </div>
 
 
-
-        {/* the grid logic was added in the index.css file by naman */}
+      {/* the grid logic was added in the index.css file by naman */ }
+      {loading1 ? <div><p>loading...</p></div> :
         <div className="trips">
 
-          {datas && datas.map((data, index) => {
-            if (datas.length === index + 1) {
-              return (
-                <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center  xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
-                  {ShowData(data)}
-                </div>
-              );
-            } else {
-              return (
-                <div className="p-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
-                  {ShowData(data)}
-                </div>
-              );
-            }
-          })
-          }
+      {datas && datas.map((data, index) => {
+        if (datas.length === index + 1) {
+          return (
+            <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center  xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
+              {ShowData(data)}
+            </div>
+          );
+        } else {
+          return (
+            <div className="p-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
+              {ShowData(data)}
+            </div>
+          );
+        }
+      })
+      }
 
-        </div></div>}
+    </div>}
+  </div>
   </>);
 }
 
