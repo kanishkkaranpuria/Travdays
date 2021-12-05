@@ -8,6 +8,9 @@ const Login = ({setIsauthenticated}) => {
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [otploginbool, setOtploginbool] = useState(false);
+    const [otppagebool, setOtppagebool] = useState(false);
+    const [otp, setOtp] = useState('');
     const history = useHistory()
 
     const submit_details = (e) => {
@@ -18,31 +21,95 @@ const Login = ({setIsauthenticated}) => {
                 email: email,
                 password: password
             })
-            .then(res =>{
+            .then(res => {
                 console.log(res.data)
                 // Cookie('setCookie','accesstoken', res.data.access_token, 1)
                 setIsauthenticated(true)
                 history.push("/")
             })
     }
+    const changeboolvalue = () => {
+        if (otploginbool == true) {
+            setOtploginbool(false);
+        } else {
+            setOtploginbool(true);
 
+        }
+    }
+    const request_otp = (e) => {
+        e.preventDefault();
+        axios
+            .post("/api/auth/newotp", {
+                email: email
+            })
+            .then(res => {
+                console.log(res.data)
+                setOtppagebool(true)
+            })
+    }
+    const confirm_otp = (e) => {
+        e.preventDefault();
+        axios
+            .post("/api/auth/login", {
+                email: email,
+                otp: otp
+            })
+            .then(res => {
+                console.log(res.data)
+                history.push("/")
+            })
+    }
     return (
-        <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
-            <form className = "flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit = {submit_details}>
-                <p className="text-4xl text-center">Login Page</p>
-                <div type="email" className="email flex items-center">
-                    <p className="w-40">Enter your email:</p >
-                    <input required type="text" onChange ={(e)=> setEmail(e.target.value)} />
-                </div>
-                <div className="password flex items-center">
-                    <p className="w-40">Enter your password:</p>
-                    <input required type="password" onChange ={(e)=> setPassword(e.target.value)} />
-                </div>
-                <div className=" ">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
-                </div>
-            </form>
-            New to Travdays?<Link to="/register"> Click here to Sign Up </Link>
+        <div>
+            {!otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+                <p onClick = {changeboolvalue}>Click here to Login via OTP</p>
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_details}>
+                    <p className="text-4xl text-center">Login Page</p>
+                    <div type="email" className="email flex items-center">
+                        <p className="w-40">Enter your email:</p >
+                        <input required type="text" onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+                    <div className="password flex items-center">
+                        <p className="w-40">Enter your password:</p>
+                        <input required type="password" onChange={(e) => setPassword(e.target.value)} />
+                    </div>
+                    <div className=" ">
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                    </div>
+                </form>
+                <p>New to Travdays?<Link to="/register"> Click here to Sign Up </Link></p>
+            </div>}
+
+            {otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+            <p onClick = {changeboolvalue}>Click here to Login using Password</p>
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={request_otp}>
+                    <p className="text-4xl text-center">Login Page</p>
+                    <div type="email" className="email flex items-center">
+                        <p className="w-40">Enter your email:</p >
+                        <input required type="text" onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+                    <div className=" ">
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                    </div>
+                </form>
+                <p>New to Travdays?<Link to="/register"> Click here to Sign Up </Link></p>
+            </div>}
+            {otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={confirm_otp}>
+                    <p className="text-4xl text-center">Enter the Otp sent in your Email</p>
+                    <div type="email" className="email flex items-center">
+                        <p className="w-40">Email:</p >
+                        <input required type="text" value = {email} />
+                    </div>
+                    <div type="email" className="email flex items-center">
+                        <p className="w-40">OTP:</p >
+                        <input required type="text" onChange={(e) => setOtp(e.target.value)} />
+                    </div>
+                    <div className=" ">
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                    </div>
+                </form>
+            </div>}
         </div>
     );
 }
