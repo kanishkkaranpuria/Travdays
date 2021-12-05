@@ -231,9 +231,6 @@ code {
   -moz-animation: circle3 12s linear infinite ;
   -o-animation: circle3 12s linear infinite ;
 }
-.card-grid a p {
-  color: var(--secondary-1);
-}
 .card-grid__link__hover:hover{
   transform: scale(1.1);
   z-index: 2;
@@ -319,21 +316,20 @@ column-gap: 5%;
 }
 .section.hero, .section.testimonial{
   background-color: var(--primary);
-color: var(--secondary-1);
 }
 .section.gallery, .section.faq{
   background-color: var(--secondary-2);
   color: var(--primary);
   border-radius: 0px;
 }
-.section button{
-  /* background-color:var(--secondary-2);
-  color: var(--accent); */
+.section.hero button{
+  background-color:var(--secondary-2);
+  color: var(--accent);
 }
 #learn-more-btn{
   border: solid var(--secondary-2) 2px;
-  background-color:#00000000;
-  color:var(--secondary-1)
+  /* background-color:#00000000; */
+  /* color:black; */
 }
 .faq-link{
   transition: all 0.2s ease-in-out ;

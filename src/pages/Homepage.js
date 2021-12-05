@@ -121,7 +121,7 @@ const Home = ({isadmin,setIsadmin}) => {
             <div>
             <div className="section testimonial relative">
             {/* <svg className='absolute top-[-426px] w-[1920px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F7F7F5" fill-opacity="1" d="M0,224L80,240C160,256,320,288,480,266.7C640,245,800,171,960,144C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
-            <svg className='absolute top-[-360px] left-0 w-[1920px]'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L60,256C120,256,240,256,360,261.3C480,267,600,277,720,266.7C840,256,960,224,1080,224C1200,224,1320,256,1380,272L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+            <svg className='absolute top-[-391px] left-0 w-[1920px]'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F7F7F5" fill-opacity="1" d="M0,256L60,256C120,256,240,256,360,261.3C480,267,600,277,720,266.7C840,256,960,224,1080,224C1200,224,1320,256,1380,272L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
             {/* <svg className='absolute top-[-426px] w-[1920px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L60,245.3C120,235,240,213,360,197.3C480,181,600,171,720,160C840,149,960,139,1080,144C1200,149,1320,171,1380,181.3L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block'>Testimonials</span>
             <div className="grid grid-cols-2 ">
@@ -191,7 +191,8 @@ const Home = ({isadmin,setIsadmin}) => {
 
             </div>
 
-            <div className='section faq sm:pt-16'>
+            <div className='section faq sm:pt-16 relative'>
+            <svg className='absolute left-0 top-[-426px] w-[1920px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>
