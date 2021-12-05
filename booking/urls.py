@@ -8,6 +8,5 @@ urlpatterns = [
     path('view', BookingAdminView.as_view()),
     path('view/<int:pk>', BookingAdminView.as_view()),
     path('unapproved', UnapprovedBookingAdminView.as_view()),
-    path('unapproved/<int:pk>', UnapprovedBookingAdminView.as_view()),
     path('history', PreviousBookingView.as_view()),
 ]

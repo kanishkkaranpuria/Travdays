@@ -32,19 +32,12 @@ class PreviousBookingView(APIView,BookingPagination):
 
 class UnapprovedBookingAdminView(APIView,BookingPagination):
 
-    def get(self, request, pk = None):
+    def get(self, request):
         if request.user.is_admin:
-            if pk == None:
-                booking = Booking.objects.filter(approved = False)
-                results = self.paginate_queryset(booking, request, view=self)
-                serializer = BookingSerializer(results,many = True)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            elif Booking.objects.filter(id = pk).exists():
-                booking = Booking.objects.get(id = pk)
-                serializer = BookingSerializer(booking)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            else:
-                return Response({"error":"Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
+            booking = Booking.objects.filter(approved = False)
+            results = self.paginate_queryset(booking, request, view=self)
+            serializer = BookingSerializer(results,many = True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({"error":"something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
 
 class BookingAdminView(APIView,BookingPagination):
