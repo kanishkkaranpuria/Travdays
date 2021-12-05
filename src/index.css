@@ -301,8 +301,8 @@ code {
   min-height: calc(100vh - 60px);
   /* background-image: url(https://picsum.photos/1440/1080); */
   background-repeat: no-repeat;
-  background-color: var(--primary);
-color: var(--secondary-1);
+  /* background-color: var(--primary);
+color: var(--secondary-1); */
 }
 .section p{
   color:var()
@@ -321,8 +321,8 @@ column-gap: 5%;
 color: var(--secondary-1); */
 }
 .section button{
-  background-color:var(--secondary-2);
-  color: var(--accent);
+  /* background-color:var(--secondary-2);
+  color: var(--accent); */
 }
 #learn-more-btn{
   border: solid var(--secondary-2) 2px;

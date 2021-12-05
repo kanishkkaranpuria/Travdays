@@ -148,11 +148,11 @@ const Blogs = ({id,setId}) => {
           {featured && featured.map((data,index) =>{
             if(featured.length===index+1){
               return(
-                <div ref={lastDataElementRef} className="blog-preview-card featured relative">
+                <div ref={lastDataElementRef} className="blog-preview-card featured relative cursor-pointer" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
                   <div className='gradient'></div>
               <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
                   <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
-                      <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-3xl sm:text-xl'>{data.title}</p>
+                      <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-3xl sm:text-xl cursor-pointer'>{data.title}</p>
                       <p className='flex text-2xl items-center text-center '><span>{data.location}</span>
                       </p>
                   </div>
@@ -163,11 +163,11 @@ const Blogs = ({id,setId}) => {
             }
             else{
               return(
-                <div  className="blog-preview-card featured relative">
+                <div  className="blog-preview-card featured relative cursor-pointer" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} >
                   <div className='gradient'></div>
               <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
                   <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
-                      <p onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} className='text-3xl sm:text-xl'>{data.title}</p>
+                      <p className='text-3xl sm:text-xl '>{data.title}</p>
                       <p className='flex text-2xl items-center text-center '><span>{data.location}</span>
                       </p>
                   </div>
