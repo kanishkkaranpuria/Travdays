@@ -230,7 +230,7 @@ const AllTrips = () => {
 
     return (
       <>
-        <div className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card ">
+        <div className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card">
           <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2 z-[0]'>
             <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
             <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
@@ -239,12 +239,23 @@ const AllTrips = () => {
           </div>
           <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
             <p className='flex justify-between items-center'>
-              {data.name && <p onClick={() => { history.push('/trip/' + data.name) }} className='text-lg font-bold cursor-pointer' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+              {data.name && <p onClick={() => { history.push('/trip/' + data.name) }} className='text-xl font-bold cursor-pointer' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
               {/* {data.type[0] = data.type[0].toUpperCase()} */}
-              {data.type && <p className='text-sm'>{data.type}</p>}
+              {/* {data.type && <p className='text-sm'>{data.type}</p>} */}
+            {data.location && <p className='font-semibold mx-2'>{data.location}</p>}
+
             </p>
+
+            <p className='md:absolute md:bottom-[35px] md:py-0 flex items-center py-4'>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 md:h-4 w-6 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className='pl-2 md:pl-2'>{data.duration}</span>
+            </p>
+            
             {data.ratings === "No Ratings" && <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >{data.ratings}</p>}
-            {data.ratings !== "No Ratings" && <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >
+            {data.ratings !== "No Ratings" && 
+            <p className='md:absolute md:bottom-[60px] md:py-0 flex items-center py-4' >
               {/* <span className='pr-4 md:pr-2' >{data.ratings}</span> */}
               {/* <span className=' h-6 sm:h-4 overflow-hidden relative' >
           <div className=' h-full bg-[#f5e63b] absolute z-[-1]' style={{width:data.ratings*24}}></div>
@@ -322,21 +333,12 @@ const AllTrips = () => {
               </div>
               <span className='px-4 text-sm'>{data.ratingsCount} Ratings</span>
             </p>}
-            <p className='md:absolute md:bottom-[35px] md:py-0 flex items-center py-4'>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 md:h-4 w-6 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className='pl-2 md:pl-2'>{data.duration}</span>
-            </p>
+            
             <p className='md:hidden text-lg font-semibold'>Short Description</p>
             <p className='md:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
+            <p className='md:hidden leading-tight'>{data.description}</p>
             {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
-            <div className="flex justify-between pt-4">
-
-              {data.price && <p className='font-semibold'>₹{data.price}</p>}
-              {data.location && <p className='font-semibold'>{data.location}</p>}
-
-            </div>
+            {data.price && <p className='font-semibold absolute bottom-4 right-5'>₹{data.price}</p>}
           </div>
 
 
@@ -352,7 +354,7 @@ const AllTrips = () => {
 
   return (<>
     {loading1 ? <div><p>loading...</p></div> :
-      <div className='section  flex flex-col justify-center items-center'>
+      <div className='section  flex flex-col justify-center items-center '>
 
         <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 " viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
@@ -388,13 +390,13 @@ const AllTrips = () => {
           {datas && datas.map((data, index) => {
             if (datas.length === index + 1) {
               return (
-                <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center " key={data.id}>
+                <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center  xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
                   {ShowData(data)}
                 </div>
               );
             } else {
               return (
-                <div className="p-5 md:p-[0.5rem] flex justify-center " key={data.id}>
+                <div className="p-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
                   {ShowData(data)}
                 </div>
               );
