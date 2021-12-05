@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import Cookie from "../components/Cookie";
 import { Link } from 'react-router-dom';
 
-const Login = ({setIsadmin}) => {
+const Login = ({setIsauthenticated}) => {
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -21,6 +21,7 @@ const Login = ({setIsadmin}) => {
             .then(res =>{
                 console.log(res.data)
                 // Cookie('setCookie','accesstoken', res.data.access_token, 1)
+                setIsauthenticated(true)
                 history.push("/")
             })
     }

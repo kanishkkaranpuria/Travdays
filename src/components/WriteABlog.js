@@ -360,7 +360,7 @@ const WriteABlog = () => {
         const selected = e.target.files[0];
         // console.log(selected.type)
         if (selected && (selected.type.slice(0, 5)) === "image") {
-            if (numberOfAllImages.current <= 10) {
+            if (numberOfAllImages.current < 8) {
                 // if (alldata[element-1] === "")element = element - 1;
                 backspacedlocation.current = null;
                 newimage = Object.assign(newimage, { [element]: selected })
@@ -433,7 +433,7 @@ const WriteABlog = () => {
                 // }
             }
             else{
-                alert("the maximum number of images in one blog is 10")
+                alert("the maximum number of images in one blog is 8")
             }
         }
         else {

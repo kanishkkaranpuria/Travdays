@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Cookie from "../components/Cookie";
 import fullaxios from "../components/FullAxios";
 
-const Logout = ({setIsadmin}) => {
+const Logout = ({setIsadmin, setIsauthenticated}) => {
     useEffect(()=>{
         // axiosInstance
         // .get('/api/auth/logout')
@@ -10,6 +10,7 @@ const Logout = ({setIsadmin}) => {
         .then(res =>{
             console.log("here",res.data)
             setIsadmin(false)
+            setIsauthenticated(false)
             // Cookie('setCookie',"accesstoken",0,-1)
             Cookie('setCookie',"csrftoken", 0, -1)
             Cookie('setCookie',"sessionid", 0, -1)
