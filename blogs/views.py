@@ -196,7 +196,7 @@ class BlogLikeDislike(APIView):
     def post(self,request):
         user = request.user
         blog = Blog.objects.get(id = request.data["id"])
-        if request.data["vote"] == 'likes':
+        if request.data["vote"] == 'like':
             blog.dislikes.remove(user)
             if blog.likes.filter(id = user.id).exists():
                 blog.likes.remove(user)
