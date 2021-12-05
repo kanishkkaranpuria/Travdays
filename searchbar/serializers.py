@@ -5,10 +5,11 @@ from database.models import AdminMedia, Blog, Trip
 class TripSearchBarSerializer(serializers.ModelSerializer):
 
     displayImage = serializers.SerializerMethodField()
+    duration     = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
-        fields = ['id','type','name','location','displayImage']
+        fields = ['id','type','name','location','displayImage','price', 'ratings','ratingsCount','duration']
 
     def get_displayImage(self,obj):
         request = self.context.get('request')
@@ -29,6 +30,12 @@ class TripSearchBarSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(image_url.image.url)
         displayImage  = AdminMedia.objects.get(trip = None, displayImage = True)
         return request.build_absolute_uri(displayImage.image.url)
+
+    def get_duration(self,obj):
+        dur = "" if obj.duration == '' else obj.duration.split(",")
+        if dur != "":
+            return f"{dur[0]} Days {dur[1]} Nights"
+        return ""
 
 class BlogSearchBarSerializer(serializers.ModelSerializer):
 
