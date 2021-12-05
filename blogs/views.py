@@ -215,6 +215,17 @@ class BlogLikeDislike(APIView):
             blog.save()
             return Response({'message':'disliked'})
 
+class BlogLikeDislikeStatus(APIView):
+
+    def get(self,request,pk):
+        user = request.user
+        if Blog.objects.filter(id = pk).exists():
+            stat = None
+            stat = 'like' if user.likes.all().filter(id=pk).exists() else stat
+            stat = 'dislike' if user.dislikes.all().filter(id=pk).exists() else stat
+            return Response({"status":stat})
+        return Response({"error","invalid input"}, status = status.HTTP_400_BAD_REQUEST)
+        
 class UnapprovedBlogs(APIView,BlogPagination):
     def get(self,request):
         if request.user.is_admin:
