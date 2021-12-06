@@ -151,7 +151,7 @@ input,textarea{
 input:focus-visible, textarea:focus-visible, select:focus-visible{
   outline-color: #9d9d9d;
 }
-::-webkit-scrollbar{
+::-webkit-.bar{
   position: absolute;
   height: 0.5rem;
   width: 0.5rem;
@@ -191,7 +191,8 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 10px 0;
+  color:var(--accent);
+  /* box-shadow: 0 0 10px 0; */
 }
 .card {
   margin: 8px;

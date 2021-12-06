@@ -5,6 +5,9 @@ import Card from "../components/Card"
 import { useEffect } from "react";
 import fullaxios from "../components/FullAxios";
 import Logo from "./images/TravDays_logos/2trans.png"
+import GalleryTop from "./images/TravDays_logos/gallery-top-1.svg"
+import GalleryBottom from "./images/TravDays_logos/gallery-bottom.svg"
+import FaqTop from "./images/TravDays_logos/faq-top.svg"
 import BackgroundImage from "./images/TravDays_logos/backgroundImage.jpg"
 import { useHistory } from "react-router";
 
@@ -32,32 +35,29 @@ const Home = ({ isadmin, setIsadmin }) => {
     // const Home = () => {
     return (
         <div className="main w-full items-center justify-center relative">
-            <img id='backgroundImg' src={BackgroundImage} className='fixed z-0 top-0 ' />
+            <img id='backgroundImg' alt='' src={BackgroundImage} className='fixed z-0 top-0 ' />
             {/* <div className='w-full h-full absolute top-0 bg-gradient-to-r from-black to-transparent'></div> */}
             <div className='w-full h-full fixed top-0 bg-[#00000088] z-0'></div>
             <div className="section hero relative items-center justify-center">
-                <div className="p-6 relative sm:p-4 sm:order-2">
+                <div className="p-6 pt-[145px] relative sm:p-4 sm:order-2">
                     <div className='block sm:hidden'>
                         {/* <img src={Logo} alt='' className='absolute h-[300px] top-[-50%] right-[10%] ' /> */}
                         <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
-                        <span className="relative w-full text-8xl sm:text-6xl font-bold text-[#FFA914]">
+                        <span className="relative w-full text-8xl sm:text-6xl font-bold text-[#FFA914] tracking-[12px]">
                             TravDays
-                            <img src={Logo} className='absolute w-[180px] top-[-185%] right-[2px] z-[-1]' />
+                            <img src={Logo} alt='' className='absolute w-[180px] top-[-185%] right-[2px] z-[-1]' />
                         </span>
 
                     </div>
                     <p className="p-4 leading-tight">
-
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Nostrum voluptatem ut sed tempora rerum vitae,
-                        atque dolores neque est quae tempore veritatis alias nam inventore esse illum illo et dolorem.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
                     <p className='m-4'>
                         <div className="flex sm:justify-center">
 
                             {isadmin && <Link className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold' to='/adminOnly'>Admin Only</Link>}
-                            <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold' onClick={() => { history.push("/contactus") }} >Contact us</button>
-                            <button id='learn-more-btn' className='m-2 p-1 w-40 sm:w-32 sm:m-1'>Learn more</button>
+                            <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold rounded-md' onClick={() => { history.push("/contactus") }} >Contact us</button>
+                            <button id='learn-more-btn' className='m-2 p-1 w-40 sm:w-32 sm:m-1 rounded-md'>Learn more</button>
                         </div>
                         <div className='flex sm:justify-around space-x-8 opacity-40 p-4'>
                             <img src="https://img.icons8.com/material/32/000000/facebook-new.png" />
@@ -70,7 +70,7 @@ const Home = ({ isadmin, setIsadmin }) => {
             </div>
             <div className='hidden sm:block p-[0.5rem]'>
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
-                <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
+                <p className="w-full text-8xl sm:text-6xl font-bold tracking-[12px]">Travdays</p>
             </div>
             <div className='card-grid sm:py-[20px]  max-w-[800px]'  >
                 <Link className='card-grid__link__hover' to='/trips/workation'><Card title="Workation" id='one'  /></Link>
@@ -111,9 +111,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                 </div> */}
             </div>
             <div className="section gallery grid grid-cols-2 justify-center relative">
-            <svg className='absolute top-[-420px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L80,277.3C160,267,320,245,480,240C640,235,800,245,960,245.3C1120,245,1280,235,1360,229.3L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+                <img className='absolute top-[-80px] w-full h-[115px]' src={GalleryTop} alt='' />
+                <img className='absolute -rotate-180 bottom-[-80px] w-full h-[115px]' src={GalleryBottom} alt='' />
+            {/* <svg className='absolute top-[-420px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L80,277.3C160,267,320,245,480,240C640,235,800,245,960,245.3C1120,245,1280,235,1360,229.3L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
             {/* <svg className='absolute left-0 bottom-[-426px] -rotate-180 w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
-            <svg className='absolute bottom-[-389px] -rotate-180 left-0 w-full'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,256L60,256C120,256,240,256,360,261.3C480,267,600,277,720,266.7C840,256,960,224,1080,224C1200,224,1320,256,1380,272L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+            {/* <svg className='absolute bottom-[-389px] -rotate-180 left-0 w-full'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,256L60,256C120,256,240,256,360,261.3C480,267,600,277,720,266.7C840,256,960,224,1080,224C1200,224,1320,256,1380,272L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
                         {/* <svg className='absolute top-[-246px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000088" fill-opacity="1" d="M0,192L80,176C160,160,320,128,480,144C640,160,800,224,960,261.3C1120,299,1280,309,1360,314.7L1440,320L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
                 <div className="flex items-center justify-center">
                     <div className="gallery-preview" onClick={() => { history.push('/gallery') }} >
@@ -202,7 +204,8 @@ const Home = ({ isadmin, setIsadmin }) => {
             </div>
 
             <div className='section faq sm:pt-16 relative'>
-            <svg className='absolute left-0 top-[-420px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+                <img className='absolute top-[-70px] left-0 w-full h-[115px]' src={FaqTop} alt='' />
+            {/* <svg className='absolute left-0 top-[-420px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>

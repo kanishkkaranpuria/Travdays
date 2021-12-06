@@ -39,12 +39,12 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
     }
     return (
         <navbar className='navbar backdrop-filter '>
-            <nav className="logo text-lg">
-                <Link className='p-6' to='/'>TravDays</Link>
+            <nav className="logo text-2xl tracking-[5px]">
+                <Link className='p-6 font-bold' to='/'>TravDays</Link>
             </nav>
             <nav className="flex w-2/3 h-full items-center justify-around">
             {/* <Link to='/IndivisualBlogPage'>indi-blog</Link> */}
-                <span className='packages btn p-6 flex items-center h-full text-lg font-bold relative'>
+                <span className='packages btn p-6 flex items-center h-full text-lg relative'>
                     <Link to='/packagespage'>Packages</Link>
                     <span className='package-list absolute left-0 bottom-[-52px] flex w-max z-[4] invisible pointer-events-none'>
                     <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/solo'><h4>Solo</h4></Link>

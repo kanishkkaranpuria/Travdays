@@ -1,0 +1,8 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 115" width="1920" height="115">
+	<title>image</title>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #046c6d } 
+	</style>
+	<path id="Layer" class="shp0" d="M0 51L80 51C160 51 320 51 480 56.3C640 62 800 72 960 61.7C1120 51 1280 19 1440 19C1600 19 1760 51 1840 67L1920 83L1920 115L1840 115C1760 115 1600 115 1440 115C1280 115 1120 115 960 115C800 115 640 115 480 115C320 115 160 115 80 115L0 115L0 51Z" />
+</svg>
