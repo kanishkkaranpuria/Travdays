@@ -49,19 +49,6 @@ const Profilepage = () => {
     }
 
 
-    // const Imagechangehandler = (e) => {
-    //     // e.preventDefault();
-    //     // setNewimages(e.target.files)
-    //     console.log(e.target.files )
-    //     const fileArray = Array.from(e.target.files).map((file)=>URL.createObjectURL(file))
-    //     // setImagepreview((prevImages)=>prevImages.concat(fileArray))
-    //     // console.log("has it changed",e.target.value)
-    //     // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
-    //     setImagepreview(fileArray[0])
-    //     console.log(fileArray)
-    //     // setImagepreview((prevImage)
-    // }
-
     
         return (
             <div className = "flex w-full">

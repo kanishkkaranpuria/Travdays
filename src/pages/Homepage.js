@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FAQ from "../components/FAQ";
 import Card from "../components/Card"
-import { useEffect } from "react";
+import { useEffect,useState,useRef,useCallback } from "react"
 import fullaxios from "../components/FullAxios";
 import Logo from "./images/TravDays_logos/2trans.png"
 import GalleryTop from "./images/TravDays_logos/gallery-top-1.svg"
@@ -17,6 +17,177 @@ import { useHistory } from "react-router";
 const Home = ({ isadmin, setIsadmin }) => {
 
     const history = useHistory()
+
+
+    
+    const HFAQ = () => {
+        const [Isadmin, setIsadmin] = useState()
+        const [answer, setAnswer] = useState({});
+        const [faqs, setFaqs] = useState([]);
+        const [page, setPage] = useState(1);
+        const [pk, setPk] = useState(null);
+        const Qref = useRef();
+        const [id,setId]= useState();
+        const [answerstatus, setAnswerstatus] = useState({})
+
+
+
+        //pagination 
+        const observer = useRef()
+        const [loading, setLoading] = useState(false)
+        const [hasMore, setHasMore] = useState(true)
+        
+        const lastDataElementRef = useCallback(node => {
+            console.log('last element')
+            if (loading) return
+            if (observer.current) observer.current.disconnect()
+            observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPage(prev => prev + 1)
+            }
+            })
+            if (node) observer.current.observe(node)
+        }, [loading, hasMore])
+
+
+
+
+    
+
+        useEffect(() => {
+        
+        fullaxios({url : 'faq/question?page=' + 1})
+        //   .get(`faq/question?page=`+ page)
+        .then((res)=>{
+            if (res){
+            setFaqs(prev=>[...prev,...res.data])
+            console.log(res.data)
+        
+        }})
+        .catch(err => {
+            if (err.response) {
+            if (err.response.data.detail === "Invalid page.") {
+                setHasMore(false);
+            }
+            }
+        } )
+            
+        },[])
+
+
+        const Answers = (i) => {
+            // var d = document.getElementById("selected");
+            // console.log("thiss")
+            // console.log(d)
+            
+            if (answerstatus[i] === true){
+                // console.log('it is true')
+                setAnswerstatus((prev)=>({...prev, 
+                    [i] : false
+                    }))
+            }
+            else if(answerstatus[i] === false){
+                // console.log('it is false')
+                setAnswerstatus((prev)=>({...prev, 
+                    [i] : true
+                    }))
+            }
+            else{
+            fullaxios({url : 'faq/answer/' + i})
+            // .get(`faq/answer/`+ i)
+            .then(res => {
+                console.log(res.data)
+                if (res){
+                setAnswer((prev)=>({...prev,[i] : [res.data.answer]}))
+                setAnswerstatus((prev)=>({...prev, [i] : true}))
+                // console.log(res.data)
+                // console.log("it worked")
+            
+            }})
+            .catch(err => {
+                console.log(err)
+                // if (res.status === 400)
+                //     alert("invalid OTP!!")
+            })
+            }
+        }
+        const UseagainFaq = (faq) => {
+
+            // <div className="h-32 ">
+            // <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
+            // <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+            // </div>
+             
+             return(
+                 <div className=' '>
+                      {answerstatus[faq.id]
+                                    
+                                    ?  <div className='' >
+
+                                            <p onClick={()=>{Answers(faq.id)}} className="font-semibold"><span className="text-2xl font-semibold">Q</span>{faq.question} </p>
+
+                                            {answerstatus[faq.id] &&    <p className="leading-tight px-8">{answer[faq.id]} </p>}
+                                            {/* <span className='' onClick={()=>{Answers(faq.id)}} > */}
+
+                                            {/* <option className="" id="selected"  value={faq.id}>{faq.question} 
+                                            </option> */}
+                                            {/* </span> */}
+
+
+                                    </div>
+                                    
+                                    
+                                    : <div className='' >
+
+                                            <p onClick={()=>{Answers(faq.id)}} className="font-semibold"><span className="text-2xl font-semibold">Q</span>{faq.question} </p>
+                                            
+                                            {/* <span className='' onClick={()=>{Answers(faq.id)}}> */}
+
+                                            {/* <option className="" id="selected"  value={faq.id}>{faq.question} */}
+                                            {/* </option> */}
+
+                                                {/* placeholder for questions in database */}
+                                            {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
+
+                                            {/* </span> */}
+ 
+
+                                    {/* {console.log(faq.id)} */}
+                                    
+
+                                    {/* placeholder for answers in db */}
+                                    {/* <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p> */}
+
+                                    </div>}
+                </div>
+            )
+            
+        }
+
+        return ( 
+            <div className=''>
+                            {faqs && faqs.map((faq,index) => {
+                                if(faqs.length=== index+1){
+                                    return(
+                                    <div ref={lastDataElementRef} id ={faq.id} className="">
+                                    {UseagainFaq(faq)}
+                                    </div>
+                                    )}
+                            else{
+                                return(
+                                    <div  id ={faq.id} className='h-32'>
+                                    {UseagainFaq(faq)}
+                                    </div>
+                                )}
+
+                            }
+                            )
+                        }   
+                                
+
+            </div>
+        );
+}
 
     useEffect(() => {
         fullaxios({ url: 'userinfo/status' })
@@ -251,6 +422,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                         <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                     </div>
 
+                {/* <div className=''>
+                    <HFAQ/>
+                    
+                
+                </div> */}
                 </div>
             </div>
 

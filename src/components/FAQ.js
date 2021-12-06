@@ -1,9 +1,9 @@
 import { useEffect,useState,useRef,useCallback } from "react"
 import axios from "axios";
+import { useHistory } from "react-router";
 import fullaxios from "./FullAxios";
 
-const FAQ = () => {
-    const [Isadmin, setIsadmin] = useState()
+const FAQ = ({isadmin}) => {
     const [answer, setAnswer] = useState({});
     const [faqs, setFaqs] = useState([]);
     const [page, setPage] = useState(1);
@@ -11,6 +11,8 @@ const FAQ = () => {
     const Qref = useRef();
     const [id,setId]= useState();
     const [answerstatus, setAnswerstatus] = useState({})
+    const [deleted, setDeleted] = useState(false)
+    const history = useHistory();
 
 
 
@@ -33,20 +35,26 @@ const FAQ = () => {
 
 
 
-
+ useEffect(() => {
+   console.log(page)
+   console.log(hasMore)
+   console.log(!deleted)
+   console.log(faqs)
+ }, [page,hasMore])
    
 
     useEffect(() => {
-      
+        //   .get(`faq/question?page=`+ page)
       fullaxios({url : 'faq/question?page=' + page})
-    //   .get(`faq/question?page=`+ page)
       .then((res)=>{
+        console.log("resresres")
         if (res){
           setFaqs(prev=>[...prev,...res.data])
           console.log(res.data)
-       
+          console.log(res)
       }})
       .catch(err => {
+        
         if (err.response) {
           if (err.response.data.detail === "Invalid page.") {
             setHasMore(false);
@@ -54,27 +62,27 @@ const FAQ = () => {
         }
        } )
         
-    }, [page,hasMore])
+    }, [page])
    
   
     
-    const Delete = (i) => {
-        fullaxios({url : 'faq/question?page=' + page})
-        //   .get(`faq/question?page=`+ page)
-          .then((res)=>{
-            if (res){
-              setFaqs(prev=>[...prev,...res.data])
-              console.log(res.data)
-           
-          }})
-          .catch(err => {
-            if (err.response) {
-              if (err.response.data.detail === "Invalid page.") {
-                setHasMore(false);
-              }
-            }
-           } )
-   
+    const Delete = (id) => {
+      console.log(id)
+      setLoading(true)
+      console.log("delete")
+
+    
+      fullaxios({url: 'faq/'+ id , type: 'delete' })
+      .then(res => {
+        console.log("deleted")
+        console.log(res.data)
+        setFaqs([])
+        setHasMore(true)
+        setLoading(false)
+        setPage(1)
+        })
+        .catch(res => {
+        })
     }
 
     const Answers = (i) => {
@@ -123,7 +131,8 @@ const FAQ = () => {
      
    
 
-    return ( 
+    return ( <>
+    {loading ? <div><p>loading...</p></div> :
         <div className=' w-[800px] lg:shadow-xl rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] '>
                 <span className='text-6xl sm:text-xl font-bold sm:p-2 inline-block faq-link'>FAQ</span>
                 <div>
@@ -141,10 +150,9 @@ const FAQ = () => {
                                         <option className="text-xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question} 
                                         </option>
 
-                                            {/* placeholder for questions in database */}
-                                        {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
-
                                         </span>
+                                        {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
+                                       
 
 
                                 </div>
@@ -161,11 +169,13 @@ const FAQ = () => {
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
                                         </span>
+                                        {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
 
                                 </div> }
 
                                 {/* {console.log(faq.id)} */}
                                 
+                                  {/* <button onClick={()=>{Delete(faq.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button> */}
                                 {answerstatus[faq.id] && <div>{answer[faq.id]} 
 
                                 {/* placeholder for answers in db */}
@@ -179,16 +189,15 @@ const FAQ = () => {
 
                             </div>
                                 )}
-                           else{
-                               return(
-                                <div  id ={faq.id} className="">
+                                else{
+                                  return(
+                                    <div  id ={faq.id} className="">
                                 
                                 {answerstatus[faq.id]
                                 
                                 ?  <div className='mb-4' >
 
                                         <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
-
                                         <option className="text-xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
 
@@ -196,6 +205,8 @@ const FAQ = () => {
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
                                         </span>
+                                        {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
+
 
                                 </div>
                                 
@@ -210,7 +221,7 @@ const FAQ = () => {
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
                                         </span>
-                                       {Isadmin && <button >delete</button>}
+                                        {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
 
                                 </div> }
 
@@ -235,7 +246,9 @@ const FAQ = () => {
                 }
                 </div>
 
-        </div>
+        </div>}
+        </>
+
      );
 }
  

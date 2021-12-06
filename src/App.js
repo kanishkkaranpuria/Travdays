@@ -123,7 +123,7 @@ function App() {
 
             <Route exact path="/packagespage"> <PackagesPage /> </Route>
 
-            <Route exact path="/faq"> <FAQ /> </Route>
+            <Route exact path="/faq"> <FAQ isadmin={isadmin} /> </Route>
 
             <Route exact path="/blogs/write"> <WriteABlog /> </Route>
 
@@ -131,35 +131,30 @@ function App() {
 
             <Route exact path="/myblogs"> <MyBlogs /> </Route>
 
-            <Route exact path="/admcontactus"> <AdmContactUs /> </Route>
-
-            <Route exact path="/admfaq"> <AdmFaq /> </Route>
-
-            <Route exact path="/admbooking"> <AdmBooking /> </Route>
-
             <Route exact path="/resetpassword"> <ResetPassword /> </Route>
 
             <Route exact path="/bookings"> <BookingHistory /> </Route>
 
-            <Route exact path="/adminOnly"> <MainAdmin /> </Route>
 
 
             {(isadmin === true) &&
-              <>
-                <Route exact path="/addtrips"> <Addtrips /> </Route>
+            <>
+            <Route exact path="/adminOnly"> <MainAdmin /> </Route>
 
-                <Route exact path="/tripedit/:name/:id"> <Edittrips /> </Route>
-
-                <Route exact path="/approveblogs"> <ApproveBlogs /> </Route>
-
-                <Route exact path="/addtestimonials"> <Addtestimonials /> </Route>
-
-                <Route exact path="/admcontactus"> <AdmContactUs /> </Route>
-
-                <Route exact path="/admfaq"> <AdmFaq /> </Route>
-
-                <Route exact path="/admbooking"> <AdmBooking /> </Route>
-              </>
+            <Route exact path="/addtrips"> <Addtrips /> </Route>
+              
+            <Route exact path="/tripedit/:name/:id"> <Edittrips /> </Route>
+              
+            <Route exact path="/approveblogs"> <ApproveBlogs /> </Route>
+              
+            <Route exact path="/addtestimonials"> <Addtestimonials /> </Route>
+              
+            <Route exact path="/admcontactus"> <AdmContactUs /> </Route>
+              
+            <Route exact path="/admfaq"> <AdmFaq /> </Route>
+              
+            <Route exact path="/admbooking"> <AdmBooking /> </Route>
+            </>
             }
 
           </Switch>

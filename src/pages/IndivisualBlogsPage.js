@@ -1,13 +1,24 @@
 import { useState ,useEffect, useRef, useCallback,} from "react";
 import axios from "axios";
+import { useHistory } from "react-router";
+// import {browserHistory} from 'react-router'
+import { BrowserRouter } from "react-router-dom";
 import { useParams } from "react-router";
 import fullaxios from "../components/FullAxios";
+import { isCompositeComponentWithType } from "react-dom/test-utils";
 
 const IndivisualBlogPage = ({isadmin}) => {
     const [iblogimg, setIblogimg] = useState([])
     const [iblogdata, setIblogdata] = useState({})
     const [featured, setFeatured] = useState(null)
     const [approved, setApproved] = useState(null)
+    const [deleted, setDeleted] = useState(null)
+    const [disliked, setDisliked] = useState(null)
+    const [liked, setLiked] = useState(null)
+    const [lDvalue, setLDvalue] = useState(null)
+    const [iLDvalue, setILDvalue] = useState(null)
+    const [variable, setVariable] = useState(1)
+    const history = useHistory();
     const {id} = useParams();
     const {title} = useParams();
     
@@ -34,17 +45,23 @@ const IndivisualBlogPage = ({isadmin}) => {
         if(id){
             fullaxios({url: 'blog/indi/' + id +'/'+ page})
             .then(res => {
+              console.log(res.data,"dataaaaaaaaaaaaaaaaaa")
               if(Object.keys(res.data).length===0){
-                setHasmore(false)
-                console.log("hasmore false")
+                history.replace('/approveblogs')
+                console.log("data is zero")
               }
               setIblogdata({...iblogdata,...res.data})
-                //   setIblogdata(res.data)
-                  console.log(res.data[0].slice(-3,))   
-                  console.log()         
-            console.log(res.data)
+              //   setIblogdata(res.data)
+              console.log(res.data[0].slice(-3,))   
+              console.log()         
+              console.log(res.data)
             })
             .catch(err => {
+              console.log(err.response,"errorrrrrrrrrrrrrrrrrrr")
+              if (page===1 && (err.response.status===400 || err.response.status===404)){
+                console.log(err.response.status)
+                history.replace('/blogs')
+              }
               if (err.response){if (err.response.data.detail === "Invalid page.") {
                  setHasmore(false)
                  setLoading(false)
@@ -68,8 +85,31 @@ const IndivisualBlogPage = ({isadmin}) => {
             
              
            })
+
+          fullaxios({url: 'blog/votestatus/'+ id })
+          .then(res => {
+            setILDvalue(res.data.status)
+          })
+          .catch(err => {
+            
+             
+           }) 
       }
   }, [])
+
+  useEffect(() => {
+    console.log(iLDvalue)
+    if(iLDvalue==="like"){
+      console.log("this worked")
+      setLDvalue('like')
+      setLiked(true)
+    }
+    else if(iLDvalue==="dislike"){
+      setLDvalue('dislike')
+      setDisliked(true)
+    }
+    
+  }, [iLDvalue])
 
 
     // featureeeeee
@@ -78,13 +118,12 @@ const IndivisualBlogPage = ({isadmin}) => {
         setApproved(feature)
       }
       setFeatured(feature )       
-      
-      
     }
     
     
     
     //Approvee
+    
     
     const Approve = (approval) => {
       if(featured===true){
@@ -94,28 +133,62 @@ const IndivisualBlogPage = ({isadmin}) => {
         setApproved(approval)
         
       }
-
+      
+    }
+    //like 
+    const Like = (likke) => {
+      console.log(likke)
+      if(likke===true){
+        setVariable(prev=>prev+1)
+        setLiked(true)
+        setDisliked(false)
+        setLDvalue("like")
+        
       }
+      else if(likke===false){
+        setLiked(false)
+        setVariable(prev=>prev+1)
+      }
+    }
+    //dislike
+    useEffect(() => {
+    console.log(lDvalue)
+    }, [lDvalue])
 
-      //indblog info
-
-    // useEffect(() => {
-    //     console.log(id)
-    //     console.log(title)
-    //     if(id){
-    //         fullaxios({url: 'blog/media/' + id })
-    //         .then(res => {
-    //             console.log(res.data)
-    //           setIblogimg(prev=>[...prev,...res.data])
-    //         })
-    //         .catch(err => {
-    //            if (err.response){if (err.response.data.detail === "Invalid page.") {
-    //              setHasmore(false)
-    //              setLoading(false)
-    //            }
-    //          }})
-    //     }
-    // }, [])
+    const Dislike = (dislike) => {
+      
+      if(dislike===true){
+        setLiked(false)
+        setVariable(prev=>prev+1)
+        console.log("dislike kiya bc")
+        setLDvalue('dislike')
+        setDisliked(true)
+      }
+      else if (dislike===false){
+        setDisliked(false)
+        setVariable(prev=>prev+1)
+      }
+    }
+    
+    //submite the string response 
+    const LDsubmit = useCallback(()=>{
+      console.log("callback chala ")
+      console.log(lDvalue)
+      if(variable!==1){
+        fullaxios({url : 'blog/vote' ,type:'post' , data : {
+          vote : lDvalue,
+          id:id
+          
+    }, })
+    .then(res => {  
+    })
+    .catch(err => {
+      console.log(err.response)
+       })
+      }
+    },[lDvalue,variable])
+    
+    
 
     useEffect(() => {
         console.log(id)
@@ -138,27 +211,52 @@ const IndivisualBlogPage = ({isadmin}) => {
              }})
         }
     }, [])
+ 
 
+    const Deleteblog = () => {
+      let confimBox = window.confirm("delete seriously?")
+      if(confimBox===true){
+        console.log("delete teh fucking shit")
+        fullaxios({url: 'blog/delete/'+ id , type: 'delete' })
+        .then(res => {
+          console.log("deleted")
+          console.log(res.data)
+          history.replace('/approveblogs')
+          })
+          .catch(res => {
+          })
+      }
+      {
+      }
     
+    
+      }
+      
 
-    const test = () => {
+    const Submit = () => {
       //Approval
-     
 
-      // if(approval){
+      let confirmSubmit = window.confirm("submit response?")
 
+      if(confirmSubmit===true){
         fullaxios({url : 'blog/create' ,type:'patch' ,data : {
             id : id,
             featured : featured,
             approved : approved,
         }, })
         .then(res => {  
-          console.log("well approved") 
+          history.replace('/approveblogs')
           alert("response submited")
         })
         .catch(err => {
           console.log(err.response)
            })
+
+      }
+     
+
+      // if(approval){
+
       // }
       // else if (!approval){
       //   fullaxios({url : 'blog/create' ,type:'patch' ,data : {
@@ -228,7 +326,7 @@ const IndivisualBlogPage = ({isadmin}) => {
       )
     }
 
-    //test useeffect
+    //Submit useeffect
     useEffect(() => {
         // console.log(iblogimg,"img")
       console.log(page)
@@ -249,17 +347,25 @@ const IndivisualBlogPage = ({isadmin}) => {
                          <button onClick={(()=>{Approve(true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Approve:&#9744;</button>  } 
                           {featured ? <button onClick={(()=>{Feature(false)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Feature:&#9745;</button> :
                          <button onClick={(()=>{Feature(true)})} className=' sm:mx-auto text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Feature:&#9744;</button>  } 
-                               <button onClick={test} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >submit</button>
+                               <button onClick={Submit} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >submit</button>
+                               <button onClick={Deleteblog} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>
                               </div>}
                               </div>
                       
                           
                       </div>
+                     { liked ? 
+                       <svg ref={LDsubmit} onClick={(()=>{Like(false)})} width="35px" height="35px" viewBox="0 0 512 512" ><path d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"/></svg>:
+                     <svg onClick={(()=>{Like(true)})} width="35px" height="35px" viewBox="0 0 512 512" > <path d="M466.27 286.69C475.04 271.84 480 256 480 236.85c0-44.015-37.218-85.58-85.82-85.58H357.7c4.92-12.81 8.85-28.13 8.85-46.54C366.55 31.936 328.86 0 271.28 0c-61.607 0-58.093 94.933-71.76 108.6-22.747 22.747-49.615 66.447-68.76 83.4H32c-17.673 0-32 14.327-32 32v240c0 17.673 14.327 32 32 32h64c14.893 0 27.408-10.174 30.978-23.95 44.509 1.001 75.06 39.94 177.802 39.94 7.22 0 15.22.01 22.22.01 77.117 0 111.986-39.423 112.94-95.33 13.319-18.425 20.299-43.122 17.34-66.99 9.854-18.452 13.664-40.343 8.99-62.99zm-61.75 53.83c12.56 21.13 1.26 49.41-13.94 57.57 7.7 48.78-17.608 65.9-53.12 65.9h-37.82c-71.639 0-118.029-37.82-171.64-37.82V240h10.92c28.36 0 67.98-70.89 94.54-97.46 28.36-28.36 18.91-75.63 37.82-94.54 47.27 0 47.27 32.98 47.27 56.73 0 39.17-28.36 56.72-28.36 94.54h103.99c21.11 0 37.73 18.91 37.82 37.82.09 18.9-12.82 37.81-22.27 37.81 13.489 14.555 16.371 45.236-5.21 65.62zM88 432c0 13.255-10.745 24-24 24s-24-10.745-24-24 10.745-24 24-24 24 10.745 24 24z"/></svg>}
+                     {disliked?
+                      <svg ref={LDsubmit} onClick={(()=>{Dislike(false)})} width="35px" height="35px" viewBox="0 0 512 512"><path d="M0 56v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H24C10.745 32 0 42.745 0 56zm40 200c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24zm272 256c-20.183 0-29.485-39.293-33.931-57.795-5.206-21.666-10.589-44.07-25.393-58.902-32.469-32.524-49.503-73.967-89.117-113.111a11.98 11.98 0 0 1-3.558-8.521V59.901c0-6.541 5.243-11.878 11.783-11.998 15.831-.29 36.694-9.079 52.651-16.178C256.189 17.598 295.709.017 343.995 0h2.844c42.777 0 93.363.413 113.774 29.737 8.392 12.057 10.446 27.034 6.148 44.632 16.312 17.053 25.063 48.863 16.382 74.757 17.544 23.432 19.143 56.132 9.308 79.469l.11.11c11.893 11.949 19.523 31.259 19.439 49.197-.156 30.352-26.157 58.098-59.553 58.098H350.723C358.03 364.34 384 388.132 384 430.548 384 504 336 512 312 512z"/></svg>
+                      :
+                      <svg onClick={(()=>{Dislike(true)})} width="35px" height="35px" viewBox="0 0 512 512" ><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg>
+                    }
+                     
                       <p className=' px-60 py-10 text-4xl'>{title}</p>
                       
-                              {console.log(iblogdata)}
                       <p className='px-8 py-2 pt-3 leading-tight text-xl'> {Object.keys(iblogdata).map((keyName, i) => {
-                         console.log(i+1)
                         if(Object.keys(iblogdata).length === i +1 ){
                           return(
                             <div ref={lastDataElementRef} className="">

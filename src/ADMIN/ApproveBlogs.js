@@ -78,7 +78,13 @@ const ApproveBlogs = ({id,setId}) => {
         fullaxios({url : 'blog/unapproved?page='+ blogpage})
         .then(res => {
           console.log(res.data)
-          setAllblogs(prev=>[...prev,...res.data])
+          if(res.data.length===0){
+            console.log("wtffffff")
+            setAllblogs(null)
+          }
+          else{
+            setAllblogs(prev=>[...prev,...res.data])
+          }
         })
         .catch(err => {
            if (err.response){if (err.response.data.detail === "Invalid page.") {
@@ -119,6 +125,7 @@ const ApproveBlogs = ({id,setId}) => {
       useEffect(() => {
         console.log(featured)
         console.log(blogpage)
+       
         console.log(allblogs)
         console.log(fpage)
       
@@ -139,6 +146,26 @@ const ApproveBlogs = ({id,setId}) => {
             <div className="blog relative pt-[60px] w-full">
            
             <p className='text-5xl sm:text-2xl font-bold p-4'>Unapproved Blogs</p>
+            {!allblogs && <div className="">
+         <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+              <div className="blog-preview-card ">
+                      <div className='p-8 sm:p-1'>
+                          <div className="flex justify-between items-center">
+                              <div className="flex flex-col">
+                             <p  className='text-3xl font-semibold  pt-8 '>Currently no  Blogs to Approve</p>
+                              </div>
+                      
+                          
+                      </div>
+                      </div>
+                      
+
+                  </div>
+
+                </div>  </div> } 
+
+
+
             {allblogs && allblogs.map((data,index)=> {
               if(allblogs.length === index+1){
                 return(
@@ -171,7 +198,7 @@ const ApproveBlogs = ({id,setId}) => {
               </div>
                 )
               }
-              else{
+              else {
                 return(
                   <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
                   <div className="blog-preview-card non-featured v1 relative">
