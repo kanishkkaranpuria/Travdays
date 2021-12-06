@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import fullaxios from "./FullAxios";
+import Cookie from "../components/Cookie";
+import { useHistory } from "react-router";
 
-const Navbar = ({isauthenticated}) => {
+const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
+    
+    const history = useHistory();
     useEffect(() => {
         console.log("uerinfo status")
         fullaxios({url : 'userinfo/status' 
@@ -18,6 +22,21 @@ const Navbar = ({isauthenticated}) => {
          }})
       
     }, [])
+    
+    const logout = () => {
+        fullaxios({url : 'auth/logout'})
+        .then(res =>{
+            console.log("here",res.data)
+            setIsadmin(false)
+            setIsauthenticated(false)
+            // Cookie('setCookie',"accesstoken",0,-1)
+            Cookie('setCookie',"csrftoken", 0, -1)
+            Cookie('setCookie',"sessionid", 0, -1)
+            history.push('/')
+        })
+        .catch(err=>
+            console.log(err.data))
+    }
     return (
         <navbar className='navbar backdrop-filter '>
             <nav className="logo text-lg">
@@ -37,7 +56,7 @@ const Navbar = ({isauthenticated}) => {
                 <Link className='h-full items-center flex' to='/gallery'>Gallery</Link>
                 <Link className='h-full items-center flex' to='/contactus'>Contact Us</Link>
                 <Link className='h-full items-center flex' to='/faq'>FAQ</Link>
-                {isauthenticated ? <Link className='h-full items-center flex' to='/logout'>Logout</Link>:
+                {isauthenticated ? <div className='h-full items-center flex cursor-pointer' onClick = {logout}>Logout</div>:
                 <Link className='h-full items-center flex' to='/login'>Login</Link>}
                 <Link className='h-full items-center flex' to=''>Our AI Coming Soon</Link>
             </nav>

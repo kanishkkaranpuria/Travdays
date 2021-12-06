@@ -60,7 +60,6 @@ const Home = ({ isadmin, setIsadmin }) => {
                             <img src="https://img.icons8.com/small/32/000000/twitter.png" />
                             <img src="https://img.icons8.com/material/32/000000/youtube-play--v1.png" />
                         </div>
-<<<<<<< Updated upstream
                 </p>
             </div>
             <div className='hidden sm:block p-[0.5rem]'>
@@ -73,20 +72,6 @@ const Home = ({ isadmin, setIsadmin }) => {
                 <Link className='card-grid__link__hover' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
             </div>
                         {/* <div class="swiper mySwiper hidden sm:flex">
-=======
-                    </p>
-                </div>
-                <div className='hidden sm:block p-[0.5rem]'>
-                    <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
-                    <p className="w-full text-8xl sm:text-6xl font-bold">Travdays</p>
-                </div>
-                <div className='card-grid sm:py-[20px] w-[800px] mx-auto'  >
-                    <Link className='card-grid__link__hover' to='/trips/workation'><Card title="Workation" id='one' /></Link>
-                    <Link className='card-grid__link__hover' to='/trips/solo'><Card title="Solo Travel" id='two' /></Link>
-                    <Link className='card-grid__link__hover' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
-                </div>
-                {/* <div class="swiper mySwiper hidden sm:flex">
->>>>>>> Stashed changes
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                     <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
@@ -138,7 +123,6 @@ const Home = ({ isadmin, setIsadmin }) => {
                 </div>
             </div>
             <div>
-<<<<<<< Updated upstream
             <div className="section testimonial relative">
             {/* <svg className='absolute top-[-426px] w-[1920px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F7F7F5" fill-opacity="1" d="M0,224L80,240C160,256,320,288,480,266.7C640,245,800,171,960,144C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
             <svg className='absolute top-[-391px] left-0 w-[1920px]'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F7F7F5" fill-opacity="1" d="M0,256L60,256C120,256,240,256,360,261.3C480,267,600,277,720,266.7C840,256,960,224,1080,224C1200,224,1320,256,1380,272L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
@@ -152,19 +136,6 @@ const Home = ({ isadmin, setIsadmin }) => {
                         <div className='px-8'>
                             <p className="text-2xl font-semibold">username</p>
                         <p className="leading-tight">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>    
-=======
-                <div className="section">
-                    <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block'>Testimonials</span>
-                    <div className="grid grid-cols-2 ">
-                        <div className='flex h-32 '>
-                            <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
-                                <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1528001100577-c6b2f16d5276?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
-                            </div>
-                            <div className='px-8'>
-                                <p className="text-2xl font-semibold">username</p>
-                                <p className="leading-tight">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-                            </div>
->>>>>>> Stashed changes
                         </div>
 
                         <div className='flex h-32'>
@@ -223,18 +194,11 @@ const Home = ({ isadmin, setIsadmin }) => {
 
             </div>
 
-<<<<<<< Updated upstream
             <div className='section faq sm:pt-16 relative'>
             <svg className='absolute left-0 top-[-426px] w-[1920px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>
-=======
-            <div className='section faq sm:pt-16'>
-                <Link to='/faq'>
-                    <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
-                </Link>
->>>>>>> Stashed changes
                 <div className=' flex flex-col justify-center w-[1000px] mx-auto divide-y-2 divide-gray-300'>
                     <div className="my-4">
                         <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
@@ -307,6 +271,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                 <FAQ/>
             </Router>
              */}
+        </div>
         </div>
     );
 }

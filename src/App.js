@@ -85,7 +85,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar isauthenticated={isauthenticated} />
+        <Navbar isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}
           <Link to='/'><p className='text-lg'>TravDays</p></Link>
@@ -111,7 +111,7 @@ function App() {
 
             <Route exact path="/register"> <Registration /> </Route>
 
-            <Route exact path="/logout"> <Logout setIsadmin={setIsadmin} setIsauthenticated={setIsauthenticated} /> </Route>
+            <Route exact path="/logout"> <Logout /> </Route>
 
             <Route exact path="/contactus"> <ContactUs /> </Route>
 
