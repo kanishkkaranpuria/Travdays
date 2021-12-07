@@ -95,6 +95,12 @@ class BlogEditSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
+        fields = ['title','location','image','anonymous','blog']
+
+class BlogStatusEditSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Blog
         fields = ['featured','approved']
 
 class BlogMediaSerializer(serializers.ModelSerializer):

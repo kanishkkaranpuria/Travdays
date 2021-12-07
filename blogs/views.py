@@ -3,7 +3,7 @@ from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import AllBlogsSerializer,BlogEditSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer
+from .serializers import AllBlogsSerializer,BlogEditSerializer,BlogStatusEditSerializer,FeaturedBlogsSerializer,CreateBlogSerializer,CreateBlogMediaSerializer
 from rest_framework import status
 from .pagination import BlogPagination,BlogMediaPagination
 # Create your views here.
@@ -183,7 +183,7 @@ class CreateBlog(APIView):
             data = {}
             data["featured"] = request.data["featured"] if "featured" in request.data else blog.featured
             data["approved"] = request.data["approved"] if "approved" in request.data else blog.approved
-            serializer = BlogEditSerializer(blog,data=data,partial = True)
+            serializer = BlogStatusEditSerializer(blog,data=data,partial = True)
             if serializer.is_valid():
                 serializer.save()
                 return Response({"success":"Value changed successfully"}, status=status.HTTP_200_OK)
@@ -270,7 +270,72 @@ class BlogApprovalStatus(APIView):
             return Response({"error":"invalid input"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"action not allowed"}, status=status.HTTP_400_BAD_REQUEST)
 
+class EditBlog(APIView):
 
+    def patch(self, request):
+        blogDict = {}
+        blog                   = Blog.objects.get(id = request.data["id"])
+        blogDict["title"]      = request.data.get('title',blog.title)
+        blogDict["location"]   = request.data.get('location',blog.location)
+        blogDict["image"]      = request.data.get('displayImage',blog.image)
+        blogDict["anonymous"]  = request.data.get('anonymous',blog.anonymous)
+
+        array = []
+        i = 0
+        while 'data'+str(i) in request.data:
+            array.append(request.data['data'+str(i)])
+            i += 1
+
+        #Logic to arrange make consecutive elements of the array of different types 
+
+        i = 0
+        bool = True
+        while(bool):
+            while(i+1<len(array)):
+                if (type(array[i]) == type(array[i+1]) and isinstance(array[i],str)):
+                    array = [*array[:i],array[i] +" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  "+ array[i+1],*array[i+2:]]
+                else:
+                    if type(array[i]) == type(array[i+1]):
+                        array = [*array[:i+1],"",*array[i+1:]]
+                    i += 1
+                break
+            if i+1 >= len(array):
+                bool = False
+
+        # alternative elements are images and blog paras
+        # adding a para ending marker and adding entire blog in one variable
+        blogData = ''
+        for i in range(len(array[::2])):
+            blogData = blogData + array[::2][i] + "    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,"
+
+        blogDict["blog"] = blogData
+        previousImages = blog.blogmedia.all()       
+
+        data = {}
+        i = 0
+        data['blog'] = blog.id
+        for i in range(len(array[1::2])):
+            data['image'] = array[1::2][i]
+            if array[1::2][i].size > 4194304:
+                return Response({"error":f'size of Image Number {i+1} is greater than 4Mb'}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = CreateBlogMediaSerializer(data = data)
+            if serializer.is_valid():
+                i += 1
+                serializer.save()
+            else:
+                #if any new image has something wrong, new saved images will be deleted
+                newImages = blog.blogmedia.all()[-i:]
+                newImages.delete()
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # New data will only be saved if everything goes right, untill that old data remains
+        serializer = BlogEditSerializer(blog,data=blogDict,partial = True)
+        if serializer.is_valid():
+            previousImages.delete()
+            serializer.save()
+            return Response({"success":"Blog Edited"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
 # class BlogDisplayView2(APIView,BlogMediaPagination):
 
