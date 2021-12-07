@@ -216,7 +216,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                         <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
                         <span className="relative w-full text-8xl sm:text-6xl font-bold text-[#FFA914] tracking-[12px]">
                             TravDays
-                            <img src={Logo} alt='' className='absolute w-[180px] top-[-185%] right-[2px] z-[-1]' />
+                            <img src={Logo} alt='' className='absolute w-[135px] top-[-126%] right-[10%] z-[-1]' />
                         </span>
 
                     </div>
@@ -244,9 +244,9 @@ const Home = ({ isadmin, setIsadmin }) => {
                 <p className="w-full text-8xl sm:text-6xl font-bold tracking-[12px]">Travdays</p>
             </div>
             <div className='card-grid sm:py-[20px]  max-w-[800px]'  >
-                <Link className='card-grid__link__hover' to='/trips/workation'><Card title="Workation" id='one'  /></Link>
-                <Link className='card-grid__link__hover' to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
-                <Link className='card-grid__link__hover' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
+                <Link className='' to='/trips/workation'><Card title="Workation" id='one'  /></Link>
+                <Link className='' to='/trips/solo'><Card title="Solo Travel"id='two' /></Link>
+                <Link className='' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
             </div>
                         {/* <div class="swiper mySwiper hidden sm:flex">
                 <div class="swiper-wrapper">
@@ -317,7 +317,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                             <p className="text-2xl font-semibold">username</p>
                         <p className="leading-tight">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>    
                         </div>
-
+                        </div>
                         <div className='flex h-32'>
                             <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
                                 <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1598587741472-cb50fcba42be?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
@@ -368,14 +368,12 @@ const Home = ({ isadmin, setIsadmin }) => {
                             </div>
                         </div>
 
-
-                    </div>
                 </div>
 
             </div>
 
             <div className='section faq sm:pt-16 relative'>
-                <img className='absolute top-[-70px] left-0 w-full h-[115px]' src={FaqTop} alt='' />
+                <img className='absolute top-[-80px] left-0 w-full h-[115px]' src={FaqTop} alt='' />
             {/* <svg className='absolute left-0 top-[-420px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>

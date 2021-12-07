@@ -232,8 +232,12 @@ code {
   -moz-animation: circle3 12s linear infinite ;
   -o-animation: circle3 12s linear infinite ;
 }
-.card-grid__link__hover:hover{
-  transform: scale(1.1);
+.card-grid a{
+  transition-timing-function: ease-in-out;
+  transition-duration: 100ms;
+}
+.card-grid a:hover{
+  transform: scale(1.02);
   z-index: 2;
 }
 
