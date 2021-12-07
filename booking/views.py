@@ -34,7 +34,7 @@ class UnapprovedBookingAdminView(APIView,BookingPagination):
 
     def get(self, request):
         if request.user.is_admin:
-            booking = Booking.objects.filter(approved = False)
+            booking = Booking.objects.filter(approved = False).order_by("-created")
             results = self.paginate_queryset(booking, request, view=self)
             serializer = BookingSerializer(results,many = True)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -45,7 +45,7 @@ class BookingAdminView(APIView,BookingPagination):
     def get(self, request, pk = None):
         if request.user.is_admin:
             if pk == None:
-                booking = Booking.objects.all()
+                booking = Booking.objects.all().order_by("-created")
                 results = self.paginate_queryset(booking, request, view=self)
                 serializer = BookingSerializer(results,many = True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
