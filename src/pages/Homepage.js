@@ -119,14 +119,18 @@ const Home = ({ isadmin, setIsadmin }) => {
             // </div>
              
              return(
-                 <div className=' '>
+                 <div className=''>
                       {answerstatus[faq.id]
                                     
                                     ?  <div className='' >
 
-                                            <p onClick={()=>{Answers(faq.id)}} className="font-semibold"><span className="text-2xl font-semibold">Q</span>{faq.question} </p>
 
-                                            {answerstatus[faq.id] &&    <p className="leading-tight px-8">{answer[faq.id]} </p>}
+                                            <p onClick={()=>{Answers(faq.id)}} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                    </svg>
+                                                    </p>
+                                            {answerstatus[faq.id] &&    <p className="leading-tight px-8 answer">{answer[faq.id]} </p>}
                                             {/* <span className='' onClick={()=>{Answers(faq.id)}} > */}
 
                                             {/* <option className="" id="selected"  value={faq.id}>{faq.question} 
@@ -139,24 +143,19 @@ const Home = ({ isadmin, setIsadmin }) => {
                                     
                                     : <div className='' >
 
-                                            <p onClick={()=>{Answers(faq.id)}} className="font-semibold"><span className="text-2xl font-semibold">Q</span>{faq.question} </p>
-                                            
-                                            {/* <span className='' onClick={()=>{Answers(faq.id)}}> */}
-
-                                            {/* <option className="" id="selected"  value={faq.id}>{faq.question} */}
-                                            {/* </option> */}
-
-                                                {/* placeholder for questions in database */}
-                                            {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
-
-                                            {/* </span> */}
- 
-
-                                    {/* {console.log(faq.id)} */}
-                                    
-
-                                    {/* placeholder for answers in db */}
-                                    {/* <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p> */}
+                                        {/* <div className="my-4">
+                               <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                       </svg>
+                                   </p>
+                                       <p className="flex items-center font-semibold cursor-pointer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
+                                            </div> */}
+                                            <p onClick={()=>{Answers(faq.id)}} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                    </svg>
+                                                    </p>
 
                                     </div>}
                 </div>
@@ -165,22 +164,13 @@ const Home = ({ isadmin, setIsadmin }) => {
         }
 
         return ( 
-            <div className=''>
+            <div className='flex flex-col justify-center w-[1000px] mx-auto divide-y-2 divide-gray-300'>
                             {faqs && faqs.map((faq,index) => {
-                                if(faqs.length=== index+1){
-                                    return(
-                                    <div ref={lastDataElementRef} id ={faq.id} className="">
-                                    {UseagainFaq(faq)}
-                                    </div>
-                                    )}
-                            else{
                                 return(
-                                    <div  id ={faq.id} className='h-32'>
+                                    <div  id ={faq.id} className="my-4">
                                     {UseagainFaq(faq)}
                                     </div>
                                 )}
-
-                            }
                             )
                         }   
                                 
@@ -226,7 +216,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     <p className='m-4'>
                         <div className="flex sm:justify-center">
 
-                            {isadmin && <Link className='m-2 p-2 w-40 sm:w-32 sm:m-1 bg-blue-500 font-semibold' to='/adminOnly'>Admin Only</Link>}
+                            {isadmin && <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold rounded-md' onClick={() => { history.push("/adminOnly") }}>Admin Only</button>}
                             <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold rounded-md' onClick={() => { history.push("/contactus") }} >Contact us</button>
                             <button id='learn-more-btn' className='m-2 p-1 w-40 sm:w-32 sm:m-1 rounded-md'>Learn more</button>
                         </div>
@@ -308,7 +298,7 @@ const Home = ({ isadmin, setIsadmin }) => {
             {/* <svg className='absolute top-[-426px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F7F7F5" fill-opacity="1" d="M0,224L80,240C160,256,320,288,480,266.7C640,245,800,171,960,144C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
             {/* <svg className='absolute top-[-426px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L60,245.3C120,235,240,213,360,197.3C480,181,600,171,720,160C840,149,960,139,1080,144C1200,149,1320,171,1380,181.3L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block'>Testimonials</span>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-3 ">
                     <div className='flex h-32 '>
                         <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
                     <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1528001100577-c6b2f16d5276?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"/>
@@ -378,54 +368,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                 <Link to='/faq'>      
             <span className='text-6xl sm:text-4xl font-bold p-6 sm:p-2 inline-block faq-link'>FAQ</span>
             </Link>
-                <div className=' flex flex-col justify-center w-[1000px] mx-auto divide-y-2 divide-gray-300'>
-                    <div className="my-4">
-                        <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </p>
-                        <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-                    </div>
-                    <div className="my-4">
-                        <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </p>
-                        <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-                    </div>
-                    <div className="my-4">
-                        <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </p>
-                        <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-                    </div>
-                    <div className="my-4">
-                        <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </p>
-                        <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-                    </div>
-                    <div className="my-4">
-                        <p className="flex items-center font-semibold cursor-pointer" ><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </p>
-                        <p className="leading-tight px-8 answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
-                    </div>
-
-                {/* <div className=''>
+        
+        {/* FAQ SECTION */}
                     <HFAQ/>
                     
                 
-                </div> */}
-                </div>
             </div>
 
 
