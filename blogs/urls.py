@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AllBlogsDisplayView,BlogLikeDislikeStatus,UserBlogs,BlogApprovalStatus,UnapprovedBlogs,BlogDelete,BlogDisplayView,BlogsDisplayVoteFilter,BlogsDisplayCreatedFilter,BlogsDisplayFeaturedFilter,CreateBlog,BlogLikeDislike
+from .views import AllBlogsDisplayView,EditBlog,BlogLikeDislikeStatus,UserBlogs,BlogApprovalStatus,UnapprovedBlogs,BlogDelete,BlogDisplayView,BlogsDisplayVoteFilter,BlogsDisplayCreatedFilter,BlogsDisplayFeaturedFilter,CreateBlog,BlogLikeDislike
 
 
 
@@ -14,6 +14,7 @@ urlpatterns = [
     path('created', BlogsDisplayCreatedFilter.as_view()),
     path('featured', BlogsDisplayFeaturedFilter.as_view()),
     path('create', CreateBlog.as_view()),
+    path('edit', EditBlog.as_view()),
     path('vote', BlogLikeDislike.as_view()),
     path('votestatus/<int:pk>', BlogLikeDislikeStatus.as_view()),
     # path('singleblog/<var>/<int:pk>', BlogDisplayView.as_view()),
