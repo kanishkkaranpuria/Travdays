@@ -246,7 +246,7 @@ class Refresh_Token_View(APIView):
         if refresh_token is None:
             response.delete_cookie('accesstoken')
             print("refresh token missing from cookies (new accesstoken)")
-            response.status_code = 403
+            response.status_code = 401
             response.data =  {"Error":"refresh token missing"}
             return response
         obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
