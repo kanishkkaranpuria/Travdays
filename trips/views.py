@@ -65,6 +65,26 @@ class TripMediaView(APIView, TripMediaPagination):
             return Response(serializer.data, status = status.HTTP_200_OK)
         return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
 
+class AdminTripMediaView(APIView):
+
+    def get(self,request,name = None):
+        if Trip.objects.filter(name = name).exists():
+            media = AdminMedia.objects.filter(trip__name = name)
+            serializer = SingleTripMediaDisplaySerializer(media,context={"request" : request}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
+
+    def post(self,request):
+        media = AdminMedia.objects.filter(id = request.data["id"])
+        if media.exists():
+            media = media.first()
+            if not media.video:
+                media.displayImage = True
+                media.save()
+                return Response({"success":"image set as display image"},status=status.HTTP_200_OK)
+            return Response({"error":"video cant be set as display image"},status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"invalid input"},status=status.HTTP_400_BAD_REQUEST)
+
 class TripHoverEventView(APIView, TripMediaPagination):
 
     permission_classes = [AllowAny]

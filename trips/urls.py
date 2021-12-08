@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TripView,DeleteTripMedia,TripTypeFilterView,TripHoverEventView,TripUniversalFilterView,TripLocationFilterView,ReviewView,TripMediaView,CreateReviewView,CreateTripView
+from .views import TripView,DeleteTripMedia,TripTypeFilterView,TripHoverEventView,TripUniversalFilterView,TripLocationFilterView,ReviewView,TripMediaView,CreateReviewView,CreateTripView,AdminTripMediaView
 
 
 
@@ -15,5 +15,6 @@ urlpatterns = [
     path('review/create/<name>', CreateReviewView.as_view()),
     path('type/<type>', TripTypeFilterView.as_view()),
     path('location/<location>', TripLocationFilterView.as_view()),
+    path('admintripmedia/<name>', AdminTripMediaView.as_view()),
 
 ] 
