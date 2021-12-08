@@ -126,9 +126,6 @@ const Trip = () => {
         setReviewObject(null);
         setReviewCreationBool(false);
         setIsbooking(true);
-
-
-
     }
 
 

@@ -21,6 +21,7 @@ const AllTrips = () => {
   const [hasMore, setHasMore] = useState(true);
   const [location, setLocation] = useState('');
   const prevDatas = useRef([])
+  const [aumSearchtext, setAumSearchtext] = useState(null)
   const history = useHistory();
   const [displaysearchresults, setDisplaysearchresults] = useState(false)
   const [searchtext, setSearchtext] = useState(null)
@@ -30,7 +31,7 @@ const AllTrips = () => {
     setDatas([])
     setPage(1)
     setLoading(true)
-    setLoading1(true)
+    setLoading1()
     setHasMore(true)
     setGlobalUrl('')
   }, [type])
@@ -57,7 +58,7 @@ const AllTrips = () => {
     if (fetch === true) setFetch(false)
     else if (fetch === false) setFetch(true)
   }
-
+  
   const lastDataElementRef = useCallback(node => {
     console.log('last element')
     if (loading) return
@@ -69,59 +70,61 @@ const AllTrips = () => {
     })
     if (node) observer.current.observe(node)
   }, [loading, hasMore])
-
-
+  
+  useEffect(() => {
+  setLoading1(true)
+  
+    }, [searchtext])
+  
   useEffect(() => {
     console.log("i was here")
-    setLoading1(true)
     if (searchtext === "" || searchtext === null) {
       fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
-        .then(res => {
-          if (res) {
+      .then(res => {
+        
             setDatas(prev => [...prev, ...res.data])
             console.log(res.data)
             console.log(object)
             prevDatas.current = datas
             setLoading1(false)
-            // setLoading(false)
+            setLoading(false)
           }
-        })
-        .catch(err => {
-          if (err.response) {
-            if (err.response.data.detail === "Invalid page.") {
-              setHasMore(false);
-            }
-            // console.log(err)
-            // setLoading(false)
-
-
+      )
+      .catch(err => {
+        if (err.response) {
+          if (err.response.data.detail === "Invalid page.") {
+            setHasMore(false);
           }
-        })
+          // console.log(err)
+          // setLoading(false)
+          
+          
+        }
+      })
     }
     else if (searchtext) {
-      console.log("worked till here", searchtext)
-      fullaxios({ url: `search/trip/${searchtext}/${type}` + '?page=' + page })
-        .then(res => {
-          if (res) {
-            setDatas(prev => [...prev, ...res.data])
-            console.log(res.data)
-            console.log(object)
-            prevDatas.current = datas
-            setLoading1(false)
-            // setLoading(false)
-          }
-        })
-        .catch(err => {
-          if (err.response) {
-            if (err.response.data.detail === "Invalid page.") {
-              setHasMore(false);
+          console.log("worked till here", searchtext)
+          fullaxios({ url: `search/trip/${searchtext}/${type}` + '?page=' + page })
+          .then(res => {
+            if (res) {
+              setDatas(prev => [...prev, ...res.data])
+              console.log(res.data)
+              console.log(object)
+              prevDatas.current = datas
+              setLoading1(false)
+              // setLoading(false)
             }
-            // setLoading(false)
-            // console.log(err)
-
-          }
-        })
-    }
+          })
+          .catch(err => {
+            if (err.response) {
+              if (err.response.data.detail === "Invalid page.") {
+                setHasMore(false);
+              }
+              // setLoading(false)
+              // console.log(err)
+            }
+          })
+        }
     // setLoading(false);
   }, [page, fetch, object])
   // _____________________________________________________________________________________________________________________________________
@@ -181,22 +184,26 @@ const AllTrips = () => {
           if (err.response.data.detail === "Invalid page.") {
             setHoverhasMore(false);
           }
-
+          
         }
       })
-    setHoverloading(false);
-  }, [hoverpage])
+      setHoverloading(false);
+    }, [hoverpage])
+    
+    const fetchSearchedDataFromBackend = (searchtexts) => {
+      console.log("this works everytime")
+      setSearchtext(searchtexts)
+      setAumSearchtext(searchtext)
+      setHasMore(true)
+      setDatas([])
+      setPage(1)
+      if (fetch === true) setFetch(false)
+      else if (fetch === false) setFetch(true)
+      console.log("still alive")
+    }
+    
 
-  const fetchSearchedDataFromBackend = (searchtexts) => {
-    console.log("this works everytime")
-    setSearchtext(searchtexts)
-    setHasMore(true)
-    setDatas([])
-    setPage(1)
-    if (fetch === true) setFetch(false)
-    else if (fetch === false) setFetch(true)
-    console.log("still alive")
-  }
+  
 
   function calculation(data) {
     // var star = "url(#full)";
