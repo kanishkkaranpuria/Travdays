@@ -10,6 +10,7 @@ const AdmBooking = () => {
       // const [id, setId] = useState()
       const [hasmore, setHasmore] = useState(true)
       const [loading, setLoading] = useState(false)
+      const [loading1, setLoading1] = useState(false)
       const [deleted, setDeleted] = useState(false)
       const [approved, setApproved] = useState(true)
       const observer = useRef()
@@ -29,47 +30,34 @@ const AdmBooking = () => {
             observer.current.observe(node)}
         }, [loading, hasmore])
   
-      //   useEffect(() => {
-      //     // setLoading(true)
-      //       fullaxios({url: 'booking/view?page='+ page })
-      //       .then((res) => {
-      //         setLoading(false)
-      //         console.log("useeeffect rann")
-      //         console.log(res.data)
-      //         if (res.data.length===0){
-      //           setAllcontactus(null)
-      //         }
-      //         else{
-      //           setAllcontactus(prev=>[...prev,...res.data])
+        useEffect(() => {
+          if(approved===true){
+          setLoading1(true)
+            fullaxios({url: 'booking/view?page='+ page1 })
+            .then((res) => {
+              setLoading1(false)
+              setLoading(false)
+              console.log("useeeffect rann")
+              console.log(res.data)
+              if (res.data.length===0){
+                setAllcontactus(null)
+              }
+              else{
+                setAllcontactus(prev=>[...prev,...res.data])
   
-      //         }
-      //       // console.log(res.data
-      //     })
-      //     .catch(err => {
-      //       console.log(err.response)
-      //       if (err.response){if (err.response.data.detail === "Invalid page.") {
-      //         setHasmore(false)
-      //       }
-      //     }}
-      //     )
-      // }, [page])
-  
-      useEffect(() => {
-        
-    // console.log(loading)
-    console.log(page)
-    // console.log(deleted)
-    // console.log(allcontactus.length)
-      }, [page])
-
-
-      const  BFilter = useCallback((status) => {
-        setAllcontactus([])
-        setPage(1)
-        setApproved(status)
-        console.log(status)
-        if(status===false ){
-          fullaxios({url: 'booking/unapproved?page='+ page })
+              }
+            // console.log(res.data
+          })
+          .catch(err => {
+            console.log(err.response)
+            if (err.response){if (err.response.data.detail === "Invalid page.") {
+              setHasmore(false)
+            }
+          }}
+          )
+        }
+        else if(approved===false){
+          fullaxios({url: 'booking/unapproved?page='+ page1 })
           .then((res) => {
             setLoading(false)
             console.log("useeeffect rann")
@@ -91,31 +79,53 @@ const AdmBooking = () => {
         }}
         )
         }
-        else if(status===true){
-            fullaxios({url: 'booking/view?page='+ page})
-            .then((res) => {
-              setLoading(false)
-              console.log("useeeffect rann")
-              console.log(res.data)
-              if (res.data.length===0){
-                setAllcontactus(null)
-              }
-              else{
-                setAllcontactus(prev=>[...prev,...res.data])
+      }, [page1,approved])
   
-              }
-            // console.log(res.data)
-          })
-          .catch(err => {
-            console.log(err.response)
-            if (err.response){if (err.response.data.detail === "Invalid page.") {
-              setHasmore(false)
-            }
-          }}
-          )
-        }
+      useEffect(() => {
         
-      },[page] )
+    // console.log(loading)
+    console.log(page)
+    // console.log(allcontactus.length)
+      }, [page])
+
+
+      const  BFilter = (status) => {
+        setAllcontactus([])
+        setApproved(status)
+        setLoading(true)
+        setPage1(1)
+        setHasmore(true)
+
+
+        // console.log(status)
+        // if(status===false ){
+       
+        // }
+        // else if(status===true){
+        //     fullaxios({url: 'booking/view?page='+ page})
+        //     .then((res) => {
+        //       setLoading(false)
+        //       console.log("useeeffect rann")
+        //       console.log(res.data)
+        //       if (res.data.length===0){
+        //         setAllcontactus(null)
+        //       }
+        //       else{
+        //         setAllcontactus(prev=>[...prev,...res.data])
+  
+        //       }
+        //     // console.log(res.data)
+        //   })
+        //   .catch(err => {
+        //     console.log(err.response)
+        //     if (err.response){if (err.response.data.detail === "Invalid page.") {
+        //       setHasmore(false)
+        //     }
+        //   }}
+        //   )
+        // }
+        
+      }
        
      
       const Delete = (id) => {
@@ -146,8 +156,8 @@ const AdmBooking = () => {
         {loading ? <div><p>loading...</p></div> :
           <div className="blog relative pt-[60px] w-full">
 
-{ approved ?<button ref={BFilter} className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => {BFilter(false)}}>Unapproved bookings</button> :
-      <button ref={BFilter} className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => {BFilter(true)}}>Approved bookings</button> }
+{ approved ?<button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => {BFilter(false)}}>Unapproved bookings</button> :
+      <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => {BFilter(true)}}>All bookings</button> }
   
            {!allcontactus && <div className="">
            <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
