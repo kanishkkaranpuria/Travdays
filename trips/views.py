@@ -190,7 +190,7 @@ class DeleteTripMedia(APIView):
         if request.user.is_admin:
             tripmedia = AdminMedia.objects.filter(id = pk)
             if tripmedia.exists():
-                tripmedia = tripmedia
+                tripmedia = tripmedia.first()
                 tripmedia.delete()
             return Response({'msg':'media deleted'})
         return Response({'error':'something went wrong'}, status=status.HTTP_400_BAD_REQUEST) 
