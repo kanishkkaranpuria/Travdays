@@ -31,7 +31,7 @@ const AdmBooking = () => {
         }, [loading, hasmore])
   
         useEffect(() => {
-          if(approved===true){
+          if(approved===true && deleted===false){
           setLoading1(true)
             fullaxios({url: 'booking/view?page='+ page1 })
             .then((res) => {
@@ -56,7 +56,7 @@ const AdmBooking = () => {
           }}
           )
         }
-        else if(approved===false){
+        else if(approved===false && deleted===false){
           fullaxios({url: 'booking/unapproved?page='+ page1 })
           .then((res) => {
             setLoading(false)
@@ -79,13 +79,10 @@ const AdmBooking = () => {
         }}
         )
         }
-      }, [page1,approved])
+      }, [page1,approved,deleted])
   
       useEffect(() => {
-        
-    // console.log(loading)
     console.log(page)
-    // console.log(allcontactus.length)
       }, [page])
 
 
@@ -139,9 +136,9 @@ const AdmBooking = () => {
           console.log("deleted")
           console.log(res.data)
           setAllcontactus([])
-          setDeleted(false)
           setLoading(false)
-          setPage(1)
+          setPage1(1)
+          setDeleted(false)
   
           
           })
