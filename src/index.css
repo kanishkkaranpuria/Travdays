@@ -186,7 +186,8 @@ code {
 
 .navbar{
   z-index: 5;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   height: 60px;
   display: flex;

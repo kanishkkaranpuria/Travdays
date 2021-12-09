@@ -204,7 +204,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     <div className='block sm:hidden text-[#f7f7f569]'>
                         {/* <img src={Logo} alt='' className='absolute h-[300px] top-[-50%] right-[10%] ' /> */}
                         <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
-                        <span className="relative w-full text-8xl sm:text-6xl font-bold text-[#FFA914] tracking-[12px]">
+                        <span className="relative w-full text-8xl sm:text-6xl font-bold text-[#D4F571] tracking-[12px]">
                             TravDays
                             <img src={Logo} alt='' className='absolute w-[135px] top-[-126%] right-[10%] z-[-1] opacity-[59%]' />
                         </span>
