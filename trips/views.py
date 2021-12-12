@@ -103,7 +103,7 @@ class ReviewView(APIView, ReviewsPagination):
 
     def get(self,request,name = None):
         if Trip.objects.filter(name = name).exists():
-            reviews = Review.objects.filter(trip__name = name)
+            reviews = Review.objects.filter(trip__name = name).order_by("-created")
             results = self.paginate_queryset(reviews, request, view=self)
             serializer = ReviewDisplaySerializer(results, many = True)
             return Response(serializer.data, status = status.HTTP_200_OK)
