@@ -272,6 +272,56 @@ class BlogApprovalStatus(APIView):
 
 class EditBlog(APIView):
 
+    def get(self,request,pk = None):
+        if Blog.objects.filter(id = pk).exists():
+            blog = Blog.objects.get(id = pk)
+            image= BlogMedia.objects.filter(blog = blog).all()
+            blog = blog.blog.split("    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,")
+            i = 0
+            length = len(blog) if len(blog)>len(image) else len(image)
+            array = []
+            while(i<length):
+                if i < len(blog) and i < len(image):
+                    array.append(f'{blog[i]} par')
+                    array.append(f'{request.build_absolute_uri(image[i].image.url)} img')
+                elif i <= len(image) and i >= len(blog):
+                    array.append(f'{request.build_absolute_uri(image[i].image.url)} img')
+                elif i >= len(image) and i <= len(blog):
+                    array.append(f'{blog[i]} par')
+                i += 1
+            if array[-1:][0] == '':
+                array = array[:-1]
+
+            #Separating Paras from single paras
+            i = 0
+            bool = True
+            while (bool):
+                while(i<len(array) and array[i][-3:] == 'par'):
+                    if i == len(array)-1:
+                        array = array[:i]+[(s + " par" if s[-3:]!= "par" else s)for s in array[i].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  ")]
+                    else:
+                        array = array[:i]+[(s + " par" if s[-3:]!= "par" else s) for s in array[i].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  ")] + array[i+1:]
+                    i += len(array[i].split(" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  "))-1
+                    break
+                i += 1
+                if i>=len(array):
+                    bool = False
+
+            #sending array as dictionary with proper index
+            data = {}
+            i = 0
+            while(i<len(array)):
+                data[i] = array[i]
+                i += 1
+            # data2 = {}
+            # j = 0
+            # for i in range(0,len(data)):
+            #     if data[i] != ' par' and data[i] != '  par':
+            #         data2[j]= data[i]
+            #         j = j+1
+            return Response(data)
+        return Response({"error":"invalid id"}, status = status.HTTP_400_BAD_REQUEST)
+
     def patch(self, request):
         blogDict = {}
         blog                   = Blog.objects.get(id = request.data["id"])

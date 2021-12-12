@@ -15,6 +15,7 @@ urlpatterns = [
     path('featured', BlogsDisplayFeaturedFilter.as_view()),
     path('create', CreateBlog.as_view()),
     path('edit', EditBlog.as_view()),
+    path('edit/<int:pk>', EditBlog.as_view()),
     path('vote', BlogLikeDislike.as_view()),
     path('votestatus/<int:pk>', BlogLikeDislikeStatus.as_view()),
     # path('singleblog/<var>/<int:pk>', BlogDisplayView.as_view()),
