@@ -29,6 +29,29 @@ const IndivisualBlogPage = ({isadmin}) => {
     const [hasmore, setHasmore] = useState(true)
     const [page, setPage] = useState(1)
 
+    const toDataURL = url => fetch(url)
+      .then(response => response.blob())
+      .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onloadend = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(blob)
+     }))
+
+
+// ***Here is code for converting "Base64" to javascript "File Object".***
+
+    function dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+      while(n--){ 
+      u8arr[n] = bstr.charCodeAt(n);
+      }
+      filename += "." + mime.slice(6)
+    return new File([u8arr], filename, {type:mime});
+    }
+
+
     const lastDataElementRef = useCallback(node => {
       console.log('last element')
       if (loading) return
@@ -52,6 +75,24 @@ const IndivisualBlogPage = ({isadmin}) => {
                 console.log("data is zero")
               }
               setIblogdata({...iblogdata,...res.data})
+              // for(let i; i < .length; i++)
+              //   (res.data)
+              Object.keys(res.data).map((number, i)=>{
+                console.log("find me",number)
+                console.log("find me",res.data[number])
+                if(res.data[number].slice(-3) === "img"){
+                  console.log("find me",res.data[number].slice(0,-4))
+                  toDataURL(res.data[number].slice(0,-4))
+                  .then(dataUrl => {
+                    console.log('Here is Base64 Url', dataUrl)
+                    var fileData = dataURLtoFile(dataUrl, `imageName${number}`);
+                    console.log("Here is JavaScript File Object",fileData)
+                    // fileArr.push(fileData)
+                  })
+                }
+              })
+
+
               //   setIblogdata(res.data)
               console.log(res.data[0].slice(-3,))   
               console.log()         
@@ -292,7 +333,7 @@ const IndivisualBlogPage = ({isadmin}) => {
             id : id,
             featured : featured,
             approved : approved,
-        }, })
+        },})
         .then(res => {  
           history.replace('/approveblogs')
           alert("response submited")

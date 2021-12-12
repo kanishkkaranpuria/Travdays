@@ -7,21 +7,21 @@ import { useHistory } from "react-router";
 const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
     
     const history = useHistory();
-    useEffect(() => {
-        console.log("uerinfo status")
-        fullaxios({url : 'userinfo/status' 
-        })
-        .then(res => {
-          if (res){
-            console.log(res.data)
-        }})
-        .catch(err => {
-           if (err.response){if (err.response.data.detail === "Invalid page.") {
-           }
+    // useEffect(() => {
+    //     console.log("uerinfo status")
+    //     fullaxios({url : 'userinfo/status' 
+    //     })
+    //     .then(res => {
+    //       if (res){
+    //         console.log(res.data)
+    //     }})
+    //     .catch(err => {
+    //        if (err.response){if (err.response.data.detail === "Invalid page.") {
+    //        }
     
-         }})
+    //      }})
       
-    }, [])
+    // }, [])
     
     const logout = () => {
         fullaxios({url : 'auth/logout'})

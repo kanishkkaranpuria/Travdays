@@ -121,7 +121,7 @@ const Submit = (e) => {
          
          console.log(...formData)
          
-         fullaxios({ url: 'trip/create/' , type:'patch', data : formData , formdata : true   })
+         fullaxios({ url: 'trip/create/' , type:'patch', data : formData , formdata : true })
          .then((res)=>{
              console.log("res", res.data)
              // console.log('info data received')
@@ -162,7 +162,7 @@ const Submit = (e) => {
                 
                 useEffect(() => {
                             
-                fullaxios({ url: 'trip/' + name, sendcookie: false })
+                fullaxios({ url: 'trip/' + name})
                         .then(res => {
                             setExdata(res.data)
                         })
@@ -172,7 +172,7 @@ const Submit = (e) => {
                 
                 
                 
-                fullaxios({ url: 'trip/media/' + name, sendcookie: false })
+                fullaxios({ url: 'trip/media/' + name})
                 .then(res => {
                     console.log(res.data)
                     setImagepreview (res.data)

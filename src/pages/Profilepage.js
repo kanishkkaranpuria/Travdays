@@ -26,7 +26,7 @@ const Profilepage = () => {
         fullaxios({
             url: 'userinfo/info', type: 'patch', data: {    
                 name: name,
-            }, sendcookie: true
+            }
         })
             .then(res => {
                 console.log(res.data)

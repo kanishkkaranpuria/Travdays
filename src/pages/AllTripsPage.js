@@ -78,6 +78,7 @@ const AllTrips = () => {
   
   useEffect(() => {
     console.log("i was here")
+    // setLoading1(true)
     if (searchtext === "" || searchtext === null) {
       fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
       .then(res => {

@@ -43,7 +43,7 @@ const Trip = ({ isAuth }) => {
         setBackToDisplay(false);
         setLoadingdone2(false)
         setLoadingdone3(false)
-        fullaxios({ url: 'trip/' + name, sendcookie: true })
+        fullaxios({ url: 'trip/' + name})
             .then(res => {
                 if (res) {
                     // console.log('trip info : \n ' + res.data)
@@ -70,7 +70,7 @@ const Trip = ({ isAuth }) => {
         //         console.log(err)
         //     })
 
-        fullaxios({ url: 'trip/media/' + name, sendcookie: true })
+        fullaxios({ url: 'trip/media/' + name})
             .then(res => {
                 if (res) {
                     console.log(res.data)
@@ -87,7 +87,7 @@ const Trip = ({ isAuth }) => {
 
     useEffect(() => {
         if (isAuth) {
-            fullaxios({ url: 'trip/review/create/' + name, sendcookie: true })
+            fullaxios({ url: 'trip/review/create/' + name})
                 .then(res => {
                     if (res) {
                         console.log('review worth :\n' + res.data.bool)
@@ -136,7 +136,7 @@ const Trip = ({ isAuth }) => {
 
     useEffect(() => {
         setLoading(true)
-        fullaxios({ url: 'trip/review/' + name + '?page=' + page, sendcookie: true })
+        fullaxios({ url: 'trip/review/' + name + '?page=' + page})
             .then(res => {
                 if (res) {
                     // setFeatured(prev=>[...prev,...res.data])

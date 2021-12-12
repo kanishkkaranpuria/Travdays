@@ -52,7 +52,7 @@ function App() {
   const [isauthenticated, setIsauthenticated] = useState(false);
 
   useEffect(() => {
-    fullaxios({ url: 'userinfo/status' })
+    fullaxios({url: 'userinfo/status'})
       //   .get(`faq/question?page=`+ page)
       .then((res) => {
         if (res) {
