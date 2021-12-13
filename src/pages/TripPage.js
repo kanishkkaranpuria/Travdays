@@ -35,7 +35,7 @@ const Trip = ({ isAuth }) => {
 
     const observer = useRef('') // has only one attribute - current!
 
-    const [userGivenStars, setUserGivenStars] = useState(5)
+    const [userGivenStars, setUserGivenStars] = useState(0)
     const [userGivenDescription, setUserGivenDescription] = useState('')
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const Trip = ({ isAuth }) => {
         setBackToDisplay(false);
         setLoadingdone2(false)
         setLoadingdone3(false)
-        fullaxios({ url: 'trip/' + name})
+        fullaxios({ url: 'trip/' + name })
             .then(res => {
                 if (res) {
                     // console.log('trip info : \n ' + res.data)
@@ -70,7 +70,7 @@ const Trip = ({ isAuth }) => {
         //         console.log(err)
         //     })
 
-        fullaxios({ url: 'trip/media/' + name})
+        fullaxios({ url: 'trip/media/' + name })
             .then(res => {
                 if (res) {
                     console.log(res.data)
@@ -87,7 +87,7 @@ const Trip = ({ isAuth }) => {
 
     useEffect(() => {
         if (isAuth) {
-            fullaxios({ url: 'trip/review/create/' + name})
+            fullaxios({ url: 'trip/review/create/' + name })
                 .then(res => {
                     if (res) {
                         console.log('review worth :\n' + res.data.bool)
@@ -136,7 +136,7 @@ const Trip = ({ isAuth }) => {
 
     useEffect(() => {
         setLoading(true)
-        fullaxios({ url: 'trip/review/' + name + '?page=' + page})
+        fullaxios({ url: 'trip/review/' + name + '?page=' + page })
             .then(res => {
                 if (res) {
                     // setFeatured(prev=>[...prev,...res.data])
@@ -190,6 +190,7 @@ const Trip = ({ isAuth }) => {
                     setHasMore(true)
                     setErrorForEmptySubmission(false)
                     setUserGivenDescription("")
+                    setUserGivenStars(0)
                     if (page === 1) { if (refetch === true) { setRefetch(false) } else { setRefetch(true) } }
                     else { setPage(1) }
                 })
@@ -208,6 +209,164 @@ const Trip = ({ isAuth }) => {
 
     }, [isbooking, backToDisplay])
 
+    var percentage = "";
+    var allstars = {};
+    var reviewStars = {};
+    var writeReviewStars = {};
+
+    function calculation(data, stardata) {
+        // var star = "url(#full)";
+        for (let i = 1; i < 6; i++) {
+            console.log(data.ratings)
+            console.log(i)
+            var ratings;
+            if (data.ratings) ratings = parseFloat(data.ratings)
+            else{
+                ratings = parseFloat(data)
+            }
+            if (ratings >= i) {
+                stardata = Object.assign(stardata, { [i]: "url(#full)" })
+            }
+            // else if(ratings < i && ratings != i){
+            //   stardata = Object.assign(stardata, {[i]:"url(#partial)"})
+            // }
+            else if (ratings < i && ratings > (i - 1)) {
+                percentage = ((parseFloat(ratings) - i + 1) * 100)
+                console.log(ratings)
+                console.log(percentage)
+                percentage = percentage.toFixed()
+                console.log(percentage)
+                percentage = percentage.toString() + "%"
+                console.log(percentage)
+                // percentage = "30%"
+                stardata = Object.assign(stardata, { [i]: "url(#partial)" })
+            }
+            else {
+                stardata = Object.assign(stardata, { [i]: "url(#empty)" })
+            }
+            console.log(stardata)
+            console.log(percentage)
+            // stardata[1] = "url(#full)"
+            // stardata[2] = "url(#partial)"
+        }
+        return (stardata)
+    }
+
+    // useEffect(()=>{
+    //     if(userGivenStars !== 0)
+    //     {
+    //         var i = 0;
+    //         while(i < userGivenStars)
+    //         {
+    //             writeReviewStars[i+1] = "url(#full)";
+    //             i++
+    //         }
+    //         writeReviewStars
+    //     }
+    // },[userGivenStars])
+    // const clickableStars = (starNumber) => {
+    //     var i = 0;
+    //     var j = 5;
+    //     while (i < starNumber) {
+    //         writeReviewStars[i + 1] = "url(#full)";
+    //         i++;
+    //     }
+    //     while (j > starNumber){
+    //         writeReviewStars[j] = "url(#empty)"
+    //         j--;
+    //     }
+    //     // writeReviewStars
+    //     setUserGivenStars(starNumber);
+    // }
+    const displayReviews = (data, index) => {
+        return (
+            <>
+                <p className='flex'>
+                    <span className='font-semibold text-xl'>{data.user}</span>
+                    <span className='ml-auto'>{data.created}</span>
+                </p>
+                <p className='flex'>
+                    {/* {data.ratings} */}
+                    {/* {calculation(data)} */}
+                    <div className="stars flex" >
+                        {function () {
+                            allstars = Object.assign(calculation(data, allstars))
+                        }()}
+                        <svg width="0" height="0" viewBox="0 0 20 20">
+                            <defs>
+                                <linearGradient id="full" x1="0" x2="100%" y1="0" y2="0">
+                                    <stop offset="0" stop-color="#F3C117"></stop>
+                                    <stop offset="100%" stop-color="#F3C117"></stop>
+                                    <stop offset="36%" stop-color="#E8E8E8"></stop>
+                                    <stop offset="1" stop-color="#E8E8E8"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <svg width="0" height="0" viewBox="0 0 20 20">
+                            <defs>
+                                <linearGradient id="partial" x1="0" x2="100%" y1="0" y2="0">
+                                    <stop offset="0" stop-color="#F3C117"></stop>
+                                    {console.log(percentage)}
+                                    <stop offset={percentage} stop-color="#F3C117"></stop>
+                                    <stop offset={percentage} stop-color="#E8E8E8"></stop>
+                                    <stop offset="1" stop-color="#E8E8E8"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <svg width="0" height="0" viewBox="0 0 20 20">
+                            <defs>
+                                <linearGradient id="empty" x1="0" x2="100%" y1="0" y2="0">
+                                    <stop offset="0" stop-color="#F3C117"></stop>
+                                    <stop offset="0" stop-color="#F3C117"></stop>
+                                    <stop offset="0" stop-color="#E8E8E8"></stop>
+                                    <stop offset="0" stop-color="#E8E8E8"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[1]} />
+                        </svg>
+                        {/* </path> */}
+                        <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[2]} />
+                        </svg>
+                        <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[3]} />
+                        </svg>
+                        <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[4]} />
+                        </svg>
+                        <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[5]} />
+                        </svg>
+
+
+                        <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[1]} />
+                        </svg>
+                        {/* </path> */}
+                        <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[2]} />
+                        </svg>
+                        <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[3]} />
+                        </svg>
+                        <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[4]} />
+                        </svg>
+                        <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                            <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={allstars[5]} />
+                        </svg>
+
+                    </div>
+                </p>
+                <p>
+                    {data.description}
+                </p>
+            </>
+        )
+    }
     return (<>
         {/* {console.log("tf")} */}
         {/* {console.log(loading)} */}
@@ -218,6 +377,9 @@ const Trip = ({ isAuth }) => {
             {console.log("hasmore", hasMore)}
             {!isbooking && <div className=" w-full tripPage ">
                 {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
+
+
+
                 <div className='grid grid-cols-1 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]'>
                     {
                         mediaObject && mediaObject.map((data) => (
@@ -230,6 +392,40 @@ const Trip = ({ isAuth }) => {
                     }
                 </div>
                 <div className=' flex flex-col overflow-auto h-[90vh]'>
+                    {function () {
+                        reviewStars = Object.assign(calculation(infoObject, reviewStars))
+                    }()}
+                    <svg width="0" height="0" viewBox="0 0 20 20">
+                        <defs>
+                            <linearGradient id="full" x1="0" x2="100%" y1="0" y2="0">
+                                <stop offset="0" stop-color="#F3C117"></stop>
+                                <stop offset="100%" stop-color="#F3C117"></stop>
+                                <stop offset="36%" stop-color="#E8E8E8"></stop>
+                                <stop offset="1" stop-color="#E8E8E8"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <svg width="0" height="0" viewBox="0 0 20 20">
+                        <defs>
+                            <linearGradient id="partial" x1="0" x2="100%" y1="0" y2="0">
+                                <stop offset="0" stop-color="#F3C117"></stop>
+                                {console.log(percentage)}
+                                <stop offset={percentage} stop-color="#F3C117"></stop>
+                                <stop offset={percentage} stop-color="#E8E8E8"></stop>
+                                <stop offset="1" stop-color="#E8E8E8"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <svg width="0" height="0" viewBox="0 0 20 20">
+                        <defs>
+                            <linearGradient id="empty" x1="0" x2="100%" y1="0" y2="0">
+                                <stop offset="0" stop-color="#F3C117"></stop>
+                                <stop offset="0" stop-color="#F3C117"></stop>
+                                <stop offset="0" stop-color="#E8E8E8"></stop>
+                                <stop offset="0" stop-color="#E8E8E8"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
                     {/* {infoObject &&
             <div>
                 {infoObject.name} <br />
@@ -253,21 +449,46 @@ const Trip = ({ isAuth }) => {
                             <span className=''>{infoObject.name}</span>
                             <span className='flex text-lg items-center text-center ml-auto '>({infoObject.type})</span>
                         </p>
-                        <p className='flex text-2xl items-center text-center '><span>{infoObject.ratings}</span>
-                            <span className='flex'>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        <p className='flex text-2xl items-center text-center pr-1'><span className="pr-2">{infoObject.ratings}</span>
+                            <div className="stars flex" >
+
+
+                                <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[1]} />
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                {/* </path> */}
+                                <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[2]} />
                                 </svg>
-                            </span>
+                                <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[3]} />
+                                </svg>
+                                <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[4]} />
+                                </svg>
+                                <svg width="20" height="20" className="md:hidden" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[5]} />
+                                </svg>
+
+
+                                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[1]} />
+                                </svg>
+                                {/* </path> */}
+                                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[2]} />
+                                </svg>
+                                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[3]} />
+                                </svg>
+                                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[4]} />
+                                </svg>
+                                <svg width="15" height="15" className="hidden md:block" viewBox="0 0 20 20">
+                                    <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={reviewStars[5]} />
+                                </svg>
+
+                            </div>
                             <span className='ml-2'> ({infoObject.ratingsCount})</span>
                         </p>
                         <p className='flex text-2xl items-center text-center '><span>${infoObject.price}</span></p>
@@ -286,13 +507,33 @@ const Trip = ({ isAuth }) => {
                             reviewCreationBool &&
                             <div className="flex flex-col pt-5 pb-2">
                                 <h3>Enter Review Here:</h3>
-                                {/* <div className="flex">
-                <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto'onClick={() => { setUserGivenStars(1) }}>1</button>
-                <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto'onClick={() => { setUserGivenStars(2) }}>2</button>
-                <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto'onClick={() => { setUserGivenStars(3) }}>3</button>
-                <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto'onClick={() => { setUserGivenStars(4) }}>4</button>
-                <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto'onClick={() => { setUserGivenStars(5) }}>5</button>
-                </div> */}
+                                <div className="flex cursor-pointer">
+
+                                    {/* <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setUserGivenStars(1) }}>1</button>
+                                    <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setUserGivenStars(2) }}>2</button>
+                                    <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setUserGivenStars(3) }}>3</button>
+                                    <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setUserGivenStars(4) }}>4</button>
+                                    <button className='p-2 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setUserGivenStars(5) }}>5</button> */}
+                                    {console.log("this",userGivenStars)}
+                                    {function () {
+                                    writeReviewStars = Object.assign(calculation(userGivenStars, writeReviewStars))
+                                    }()}
+                                    <svg width="25" height="25" className="md:hidden" onClick={() => { setUserGivenStars(1) }} viewBox="0 0 20 20">
+                                        <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={writeReviewStars[1]} />
+                                    </svg>
+                                    <svg width="25" height="25" className="md:hidden" onClick={() => { setUserGivenStars(2) }} viewBox="0 0 20 20">
+                                        <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={writeReviewStars[2]} />
+                                    </svg>
+                                    <svg width="25" height="25" className="md:hidden" onClick={() => { setUserGivenStars(3) }} viewBox="0 0 20 20">
+                                        <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={writeReviewStars[3]} />
+                                    </svg>
+                                    <svg width="25" height="25" className="md:hidden" onClick={() => { setUserGivenStars(4) }} viewBox="0 0 20 20">
+                                        <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={writeReviewStars[4]} />
+                                    </svg>
+                                    <svg width="25" height="25" className="md:hidden" onClick={() => { setUserGivenStars(5) }} viewBox="0 0 20 20">
+                                        <path d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z" fill={writeReviewStars[5]} />
+                                    </svg>
+                                </div>
                                 <div className="flex w-full">
                                     <input className="w-1/2" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} />
                                     {errorForEmptySubmission && <p> Enter the review and Choose a rating to submit </p>}
@@ -307,30 +548,7 @@ const Trip = ({ isAuth }) => {
                                 if (reviewObject.length === index + 1) {
                                     return (
                                         <div ref={lastDataElementRef} className='px-2 my-2'>
-                                            <p className='flex'>
-                                                <span className='font-semibold text-xl'>{data.user}</span>
-                                                <span className='ml-auto'>{data.created}</span>
-                                            </p>
-                                            <p className='flex'>
-                                                {/* {data.ratings} */}
-                                                <span className='flex'>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>
-                                                </span>
-                                            </p>
-                                            <p>
-                                                {data.description}
-                                            </p>
+                                            {displayReviews(data, index)}
                                         </div>
 
                                     )
@@ -338,30 +556,7 @@ const Trip = ({ isAuth }) => {
 
                                 else return (
                                     <div className='px-2 my-2 mb-6'>
-                                        <p className='flex'>
-                                            <span className='font-semibold text-xl'>{data.user}</span>
-                                            <span className='ml-auto'>{data.created}</span>
-                                        </p>
-                                        <p className='flex'>
-                                            {/* {data.ratings} */}
-                                            <span className='flex'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="black">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>
-                                            </span>
-                                        </p>
-                                        <p>
-                                            {data.description}
-                                        </p>
+                                        {displayReviews(data, index)}
                                     </div>
                                 )
                             })
