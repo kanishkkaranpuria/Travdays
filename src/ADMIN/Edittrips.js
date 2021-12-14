@@ -213,7 +213,7 @@ const SubmitMedia = (e) => {
                     
                     
                     
-                    fullaxios({ url: 'trip/media2/' + name})
+                    fullaxios({ url: 'trip/admintripmedia/' + name})
                     .then(res => {
                         console.log(res.data)
                         setImagepreview (res.data)

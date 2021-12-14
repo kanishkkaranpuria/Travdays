@@ -185,7 +185,7 @@ const fullaxios = (object) => {
 		}
 	}
 	else if (type === "delete"){
-		return axiosInstance.delete(url)
+		return axiosInstance.delete(url, {baseURL : baseURL})
 	}
 }
 

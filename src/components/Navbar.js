@@ -34,9 +34,10 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
             Cookie('setCookie',"sessionid", 0, -1)
             history.push('/')
         })
-        .catch(err=>
-            console.log(err.data))
-    }
+        .catch(err=>{
+            console.log(err.data)
+            })
+        }
     return (
         <navbar className='navbar backdrop-filter '>
             <nav className="logo text-2xl tracking-[5px]">
