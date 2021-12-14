@@ -1,4 +1,4 @@
-// import axios from "axios";
+  // import axios from "axios";
 // import { useState,useEffect } from "react";
 // import {React} from "react";
 
@@ -84,6 +84,7 @@ const Gallery = () => {
 
   var percentage = "";
   var allstars = {};
+  const history = useHistory()
   const [storage, setStorage] = useState([]);
   const [datas, setDatas] = useState([]);
   const [digit, setDigit] = useState(null);
@@ -383,6 +384,7 @@ const Gallery = () => {
               {/* <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
               <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
               <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div> */}
+                     <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => { history.push('/trip/'+ location.name)}}>know more</button> 
 
             </div>
           }

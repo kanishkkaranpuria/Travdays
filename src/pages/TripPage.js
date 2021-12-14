@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const Trip = ({ isAuth }) => {
 
-    const { name } = useParams()
+    const {name} = useParams()
 
     let history = useHistory()
 
@@ -38,6 +38,7 @@ const Trip = ({ isAuth }) => {
     const [userGivenStars, setUserGivenStars] = useState(0)
     const [userGivenDescription, setUserGivenDescription] = useState('')
 
+    
     useEffect(() => {
         setIsbooking(false);
         setBackToDisplay(false);
@@ -445,8 +446,11 @@ const Trip = ({ isAuth }) => {
                         {/* {locimg && <img src={locimg}  alt="" className ="object-cover h-[500px]  w-[750px]"/>}
                                   {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-[500px]  w-[750px]"/>} */}
                         {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
+                            <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/'+ infoObject.name+ '/' +infoObject.id  )}}>Edit current trip</button> 
                         <p className='text-3xl flex'>
                             <span className=''>{infoObject.name}</span>
+                                {console.log(infoObject)}
+
                             <span className='flex text-lg items-center text-center ml-auto '>({infoObject.type})</span>
                         </p>
                         <p className='flex text-2xl items-center text-center pr-1'><span className="pr-2">{infoObject.ratings}</span>

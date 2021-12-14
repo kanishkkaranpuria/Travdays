@@ -15,16 +15,17 @@ const Addtrips = () => {
     const [durationdays, setDurationdays] = useState(null)
     const [duration, setDuration] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
-
-    const [error, setError] = useState([]);
+    const [nOmedia, setNOmedia] = useState(true)
+     
+    const [error,setError] = useState([]);
     const [datas, setDatas] = useState([]);
     const [vdatas, setVdatas] = useState([]);
     const [videopreview, setVideopreview] = useState([])
     var [type, setType] = useState(null)
 
     useEffect(() => {
-        if (durationnights && durationdays)
-            setDuration(durationdays, durationnights)
+        if(durationnights && durationdays)
+        setDuration(`${durationdays},${durationnights}`)
         console.log("it should set")
 
     }, [durationnights, durationdays])
@@ -43,6 +44,12 @@ const Addtrips = () => {
 
     const Imagechangehandler = (e) => {
         console.log(e.target.files)
+        if(e.target.files.length===0){
+            console.log("zerooooooo")
+        }
+        if(e.target.files.length>=0){
+            console.log("not zeroooo")
+        }
         // console.log(e.target.files.length )
         for (let i = 0; i < e.target.files.length; i++) {
             // console.log("rubbish")
@@ -59,6 +66,21 @@ const Addtrips = () => {
         setImagepreview((prevVideos) => prevVideos.concat(fileArray))
         setDatas(prev => [...prev, ...Array.from(e.target.files).map((file) => file)])
     }
+ 
+  
+    
+useEffect(() => {
+console.log(datas)
+if(imagepreview.length===0){
+    setNOmedia(true)
+}
+else{
+    setNOmedia(false)
+}
+console.log(imagepreview)
+console.log(imagepreview.slice(2,3)) 
+console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
+}, [datas,imagepreview])
 
 
 
@@ -84,7 +106,10 @@ const Addtrips = () => {
 
     const Submit = (e) => {
         e.preventDefault();
-
+      if(nOmedia===true){
+          alert("pls select some media for the trip")
+      }
+      else {
         let formData = new FormData();
         console.log(datas[0])
         let m = 0
@@ -117,24 +142,23 @@ const Addtrips = () => {
 
 
         console.log(...formData)
-
-        fullaxios({ url: 'trip/create/', type: 'post', data: formData, formdata: true })
-            .then((res) => {
-                console.log("res", res.data)
-                // console.log('info data received')
-                console.log("done")
-            }
-
-            )
-            .catch(err => {
-                console.log(err)
-
-            })
-
+       
+        fullaxios({ url: 'trip/create/' , type:'post', data : formData , formdata : true   })
+        .then((res)=>{
+        console.log("res", res.data)
+        // console.log('info data received')
+        console.log("done")}
+            
+        )
+        .catch(err => {
+            console.log(err)
+    
+    })
     }
-    var d = document.getElementById("selected");
+  }
+  var d = document.getElementById("selected");
 
-    return (
+    return ( 
         <div className="">
             <div >
                 <input type="file" multiple style={{ display: 'none' }} name="file" id="file" onChange={Imagechangehandler} />
