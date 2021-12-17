@@ -47,7 +47,7 @@ const ContactUs = () => {
                 choice: d.value,
                 phoneNumber: phonenum
 
-            }, sendcookie: true
+            }
         })
             .then(res => {
                 if (res) {

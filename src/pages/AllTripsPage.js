@@ -7,8 +7,6 @@ import stars from './images/stars.png'
 const AllTrips = () => {
 
   const { type } = useParams();
-  var percentage = "";
-  var allstars = {};
   var object = useMemo(() => { return { "type": type } }, [type])
   console.log("object")
   // var object = {"type":type};
@@ -21,6 +19,7 @@ const AllTrips = () => {
   const [hasMore, setHasMore] = useState(true);
   const [location, setLocation] = useState('');
   const prevDatas = useRef([])
+  const [aumSearchtext, setAumSearchtext] = useState(null)
   const history = useHistory();
   const [displaysearchresults, setDisplaysearchresults] = useState(false)
   const [searchtext, setSearchtext] = useState(null)
@@ -30,7 +29,7 @@ const AllTrips = () => {
     setDatas([])
     setPage(1)
     setLoading(true)
-    setLoading1(true)
+    setLoading1()
     setHasMore(true)
     setGlobalUrl('')
   }, [type])
@@ -57,7 +56,7 @@ const AllTrips = () => {
     if (fetch === true) setFetch(false)
     else if (fetch === false) setFetch(true)
   }
-
+  
   const lastDataElementRef = useCallback(node => {
     console.log('last element')
     if (loading) return
@@ -69,59 +68,62 @@ const AllTrips = () => {
     })
     if (node) observer.current.observe(node)
   }, [loading, hasMore])
-
-
+  
+  // useEffect(() => {
+  // setLoading1(true)
+  
+  //   }, [searchtext])
+  
   useEffect(() => {
     console.log("i was here")
-    setLoading1(true)
+    // setLoading1(true)
     if (searchtext === "" || searchtext === null) {
       fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
-        .then(res => {
-          if (res) {
+      .then(res => {
+        
             setDatas(prev => [...prev, ...res.data])
             console.log(res.data)
             console.log(object)
             prevDatas.current = datas
             setLoading1(false)
-            // setLoading(false)
+            setLoading(false)
           }
-        })
-        .catch(err => {
-          if (err.response) {
-            if (err.response.data.detail === "Invalid page.") {
-              setHasMore(false);
-            }
-            // console.log(err)
-            // setLoading(false)
-
-
+      )
+      .catch(err => {
+        if (err.response) {
+          if (err.response.data.detail === "Invalid page.") {
+            setHasMore(false);
           }
-        })
+          // console.log(err)
+          // setLoading(false)
+          
+          
+        }
+      })
     }
     else if (searchtext) {
-      console.log("worked till here", searchtext)
-      fullaxios({ url: `search/trip/${searchtext}/${type}` + '?page=' + page })
-        .then(res => {
-          if (res) {
-            setDatas(prev => [...prev, ...res.data])
-            console.log(res.data)
-            console.log(object)
-            prevDatas.current = datas
-            setLoading1(false)
-            // setLoading(false)
-          }
-        })
-        .catch(err => {
-          if (err.response) {
-            if (err.response.data.detail === "Invalid page.") {
-              setHasMore(false);
+          console.log("worked till here", searchtext)
+          fullaxios({ url: `search/trip/${searchtext}/${type}` + '?page=' + page })
+          .then(res => {
+            if (res) {
+              setDatas(prev => [...prev, ...res.data])
+              console.log(res.data)
+              console.log(object)
+              prevDatas.current = datas
+              setLoading1(false)
+              // setLoading(false)
             }
-            // setLoading(false)
-            // console.log(err)
-
-          }
-        })
-    }
+          })
+          .catch(err => {
+            if (err.response) {
+              if (err.response.data.detail === "Invalid page.") {
+                setHasMore(false);
+              }
+              // setLoading(false)
+              // console.log(err)
+            }
+          })
+        }
     // setLoading(false);
   }, [page, fetch, object])
   // _____________________________________________________________________________________________________________________________________
@@ -181,23 +183,29 @@ const AllTrips = () => {
           if (err.response.data.detail === "Invalid page.") {
             setHoverhasMore(false);
           }
-
+          
         }
       })
-    setHoverloading(false);
-  }, [hoverpage])
+      setHoverloading(false);
+    }, [hoverpage])
+    
+    const fetchSearchedDataFromBackend = (searchtexts) => {
+      console.log("this works everytime")
+      setSearchtext(searchtexts)
+      setAumSearchtext(searchtext)
+      setHasMore(true)
+      setDatas([])
+      setPage(1)
+      setLoading1(true)
+      if (fetch === true) setFetch(false)
+      else if (fetch === false) setFetch(true)
+      console.log("still alive")
+    }
+    
 
-  const fetchSearchedDataFromBackend = (searchtexts) => {
-    console.log("this works everytime")
-    setSearchtext(searchtexts)
-    setHasMore(true)
-    setDatas([])
-    setPage(1)
-    if (fetch === true) setFetch(false)
-    else if (fetch === false) setFetch(true)
-    console.log("still alive")
-  }
-
+  
+  var percentage = "";
+  var allstars = {};
   function calculation(data) {
     // var star = "url(#full)";
     for (let i = 1; i < 6; i++) {
@@ -229,6 +237,7 @@ const AllTrips = () => {
       // allstars[2] = "url(#partial)"
     }
   }
+  
   const ShowData = (data) => {
 
     return (
@@ -334,7 +343,7 @@ const AllTrips = () => {
                   </svg>
 
                 </div>
-                <span className='px-4 text-sm'>{data.ratingsCount} Ratings</span>
+                <span className='px-4 text-sm'>({data.ratingsCount})</span>
               </p>}
 
             <p className='md:hidden text-lg font-semibold'>Short Description</p>
@@ -361,11 +370,11 @@ const AllTrips = () => {
       <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg>
-      <div className="searchAndfilter flex w-full justify-center">
+      <div className="searchAndfilter flex w-full justify-center items-center">
         <button onClick={priceAscending} type="button">↓Price</button>
         <button onClick={priceDescending} type="button"> ↑Price</button>
-        <input type="text" className="w-1/3 sm:w-full" placeholder=" Search...." onChange={(e) => { fetchSearchedDataFromBackend(e.target.value) }} />
-
+        <input type="text" className="w-1/3 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value) }} />
+        <button className = "p-2 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto" onClick = {() => {if (searchtext) fetchSearchedDataFromBackend(searchtext)}}> Search </button>
         {/* godly method to lose and gain focus */}
         {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
 

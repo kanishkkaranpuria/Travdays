@@ -683,6 +683,14 @@ const WriteABlog = () => {
         )
 
     }
+    const clearBlog = () => {
+        localStorage.clear()
+        setAlldata([""])
+        setNumberOfAllDatas(0)
+        pretitle = null
+        setTitle("")
+
+    }
     const submitBlog = () => {
 
         if (title && numberOfAllDatas && displayImage && bloglocation) {
@@ -869,10 +877,7 @@ const WriteABlog = () => {
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
                 {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
-                        <button onClick = {() => {
-                            lmao = dataURLtoFile(alldata[1],"youshouldwork") 
-                            console.log("let's goooooooooooooooooooo",lmao)
-                            } }>convert to file</button>
+                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => {clearBlog()}}>Clear Blog</button>}
             </div>
         );
     }

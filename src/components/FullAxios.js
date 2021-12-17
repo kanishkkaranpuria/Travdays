@@ -21,7 +21,7 @@ const fullaxios = (object) => {
 	if (url === undefined) return;
 	if (type === undefined || (type !== "get" && type !== "post" && type !== "patch" && type !== "delete")) type = "get";
 	if (data === undefined) data = null;
-	if (sendcookie === undefined)sendcookie = true;
+	if (sendcookie === undefined)sendcookie = false;
 	if (formdata === undefined)formdata = false;
 
 	// if (url === null){
@@ -137,7 +137,7 @@ const fullaxios = (object) => {
 				// });
 				console.log("axios instance")
 				return axiosInstance
-					.get('auth/newaccess',{headers : {Authorization : null}})
+					.get('auth/newaccess',{baseURL: baseURL,headers : {Authorization : null}})
 					.then((response) => {
 						console.log(response.data.accesstoken,"line 140")
 						console.log(Cookie('getCookie', 'accesstoken'))
@@ -168,20 +168,20 @@ const fullaxios = (object) => {
 		// console.log(data)
 		// console.log(...data)
 		if (formdata === true){
-			return axiosInstance.post(url, data)
+			return axiosInstance.post(url, data, {baseURL: baseURL})
 		}
 		else{
-			return axiosInstance.post(url, { ...data })
+			return axiosInstance.post(url, { ...data }, {baseURL: baseURL})
 		}
 	}
 	else if (type === "patch"){
 		if (formdata === true){
-			return axiosInstance.patch(url, data)
+			return axiosInstance.patch(url, data, {baseURL: baseURL})
 		}
 		else{
 			// axiosInstance.headers['Authorization'] = Cookie('getCookie', 'accesstoken')
 			
-			return axiosInstance.patch(url, { ...data })
+			return axiosInstance.patch(url, { ...data }, {baseURL: baseURL})
 		}
 	}
 	else if (type === "delete"){
