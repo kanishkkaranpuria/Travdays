@@ -48,7 +48,7 @@ const AdmFaq = () => {
 
     return (  
         <div className=" section contact-us">
-        <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] ' onSubmit={Submit} action="">
+        <form className='flex flex-col mx-auto max-w-[800px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] ' onSubmit={Submit} action="">
             {/* <span className='text-3xl sm:text-xl font-bold sm:p-2 inline-block '>Add Query type </span> */}
 
             <div className='sm:pb-4'>

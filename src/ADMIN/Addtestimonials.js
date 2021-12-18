@@ -27,7 +27,7 @@ const Addtestimonials = () => {
 
     return ( 
         <div className=" section contact-us">
-        <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] '  action="">
+        <form className='flex flex-col mx-auto max-w-[800px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] '  action="">
             <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Testimonial Page</span>
                 <input type="file"  style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler}  />
                                         <label htmlFor="file">

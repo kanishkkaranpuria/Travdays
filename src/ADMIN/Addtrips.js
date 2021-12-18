@@ -16,16 +16,16 @@ const Addtrips = () => {
     const [duration, setDuration] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [nOmedia, setNOmedia] = useState(true)
-     
-    const [error,setError] = useState([]);
+
+    const [error, setError] = useState([]);
     const [datas, setDatas] = useState([]);
     const [vdatas, setVdatas] = useState([]);
     const [videopreview, setVideopreview] = useState([])
     var [type, setType] = useState(null)
 
     useEffect(() => {
-        if(durationnights && durationdays)
-        setDuration(`${durationdays},${durationnights}`)
+        if (durationnights && durationdays)
+            setDuration(`${durationdays},${durationnights}`)
         console.log("it should set")
 
     }, [durationnights, durationdays])
@@ -44,10 +44,10 @@ const Addtrips = () => {
 
     const Imagechangehandler = (e) => {
         console.log(e.target.files)
-        if(e.target.files.length===0){
+        if (e.target.files.length === 0) {
             console.log("zerooooooo")
         }
-        if(e.target.files.length>=0){
+        if (e.target.files.length >= 0) {
             console.log("not zeroooo")
         }
         // console.log(e.target.files.length )
@@ -66,21 +66,21 @@ const Addtrips = () => {
         setImagepreview((prevVideos) => prevVideos.concat(fileArray))
         setDatas(prev => [...prev, ...Array.from(e.target.files).map((file) => file)])
     }
- 
-  
-    
-useEffect(() => {
-console.log(datas)
-if(imagepreview.length===0){
-    setNOmedia(true)
-}
-else{
-    setNOmedia(false)
-}
-console.log(imagepreview)
-console.log(imagepreview.slice(2,3)) 
-console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
-}, [datas,imagepreview])
+
+
+
+    useEffect(() => {
+        console.log(datas)
+        if (imagepreview.length === 0) {
+            setNOmedia(true)
+        }
+        else {
+            setNOmedia(false)
+        }
+        console.log(imagepreview)
+        console.log(imagepreview.slice(2, 3))
+        console.log([...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
+    }, [datas, imagepreview])
 
 
 
@@ -106,60 +106,61 @@ console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
 
     const Submit = (e) => {
         e.preventDefault();
-      if(nOmedia===true){
-          alert("pls select some media for the trip")
-      }
-      else {
-        let formData = new FormData();
-        console.log(datas[0])
-        let m = 0
-        let n = 0
-        for (let i = 0; i < datas.length; i++) {
-            console.log("rubbish")
-            console.log(datas[i])
-
-            if (datas[i].type.slice(0, 5) === "image") {
-                console.log("image gang")
-                formData.append(`image${m}`, datas[i])
-                m++
-            }
-            else if (datas[i].type.slice(0, 5) === "video") {
-
-                formData.append(`video${n}`, datas[i])
-                n++
-            }
-            console.log(datas[i].type)
+        if (nOmedia === true) {
+            alert("pls select some media for the trip")
         }
+        else {
+            let formData = new FormData();
+            console.log(datas[0])
+            let m = 0
+            let n = 0
+            for (let i = 0; i < datas.length; i++) {
+                console.log("rubbish")
+                console.log(datas[i])
+
+                if (datas[i].type.slice(0, 5) === "image") {
+                    console.log("image gang")
+                    formData.append(`image${m}`, datas[i])
+                    m++
+                }
+                else if (datas[i].type.slice(0, 5) === "video") {
+
+                    formData.append(`video${n}`, datas[i])
+                    n++
+                }
+                console.log(datas[i].type)
+            }
 
 
 
-        formData.append(`type`, d.value)
-        formData.append(`name`, tripname)
-        formData.append(`location`, location)
-        formData.append(`description`, descripition)
-        formData.append(`price`, price)
-        formData.append(`duration`, duration)
+            formData.append(`type`, d.value)
+            formData.append(`name`, tripname)
+            formData.append(`location`, location)
+            formData.append(`description`, descripition)
+            formData.append(`price`, price)
+            formData.append(`duration`, duration)
 
 
-        console.log(...formData)
-       
-        fullaxios({ url: 'trip/create/' , type:'post', data : formData , formdata : true   })
-        .then((res)=>{
-        console.log("res", res.data)
-        // console.log('info data received')
-        console.log("done")}
-            
-        )
-        .catch(err => {
-            console.log(err)
-    
-    })
+            console.log(...formData)
+
+            fullaxios({ url: 'trip/create/', type: 'post', data: formData, formdata: true })
+                .then((res) => {
+                    console.log("res", res.data)
+                    // console.log('info data received')
+                    console.log("done")
+                }
+
+                )
+                .catch(err => {
+                    console.log(err)
+
+                })
+        }
     }
-  }
-  var d = document.getElementById("selected");
+    var d = document.getElementById("selected");
 
-    return ( 
-        <div className="">
+    return (
+        <div className="section">
             <div >
                 <input type="file" multiple style={{ display: 'none' }} name="file" id="file" onChange={Imagechangehandler} />
                 <label htmlFor="file">
@@ -171,7 +172,7 @@ console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
 
                     {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
 
-                    <form className='flex flex-col mx-auto max-w-[1000px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] ' action="">
+                    <form className='flex flex-col mx-auto max-w-[1000px] rounded-lg lg:p-8 mt-[5%] p-box-shadow-2 ' action="">
                         <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Add trips</span>
                         <p className=''>
                             {imagepreview && imagepreview.map((data, i) => {
@@ -201,48 +202,37 @@ console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
                             }
                         </p>
                         <div className='sm:pb-4'>
-                            <div className="">
-                                <p className='flex items-center'>
-                                    <span className='w-52'>Enter Trip name :</span>
-                                    <input required type="text" placeholder="Tripname" onChange={(e) => setTripname(e.target.value)} />
-                                </p>
-                                <p className='flex items-center'>
-                                    <span className='w-52'>Enter Location name :</span>
-                                    <input required type="text" placeholder="Location" onChange={(e) => setLocation(e.target.value)} />
-                                </p>
+                            <p className='flex items-center'>
+                                <span className='w-52'>Enter Trip name :</span>
+                                <input required type="text" placeholder="Tripname" onChange={(e) => setTripname(e.target.value)} />
+                            </p>
+                            <p className='flex items-center'>
+                                <span className='w-52'>Enter Location name :</span>
+                                <input required type="text" placeholder="Location" onChange={(e) => setLocation(e.target.value)} />
+                            </p>
 
-                                <div className='flex items-center'>
-                                    <span className='w-52'>Enter Trip duration :</span>
-                                    <p>days :</p>
-                                    <input required type="number" placeholder="no of days" id="name" onChange={(e) => setDurationdays(e.target.value)} />
-                                    <p>nights :</p>
-                                    <input required type="number" placeholder="no of nights" id="name" onChange={(e) => setDurationnights(e.target.value)} />
-
-
-
-                                </div>
-                                <p className='flex items-center'>
-                                </p>
+                            <div className='flex items-center'>
+                                <span className='w-52'>Enter Trip duration :</span>
+                                <div className="flex flex-col mr-2">days :<input className="m-0 " required type="number" placeholder="no of days" id="name" onChange={(e) => setDurationdays(e.target.value)} /></div>
+                                <div className="flex flex-col ml-2">nights :<input className="m-0" required type="number" placeholder="no of nights" id="name" onChange={(e) => setDurationnights(e.target.value)} /></div>
                             </div>
+                            <p className='flex items-center'>
+                            </p>
 
                             <p className='flex items-center sm:relative'>
-                                <span className='w-52'>Enter Trip price....................: Rs</span>
-                                <input required type="number" placeholder="Price" onChange={(e) => setPrice(e.target.value)} />
+                                <span className='w-52'>Enter Trip price</span>
+                                <div className="flex flex-col mr-2" >₹<input className="m-0" required type="number" placeholder="Price" onChange={(e) => setPrice(e.target.value)} /></div>
                                 {/* {displayalert && <p className=' sm:absolute sm:bottom-0 sm:right-0 sm:px-0 px-2 text-sm text-red-500'>number must contain 10 digits</p>} */}
                             </p>
-                        </div>
-
-
-                        <div className='flex'>
-                            <p>Select Trip type : </p>
-
-                            <select name="val" id="selected">
+                            <p className="flex items-center h-[76px]">
+                                <span className="w-52">Select Trip type : </span>
+                            <select className="bg-[#e1e1e1] rounded-sm" name="val" id="selected">
                                 <option> solo </option>
                                 <option> petfriendly </option>
                                 <option> workation </option>
                             </select>
+                            </p>
                         </div>
-
 
                         <textarea required placeHolder="Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value)}></textarea>
                         <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit" onClick={Submit} >submit</button>

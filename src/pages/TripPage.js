@@ -539,7 +539,7 @@ const Trip = ({ isAuth }) => {
                                     </svg>
                                 </div>
                                 <div className="flex w-full">
-                                    <input className="w-1/2" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} />
+                                    <textarea className="w-full" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} />
                                     {errorForEmptySubmission && <p> Enter the review and Choose a rating to submit </p>}
                                 </div>
                                 <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { submitReview() }}>Submit Review</button>
