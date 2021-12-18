@@ -32,6 +32,9 @@ import Registration from './pages/Registration';
 import ResetPassword from './pages/ResetPassword';
 import BookingHistory from './pages/Bookinghistory';
 import MyBlogs from './pages/MyBlogs';
+import BgImg1 from "./pages/images/TravDays_logos/bg_layer_1.svg"
+import BgImg2 from "./pages/images/TravDays_logos/bg_layer_2.svg"
+import BgImg3 from "./pages/images/TravDays_logos/bg_layer_3.svg"
 
 
 const showMenu = () => {
@@ -85,6 +88,10 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <img className='w-[100vw] fixed z-[0] opacity-[30%]' src={BgImg1} alt=''/>
+        <img className='w-[100vw] fixed z-[0] opacity-[30%]' src={BgImg2} alt=''/>
+        <img className='w-[100vw] fixed z-[0] opacity-[30%]' src={BgImg3} alt=''/>
+
         <Navbar isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}

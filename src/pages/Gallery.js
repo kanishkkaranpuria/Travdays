@@ -250,7 +250,7 @@ const Gallery = () => {
   }
 
   return (
-    <div className='max-w-[80%] sm:max-w-full'>
+    <div className='max-w-[80%] section sm:max-w-full'>
       <div className={gridStyle}>
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
         <div className={gallerystyle}>
@@ -290,7 +290,7 @@ const Gallery = () => {
                                 {console.log(locimg.slice(21,27) === "images")} */}
                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                 <p className='text-4xl pb-2'>{location.name}</p>
-                <div className='h-[500px] w-[750px] flex justify-center'>
+                <div className='h-[500px] w-[700px] flex justify-center'>
                 {locimg && <img src={locimg} alt="" className="object-cover h-[500px] max-w-[700px] rounded-xl" />}
                 {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] rounded-xl" />}
                 </div>
