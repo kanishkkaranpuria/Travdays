@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  overflow-y: overlay;
+}
 :root{
   --primary:#F7F7F5;
   --secondary-1:#FFA914;
