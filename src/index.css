@@ -142,28 +142,28 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-input,textarea{
+input,textarea,select{
   margin: 1rem 0 1rem 0;
   border: 2px solid #c9c9c9;
   border-radius: 10px;
   padding: 0.5rem;
-  background: #e1e1e1;
+  background: #e1e1e1aa;
 }
 input:focus-visible, textarea:focus-visible, select:focus-visible{
   outline-color: #9d9d9d;
 }
-::-webkit-.bar{
+::-webkit-scrollbar{
   position: absolute;
   height: 0.5rem;
   width: 0.5rem;
 }
 ::-webkit-scrollbar-track{
-  margin: 0.5em;
-  border-radius: 100vh;
+  margin: 0.8rem;
+  border-radius: 0.25rem;
   background-color: #00000022;
 }
 ::-webkit-scrollbar-thumb{
-  border-radius: 100vh;
+  border-radius: 0.25rem;
   background-color: #00000055;
 }
 
@@ -396,6 +396,9 @@ pointer-events: auto;
 }
 .p-box-shadow-2{
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
+}
+.p-box-shadow-2-inner{
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6) inset;
 }
 .trips{
 

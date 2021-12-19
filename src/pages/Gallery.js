@@ -93,7 +93,7 @@ const Gallery = () => {
   const [hasMore, setHasMore] = useState(true);
   const prevDatas = useRef([])
   const observer = useRef()
-  const [gridStyle, setGridStyle] = useState("w-full sm:gallery")
+  const [gridStyle, setGridStyle] = useState("w-full p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
   const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]')
   const [displayPackageStyle, setDisplayPackageStyle] = useState('flex hidden sm:flex relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
   const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[300px] md:min-h-[120px]')
@@ -101,7 +101,7 @@ const Gallery = () => {
 
   const showPackage = (show) => {
     if (show) {
-      setGridStyle("gallery")
+      setGridStyle("gallery p-box-shadow-2 overflow-hidden rounded-[20px]")
       setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]")
       setDisplayPackageStyle('flex relative h-[90vh] w-full sm:h-[50%] sm:rounded-t-[20px]')
       setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px]')
@@ -250,7 +250,7 @@ const Gallery = () => {
   }
 
   return (
-    <div className='max-w-[80%] section sm:max-w-full'>
+    <div className='max-w-[80%] section sm:max-w-full pb-0'>
       <div className={gridStyle}>
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
         <div className={gallerystyle}>
@@ -290,7 +290,7 @@ const Gallery = () => {
                                 {console.log(locimg.slice(21,27) === "images")} */}
                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                 <p className='text-4xl pb-2'>{location.name}</p>
-                <div className='h-[500px] w-[700px] flex justify-center'>
+                <div className='h-[500px] w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
                 {locimg && <img src={locimg} alt="" className="object-cover h-[500px] max-w-[700px] rounded-xl" />}
                 {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] rounded-xl" />}
                 </div>

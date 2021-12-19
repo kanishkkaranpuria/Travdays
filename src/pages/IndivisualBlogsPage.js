@@ -424,8 +424,8 @@ const IndivisualBlogPage = ({ isadmin }) => {
           </div>
         }
         <br />
-        {iblogdata[keyName].slice(-3,) === "img" && <img src={iblogdata[keyName].slice(0, -4)} alt="" />}
-        {iblogdata[keyName].slice(0, 11) === "data:image/" && <img src={iblogdata[keyName].slice(0, -4)} />}
+        {iblogdata[keyName].slice(-3,) === "img" && <img className="mx-auto rounded-[20px]" src={iblogdata[keyName].slice(0, -4)} alt="" />}
+        {iblogdata[keyName].slice(0, 11) === "data:image/" && <img className="mx-auto rounded-[20px]" src={iblogdata[keyName].slice(0, -4)} />}
       </div>
     )
   }
