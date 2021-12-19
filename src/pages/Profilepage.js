@@ -51,8 +51,9 @@ const Profilepage = () => {
 
     
         return (
-            <div className = "flex w-full">
-            {!changeNameBool &&  <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly w-1/2" >
+     <div className="section">
+                <div className = "flex w-full">
+            {!changeNameBool &&  <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center  rounded-2xl justify-evenly w-1/2 p-box-shadow-2" >
                 <p className="text-4xl text-center">Profile Page</p>
                 <div type="email" className="email flex items-center">
                     <p className="w-40">Email: {profiledata.email}</p >
@@ -65,7 +66,7 @@ const Profilepage = () => {
         <b><p><Link to="/myblogs"> Blogs</Link></p></b>
             </div>}
 
-        {changeNameBool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+        {changeNameBool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
             <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={change_name}>
                 <p className="text-4xl text-center">Change Name</p>
                 <div type="name" className="email flex items-center">
@@ -73,12 +74,13 @@ const Profilepage = () => {
                     <input required type="text" onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className=" ">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                 </div>
             </form>
             <div onClick={viewChangeNameForm}>Go Back</div>
         </div>}
-        </div>
+                </div>
+     </div>
     );
 }
 

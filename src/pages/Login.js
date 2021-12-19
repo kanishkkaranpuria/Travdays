@@ -60,8 +60,9 @@ const Login = ({setIsauthenticated}) => {
             })
     }
     return (
-        <div>
-            {!otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+        <div className="section">
+                   <div>
+            {!otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <p onClick = {changeboolvalue}>Click here to Login via OTP</p>
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_details}>
                     <p className="text-4xl text-center">Login Page</p>
@@ -74,7 +75,7 @@ const Login = ({setIsauthenticated}) => {
                         <input required type="password" onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <div className=" ">
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                     </div>
                 </form>
                 <p>New to Travdays?<Link to="/register"> Click here to Sign Up </Link></p>
@@ -110,6 +111,7 @@ const Login = ({setIsauthenticated}) => {
                     </div>
                 </form>
             </div>}
+        </div>
         </div>
     );
 }
