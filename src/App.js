@@ -35,6 +35,7 @@ import MyBlogs from './pages/MyBlogs';
 import BgImg1 from "./pages/images/TravDays_logos/bg_layer_1.svg"
 import BgImg2 from "./pages/images/TravDays_logos/bg_layer_2.svg"
 import BgImg3 from "./pages/images/TravDays_logos/bg_layer_3.svg"
+import EditBlogsPage from './pages/EditBlogsPage';
 
 
 const showMenu = () => {
@@ -135,6 +136,8 @@ function App() {
             <Route exact path="/blogs/write"> <WriteABlog /> </Route>
 
             <Route exact path="/blogs/:title/:id"> <IndivisualBlogPage isadmin={isadmin} setIsadmin={setIsadmin} /> </Route>
+
+            <Route exact path="/myblogs/editblogs"> <EditBlogsPage /> </Route>
 
             <Route exact path="/myblogs"> <MyBlogs /> </Route>
 

@@ -80,13 +80,14 @@ const AllTrips = () => {
     if (searchtext === "" || searchtext === null) {
       fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
       .then(res => {
-        
-            setDatas(prev => [...prev, ...res.data])
-            console.log(res.data)
-            console.log(object)
-            prevDatas.current = datas
-            setLoading1(false)
-            setLoading(false)
+            if(res){
+              setDatas(prev => [...prev, ...res.data])
+              console.log(res.data)
+              console.log(object)
+              prevDatas.current = datas
+              setLoading1(false)
+              setLoading(false)
+            }
           }
       )
       .catch(err => {
@@ -371,7 +372,7 @@ const AllTrips = () => {
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg>
       <div className="searchAndfilter fixed top-[60px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] justify-center items-center">
-        <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value) }} />
+        <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value) ; }} onKeyDown={ (e) => {if (e.key === "Enter" && e.target.value){fetchSearchedDataFromBackend(e.target.value)}}} />
         <button className = "p-2 px-8 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto" onClick = {() => {if (searchtext) fetchSearchedDataFromBackend(searchtext)}}> Search </button>
         <button className="flex m-2" onClick={priceAscending} type="button">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
