@@ -39,7 +39,7 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
             })
         }
     return (
-        <navbar className='navbar backdrop-filter '>
+        <navbar className='navbar backdrop-filter bg-[#00000033] '>
             <nav className="logo text-2xl tracking-[5px]">
                 <Link className='p-6 font-bold' to='/'>TravDays</Link>
             </nav>

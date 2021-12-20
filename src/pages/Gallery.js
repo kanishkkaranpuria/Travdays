@@ -93,7 +93,7 @@ const Gallery = () => {
   const [hasMore, setHasMore] = useState(true);
   const prevDatas = useRef([])
   const observer = useRef()
-  const [gridStyle, setGridStyle] = useState("w-full sm:gallery")
+  const [gridStyle, setGridStyle] = useState("w-full p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
   const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]')
   const [displayPackageStyle, setDisplayPackageStyle] = useState('flex hidden sm:flex relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
   const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[300px] md:min-h-[120px]')
@@ -101,9 +101,9 @@ const Gallery = () => {
 
   const showPackage = (show) => {
     if (show) {
-      setGridStyle("w-full gallery")
+      setGridStyle("gallery p-box-shadow-2 overflow-hidden rounded-[20px]")
       setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]")
-      setDisplayPackageStyle('flex relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
+      setDisplayPackageStyle('flex relative h-[90vh] w-full sm:h-[50%] sm:rounded-t-[20px]')
       setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px]')
     }
     else {
@@ -250,7 +250,7 @@ const Gallery = () => {
   }
 
   return (
-    <div className='max-w-[80%] sm:max-w-full'>
+    <div className='max-w-[80%] section sm:max-w-full pb-0'>
       <div className={gridStyle}>
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
         <div className={gallerystyle}>
@@ -280,7 +280,7 @@ const Gallery = () => {
             <div className='p-4 sm:p-[0.5rem] overflow-y-auto'>
               <div className='my-4 sm:my-[1.1rem]'>
                 <span>
-                  <svg onClick={() => showPackage(false)} className="cursor-pointer mb-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
+                  <svg onClick={() => showPackage(false)} className="ml-auto cursor-pointer mb-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
                     <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z">
                     </path>
                   </svg>
@@ -290,8 +290,10 @@ const Gallery = () => {
                                 {console.log(locimg.slice(21,27) === "images")} */}
                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                 <p className='text-4xl pb-2'>{location.name}</p>
-                {locimg && <img src={locimg} alt="" className="object-cover h-[500px]  w-[500px] rounded-xl" />}
-                {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px]  w-[750px]" />}
+                <div className='h-[500px] w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
+                {locimg && <img src={locimg} alt="" className="object-cover h-[500px] max-w-[700px] rounded-xl" />}
+                {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] rounded-xl" />}
+                </div>
                 {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                 <p className='text-2xl pt-2'>{location.location}</p>
                 <p className = "flex items-center">

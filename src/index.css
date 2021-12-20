@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  overflow-y: overlay;
+}
 :root{
   --primary:#F7F7F5;
   --secondary-1:#FFA914;
@@ -142,28 +145,28 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-input,textarea{
+input,textarea,select{
   margin: 1rem 0 1rem 0;
   border: 2px solid #c9c9c9;
   border-radius: 10px;
   padding: 0.5rem;
-  background: #e1e1e1;
+  background: #e1e1e1aa;
 }
 input:focus-visible, textarea:focus-visible, select:focus-visible{
   outline-color: #9d9d9d;
 }
-::-webkit-.bar{
+::-webkit-scrollbar{
   position: absolute;
   height: 0.5rem;
   width: 0.5rem;
 }
 ::-webkit-scrollbar-track{
-  margin: 0.5em;
-  border-radius: 100vh;
+  margin: 0.8rem;
+  border-radius: 0.25rem;
   background-color: #00000022;
 }
 ::-webkit-scrollbar-thumb{
-  border-radius: 100vh;
+  border-radius: 0.25rem;
   background-color: #00000055;
 }
 
@@ -186,7 +189,8 @@ code {
 
 .navbar{
   z-index: 5;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   height: 60px;
   display: flex;
@@ -256,6 +260,7 @@ code {
   overflow: hidden;
 }
 .blog-preview-card.non-featured.v1{
+  background-color: var(--primary);
   grid-template-columns: 30% 70%;
   /* margin: 1rem; */
   width: 500px;
@@ -313,6 +318,12 @@ code {
 color: var(--secondary-1); */
 z-index: 3;
 }
+.section > form{
+  background-color: var(--primary);
+  }
+.section > div:first-child{
+background-color: var(--primary);
+}
 .section p{
   color:var()
 }
@@ -325,6 +336,9 @@ display: grid;
 grid-template-columns: 40% 55%;
 column-gap: 5%;
 /* background-image: linear-gradient(to right,#000000,#00000011, #00000000); */
+}
+.section.hero > div:first-child{
+  background-color: transparent;
 }
 .section.hero, .section.testimonial{
   /* background-color: var(--primary); */
@@ -395,6 +409,9 @@ pointer-events: auto;
 }
 .p-box-shadow-2{
   box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
+}
+.p-box-shadow-2-inner{
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6) inset;
 }
 .trips{
 
@@ -482,6 +499,7 @@ transition: all 200ms ease-in-out;
   padding: 60px 0.5rem 2rem 0.5rem;
 
 }
+
 .section.hero{
   display: grid;
   grid-template-columns: auto;

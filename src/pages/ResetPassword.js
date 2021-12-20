@@ -86,8 +86,9 @@ const ResetPassword = () => {
             })
     }
     return (
-        <div>
-            {!page2bool && !page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+       <div className="section">
+            <div>
+            {!page2bool && !page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_email}>
                     <p className="text-4xl text-center">Reset Password</p>
                     <div type="email" className="email flex items-center">
@@ -96,13 +97,13 @@ const ResetPassword = () => {
                         {authStatus && <input required type="text" value={userdata.email} />}
                     </div>
                     <div className=" ">
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">{!authStatus && "Submit"} {authStatus && "Confirm Change Password"}</button>
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">{!authStatus && "Submit"} {authStatus && "Confirm Change Password"}</button>
                     </div>
                 </form>
             </div>}
             {/* {!page2bool && !page3bool && authStatus && <button type="submit" onClick={submit_email} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Confirm Change Password</button>} */}
 
-            {page2bool && !page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+            {page2bool && !page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_otp}>
                     <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
                     {!authStatus && <div type="email" className="email flex items-center">
@@ -115,12 +116,12 @@ const ResetPassword = () => {
                     </div>
 
                     <div className=" ">
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                     </div>
                 </form>
             </div>}
 
-            {!page2bool && page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+            {!page2bool && page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_password}>
                     <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
                     <div type="name" className="email flex items-center">
@@ -137,11 +138,12 @@ const ResetPassword = () => {
                     </div>
 
                     <div className=" ">
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                     </div>
                 </form>
             </div>}
         </div>
+       </div>
     );
 }
 

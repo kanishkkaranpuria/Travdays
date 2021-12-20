@@ -151,10 +151,10 @@ const AdmBooking = () => {
   
       return (<>
         {loading ? <div><p>loading...</p></div> :
-          <div className="blog relative pt-[60px] w-full">
+          <div className="blog flex flex-col relative pt-[60px] w-full">
 
-{ approved ?<button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => {BFilter(false)}}>Unapproved bookings</button> :
-      <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => {BFilter(true)}}>All bookings</button> }
+{ approved ?<button className='mx-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] hover:bg-[#000000aa]  rounded-md' onClick={() => {BFilter(false)}}>Unapproved bookings</button> :
+      <button className='mx-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] hover:bg-[#000000aa] rounded-md' onClick={() => {BFilter(true)}}>All bookings</button> }
   
            {!allcontactus && <div className="">
            <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">

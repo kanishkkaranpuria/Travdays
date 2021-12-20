@@ -137,7 +137,7 @@ const ContactUs = () => {
 
     return (
         <div className=" section contact-us">
-            <form className='flex flex-col mx-auto max-w-[800px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] ' onSubmit={submitquery} action="">
+            <form className='flex flex-col mx-auto max-w-[800px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] ' onSubmit={submitquery} action="">
                 <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Contact Us</span>
 
                 <div className='sm:pb-4'>
@@ -166,8 +166,8 @@ const ContactUs = () => {
                 </div>
 
 
-                <div className='flex'>
-                    <p>your query is realted to :</p>
+                <div className='flex items-center'>
+                    <p className="w-52">your query is realted to :</p>
 
                     <select name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
                         <option id={i} value={i + 1}>{mainqueries[keyName]}</option>

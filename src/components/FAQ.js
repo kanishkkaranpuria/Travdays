@@ -133,7 +133,8 @@ const FAQ = ({isadmin}) => {
 
     return ( <>
     {loading ? <div><p>loading...</p></div> :
-        <div className=' w-[800px] lg:shadow-xl rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] '>
+        <div className="section">
+                  <div className=' w-[800px] mx-auto mt-[5%] p-box-shadow-2 rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] '>
                 <span className='text-6xl sm:text-xl font-bold sm:p-2 inline-block faq-link'>FAQ</span>
                 <div>
                         {faqs && faqs.map((faq,index) => {
@@ -246,7 +247,9 @@ const FAQ = ({isadmin}) => {
                 }
                 </div>
 
-        </div>}
+        </div>
+        </div>
+        }
         </>
 
      );

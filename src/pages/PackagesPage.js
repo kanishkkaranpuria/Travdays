@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const PackagesPage = () => {
     return (
-        <div className="main w-2/3 items-center justify-center pt-20">
+        <div className="section">
+                <div className="main mx-auto w-[50%] pt-20">
             {/* <div className="section hero items-center justify-center"> */}
                 <div className='card-grid sm:py-[20px]'>
                     <Link to='/trips/workation'><Card title="Workation" id='one' /></Link>
@@ -11,6 +12,7 @@ const PackagesPage = () => {
                     <Link to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
                 </div>
             {/* </div> */}
+        </div>
         </div>
     );
 }
