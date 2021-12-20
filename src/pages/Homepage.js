@@ -200,7 +200,7 @@ const Home = ({ isadmin, setIsadmin }) => {
             {/* <div className='w-full h-full absolute top-0 bg-gradient-to-r from-black to-transparent'></div> */}
             <div className='w-full h-full fixed top-0 bg-[#00000088] z-0'></div>
             <div className="section hero relative items-center justify-center">
-                <div className="p-6 pt-[145px] relative sm:p-4 sm:order-2">
+                <div className=" p-6 pt-[145px] relative sm:p-4 sm:order-2 ">
                     <div className='block sm:hidden text-[#f7f7f569]'>
                         {/* <img src={Logo} alt='' className='absolute h-[300px] top-[-50%] right-[10%] ' /> */}
                         <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>

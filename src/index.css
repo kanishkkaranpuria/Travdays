@@ -318,12 +318,12 @@ code {
 color: var(--secondary-1); */
 z-index: 3;
 }
-/* .section > form{
+.section > form{
   background-color: var(--primary);
   }
-  .section > div{
+.section > div:first-child{
 background-color: var(--primary);
-} */
+}
 .section p{
   color:var()
 }
@@ -336,6 +336,9 @@ display: grid;
 grid-template-columns: 40% 55%;
 column-gap: 5%;
 /* background-image: linear-gradient(to right,#000000,#00000011, #00000000); */
+}
+.section.hero > div:first-child{
+  background-color: transparent;
 }
 .section.hero, .section.testimonial{
   /* background-color: var(--primary); */
