@@ -410,13 +410,13 @@ const AllTrips = () => {
       {datas && datas.map((data, index) => {
         if (datas.length === index + 1) {
           return (
-            <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center  xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
+            <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center  xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
               {ShowData(data)}
             </div>
           );
         } else {
           return (
-            <div className="p-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] " key={data.id}>
+            <div className="p-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
               {ShowData(data)}
             </div>
           );

@@ -260,6 +260,7 @@ code {
   overflow: hidden;
 }
 .blog-preview-card.non-featured.v1{
+  background-color: var(--primary);
   grid-template-columns: 30% 70%;
   /* margin: 1rem; */
   width: 500px;
@@ -317,6 +318,12 @@ code {
 color: var(--secondary-1); */
 z-index: 3;
 }
+/* .section > form{
+  background-color: var(--primary);
+  }
+  .section > div{
+background-color: var(--primary);
+} */
 .section p{
   color:var()
 }
@@ -489,6 +496,7 @@ transition: all 200ms ease-in-out;
   padding: 60px 0.5rem 2rem 0.5rem;
 
 }
+
 .section.hero{
   display: grid;
   grid-template-columns: auto;

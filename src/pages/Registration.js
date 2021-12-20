@@ -86,8 +86,8 @@ const Registration = () => {
         }
     }
 
-    return (<div>
-        {!otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+    return (<div className="section">
+        {!otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
             <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_details}>
                 <p className="text-4xl text-center">Sign Up for Travdays</p>
                 <div type="email" className="email flex items-center">
@@ -107,13 +107,13 @@ const Registration = () => {
                     <input required type="password" onChange={(e) => setPassword2(e.target.value)} />
                 </div>
                 <div className=" ">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                 </div>
             </form>
             <div onClick={view_otp_registration}>Or Register and Login using OTP. To Login use the Otp sent in your Mail</div>
         </div>}
 
-        {otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+        {otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_details2}>
                 <p className="text-4xl text-center">Register using OTP</p>
                 <div type="email" className="email flex items-center">
@@ -132,7 +132,7 @@ const Registration = () => {
             </form>
         </div>}
 
-        {!bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+        {!bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
             <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_otp}>
                 <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
                 <div type="email" className="email flex items-center">

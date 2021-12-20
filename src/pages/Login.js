@@ -81,7 +81,7 @@ const Login = ({setIsauthenticated}) => {
                 <p>New to Travdays?<Link to="/register"> Click here to Sign Up </Link></p>
             </div>}
 
-            {otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+            {otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
             <p onClick = {changeboolvalue}>Click here to Login using Password</p>
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={request_otp}>
                     <p className="text-4xl text-center">Login Page</p>
@@ -95,7 +95,7 @@ const Login = ({setIsauthenticated}) => {
                 </form>
                 <p>New to Travdays?<Link to="/register"> Click here to Sign Up </Link></p>
             </div>}
-            {otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center bg-[#dddddd] shadow-2xl rounded-2xl justify-evenly">
+            {otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={confirm_otp}>
                     <p className="text-4xl text-center">Enter the Otp sent in your Email</p>
                     <div type="email" className="email flex items-center">

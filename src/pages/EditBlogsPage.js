@@ -812,7 +812,7 @@ const EditBlogsPage = (props) => {
     const Actuallywritingtheblog = () => {
         // console.log("wtf")
         return (
-            <div className='write-a-blog pt-8 flex flex-col items-start w-2/3 sm:w-full'>
+            <div className='write-a-blog p-box-shadow-2 rounded-[20px] py-8 flex flex-col items-start w-2/3 sm:w-full'>
                 {/* <p className='text-4xl'>Write a blog</p> */}
 
 
@@ -839,7 +839,7 @@ const EditBlogsPage = (props) => {
                 {console.log(numberOfAllDatas)}
                 {console.log(alldata)}
                 {numberOfAllDatas && alldata.map((data, element) => (
-                    <div className="w-full flex flex-row-reverse items-center">
+                    <div className="w-full flex flex-row-reverse items-center relative">
                         {/* {console.log(image)} */}
                         {/* {console.log(imagepreview[element])} */}
                         {/* <input className='w-full min-h-auto' type="text" value = {content} onChange = {(e) => {createContent(e, element)}} placeholder = "Enter your Blog here..." /> */}
@@ -872,7 +872,7 @@ const EditBlogsPage = (props) => {
                             <>
                                 {/* {console.log("DISPLAY")} */}
                                 {/* {console.log(temp1)} */}
-                                <svg onClick={onClickFocus} className="cursor-pointer" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
+                                <svg onClick={onClickFocus} className="cursor-pointer absolute left-[-40px]" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
                                 <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" />
                                 {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
                             </>
@@ -881,7 +881,7 @@ const EditBlogsPage = (props) => {
                             <>
                                 {/* {console.log("DISPLAY")} */}
                                 {/* {console.log(temp1)} */}
-                                <svg onClick={onClickFocus} className="cursor-pointer" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
+                                <svg onClick={onClickFocus} className="cursor-pointer absolute left-[-40px] " fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
                                 <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element + 1)} ref={inputRef} type="file" accept="image/*" />
                                 {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
                             </>
@@ -899,7 +899,7 @@ const EditBlogsPage = (props) => {
                 {/* {console.log(element)} */}
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
-                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
+                {numberOfAllDatas && <button className='p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
 
             </div>
         );

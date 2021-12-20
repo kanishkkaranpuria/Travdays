@@ -10,7 +10,7 @@ const WriteABlog = () => {
     var prenumberOfAllImages = 0
     var prealldata = [""];
     // var numberOfAllImages = 0;
-    
+
     useEffect(() => {
         pretitle = localStorage.getItem("title")
         prenumberOfAllDatas = localStorage.getItem("numberofalldatas")
@@ -22,7 +22,7 @@ const WriteABlog = () => {
         console.log(prenumberOfAllImages)
         console.log(prenumberOfAllImages !== NaN)
         console.log(prenumberOfAllImages !== "NaN")
-        if (prenumberOfAllImages !== NaN && prenumberOfAllImages !== "NaN" && prenumberOfAllImages !== null   ){numberOfAllImages.current = (parseInt(prenumberOfAllImages))}
+        if (prenumberOfAllImages !== NaN && prenumberOfAllImages !== "NaN" && prenumberOfAllImages !== null) { numberOfAllImages.current = (parseInt(prenumberOfAllImages)) }
         setAlldata(prealldata)
         setTitle(pretitle)
         setnotfirstrender(true)
@@ -432,7 +432,7 @@ const WriteABlog = () => {
                 //     }
                 // }
             }
-            else{
+            else {
                 alert("the maximum number of images in one blog is 8")
             }
         }
@@ -478,20 +478,20 @@ const WriteABlog = () => {
     // }
 
     function dataURLtoFile(dataurl, filename) {
- 
+
         var arr = dataurl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), 
-            n = bstr.length, 
+            bstr = atob(arr[1]),
+            n = bstr.length,
             u8arr = new Uint8Array(n);
-            
-        while(n--){
+
+        while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
-        filename = filename + "."+ mime.slice(-4)
-        return new File([u8arr], filename, {type:mime});
+        filename = filename + "." + mime.slice(-4)
+        return new File([u8arr], filename, { type: mime });
     }
-    
+
 
     //Usage example:
     // var file = dataURLtoFile('data:text/plain;base64,aGVsbG8gd29ybGQ=','hello.txt');
@@ -546,10 +546,10 @@ const WriteABlog = () => {
                 console.log(numberOfAllImages)
                 console.log(numberOfAllImages.current !== NaN)
                 console.log(numberOfAllImages.current !== "NaN")
-                if(numberOfAllImages.current !== NaN && numberOfAllImages.current !== "NaN" && numberOfAllImages.current !== undefined)localStorage.setItem("numberofallimages", numberOfAllImages.current)
+                if (numberOfAllImages.current !== NaN && numberOfAllImages.current !== "NaN" && numberOfAllImages.current !== undefined) localStorage.setItem("numberofallimages", numberOfAllImages.current)
                 // for(var newimage.length
-                setNumberOfAllDatas(alldata.length)    
-           
+                setNumberOfAllDatas(alldata.length)
+
             }
             catch (e) {
                 console.log("This is the maximum data you can add in a blog, either replace the photos with lower quality photos or decrease the number of photos");
@@ -557,7 +557,7 @@ const WriteABlog = () => {
                 // fires When localstorage gets full
                 // you can handle error here or empty the local storage
             }
-            
+
             if (alldata[0] === '' && alldata.length === 1) {
                 document.getElementById('title').focus();
             }
@@ -790,18 +790,19 @@ const WriteABlog = () => {
         // console.log("wtf")
         return (
 
-            <div className='write-a-blog pt-8 flex flex-col items-start w-2/3 sm:w-full'>
-                {/* <p className='text-4xl'>Write a blog</p> */}
+            <div className="section" >
+                <div className='write-a-blog mt-[5%] mx-auto p-box-shadow-2 pt-8 flex flex-col items-center w-2/3 rounded-[20px] sm:w-full'>
+                    {/* <p className='text-4xl'>Write a blog</p> */}
 
 
-                <input maxLength="100" minLength="1" className='namans-textarea w-full text-3xl leading-none bg-transparent border-transparent outline-none' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} onKeyDown={(e) => { paraKeyControl(e, -1, "title") }} placeholder="Enter your title here..." />
-                {/* {!numberOfAllDatas && content && 
+                    <input maxLength="100" minLength="1" className='namans-textarea w-full text-3xl leading-none bg-transparent border-transparent outline-none' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} onKeyDown={(e) => { paraKeyControl(e, -1, "title") }} placeholder="Enter your title here..." />
+                    {/* {!numberOfAllDatas && content && 
 <textarea className='w-full min-h-auto' value = {content[0]} onChange = {(e) => {createContent(e, 0)}} placeholder = "Enter your Blog here..." />
 } */}
-                {/* <textarea className='w-full min-h-auto' id={`this 0`} value = {alldata[0]} onFocus={() => { setTemp1(0) }} onChange={(e) => { createContent(e, 0) }} onKeyDown={(e) => { paraKeyControl(e, 0, "para") }} placeholder="Enter your Blog here..." /> */}
+                    {/* <textarea className='w-full min-h-auto' id={`this 0`} value = {alldata[0]} onFocus={() => { setTemp1(0) }} onChange={(e) => { createContent(e, 0) }} onKeyDown={(e) => { paraKeyControl(e, 0, "para") }} placeholder="Enter your Blog here..." /> */}
 
-                {/* {console.log(imagepreview)} */}
-                {/* {!numberOfAllDatas &&
+                    {/* {console.log(imagepreview)} */}
+                    {/* {!numberOfAllDatas &&
                 <img src={imagepreview[1]} id={`this 1`} />
             }
             {!numberOfAllDatas && <>
@@ -813,71 +814,75 @@ const WriteABlog = () => {
 
             } */}
 
-                {/* <input  className='w-full' type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />     */}
-                {/* {console.log(numberOfAllDatas)} */}
-                {/* {console.log(alldata)} */}
-                {numberOfAllDatas && alldata.map((data, element) => (
-                    <div className="w-full flex flex-row-reverse items-center">
-                        {/* {console.log(image)} */}
-                        {/* {console.log(imagepreview[element])} */}
-                        {/* <input className='w-full min-h-auto' type="text" value = {content} onChange = {(e) => {createContent(e, element)}} placeholder = "Enter your Blog here..." /> */}
-                        {/* {console.log("everythign is working!!!!!!!!!!!!!!!")}
+                    {/* <input  className='w-full' type="text" value = {title} onChange = {(e) => {setTitle(e.target.value)}}placeholder = "Enter your title here" />     */}
+                    {/* {console.log(numberOfAllDatas)} */}
+                    {/* {console.log(alldata)} */}
+                    {numberOfAllDatas && alldata.map((data, element) => (
+                        <div className="w-full flex flex-row-reverse items-center relative">
+                            {/* {console.log(image)} */}
+                            {/* {console.log(imagepreview[element])} */}
+                            {/* <input className='w-full min-h-auto' type="text" value = {content} onChange = {(e) => {createContent(e, element)}} placeholder = "Enter your Blog here..." /> */}
+                            {/* {console.log("everythign is working!!!!!!!!!!!!!!!")}
                     {console.log(data)} */}
-                        {/* {data && console.log(data.slice(5,10))} */}
-                        {/* {console.log(data.type)} */}
-                        {/* {console.log("element number affffffff",element)}
+                            {/* {data && console.log(data.slice(5,10))} */}
+                            {/* {console.log(data.type)} */}
+                            {/* {console.log("element number affffffff",element)}
                     {console.log(imagepreview[element])}
                     {console.log("everythign is working!!!!!!!!!!!!!!!")} */}
-                        {
-                            (data && (data.slice(0, 11) === "data:image/"))
-                                ?
+                            {
+                                (data && (data.slice(0, 11) === "data:image/"))
+                                    ?
+                                    <>
+                                        <img src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
+                                        {/* <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" /> */}
+                                    </>
+                                    :
+                                    <>
+
+                                        {element === 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }} placeholder="Your story starts here..." />}
+                                        {element !== 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }} />}
+                                    </>
+
+                            }
+                            {/* {console.log(element)} */}
+                            {/* {console.log(temp1)} */}
+                            {temp1 === element && alldata[element] === "" && element !== 0 &&
                                 <>
-                                    <img src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
-                                    {/* <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" /> */}
+                                    {/* {console.log("DISPLAY")} */}
+                                    {/* {console.log(temp1)} */}
+                                    <svg onClick={onClickFocus} className="cursor-pointer absolute left-[-40px] " fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
+                                    <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" />
+                                    {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
                                 </>
-                                :
+                            }
+                            {temp1 === element && alldata[element] === "" && element === 0 &&
                                 <>
-
-                                    {element === 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }} placeholder="Your story starts here..." />}
-                                    {element !== 0 && <TextareaAutosize className='namans-textarea text-lg w-full bg-transparent resize-none border-0 outline-none overflow-auto' id={`this ${element}`} ref={textarearef} value={data} onFocus={() => { setTemp1(element) }} onKeyDown={(e) => { paraKeyControl(e, element, 'para') }} onChange={(e) => { createContent(e, element) }} />}
+                                    {/* {console.log("DISPLAY")} */}
+                                    {/* {console.log(temp1)} */}
+                                    <svg onClick={onClickFocus} className="cursor-pointer absolute left-[-40px]" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
+                                    <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element + 1)} ref={inputRef} type="file" accept="image/*" />
+                                    {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
                                 </>
+                            }
 
-                        }
-                        {/* {console.log(element)} */}
-                        {/* {console.log(temp1)} */}
-                        {temp1 === element && alldata[element] === "" && element !== 0 &&
-                            <>
-                                {/* {console.log("DISPLAY")} */}
-                                {/* {console.log(temp1)} */}
-                                <svg onClick={onClickFocus} className="cursor-pointer" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
-                                <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" />
-                                {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
-                            </>
-                        }
-                        {temp1 === element && alldata[element] === "" && element === 0 &&
-                            <>
-                                {/* {console.log("DISPLAY")} */}
-                                {/* {console.log(temp1)} */}
-                                <svg onClick={onClickFocus} className="cursor-pointer" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z" /></svg>
-                                <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element + 1)} ref={inputRef} type="file" accept="image/*" />
-                                {/* <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button> */}
-                            </>
-                        }
+                            {/* <textarea className='w-full min-h-auto' onChange={(e) => { createContent(e, 0) }} placeholder="Enter your Blog here..." /> */}
 
-                        {/* <textarea className='w-full min-h-auto' onChange={(e) => { createContent(e, 0) }} placeholder="Enter your Blog here..." /> */}
+                            {/* {element !== 0 && <textarea className='w-full min-h-auto' value={data} onChange={(e) => { createContent(e, element) }} placeholder="Enter your Blog here..." />} */}
+                            {/* <button onClick = {()=>{RemoveImage}} >Remove image</button> */}
 
-                        {/* {element !== 0 && <textarea className='w-full min-h-auto' value={data} onChange={(e) => { createContent(e, element) }} placeholder="Enter your Blog here..." />} */}
-                        {/* <button onClick = {()=>{RemoveImage}} >Remove image</button> */}
+                            {/* <input type="text" value={content[element + 1]} onChange={(e) => { createContent(e, element + 1) }} placeholder="Enter your Blog here..." /> */}
 
-                        {/* <input type="text" value={content[element + 1]} onChange={(e) => { createContent(e, element + 1) }} placeholder="Enter your Blog here..." /> */}
+                        </div>
+                    ))}
+                    {/* {console.log(element)} */}
+                    {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
+                    {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
+                            <div className="p-8">
+                            {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
+                    {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { clearBlog() }}>Clear Blog</button>}
 
-                    </div>
-                ))}
-                {/* {console.log(element)} */}
-                {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
-                {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
-                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
-                {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => {clearBlog()}}>Clear Blog</button>}
+                            </div>
+                </div>
             </div>
         );
     }
