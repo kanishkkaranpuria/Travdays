@@ -16,8 +16,8 @@ const Addtrips = () => {
     const [duration, setDuration] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [nOmedia, setNOmedia] = useState(true)
-
-    const [error, setError] = useState([]);
+     
+    const [error,setError] = useState([]);
     const [datas, setDatas] = useState([]);
     const [vdatas, setVdatas] = useState([]);
     const [videopreview, setVideopreview] = useState([])
@@ -66,6 +66,21 @@ const Addtrips = () => {
         setImagepreview((prevVideos) => prevVideos.concat(fileArray))
         setDatas(prev => [...prev, ...Array.from(e.target.files).map((file) => file)])
     }
+ 
+  
+    
+useEffect(() => {
+console.log(datas)
+if(imagepreview.length===0){
+    setNOmedia(true)
+}
+else{
+    setNOmedia(false)
+}
+console.log(imagepreview)
+console.log(imagepreview.slice(2,3)) 
+console.log([...imagepreview.slice(0,1),...imagepreview.slice(2,)])
+}, [datas,imagepreview])
 
 
 
