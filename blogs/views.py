@@ -327,6 +327,7 @@ class EditBlog(APIView):
         blog                   = Blog.objects.get(id = request.data["id"])
         blogDict["title"]      = request.data.get('title',blog.title)
         blogDict["location"]   = request.data.get('location',blog.location)
+        print("displayimage",request.data.get('displayImage',blog.image))
         blogDict["image"]      = request.data.get('displayImage',blog.image)
         blogDict["anonymous"]  = request.data.get('anonymous',blog.anonymous)
 
@@ -335,7 +336,8 @@ class EditBlog(APIView):
         while 'data'+str(i) in request.data:
             array.append(request.data['data'+str(i)])
             i += 1
-
+        print('all array', array)
+        print('________________________________________________________________________')
         #Logic to arrange make consecutive elements of the array of different types 
 
         i = 0
@@ -359,7 +361,6 @@ class EditBlog(APIView):
             blogData = blogData + array[::2][i] + "    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,"
 
         blogDict["blog"] = blogData
-        previousImages = blog.blogmedia.all()       
 
         data = {}
         i = 0
@@ -367,6 +368,9 @@ class EditBlog(APIView):
         for i in range(len(array[1::2])):
             data['image'] = array[1::2][i]
             if array[1::2][i].size > 4194304:
+                newImagesId = blog.blogmedia.all().values_list("id", flat = True)[::-1][:i]
+                newImages = blog.blogmedia.filter(id__in = newImagesId)
+                newImages.delete()
                 return Response({"error":f'size of Image Number {i+1} is greater than 4Mb'}, status=status.HTTP_400_BAD_REQUEST)
             serializer = CreateBlogMediaSerializer(data = data)
             if serializer.is_valid():
@@ -374,16 +378,23 @@ class EditBlog(APIView):
                 serializer.save()
             else:
                 #if any new image has something wrong, new saved images will be deleted
-                newImages = blog.blogmedia.all()[-i:]
+                newImagesId = blog.blogmedia.all().values_list("id", flat = True)[::-1][:i]
+                newImages = blog.blogmedia.filter(id__in = newImagesId)
                 newImages.delete()
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        previousImagesId = blog.blogmedia.all().values_list("id", flat = True)[::-1][i:]
+        newImagesId = blog.blogmedia.all().values_list("id", flat = True)[::-1][:i]
 
         # New data will only be saved if everything goes right, untill that old data remains
         serializer = BlogEditSerializer(blog,data=blogDict,partial = True)
         if serializer.is_valid():
+            previousImages = BlogMedia.objects.filter(id__in = previousImagesId)
             previousImages.delete()
             serializer.save()
             return Response({"success":"Blog Edited"}, status=status.HTTP_200_OK)
+        newImages = blog.blogmedia.filter(id__in = newImagesId)
+        newImages.delete()
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
