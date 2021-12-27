@@ -1,6 +1,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import fullaxios from "../components/FullAxios";
+import { useHistory } from "react-router-dom";
+
 
 
 const Addtrips = () => {
@@ -16,8 +18,14 @@ const Addtrips = () => {
     const [duration, setDuration] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [nOmedia, setNOmedia] = useState(true)
+<<<<<<< Updated upstream
 
     const [error, setError] = useState([]);
+=======
+    const history = useHistory()
+     
+    const [error,setError] = useState([]);
+>>>>>>> Stashed changes
     const [datas, setDatas] = useState([]);
     const [vdatas, setVdatas] = useState([]);
     const [videopreview, setVideopreview] = useState([])
@@ -161,7 +169,8 @@ const Addtrips = () => {
             fullaxios({ url: 'trip/create/', type: 'post', data: formData, formdata: true })
                 .then((res) => {
                     console.log("res", res.data)
-                    // console.log('info data received')
+                    alert("trip added")
+                    history.push("/packagespage")
                     console.log("done")
                 }
 

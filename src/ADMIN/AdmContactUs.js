@@ -116,7 +116,7 @@ const AdmContactUs = () => {
                           <div className="flex justify-between items-center">
                               <div className="flex flex-col">
                               <p  className='text-3xl font-semibold  pt-2 '>{data.name}</p>
-                             <p  className='text-xl font-semibold  pt-8 '>Contact no : {data. phoneNumber}</p>
+                             <p  className='text-xl font-semibold  pt-8 '>Contact no : {data.phoneNumber}</p>
                           <p className='text-xl font-semibold  pt-2 '>Email : {data.email}</p>
                               </div>
                       
@@ -145,7 +145,7 @@ const AdmContactUs = () => {
                           <div className="flex justify-between items-center">
                               <div className="flex flex-col">
                               <p  className='text-3xl font-semibold  pt-2 '>{data.name}</p>
-                             <p  className='text-xl font-semibold  pt-8 '>Contact no : {data. phoneNumber}</p>
+                             <p  className='text-xl font-semibold  pt-8 '>Contact no : {data.phoneNumber}</p>
                           <p className='text-xl font-semibold  pt-2 '>Email : {data.email}</p>
                               </div>
                       

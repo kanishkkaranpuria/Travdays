@@ -654,7 +654,8 @@ const WriteABlog = () => {
     const ActuallyPublishingtheBlog = () => {
 
         return (
-            <div className="w-1/3 flex flex-col justify-center items-center">
+            <div className="section">
+            <div className="w-1/3 mx-auto flex flex-col justify-center items-center">
                 <p className="text-4xl p-5 font-bold">Blog Preview</p>
                 <input style={{ display: 'none' }} name="awesome af" onChange={e => (handledisplayimage(e))} ref={inputRef} type="file" accept="image/*" />
                 {/* {displayImage && <img src= {handledisplayimage(displayImage)}/>}  */}
@@ -679,6 +680,7 @@ const WriteABlog = () => {
                     <button className="p-3 w-1/3 bg-red-800 font-semibold rounded-lg sm:mx-auto" onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
                     <button className="p-3 w-1/3 bg-green-500 font-semibold rounded-lg sm:mx-auto" onClick={() => { submitBlog() }}>Publish Now</button>
                 </div>
+            </div>
             </div>
         )
 
