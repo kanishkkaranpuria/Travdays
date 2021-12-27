@@ -148,7 +148,7 @@ const ApproveBlogs = ({id,setId}) => {
             <p className='text-5xl sm:text-2xl font-bold p-4'>Unapproved Blogs</p>
             {!allblogs && <div className="">
          <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
-              <div className="blog-preview-card ">
+              <div className="blog-preview-card bg-[#f5f5f7] ">
                       <div className='p-8 sm:p-1'>
                           <div className="flex justify-between items-center">
                               <div className="flex flex-col">
@@ -170,7 +170,7 @@ const ApproveBlogs = ({id,setId}) => {
               if(allblogs.length === index+1){
                 return(
                   <div ref={lastDataElementRef2} className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
-            <div className="blog-preview-card non-featured v1 relative">
+            <div className="blog-preview-card bg-[#f5f5f7] non-featured v1 relative">
                     <div className="blog-photos overflow-hidden">
                         <img className='object-cover h-full w-full' src={data.image} alt=""/>
                     </div>
@@ -201,7 +201,7 @@ const ApproveBlogs = ({id,setId}) => {
               else {
                 return(
                   <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
-                  <div className="blog-preview-card non-featured v1 relative">
+                  <div className="blog-preview-card bg-[#f5f5f7] non-featured v1 relative">
                           <div className="blog-photos overflow-hidden">
                               <img className='object-cover h-full w-full' src={data.image} alt=""/>
                           </div>

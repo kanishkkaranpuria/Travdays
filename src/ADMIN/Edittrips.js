@@ -349,10 +349,12 @@ const Edittrips = () => {
                 <br />
                 <span className='text-xl sm:text-xl font-bold sm:p-2 inline-block '>Add new Media</span>
                 <br />
-                <input type="file" multiple style={{ display: 'none' }} name="file" id="file" onChange={Imagechangehandler} />
+                    <span className="p-2 bg-blue-500 w-[150px] flex items-center justify-center rounded-md">
+                    <input type="file" multiple style={{ display: 'none' }} name="file" id="file" onChange={Imagechangehandler} />
                 <label htmlFor="file">
                     <i className="text-xl sm:text-xl bg-blue-500 font-bold sm:p-2">ADD IMAGE</i>
                 </label>
+                    </span>
                 <p className='Arealcontainer'>
                     {imagepreview2 && imagepreview2.map((data, i) => {
 
@@ -447,8 +449,8 @@ const Edittrips = () => {
                 </div>
 
 
-                <div className='flex'>
-                    <p>Select Trip type : </p>
+                <div className='flex items-center'>
+                    <p className="w-52">Select Trip type : </p>
 
                     <select name="val" id="selected">
                         <option> solo </option>

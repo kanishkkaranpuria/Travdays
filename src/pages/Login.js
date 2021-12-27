@@ -62,7 +62,7 @@ const Login = ({setIsauthenticated}) => {
     return (
         <div className="section">
                    <div>
-            {!otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
+            {!otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly bg-[#f5f5f7]">
                 <p onClick = {changeboolvalue}>Click here to Login via OTP</p>
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_details}>
                     <p className="text-4xl text-center">Login Page</p>

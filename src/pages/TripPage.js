@@ -393,7 +393,7 @@ const Trip = ({ isAuth }) => {
                         )
                     }
                 </div>
-                <div className=' flex flex-col overflow-auto h-[90vh]'>
+                <div className=' flex flex-col overflow-auto h-[90vh] bg-[#f5f5f7]'>
                     {function () {
                         reviewStars = Object.assign(calculation(infoObject, reviewStars))
                     }()}

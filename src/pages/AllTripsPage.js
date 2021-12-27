@@ -405,7 +405,7 @@ const AllTrips = () => {
 
       {/* the grid logic was added in the index.css file by naman */ }
       {loading1 ? <div><p>loading...</p></div> :
-        <div className="trips pt-[80px]">
+        <div className="trips pt-[80px] bg-none">
 
       {datas && datas.map((data, index) => {
         if (datas.length === index + 1) {
@@ -416,7 +416,7 @@ const AllTrips = () => {
           );
         } else {
           return (
-            <div className="p-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
+            <div className="m-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
               {ShowData(data)}
             </div>
           );

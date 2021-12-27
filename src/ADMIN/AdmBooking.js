@@ -158,7 +158,7 @@ const AdmBooking = () => {
   
            {!allcontactus && <div className="">
            <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
-                <div className="blog-preview-card ">
+                <div className="blog-preview-card bg-[#f5f5f7] ">
                         <div className='p-8 sm:p-1'>
                             <div className="flex justify-between items-center">
                                 <div className="flex flex-col">
@@ -177,7 +177,7 @@ const AdmBooking = () => {
             if(allcontactus.length === index+1){
               return(
                 <div ref={lastDataElementRef} className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
-                <div className="blog-preview-card ">
+                <div className="blog-preview-card bg-[#f5f5f7] ">
                         <div className='p-8 sm:p-1'>
                             <div className="flex justify-between items-center">
                                 <p  className='text-3xl font-semibold  pt-2 '>{data.user}</p>
@@ -215,7 +215,7 @@ const AdmBooking = () => {
             else{
               return(
                 <div className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
-                <div className="blog-preview-card ">
+                <div className="blog-preview-card bg-[#f5f5f7]">
                         <div className='p-8 sm:p-1'>
                             <div className="flex justify-between items-center">
                                 <p  className='text-3xl font-semibold  pt-2 '>{data.user}</p>
