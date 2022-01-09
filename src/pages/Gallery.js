@@ -148,12 +148,12 @@ const Gallery = () => {
   }, [page])
 
 
-  useEffect(() => {
-    if (datas[0] !== undefined) {
-      setLocimg(datas[0].image)
-      setLocvideo(datas[0].video)
-    }
-  }, [datas])
+  // useEffect(() => {
+  //   if (datas[0] !== undefined) {
+  //     setLocimg(datas[0].image)
+  //     setLocvideo(datas[0].video)
+  //   }
+  // }, [datas])
 
   useEffect(() => {
     setStorage([...datas.map(data => data.id)])
@@ -164,15 +164,7 @@ const Gallery = () => {
   }, [datas])
 
   const [locid, setLocid] = useState()
-  useEffect(() => {
-    console.log('storage set')
-    console.log(storage)
-
-    // setLocid(storage[0].id)
-    setLocid(storage[0])
-    // setLocimg(storage[0].image)
-
-  }, [storage])
+  
 
   useEffect(() => {
     // console.log('hasMore', hasMore)
@@ -193,7 +185,7 @@ const Gallery = () => {
   useEffect(() => {
     fullaxios({ url: 'gallery/package/' + locid })
       .then(res => {
-        console.log("resssssssssss", res.data)
+        // console.log("resssssssssss", res.data)
         if (res) {
           // setLocation(prev => [...prev, ...res.data])
           setLocation(res.data)
@@ -204,7 +196,7 @@ const Gallery = () => {
   }, [locid])
 
   useEffect(() => {
-    // console.log("location",location)
+    console.log("location",location)
 
   }, [location])
 
