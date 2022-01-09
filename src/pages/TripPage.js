@@ -33,6 +33,8 @@ const Trip = ({ isAuth }) => {
 
     const [reviewSubmitted, setReviewSubmitted] = useState(false)
 
+    // const [temp, setTemp] = useState([])
+
     const observer = useRef('') // has only one attribute - current!
 
     const [userGivenStars, setUserGivenStars] = useState(0)
@@ -114,8 +116,8 @@ const Trip = ({ isAuth }) => {
         })
             .then(res => {
                 console.log(res)
-                alert('ho gaya')
-
+                alert('booking confirmed!')
+                history.push('/profile')
             })
             .catch(err => {
                 console.log(err)
@@ -194,6 +196,7 @@ const Trip = ({ isAuth }) => {
                     setUserGivenStars(0)
                     if (page === 1) { if (refetch === true) { setRefetch(false) } else { setRefetch(true) } }
                     else { setPage(1) }
+                    alert('Review submitted')
                 })
                 .catch(err => {
                     console.log(err)
@@ -590,7 +593,7 @@ const Trip = ({ isAuth }) => {
                             <input required type="number" placeholder='enter your phone number' requiredd onChange={(e) => { setPhoneNumber(e.target.value) }} /><br />
                         </label>
                         <label className="flex items-center">
-                            Your Trip:
+                            Your Trip: 
                             <input required readOnly value={name} />
                         </label>
                         <div className="flex">

@@ -58,7 +58,10 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
                 <Link className='h-full items-center flex' to='/gallery'>Gallery</Link>
                 <Link className='h-full items-center flex' to='/contactus'>Contact Us</Link>
                 <Link className='h-full items-center flex' to='/faq'>FAQ</Link>
-                {isauthenticated ? <div className='h-full items-center flex cursor-pointer' onClick = {logout}>Logout</div>:
+                
+                {isauthenticated ? <>
+                    <Link to='profile'>Profile</Link>
+                     <div className='h-full items-center flex cursor-pointer' onClick = {logout}>Logout</div></>:
                 <Link className='h-full items-center flex' to='/login'>Login</Link>}
                 <Link className='h-full items-center flex' to=''>Our AI Coming Soon</Link>
             </nav>

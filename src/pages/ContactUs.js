@@ -51,6 +51,10 @@ const ContactUs = () => {
         })
             .then(res => {
                 if (res) {
+
+                    alert("Form submission is complete! ")
+                    setTemp('')
+                    setQuery('')
                     //"it worked")
                     // history.push('/')
                 }
@@ -175,7 +179,7 @@ const ContactUs = () => {
                 </div>
 
                 enter your qwery:
-                <textarea placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)}></textarea>
+                <textarea value={query} placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)}></textarea>
                 <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
 
 
