@@ -18,14 +18,9 @@ const Addtrips = () => {
     const [duration, setDuration] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [nOmedia, setNOmedia] = useState(true)
-<<<<<<< Updated upstream
-
-    const [error, setError] = useState([]);
-=======
     const history = useHistory()
      
     const [error,setError] = useState([]);
->>>>>>> Stashed changes
     const [datas, setDatas] = useState([]);
     const [vdatas, setVdatas] = useState([]);
     const [videopreview, setVideopreview] = useState([])
