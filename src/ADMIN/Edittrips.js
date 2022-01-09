@@ -22,6 +22,8 @@ const Edittrips  = () => {
     const [triptype, setTriptype] = useState(null)
     const [durationdays, setDurationdays] = useState(null)
     const [duration, setDuration] = useState(null)
+    const [duration1, setDuration1] = useState(null)
+    const [duration2, setDuration2] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [picAdded, setPicAdded] = useState(1)
     
@@ -34,12 +36,19 @@ const Edittrips  = () => {
     useEffect(() => {
         if (durationnights && durationdays)
             setDuration(`${durationdays},${durationnights}`)
+         if (durationnights )
+            setDuration(`${duration1},${durationnights}`)    
+
+
+
+        if (durationdays)
+            setDuration(`${durationdays},${duration2}`)
         //"it should set")
 
     }, [durationnights, durationdays])
 
     useEffect(() => {
-       
+       console.log(duration)
     }, [duration])
 
     useEffect(() => {
@@ -164,7 +173,7 @@ const Edittrips  = () => {
 
         }
         else {
-            formData.append(`duration`, duration)
+            formData.append(`duration`, duration )
         }
 
 
@@ -191,12 +200,12 @@ const Edittrips  = () => {
     const [exmedia, setExmedia] = useState()
     const { name } = useParams();
 
-    useEffect(() => {
-        if (durationnights && durationdays)
-            setDuration(`${durationdays},${durationnights}`)
-            //"it should set")
+    // useEffect(() => {
+    //     if (durationnights && durationdays)
+    //         setDuration(`${durationdays},${durationnights}`)
+    //         //"it should set")
             
-        },[durationnights,durationdays])
+    //     },[durationnights,durationdays])
         useEffect(() => {
             //exdata)
         }, [exdata])
@@ -220,6 +229,11 @@ const Edittrips  = () => {
                     fullaxios({ url: 'trip/' + name})
                     .then(res => {
                         setExdata(res.data)
+                        
+                        console.log(`${res.data.duration.split(" Days ")[0]},${res.data.duration.split(" Days ")[1].split(" Nights")[0]}`)
+                        setDuration(`${res.data.duration.split(" Days ")[0]},${res.data.duration.split(" Days ")[1].split(" Nights")[0]}`)
+                        setDuration1(`${res.data.duration.split(" Days ")[0]}`)
+                        setDuration2(`${res.data.duration.split(" Days ")[1].split(" Nights")[0]}`)
                         console.log(res.data)
                     })
                     .catch(err => {
