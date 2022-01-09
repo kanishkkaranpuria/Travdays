@@ -10,7 +10,7 @@ const AdmContactUs = () => {
     const observer = useRef()
     
     const lastDataElementRef = useCallback(node => {
-      console.log('last element')
+      //'last element')
       if (loading) return
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver(entries => {
@@ -19,7 +19,7 @@ const AdmContactUs = () => {
         }
         })
       if (node) {
-          console.log(node)
+          //node)
           observer.current.observe(node)}
       }, [loading, hasmore])
 
@@ -29,8 +29,8 @@ const AdmContactUs = () => {
           fullaxios({url: 'query/?page='+ page  })
           .then((res) => {
             setLoading(false)
-            console.log("useeeffect rann")
-            console.log(res.data)
+            //"useeeffect rann")
+            //res.data)
             if (res.data.length===0){
               setAllcontactus(null)
             }
@@ -38,10 +38,10 @@ const AdmContactUs = () => {
               setAllcontactus(prev=>[...prev,...res.data])
 
             }
-          // console.log(res.data)
+          // //res.data)
         })
         .catch(err => {
-          console.log(err.response)
+          //err.response)
           if (err.response){if (err.response.data.detail === "Invalid page.") {
             setHasmore(false)
           }
@@ -56,22 +56,22 @@ const AdmContactUs = () => {
 
     useEffect(() => {
       
-  // console.log(loading)
-  console.log(page)
-  // console.log(deleted)
-  // console.log(allcontactus.length)
+  // //loading)
+  //page)
+  // //deleted)
+  // //allcontactus.length)
     }, [page])
    
     const Delete = (id) => {
-      console.log(id)
+      //id)
       setDeleted(true)
       setLoading(true)
-      console.log("delete")
+      //"delete")
     
       fullaxios({url: 'query/'+ id , type: 'delete' })
       .then(res => {
-        console.log("deleted")
-        console.log(res.data)
+        //"deleted")
+        //res.data)
         setAllcontactus([])
         setDeleted(false)
         setLoading(false)

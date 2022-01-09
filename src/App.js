@@ -60,14 +60,14 @@ function App() {
       //   .get(`faq/question?page=`+ page)
       .then((res) => {
         if (res) {
-          console.log(res.data.admin)
-          console.log(res.data)
+          //res.data.admin)
+          //res.data)
           setIsadmin(res.data.admin)
           setIsauthenticated(res.data.authenticated)
         }
       })
       .catch(err => {
-        console.log(err)
+        //err)
       })
   }, [])
 
@@ -76,12 +76,12 @@ function App() {
   //   fullaxios({ url: 'userinfo/status' })
   //   //   .get(`faq/question?page=`+ page)
   //   .then((res) => {
-  //     console.log(res.data.admin)
+  //     //res.data.admin)
   //     setIsadmin(res.data.admin)
 
   //   })
   //   .catch(err => {
-  //     console.log(err)
+  //     //err)
   //   }) 
   // })
 

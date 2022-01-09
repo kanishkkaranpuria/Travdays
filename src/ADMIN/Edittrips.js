@@ -34,27 +34,25 @@ const Edittrips  = () => {
     useEffect(() => {
         if (durationnights && durationdays)
             setDuration(`${durationdays},${durationnights}`)
-        console.log("it should set")
+        //"it should set")
 
     }, [durationnights, durationdays])
 
     useEffect(() => {
-        console.log(duration)
-        console.log("duration")
-        console.log(imagepreview2)
+       
     }, [duration])
 
     useEffect(() => {
-        console.log(duration)
-        console.log("duration")
+        //duration)
+        //"duration")
 
     }, [price, tripname])
 
     const Imagechangehandler = (e) => {
-        console.log(e.target.files)
-        // console.log(e.target.files.length )
+        //e.target.files)
+        // //e.target.files.length )
         for (let i = 0; i < e.target.files.length; i++) {
-            // console.log("rubbish")
+            // //"rubbish")
         }
 
         const fileArray = Array.from(e.target.files).map((file, index) => ({
@@ -62,19 +60,19 @@ const Edittrips  = () => {
             "media": URL.createObjectURL(file),
             //   "videos" : URL.createObjectURL(file)
         }))
-        // console.log("has it changed",e.target.value)
+        // //"has it changed",e.target.value)
         // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
-        console.log(fileArray)
+        //fileArray)
         setImagepreview2((prevVideos) => prevVideos.concat(fileArray))
         setDatas(prev => [...prev, ...Array.from(e.target.files).map((file) => file)])
     }
 
 
     useEffect(() => {
-        console.log(datas)
-        console.log(imagepreview)
-        console.log(imagepreview.slice(2, 3))
-        console.log([...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
+        //datas)
+        //imagepreview)
+        //imagepreview.slice(2, 3))
+        //[...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
 
     }, [datas, imagepreview])
 
@@ -83,16 +81,16 @@ const Edittrips  = () => {
     const SubmitMedia = (e) => {
         e.preventDefault();
         let formData = new FormData();
-        console.log(datas[0])
+        //datas[0])
         let m = 0
         let n = 0
         formData.append(`id`, id)
         for (let i = 0; i < datas.length; i++) {
-            console.log("rubbish")
-            console.log(datas[i])
+            //"rubbish")
+            //datas[i])
 
             if (datas[i].type.slice(0, 5) === "image") {
-                console.log("image gang")
+                //"image gang")
                 formData.append(`image${m}`, datas[i])
                 m++
             }
@@ -101,14 +99,14 @@ const Edittrips  = () => {
                 formData.append(`video${n}`, datas[i])
                 n++
             }
-            console.log(datas[i].type)
+            //datas[i].type)
         }
     
     fullaxios({ url: 'trip/create/' , type:'post', data : formData , formdata : true   })
     .then((res)=>{
-        console.log("res", res.data)
+        //"res", res.data)
         alert("media submitted")
-        console.log("done")
+        //"done")
         setDatas([])
         setPicAdded(prev=>prev+1)
         setImagepreview2([])
@@ -117,18 +115,22 @@ const Edittrips  = () => {
         
         )
         .catch(err => {
-            console.log(err)
+            //err)
             
         })
         
         
     }
-
-
+    
+    
     const Submit = (e) => {
+        var d = document.getElementById("selected");
         e.preventDefault();
+        console.log(d.value)
+        if(d!==null){
         let formData = new FormData();
-        console.log(id)
+        console.log(d.value)
+        //id)
 
         formData.append(`id`, id)
         formData.append(`type`, d.value)
@@ -166,26 +168,23 @@ const Edittrips  = () => {
         }
 
 
-        console.log(...formData)
+        //...formData)
         
         fullaxios({ url: 'trip/create/' , type:'patch', data : formData , formdata : true   })
         .then((res)=>{
-            console.log("res", res.data)
+            //"res", res.data)
             if(exdata.name!==tripname &&tripname!==null ){
                 history.push("/tripedit/"+tripname+"/"+id)
             }
-            // console.log('info data received')
             alert("response submitted")
-            console.log("done")}
-            
+        }
             )
             .catch(err => {
-                console.log(err)
+                //err)
 
             })
-
+        }
     }
-    var d = document.getElementById("selected");
 
     //Edit page speciallllllllllllll
     const [exdata, setExdata] = useState(null)
@@ -195,24 +194,24 @@ const Edittrips  = () => {
     useEffect(() => {
         if (durationnights && durationdays)
             setDuration(`${durationdays},${durationnights}`)
-            console.log("it should set")
+            //"it should set")
             
         },[durationnights,durationdays])
         useEffect(() => {
-            console.log(exdata)
+            //exdata)
         }, [exdata])
         
         const test = () => {
          
-            console.log("duration")
-            console.log(exdata.duration)
-          console.log(exdata.duration.split(" Days ")[0])   
-          console.log(exdata.duration.split(" Days ")[1].split(" Nights")[0])
+            //"duration")
+            //exdata.duration)
+          //exdata.duration.split(" Days ")[0])   
+          //exdata.duration.split(" Days ")[1].split(" Nights")[0])
             }
         
         useEffect(() => {
-            console.log(duration)
-                    console.log("duration")
+            //duration)
+                    //"duration")
                     
                 },[price,tripname])
                 
@@ -221,9 +220,10 @@ const Edittrips  = () => {
                     fullaxios({ url: 'trip/' + name})
                     .then(res => {
                         setExdata(res.data)
+                        console.log(res.data)
                     })
                     .catch(err => {
-                        console.log(err)
+                        //err)
                     })
                     
                     
@@ -231,52 +231,52 @@ const Edittrips  = () => {
                     fullaxios({ url: 'trip/admintripmedia/' + name})
                     // fullaxios({ url: 'trip/media2/' + name})
                     .then(res => {
-                        console.log(res.data)
+                        //res.data)
                         setImagepreview (res.data)
                     })
                     .catch(err => {
-                        console.log(err)
+                        //err)
                     })
                     
                 },[picAdded])
                 
                 useEffect(() => {
-                    console.log("exdata",exdata)
-                    // console.log(exdata.descripition)
+                    //"exdata",exdata)
+                    // //exdata.descripition)
                     
                 }, [exdata])
                 
                 // const RemoveMedia = (n) => {
                 //     setImagepreview(prev=>[...prev.slice(0,n),...prev.slice(n+1,)])
-                //     console.log(imagepreview)
+                //     //imagepreview)
                 // }
                 
                 const RemoveMedia2 = (n) => {
                     setImagepreview2(prev=>[...prev.slice(0,n),...prev.slice(n+1,)])
                     setDatas(prev=>[...prev.slice(0,n),...prev.slice(n+1,)])
-                    console.log(imagepreview)
+                    //imagepreview)
                     
                 }
                 
                 const DeleteMedia = (n,id) => {
                     let confirmBox = window.confirm("delete seriously?")
-                    console.log(confirmBox)
+                    //confirmBox)
                     if(confirmBox===true){
                         fullaxios({ url: 'trip/deletemedia/' + id , type: "delete" })
                         .then(res => {
                             setImagepreview(prev=>[...prev.slice(0,n),...prev.slice(n+1,)])
-                            console.log(res.data )
-                            console.log("deleted")
+                            //res.data )
+                            //"deleted")
                         })
                         .catch(err => {
-                            console.log(err)
+                            //err)
                 })
             }
          }
 
          const DeleteTrip  = () => {
             let confirmBoxx = window.confirm("delete seriously?")
-            console.log(confirmBoxx)
+            //confirmBoxx)
             if(confirmBoxx===true){
                 
                 fullaxios({ url: 'trip/' + exdata.name , type: "delete" })
@@ -285,7 +285,6 @@ const Edittrips  = () => {
                     history.push("/packagespage")
                 })
                 .catch(err => {
-                    console.log(err)
                       })
                }
          }
@@ -306,8 +305,8 @@ const Edittrips  = () => {
                             <span className='text-xl sm:text-xl sm:p-2 inline-block '>Delete existing media</span>
                             <p className='Arealcontainer'> 
                                     {/* {imagepreview &&  imagepreview.map((data,index)=>{
-                                        console.log(data.type)
-                                        console.log(data.image)
+                                        //data.type)
+                                        //data.image)
                                         if( data.type.slice(0,5) === "image" ) { 
                                             return(
                                                 <div className="Acontainer">
@@ -488,12 +487,22 @@ const Edittrips  = () => {
                                     
                             <div className='flex'>
                             <p>Select Trip type : </p>
-                        
-                                <select  name="val" id="selected">
+                        {exdata.type==="solo"&& <select  name="val" id="selected">
                                 <option> solo </option>   
-                                <option> petfriendly </option>   
+                                <option> pet friendly </option>   
                                 <option> workation </option>   
-                                </select>          
+                                </select> }
+                        {exdata.type==="pet friendly"&& <select  name="val" id="selected">
+                                <option> pet friendly </option>   
+                                <option> solo </option>   
+                                <option> workation </option>   
+                                </select> }
+                        {exdata.type==="workation"&& <select  name="val" id="selected">
+                                <option> workation </option>   
+                                <option> solo </option>   
+                                <option> pet friendly </option>   
+                                </select> }
+                                        
                          </div>    
                                         
                                      
@@ -502,10 +511,10 @@ const Edittrips  = () => {
                             <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
                             </div>
                             
+                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
 
             </form>}                       
                         </div>
-                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
                          </div>
         </div>
         </div>

@@ -18,14 +18,9 @@ const Addtrips = () => {
     const [duration, setDuration] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [nOmedia, setNOmedia] = useState(true)
-<<<<<<< Updated upstream
-
-    const [error, setError] = useState([]);
-=======
     const history = useHistory()
      
     const [error,setError] = useState([]);
->>>>>>> Stashed changes
     const [datas, setDatas] = useState([]);
     const [vdatas, setVdatas] = useState([]);
     const [videopreview, setVideopreview] = useState([])
@@ -34,33 +29,33 @@ const Addtrips = () => {
     useEffect(() => {
         if (durationnights && durationdays)
             setDuration(`${durationdays},${durationnights}`)
-        console.log("it should set")
+        //"it should set")
 
     }, [durationnights, durationdays])
 
     useEffect(() => {
-        console.log(duration)
-        console.log("duration")
+        //duration)
+        //"duration")
 
     }, [duration])
 
     useEffect(() => {
-        console.log(duration)
-        console.log("duration")
+        //duration)
+        //"duration")
 
     }, [price, tripname])
 
     const Imagechangehandler = (e) => {
-        console.log(e.target.files)
+        //e.target.files)
         if (e.target.files.length === 0) {
-            console.log("zerooooooo")
+            //"zerooooooo")
         }
         if (e.target.files.length >= 0) {
-            console.log("not zeroooo")
+            //"not zeroooo")
         }
-        // console.log(e.target.files.length )
+        // //e.target.files.length )
         for (let i = 0; i < e.target.files.length; i++) {
-            // console.log("rubbish")
+            // //"rubbish")
         }
 
         const fileArray = Array.from(e.target.files).map((file, index) => ({
@@ -68,9 +63,9 @@ const Addtrips = () => {
             "media": URL.createObjectURL(file),
             //   "videos" : URL.createObjectURL(file)
         }))
-        // console.log("has it changed",e.target.value)
+        // //"has it changed",e.target.value)
         // setDatas(Array.from(e.target.files).map((file)=>URL.revokeObjectURL(file)))
-        console.log(fileArray)
+        //fileArray)
         setImagepreview((prevVideos) => prevVideos.concat(fileArray))
         setDatas(prev => [...prev, ...Array.from(e.target.files).map((file) => file)])
     }
@@ -78,50 +73,50 @@ const Addtrips = () => {
 
 
     useEffect(() => {
-        console.log(datas)
+        //datas)
         if (imagepreview.length === 0) {
             setNOmedia(true)
         }
         else {
             setNOmedia(false)
         }
-        console.log(imagepreview)
-        console.log(imagepreview.slice(2, 3))
-        console.log([...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
+        //imagepreview)
+        //imagepreview.slice(2, 3))
+        //[...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
     }, [datas, imagepreview])
 
 
 
     useEffect(() => {
-        console.log(datas)
+        //datas)
         if (imagepreview.length === 0) {
             setNOmedia(true)
         }
         else {
             setNOmedia(false)
         }
-        console.log(imagepreview)
-        console.log(imagepreview.slice(2, 3))
-        console.log([...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
+        //imagepreview)
+        //imagepreview.slice(2, 3))
+        //[...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
     }, [datas, imagepreview])
 
 
 
     useEffect(() => {
-        console.log(datas)
-        console.log(imagepreview)
-        console.log(imagepreview.slice(2, 3))
-        console.log([...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
+        //datas)
+        //imagepreview)
+        //imagepreview.slice(2, 3))
+        //[...imagepreview.slice(0, 1), ...imagepreview.slice(2,)])
     }, [datas, imagepreview])
 
 
     const test = (n) => {
 
-        // console.log(document.getElementById("1").innerHTML)
+        // //document.getElementById("1").innerHTML)
         // document.getElementById("1").innerHTML= null
         setImagepreview(prev => [...prev.slice(0, n), ...prev.slice(n + 1,)])
         setDatas(prev => [...prev.slice(0, n), ...prev.slice(n + 1,)])
-        console.log(imagepreview)
+        //imagepreview)
 
     }
 
@@ -134,15 +129,15 @@ const Addtrips = () => {
         }
         else {
             let formData = new FormData();
-            console.log(datas[0])
+            //datas[0])
             let m = 0
             let n = 0
             for (let i = 0; i < datas.length; i++) {
-                console.log("rubbish")
-                console.log(datas[i])
+                //"rubbish")
+                //datas[i])
 
                 if (datas[i].type.slice(0, 5) === "image") {
-                    console.log("image gang")
+                    //"image gang")
                     formData.append(`image${m}`, datas[i])
                     m++
                 }
@@ -151,7 +146,7 @@ const Addtrips = () => {
                     formData.append(`video${n}`, datas[i])
                     n++
                 }
-                console.log(datas[i].type)
+                //datas[i].type)
             }
 
 
@@ -164,19 +159,19 @@ const Addtrips = () => {
             formData.append(`duration`, duration)
 
 
-            console.log(...formData)
+            //...formData)
 
             fullaxios({ url: 'trip/create/', type: 'post', data: formData, formdata: true })
                 .then((res) => {
-                    console.log("res", res.data)
+                    //"res", res.data)
                     alert("trip added")
                     history.push("/packagespage")
-                    console.log("done")
+                    //"done")
                 }
 
                 )
                 .catch(err => {
-                    console.log(err)
+                    //err)
 
                 })
         }
@@ -196,8 +191,8 @@ const Addtrips = () => {
                 <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Add trips</span>
                 <p className=''>
                     {imagepreview && imagepreview.map((data, i) => {
-                        console.log(data.type)
-                        console.log(data.image)
+                        //data.type)
+                        //data.image)
                         if (data.type.slice(0, 5) === 'image') {
                             return (
                                 <div className="Acontainer">
@@ -248,7 +243,7 @@ const Addtrips = () => {
                         <span className="w-52">Select Trip type : </span>
                         <select className="bg-[#e1e1e1] rounded-md" name="val" id="selected">
                             <option> solo </option>
-                            <option> petfriendly </option>
+                            <option> pet friendly </option>
                             <option> workation </option>
                         </select>
                     </p>

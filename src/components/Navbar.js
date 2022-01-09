@@ -8,12 +8,12 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
     
     const history = useHistory();
     // useEffect(() => {
-    //     console.log("uerinfo status")
+    //     //("uerinfo status")
     //     fullaxios({url : 'userinfo/status' 
     //     })
     //     .then(res => {
     //       if (res){
-    //         console.log(res.data)
+    //         //(res.data)
     //     }})
     //     .catch(err => {
     //        if (err.response){if (err.response.data.detail === "Invalid page.") {
@@ -26,7 +26,7 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
     const logout = () => {
         fullaxios({url : 'auth/logout'})
         .then(res =>{
-            console.log("here",res.data)
+            //("here",res.data)
             setIsadmin(false)
             setIsauthenticated(false)
             // Cookie('setCookie',"accesstoken",0,-1)
@@ -35,7 +35,7 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
             history.push('/')
         })
         .catch(err=>{
-            console.log(err.data)
+            //(err.data)
             })
         }
     return (

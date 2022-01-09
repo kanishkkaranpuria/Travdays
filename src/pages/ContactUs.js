@@ -21,13 +21,13 @@ const ContactUs = () => {
 
     useEffect(() => {
         
-      console.log(email)
+      //email)
     }, [email])
 
 
     const submitquery = (e) => {
         e.preventDefault();
-        console.log("well this works")
+        //"well this works")
         var d = document.getElementById("selected");
 
 
@@ -51,12 +51,12 @@ const ContactUs = () => {
         })
             .then(res => {
                 if (res) {
-                    console.log("it worked")
+                    //"it worked")
                     // history.push('/')
                 }
             })
             .catch(res => {
-                console.log("hello didnt work")
+                //"hello didnt work")
                 // if (res.status === 400)
                 //     alert("invalid OTP!!")
             })
@@ -102,7 +102,7 @@ const ContactUs = () => {
                 if (res) {
                     setMainqueries(res.data);
 
-                    // console.log(res.data)
+                    // //res.data)
                 }
             })
         // document.getElementById("name").setCustomValidity("Teawari gay and that is a fact");
@@ -115,17 +115,17 @@ const ContactUs = () => {
         fullaxios({ url: 'userinfo/info', type: 'get' })
             .then(res => {
                 if (res) {
-                    console.log(res.data)
+                    //res.data)
                     setPredefinedname(res.data.name)
                     setPredefinedemail(res.data.email)
                     // setName(res.data.name)
                     // setEmail(res.data.email)
-                    // console.log("")
+                    // //"")
                     // history.push('/')1
                 }
             })
             .catch(res => {
-                console.log("hello didnt work")
+                //"hello didnt work")
                 // if (res.status === 400)
                 //     alert("invalid OTP!!")
             })
