@@ -24,7 +24,8 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
     // }, [])
     
     const logout = () => {
-        fullaxios({url : 'auth/logout'})
+        console.log("logout")
+        fullaxios({url : 'auth/logout', sendcookie : true})
         .then(res =>{
             //("here",res.data)
             setIsadmin(false)
