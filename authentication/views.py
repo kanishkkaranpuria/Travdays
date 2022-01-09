@@ -113,24 +113,6 @@ class OTP_Validation(APIView):
             print("Response is sent")
             return Response({"success":"User Account Activated"},status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    
-class ActivateAccountView(APIView):
-
-    permission_classes = [AllowAny]
-
-    def get(self, request, uid, token):
-        try:
-            uid = force_text(urlsafe_base64_decode(uid))
-            user = User.objects.get(id=uid)
-        except Exception as identifier:
-            user = None
-        if user is not None and PasswordResetTokenGenerator().check_token(user, token ):
-            if Otp.objects.filter(user_id=uid).exists():
-                user.otp.delete()
-            user.is_active = True
-            user.save()
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
 
@@ -243,29 +225,40 @@ class Refresh_Token_View(APIView):
         response = Response() 
         now =  datetime.datetime.now().astimezone()
         refresh_token = request.COOKIES.get('refreshtoken')
+
         if refresh_token is None:
             response.delete_cookie('accesstoken')
             print("refresh token missing from cookies (new accesstoken)")
             response.status_code = 401
             response.data =  {"Error":"refresh token missing"}
             return response
-        obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
-        if obj:
+
+        bool = WhitelistedTokens.objects.filter(token = refresh_token).exists()
+        if not (bool):
+            print("Token doesn't exist in backend (new accesstoken)")
+            response = Response()
+            response.delete_cookie('refreshtoken')
+            response.delete_cookie('accesstoken')
+            response.delete_cookie('csrftoken')
+            response.data = {"Error":"Token doesn't exist"}
+            response.status_code = 400
+            return response
+            # return Response({"Error":"Token doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
+       
+        elif bool:
+            obj = WhitelistedTokens.objects.filter(token = refresh_token).first()
             if obj.expiry<now:
                 obj.delete()
                 print("Refresh token expired (new accesstoken)")
                 return Response({"Error":"Refresh token expired"}, status = status.HTTP_400_BAD_REQUEST)
-        bool = WhitelistedTokens.objects.filter(token = refresh_token).exists()
-        if not (bool):
-            print("Token doesn't exist in backend (new accesstoken)")
-            return Response({"Error":"Token doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
-        elif bool:
+
             try:
                 payload = jwt.decode(
                     refresh_token, settings.REFRESH_TOKEN_SECRET, algorithms=['HS256'])
             except jwt.ExpiredSignatureError:
                 print('expired refresh token, please login again.')
                 raise exceptions.AuthenticationFailed('expired refresh token, please login again.')
+
             user = User.objects.filter(id=payload.get('user_id')).first()
             if user is None:
                 print('User not found (new accesstoken)')
