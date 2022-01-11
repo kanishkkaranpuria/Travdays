@@ -163,10 +163,10 @@ const Addtrips = () => {
 
             fullaxios({ url: 'trip/create/', type: 'post', data: formData, formdata: true })
                 .then((res) => {
-                    //"res", res.data)
+                    console.log("res", res.data)
                     alert("trip added")
                     history.push("/packagespage")
-                    //"done")
+                    console.log("done")
                 }
 
                 )

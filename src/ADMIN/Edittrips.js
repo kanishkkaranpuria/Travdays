@@ -113,9 +113,9 @@ const Edittrips  = () => {
     
     fullaxios({ url: 'trip/create/' , type:'post', data : formData , formdata : true   })
     .then((res)=>{
-        //"res", res.data)
+        console.log("res", res.data)
         alert("media submitted")
-        //"done")
+        console.log("done")
         setDatas([])
         setPicAdded(prev=>prev+1)
         setImagepreview2([])
@@ -181,12 +181,14 @@ const Edittrips  = () => {
         
         fullaxios({ url: 'trip/create/' , type:'patch', data : formData , formdata : true   })
         .then((res)=>{
-            //"res", res.data)
+            console.log("res", res.data)
             if(exdata.name!==tripname &&tripname!==null ){
                 history.push("/tripedit/"+tripname+"/"+id)
             }
+            // console.log('info data received')
             alert("response submitted")
-        }
+            console.log("done")}
+            
             )
             .catch(err => {
                 //err)
@@ -205,10 +207,8 @@ const Edittrips  = () => {
     //         setDuration(`${durationdays},${durationnights}`)
     //         //"it should set")
             
-    //     },[durationnights,durationdays])
-        useEffect(() => {
-            //exdata)
-        }, [exdata])
+      
+        
         
         const test = () => {
          
@@ -299,6 +299,7 @@ const Edittrips  = () => {
                     history.push("/packagespage")
                 })
                 .catch(err => {
+                    console.log(err)
                       })
                }
          }
@@ -529,6 +530,7 @@ const Edittrips  = () => {
 
             </form>}                       
                         </div>
+                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
                          </div>
         </div>
         </div>
