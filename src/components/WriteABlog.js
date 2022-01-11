@@ -689,6 +689,7 @@ const WriteABlog = () => {
         localStorage.clear()
         setAlldata([""])
         setNumberOfAllDatas(0)
+        numberOfAllImages.current = 0
         pretitle = null
         setTitle("")
 
@@ -835,7 +836,7 @@ const WriteABlog = () => {
                                 (data && (data.slice(0, 11) === "data:image/"))
                                     ?
                                     <>
-                                        <img src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
+                                        <img className="mx-auto " src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
                                         {/* <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" /> */}
                                     </>
                                     :

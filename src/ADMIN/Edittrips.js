@@ -135,7 +135,8 @@ const Edittrips  = () => {
     
     const Submit = (e) => {
         e.preventDefault();
-        if(deelete!==false){
+        console.log(deelete)
+        if(deelete!==true){
         var d = document.getElementById("selected");
         console.log(d.value)
         if(d!==null){

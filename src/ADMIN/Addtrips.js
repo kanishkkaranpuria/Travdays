@@ -187,7 +187,7 @@ const Addtrips = () => {
 
             {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
 
-            <form className='flex flex-col mx-auto max-w-[1000px] rounded-lg lg:p-8 mt-[5%] p-box-shadow-2 ' action="">
+            <form className='flex flex-col mx-auto max-w-[1000px] rounded-lg lg:p-8 mt-[5%] p-box-shadow-2 ' onSubmit={Submit} action="">
                 <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Add trips</span>
                 <p className=''>
                     {imagepreview && imagepreview.map((data, i) => {
@@ -228,8 +228,8 @@ const Addtrips = () => {
 
                     <div className='flex items-center'>
                         <span className='w-52'>Enter Trip duration :</span>
-                        <div className="flex flex-col mr-2">days :<input className="m-0 " required type="number" placeholder="no of days" id="name" onChange={(e) => setDurationdays(e.target.value)} /></div>
-                        <div className="flex flex-col ml-2">nights :<input className="m-0" required type="number" placeholder="no of nights" id="name" onChange={(e) => setDurationnights(e.target.value)} /></div>
+                        <div  className="flex flex-col mr-2">days :<input required className="m-0 " required type="number" placeholder="no of days" id="name" onChange={(e) => setDurationdays(e.target.value)} /></div>
+                        <div className="flex flex-col ml-2">nights :<input required className="m-0" required type="number" placeholder="no of nights" id="name" onChange={(e) => setDurationnights(e.target.value)} /></div>
                     </div>
                     <p className='flex items-center'>
                     </p>
@@ -256,7 +256,7 @@ const Addtrips = () => {
                 </div>
 
                 <textarea required placeHolder="Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value)}></textarea>
-                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit" onClick={Submit} >submit</button>
+                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit" >submit</button>
 
 
 

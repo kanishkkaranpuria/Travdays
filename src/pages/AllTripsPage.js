@@ -347,8 +347,8 @@ const AllTrips = () => {
                 <span className='px-4 text-sm'>({data.ratingsCount})</span>
               </p>}
 
-            <p className='md:hidden text-lg font-semibold'>Short Description</p>
-            <p className='md:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p>
+            {/* <p className='md:hidden text-lg font-semibold'>Short Description</p>
+            <p className='md:hidden leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur non aliquam itaque omnis repellendus, dignissimos voluptate fuga, provident libero in praesentium porro consequuntur odit ex ipsa magnam tenetur nostrum. Ipsa!</p> */}
             <p className='md:hidden leading-tight'>{data.description}</p>
             {/* {data.ratingsCount && <p >{data.ratingsCount}</p>} */}
             {data.price && <p className='font-semibold absolute bottom-4 right-5'>₹{data.price}</p>}
@@ -410,7 +410,7 @@ const AllTrips = () => {
       {datas && datas.map((data, index) => {
         if (datas.length === index + 1) {
           return (
-            <div ref={lastDataElementRef} className="p-5 md:p-[0.5rem] flex justify-center  xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
+            <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
               {ShowData(data)}
             </div>
           );
