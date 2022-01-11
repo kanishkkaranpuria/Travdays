@@ -26,6 +26,8 @@ const Edittrips  = () => {
     const [duration2, setDuration2] = useState(null)
     const [durationnights, setDurationnights] = useState(null)
     const [picAdded, setPicAdded] = useState(1)
+    const [deelete, setDeelete] = useState(false)
+
     
     const [error,setError] = useState([]);
     const [datas, setDatas] = useState([]);
@@ -113,9 +115,9 @@ const Edittrips  = () => {
     
     fullaxios({ url: 'trip/create/' , type:'post', data : formData , formdata : true   })
     .then((res)=>{
-        console.log("res", res.data)
+        //"res", res.data)
         alert("media submitted")
-        console.log("done")
+        //"done")
         setDatas([])
         setPicAdded(prev=>prev+1)
         setImagepreview2([])
@@ -131,10 +133,10 @@ const Edittrips  = () => {
         
     }
     
-    
     const Submit = (e) => {
-        var d = document.getElementById("selected");
         e.preventDefault();
+        if(deelete!==false){
+        var d = document.getElementById("selected");
         console.log(d.value)
         if(d!==null){
         let formData = new FormData();
@@ -181,20 +183,19 @@ const Edittrips  = () => {
         
         fullaxios({ url: 'trip/create/' , type:'patch', data : formData , formdata : true   })
         .then((res)=>{
-            console.log("res", res.data)
+            //"res", res.data)
             if(exdata.name!==tripname &&tripname!==null ){
                 history.push("/tripedit/"+tripname+"/"+id)
             }
-            // console.log('info data received')
             alert("response submitted")
-            console.log("done")}
-            
+        }
             )
             .catch(err => {
                 //err)
 
             })
         }
+    }
     }
 
     //Edit page speciallllllllllllll
@@ -207,8 +208,10 @@ const Edittrips  = () => {
     //         setDuration(`${durationdays},${durationnights}`)
     //         //"it should set")
             
-      
-        
+    //     },[durationnights,durationdays])
+        useEffect(() => {
+            //exdata)
+        }, [exdata])
         
         const test = () => {
          
@@ -289,6 +292,7 @@ const Edittrips  = () => {
          }
 
          const DeleteTrip  = () => {
+             setDeelete(true)
             let confirmBoxx = window.confirm("delete seriously?")
             //confirmBoxx)
             if(confirmBoxx===true){
@@ -299,9 +303,9 @@ const Edittrips  = () => {
                     history.push("/packagespage")
                 })
                 .catch(err => {
-                    console.log(err)
                       })
                }
+               setDeelete(false)
          }
               
     return ( 
@@ -530,8 +534,7 @@ const Edittrips  = () => {
 
             </form>}                       
                         </div>
-                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
-                         </div>
+x``                         </div>
         </div>
         </div>
      );
