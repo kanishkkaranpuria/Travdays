@@ -125,7 +125,7 @@ function App() {
 
             <Route exact path="/profile"> <Profilepage /> </Route>
 
-            <Route exact path="/trip/:name"> <Trip isAuth={isauthenticated} /> </Route>
+            <Route exact path="/trip/:name"> <Trip isadmin={isadmin} isAuth={isauthenticated} /> </Route>
 
             <Route exact path="/trips/:type"> <AllTrips /> </Route>
 

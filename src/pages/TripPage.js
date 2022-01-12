@@ -6,7 +6,7 @@ import { useState, useRef, useCallback } from "react";
 import { useEffect } from "react";
 
 
-const Trip = ({ isAuth }) => {
+const Trip = ({ isAuth,isadmin }) => {
 
     const {name} = useParams()
 
@@ -450,7 +450,8 @@ const Trip = ({ isAuth }) => {
                         {/* {locimg && <img src={locimg}  alt="" className ="object-cover h-[500px]  w-[750px]"/>}
                                   {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-[500px]  w-[750px]"/>} */}
                         {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
-                            <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/'+ infoObject.name+ '/' +infoObject.id  )}}>Edit current trip</button> 
+                        {isadmin &&  <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/'+ infoObject.name+ '/' +infoObject.id  )}}>Edit current trip</button>   }
+                           
                         <p className='text-3xl flex'>
                             <span className=''>{infoObject.name}</span>
                                 {console.log(infoObject)}
