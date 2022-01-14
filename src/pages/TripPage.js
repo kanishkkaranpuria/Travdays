@@ -388,7 +388,7 @@ const Trip = ({ isAuth,isadmin }) => {
                 <div className='grid grid-cols-1 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]'>
                     {
                         mediaObject && mediaObject.map((data) => (
-                            <div >
+                            <div className="flex flow-col justify-center items-center" >
                                 {data.image && <img className='w-full h-[500px] object-cover' src={data.image} />}
                                 {data.video && <video className='w-full h-[500px] object-cover' controls src={data.video} alt='' width='100%' />}
                             </div>

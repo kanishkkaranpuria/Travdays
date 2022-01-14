@@ -103,7 +103,7 @@ const Gallery = () => {
     if (show) {
       setGridStyle("gallery bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px]")
       setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]")
-      setDisplayPackageStyle('flex relative h-[90vh] w-full sm:h-[50%] sm:rounded-t-[20px] bg-[#f5f5f7]')
+      setDisplayPackageStyle('relative h-[90vh] w-full sm:h-[50%] sm:rounded-t-[20px] bg-[#f5f5f7]')
       setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px]')
     }
     else {
@@ -282,8 +282,8 @@ const Gallery = () => {
                                 {console.log(locimg.slice(21,27) === "images")} */}
                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                 <p className='text-4xl pb-2'>{location.name}</p>
-                <div className='h-[500px] w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
-                {locimg && <img src={locimg} alt="" className="object-cover h-[500px] max-w-[700px] rounded-xl" />}
+                <div className='h-[500px] max-w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
+                {locimg && <img src={locimg} alt="" className="object-cover h-[500px] rounded-xl" />}
                 {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] rounded-xl" />}
                 </div>
                 {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}

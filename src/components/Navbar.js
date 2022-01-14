@@ -48,11 +48,11 @@ const Navbar = ({isauthenticated, setIsadmin, setIsauthenticated}) => {
             {/* <Link to='/IndivisualBlogPage'>indi-blog</Link> */}
                 <span className='packages btn p-6 flex items-center h-full text-lg relative'>
                     <Link to='/packagespage'>Packages</Link>
-                    <span className='package-list absolute left-0 bottom-[-52px] flex w-max z-[4] invisible pointer-events-none'>
+                    {/* <span className='package-list absolute left-0 bottom-[-52px] flex w-max z-[4] invisible pointer-events-none'>
                     <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/solo'><h4>Solo</h4></Link>
                     <Link className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/pet friendly'><h4>Pet Friendly</h4></Link>
                     <Link  className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/workation'><h4>Workation</h4></Link>
-                    </span>
+                    </span> */}
                 </span>
                 <Link className='h-full items-center flex' to='/blogs'>Blogs</Link>
                 <Link className='h-full items-center flex' to='/gallery'>Gallery</Link>

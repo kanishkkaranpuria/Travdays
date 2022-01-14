@@ -368,22 +368,22 @@ const AllTrips = () => {
   return (<>
     <div className='section relative flex flex-col items-center '>
 
-      <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 " viewBox="0 0 20 20" fill="currentColor">
+      {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
-      </svg>
-      <div className="searchAndfilter fixed top-[60px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] justify-center items-center">
+      </svg> */}
+      <div className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
         <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value) ; }} onKeyDown={ (e) => {if (e.key === "Enter" && e.target.value){fetchSearchedDataFromBackend(e.target.value)}}} />
         <button className = "p-2 px-8 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto" onClick = {() => {if (searchtext) fetchSearchedDataFromBackend(searchtext)}}> Search </button>
         <button className="flex m-2" onClick={priceAscending} type="button">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 13l-5 5m0 0l-5-5m5 5V6" />
 </svg>  
-          Price</button>
+        <span className="sm:hidden">Price</span></button>
         <button className="flex m-2" onClick={priceDescending} type="button"> 
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 11l5-5m0 0l5 5m-5-5v12" />
 </svg>
-        Price</button>
+        <span className="sm:hidden">Price</span></button>
         {/* godly method to lose and gain focus */}
         {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
 
