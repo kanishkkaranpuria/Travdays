@@ -117,7 +117,7 @@ function App() {
 
             <Route exact path="/login"> <Login setIsauthenticated={setIsauthenticated} /> </Route>
 
-            <Route exact path="/register"> <Registration /> </Route>
+            <Route exact path="/register"> <Registration setIsauthenticated = {setIsauthenticated} /> </Route>
 
             <Route exact path="/logout"> <Logout /> </Route>
 
