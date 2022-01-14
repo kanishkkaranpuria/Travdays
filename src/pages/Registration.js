@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useHistory } from "react-router";
 import Cookie from "../components/Cookie";
 
-const Registration = () => {
+const Registration = ({setIsauthenticated}) => {
 
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
@@ -59,6 +59,7 @@ const Registration = () => {
                 }else
                 {
                     console.log("tokens should be set")
+                    setIsauthenticated(true)
                     history.push("/")
                 }
             })
@@ -73,6 +74,7 @@ const Registration = () => {
             })
             .then(res => {
                 console.log(res.data)
+                setIsauthenticated(true)
                 history.push("/")
             })
     }

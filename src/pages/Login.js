@@ -22,6 +22,7 @@ const Login = ({setIsauthenticated}) => {
                 password: password
             })
             .then(res => {
+                console.log("wtaf")
                 console.log(res.data)
                 // Cookie('setCookie','accesstoken', res.data.access_token, 1)
                 setIsauthenticated(true)
@@ -56,6 +57,7 @@ const Login = ({setIsauthenticated}) => {
             })
             .then(res => {
                 console.log(res.data)
+                setIsauthenticated(true)
                 history.push("/")
             })
     }
@@ -68,7 +70,7 @@ const Login = ({setIsauthenticated}) => {
                     <p className="text-4xl text-center">Login Page</p>
                     <div type="email" className="email flex items-center">
                         <p className="w-40">Enter your email:</p >
-                        <input required type="text" onChange={(e) => setEmail(e.target.value)} />
+                        <input required type="email" onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className="password flex items-center">
                         <p className="w-40">Enter your password:</p>
@@ -87,7 +89,7 @@ const Login = ({setIsauthenticated}) => {
                     <p className="text-4xl text-center">Login Page</p>
                     <div type="email" className="email flex items-center">
                         <p className="w-40">Enter your email:</p >
-                        <input required type="text" onChange={(e) => setEmail(e.target.value)} />
+                        <input required type="email" onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className=" ">
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
@@ -100,7 +102,7 @@ const Login = ({setIsauthenticated}) => {
                     <p className="text-4xl text-center">Enter the Otp sent in your Email</p>
                     <div type="email" className="email flex items-center">
                         <p className="w-40">Email:</p >
-                        <input required type="text" value = {email} />
+                        <input required type="email" value = {email} />
                     </div>
                     <div type="email" className="email flex items-center">
                         <p className="w-40">OTP:</p >
