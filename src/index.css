@@ -181,7 +181,7 @@ code {
     monospace;
 }
 
-.gallery, .tripPage{
+.gallery{
   display: grid;
   grid-template-columns: 50% 50%;
   border-radius: 20px;
@@ -491,7 +491,7 @@ transition: all 200ms ease-in-out;
 @media only screen and (max-width: 992px) {
 
 .section{
-  padding: 60px 0.5rem 2rem 0.5rem;
+  padding: 0px 0.2rem 2rem 0.2rem;
 
 }
 
@@ -529,6 +529,7 @@ transition: all 200ms ease-in-out;
 }
 .gallery{
   grid-template-columns: auto;
+  grid-template-rows: 50% 50%;
 }
 .blog-preview-card.featured{
   min-width: 300px;
@@ -537,9 +538,12 @@ transition: all 200ms ease-in-out;
 .card{
   animation: none;
   /* margin: 20px; */
-  width: 221.95px;
-  padding-bottom: 320.61px;
+  /* width: 221.95px; */
+  padding-bottom: 130%;
   box-shadow: 0 0 4px 0px #00000088;
+}
+.card.packagesPage{
+  padding-bottom:184.61px;
 }
 }
 @media screen and (max-width: 450px) {

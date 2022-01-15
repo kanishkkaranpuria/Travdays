@@ -18,6 +18,7 @@ const MobileMenu = () => {
                 <Link className='p-4 text-xl' to='/gallery'>Gallery</Link>
                 <Link className='p-4 text-xl' to='/contactus'>Contact Us</Link>
                 <Link className='p-4 text-xl' to='/faq'>FAQ</Link>
+                <Link className='p-4 text-xl' to='/profile'>Profile</Link>
             </nav>
         </div>
      );

@@ -134,7 +134,7 @@ const FAQ = ({isadmin}) => {
     return ( <>
     {loading ? <div><p>loading...</p></div> :
         <div className="section">
-                  <div className=' w-[800px] mx-auto mt-[5%] p-box-shadow-2 rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] bg-[#f5f5f7] '>
+                  <div className=' w-[800px] sm:w-[100%] mx-auto mt-[5%] p-box-shadow-2 rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] bg-[#f5f5f7] '>
                 <span className='text-6xl sm:text-xl font-bold sm:p-2 inline-block faq-link'>FAQ</span>
                 <div>
                         {faqs && faqs.map((faq,index) => {
@@ -146,12 +146,12 @@ const FAQ = ({isadmin}) => {
                                 
                                 ?  <div className='mb-4' >
 
-                                        <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
+                                        <p className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
 
                                         <option className="text-xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question} 
                                         </option>
 
-                                        </span>
+                                        </p>
                                         {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
                                        
 
@@ -161,15 +161,15 @@ const FAQ = ({isadmin}) => {
                                 
                                 : <div className='mb-4' >
 
-                                        <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}}>
+                                        <p className='cursor-pointer' onClick={()=>{Answers(faq.id)}}>
 
-                                        <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        <option className="text-2xl sm:text-[0.8rem] font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
 
                                             {/* placeholder for questions in database */}
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
-                                        </span>
+                                        </p>
                                         {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
 
                                 </div> }
@@ -198,14 +198,14 @@ const FAQ = ({isadmin}) => {
                                 
                                 ?  <div className='mb-4' >
 
-                                        <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
-                                        <option className="text-xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        <p className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
+                                        <option className="text-xl sm:text-[0.8rem] font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
 
                                             {/* placeholder for questions in database */}
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
-                                        </span>
+                                        </p>
                                         {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
 
 
@@ -213,22 +213,22 @@ const FAQ = ({isadmin}) => {
                                 
                                 : <div className='mb-4' >
 
-                                        <span className='cursor-pointer' onClick={()=>{Answers(faq.id)}}>
+                                        <p className='cursor-pointer' onClick={()=>{Answers(faq.id)}}>
 
-                                        <option className="text-2xl font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        <option className="text-2xl sm:text-[0.8rem] font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
 
                                             {/* placeholder for questions in database */}
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
-                                        </span>
-                                        {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
+                                        </p>
+                                        
 
                                 </div> }
 
                                 {/* {console.log(faq.id)} */}
                                 
-                                {answerstatus[faq.id] && <div>{answer[faq.id]} 
+                                {answerstatus[faq.id] && <div className="text-2xl sm:text-[0.8rem] font-semibold inline-block" >{answer[faq.id]} 
 
                                 {/* placeholder for answers in db */}
                                 {/* <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p> */}
@@ -238,6 +238,7 @@ const FAQ = ({isadmin}) => {
                                 {/* {console.log(answerstatus)} */}
                                 {/* {console.log(answer)} */}
                                 {/* {answer && <div className="">{answer.answer}</div> } */}
+                                {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
 
                             </div>
                                )

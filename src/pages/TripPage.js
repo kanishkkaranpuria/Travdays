@@ -377,10 +377,10 @@ const Trip = ({ isAuth,isadmin }) => {
         {/* {console.log(loading)} */}
         {console.log(loadingdone2)}
         {console.log(loadingdone3)}
-        {loadingdone2 && loadingdone3 && <div className='w-[80%] mx-auto mt-4 h-[90vh] overflow-hidden sm:max-w-full p-box-shadow-2 rounded-[20px] mb-4'>
+        {loadingdone2 && loadingdone3 && <div className='w-[80%] mx-auto mt-4 h-[90vh] overflow-hidden sm:overflow-y-auto sm:max-w-full p-box-shadow-2 rounded-[20px] mb-4'>
             {console.log("this should not work", infoObject)}
             {console.log("hasmore", hasMore)}
-            {!isbooking && <div className=" w-full tripPage ">
+            {!isbooking && <div className=" w-full rounded-20px grid grid-cols-2 sm:grid-cols-1 sm:grid-rows-[500px,500px] ">
                 {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
 
 

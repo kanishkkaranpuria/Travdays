@@ -101,9 +101,9 @@ const Gallery = () => {
 
   const showPackage = (show) => {
     if (show) {
-      setGridStyle("gallery bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px]")
-      setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]")
-      setDisplayPackageStyle('relative h-[90vh] w-full sm:h-[50%] sm:rounded-t-[20px] bg-[#f5f5f7]')
+      setGridStyle("gallery bg-[#00000000] sm:h-[90vh] p-box-shadow-2 overflow-hidden rounded-[20px]")
+      setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
+      setDisplayPackageStyle('relative h-[90vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
       setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px]')
     }
     else {
@@ -265,12 +265,12 @@ const Gallery = () => {
         </div>
         {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
         <div className={displayPackageStyle}>
-          <div className='absolute hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto min-h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
+          <div className='sticky top-0 hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto min-h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
           {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
 
           {location &&
-            <div className='p-4 sm:p-[0.5rem] overflow-y-auto'>
-              <div className='my-4 sm:my-[1.1rem]'>
+            <div className='p-4 pb-0 sm:p-[0.5rem] overflow-y-auto'>
+              <div className='my-4 sm:my-0 sm:my-[1.1rem]'>
                 <span>
                   <svg onClick={() => showPackage(false)} className="ml-auto cursor-pointer mb-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
                     <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z">
@@ -282,9 +282,9 @@ const Gallery = () => {
                                 {console.log(locimg.slice(21,27) === "images")} */}
                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                 <p className='text-4xl pb-2'>{location.name}</p>
-                <div className='h-[500px] max-w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
-                {locimg && <img src={locimg} alt="" className="object-cover h-[500px] rounded-xl" />}
-                {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] rounded-xl" />}
+                <div className='h-[500px] sm:h-[250px] max-w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
+                {locimg && <img src={locimg} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
+                {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
                 </div>
                 {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                 <p className='text-2xl pt-2'>{location.location}</p>
