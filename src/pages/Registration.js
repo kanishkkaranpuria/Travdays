@@ -90,7 +90,7 @@ const Registration = ({setIsauthenticated}) => {
 
     return (<div className="section">
         {!otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
-            <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_details}>
+            <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-0 items-center justify-evenly" onSubmit={submit_details}>
                 <p className="text-4xl text-center">Sign Up for Travdays</p>
                 <div type="email" className="email flex items-center">
                     <p className="w-40">Enter Email:</p >
@@ -109,10 +109,10 @@ const Registration = ({setIsauthenticated}) => {
                     <input required type="password" onChange={(e) => setPassword2(e.target.value)} />
                 </div>
                 <div className=" ">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
+                    <button type="submit" className="sm:absolute sm:right-0 sm:mr-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                 </div>
             </form>
-            <div onClick={view_otp_registration}>Or Register and Login using OTP. To Login use the Otp sent in your Mail</div>
+            <div className="sm:p-8" onClick={view_otp_registration}>Or Register and Login using OTP. To Login use the Otp sent in your Mail</div>
         </div>}
 
         {otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
@@ -126,8 +126,8 @@ const Registration = ({setIsauthenticated}) => {
                     <p className="w-40">Enter Name:</p >
                     <input required type="text" onChange={(e) => setName(e.target.value)} />
                 </div>
-                <div className=" ">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
+                <div className="sm:w-full sm:relative ">
+                    <button type="submit" className="sm:absolute sm:right-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
                 </div>
                 {/* An Otp will be sent in your email, Enter that to Register */}
                 <div onClick={view_otp_registration}>Or Register using Password</div>
@@ -135,7 +135,7 @@ const Registration = ({setIsauthenticated}) => {
         </div>}
 
         {!bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
-            <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_otp}>
+            <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-0 items-center justify-evenly" onSubmit={submit_otp}>
                 <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
                 <div type="email" className="email flex items-center">
                     <p className="w-40">Email:</p >

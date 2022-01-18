@@ -79,7 +79,8 @@ const Home = ({ isadmin, setIsadmin }) => {
             // var d = document.getElementById("selected");
             // console.log("thiss")
             // console.log(d)
-            
+            // console.log(i.target);
+
             if (answerstatus[i] === true){
                 // console.log('it is true')
                 setAnswerstatus((prev)=>({...prev, 
@@ -229,9 +230,9 @@ const Home = ({ isadmin, setIsadmin }) => {
                         </div>
                 </p>
             </div>
-            <div className='hidden sm:block p-[0.5rem] text-[#f7f7f569]'>
+            <div className='hidden sm:block sm:pl-12 p-[0.5rem] text-[#f7f7f569]'>
                 <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
-                <p className="w-full text-8xl sm:text-6xl font-bold tracking-[12px] text-[#ffa914]">Travdays</p>
+                <p className="w-full text-8xl sm:text-6xl font-bold tracking-[12px] text-[#D4F571]">Travdays</p>
             </div>
             <div className='card-grid sm:py-[20px]  max-w-[800px]'  >
                 <Link className='' to='/trips/workation'><Card title="Workation" id='one'  /></Link>
@@ -294,11 +295,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                 </div>
             </div>
             <div>
-            <div className="section flex flex-col testimonial relative">
+            <div className="section flex flex-col testimonial relative min-h-[100vh-60px] sm:min-h-[930px]">
             {/* <svg className='absolute top-[-426px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F7F7F5" fill-opacity="1" d="M0,224L80,240C160,256,320,288,480,266.7C640,245,800,171,960,144C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
             {/* <svg className='absolute top-[-426px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L60,245.3C120,235,240,213,360,197.3C480,181,600,171,720,160C840,149,960,139,1080,144C1200,149,1320,171,1380,181.3L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
             <span className='text-6xl sm:text-4xl font-bold p-6 mt-[40px] sm:p-2 inline-block'>Testimonials</span>
-            <div className="grid grid-cols-3 my-auto h-[600px] ">
+            <div className="grid grid-cols-3 my-auto sm:my-0 h-[600px] sm:grid-cols-1 ">
                     <div className='flex h-32 '>
                         <div className='profile-img min-w-[64px] h-[64px] rounded-lg overflow-hidden rotate-[-4deg]'>
                     <img className='w-[64px] object-cover' src="https://images.unsplash.com/photo-1528001100577-c6b2f16d5276?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"/>

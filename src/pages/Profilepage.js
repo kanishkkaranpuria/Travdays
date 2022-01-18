@@ -53,9 +53,9 @@ const Profilepage = () => {
         return (
      <div className="section">
                 <div className = "flex w-full">
-            {!changeNameBool &&  <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center  rounded-2xl justify-evenly w-1/2 p-box-shadow-2" >
-                <p className="text-4xl text-center">Profile Page</p>
-                <div type="email" className="email flex items-center">
+            {!changeNameBool &&  <div className="sm:w-full sm:items-start flex sm:px-8 flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center  rounded-2xl justify-evenly w-1/2 p-box-shadow-2" >
+                <p className="sm:mx-auto text-4xl text-cente">Profile Page</p>
+                <div type="email" className="email items-center">
                     <p className="w-40">Email: {profiledata.email}</p >
                 </div>
                 <div type="name" className="email flex items-center">
