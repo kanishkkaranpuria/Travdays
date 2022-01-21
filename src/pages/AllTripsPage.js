@@ -171,6 +171,7 @@ const AllTrips = () => {
     if (node) hoverobserver.current.observe(node)
   }, [hoverloading, hoverhasMore])
   useEffect(() => {
+    console.log(globalUrl)
     fullaxios({ url: 'trip/media/' + globalUrl + '?page=' + hoverpage })
       .then(res => {
         if (res) {
