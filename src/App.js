@@ -123,7 +123,7 @@ function App() {
 
             <Route exact path="/contactus"> <ContactUs /> </Route>
 
-            <Route exact path="/profile"> <Profilepage /> </Route>
+            <Route exact path="/profile"> { isauthenticated? <Profilepage />  : <Home isadmin={isadmin} setIsadmin={setIsadmin} /> }</Route>
 
             <Route exact path="/trip/:name"> <Trip isadmin={isadmin} isAuth={isauthenticated} /> </Route>
 
