@@ -535,7 +535,8 @@ const Edittrips  = () => {
 
             </form>}                       
                         </div>
-x``                         </div>
+                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
+                         </div>
         </div>
         </div>
      );
