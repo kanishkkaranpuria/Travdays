@@ -5,9 +5,17 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     
+    navbarname = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id','email','name']
+        fields = ['id','email','name','navbarname']
+    
+    def get_navbarname(self,obj):
+        name = obj.name
+        if len(name)>10:
+            return name[:10] + "..."
+        return name
 
 class EditInfoSerializer(serializers.ModelSerializer):
     
