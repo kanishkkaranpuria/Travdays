@@ -112,13 +112,42 @@ const Home = ({ isadmin, setIsadmin }) => {
             })
             }
         }
+        let lastScroll=0
+
+        useEffect(()=>{
+            let navbartTrigger = document.getElementById('triggerElement')
+            let navbar = document.getElementById('navbar')
+            window.addEventListener('scroll',()=>{
+                if (window.scrollY>window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+                    console.log("DArk navbar")
+                    navbar.style.transform = 'translateY(-100%)'
+                    if(window.pageYOffset< lastScroll){
+                        navbar.style.transform = 'translateY(0%)'
+                        navbar.style.backgroundColor = 'black'
+                    }
+                    lastScroll = window.pageYOffset
+                }
+                // else if(window.scrollY<window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+                //     console.log("Light navbar")
+                //     navbar.style.transform = 'translateY(0%)'
+                //     navbar.style.backgroundColor = '#00000033'  
+                // }
+                else{
+                    // console.log("DArk navbar")
+                    console.log("Light navbar")
+                    navbar.style.transform = 'translateY(0%)'
+                    navbar.style.backgroundColor = '#00000033' 
+                }
+            })
+        })
+
         const UseagainFaq = (faq) => {
 
             // <div className="h-32 ">
             // <p className="font-semibold"><span className="text-2xl font-semibold">Q</span> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</p>
             // <p className="leading-tight px-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
             // </div>
-             
+            
              return(
                  <div className=''>
                       {answerstatus[faq.id]
@@ -205,7 +234,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     <div className='block sm:hidden text-[#f7f7f569]'>
                         {/* <img src={Logo} alt='' className='absolute h-[300px] top-[-50%] right-[10%] ' /> */}
                         <p className='text-3xl sm:text-2xl sm:leading-tight font-semibold leading-[0]'>Welcome to</p>
-                        <span className="relative w-full text-8xl sm:text-6xl font-bold text-[#D4F571] tracking-[12px]">
+                        <span id='triggerElement' className="relative w-full text-8xl sm:text-6xl font-bold text-[#D4F571] tracking-[12px]">
                             TravDays
                             <img src={Logo} alt='' className='absolute w-[135px] top-[-126%] right-[10%] z-[-1] opacity-[59%]' />
                         </span>

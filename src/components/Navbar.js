@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import fullaxios from "./FullAxios";
 import Cookie from "../components/Cookie";
 import { useHistory } from "react-router";
+import { black } from "tailwindcss/colors";
 
 const Navbar = ({ isauthenticated, setIsadmin, setIsauthenticated }) => {
 
@@ -39,8 +40,9 @@ const Navbar = ({ isauthenticated, setIsadmin, setIsauthenticated }) => {
                 //(err.data)
             })
     }
+
     return (
-        <navbar className='navbar backdrop-filter bg-[#00000033] '>
+        <navbar id='navbar' className='navbar backdrop-filter bg-[#00000033] ease-in-out' >
             <nav className="logo text-2xl tracking-[5px]">
                 <Link className='p-6 font-bold' to='/'>TravDays</Link>
             </nav>
