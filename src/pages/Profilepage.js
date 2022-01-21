@@ -71,7 +71,7 @@ const Profilepage = () => {
                 <p className="text-4xl text-center">Change Name</p>
                 <div type="name" className="email flex items-center">
                     <p className="w-40">Enter Name:</p >
-                    <input required type="text" onChange={(e) => setName(e.target.value)} />
+                    <input required type="text" placeholder={profiledata.name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className=" ">
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
