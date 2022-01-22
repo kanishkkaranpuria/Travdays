@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id','email','name','navbarname']
     
     def get_navbarname(self,obj):
-        name = obj.name
+        name = obj.name.split(' ')[0]
         if len(name)>10:
             return name[:10] + "..."
         return name
