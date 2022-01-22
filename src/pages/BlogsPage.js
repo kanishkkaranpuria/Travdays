@@ -171,7 +171,7 @@ const Blogs = ({id,setId}) => {
                       <p className='flex text-2xl items-center text-center '><span>{data.location}</span>
                       </p>
                   </div>
-                  <img className='w-full h-full top-0 object-cover bg' src={data.image} alt=""/>
+                  <img className='w-full h-full top-0 object-cover bg aumfeaturedblog2' src={data.image} alt=""/>
                   {/* <p className='leading-tight pt-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem animi iusto, rerum fugit nam aut incidunt impedit reprehenderit a quos explicabo ad doloribus cum quidem! Reiciendis enim cum quam eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est aliquam ut eligendi vitae ea architecto eaque illo, atque reprehenderit? Aperiam maiores repudiandae aspernatur doloribus consectetur commodi voluptate fugit impedit laboriosam.</p> */}
               </div>
               );

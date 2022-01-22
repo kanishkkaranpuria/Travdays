@@ -18,8 +18,14 @@ html{
 .aumbutton:hover{
   
 }
+.aumnormalblog:hover{
+
+}
 .aumnormalblog2:hover{
   background-color: gainsboro
+}
+.aumfeaturedblog:hover{
+  display: none;
 }
   /* edit trips page  */
 /* PARAM: */
