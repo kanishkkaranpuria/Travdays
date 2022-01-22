@@ -39,7 +39,8 @@ import BgImg3 from "./pages/images/TravDays_logos/bg_layer_3.svg"
 import EditBlogsPage from './pages/EditBlogsPage';
 import TnC from './pages/TermsAndConditions';
 import AboutUs from './pages/AboutUs';
-
+import NotFound from './pages/NotFound';
+import NotLoggedIn from './pages/NotloggedInPage';
 
 
 const showMenu = () => {
@@ -123,31 +124,32 @@ function App() {
 
             <Route exact path="/register"> <Registration setIsauthenticated = {setIsauthenticated} /> </Route>
 
-            <Route exact path="/logout"> <Logout /> </Route>
-
             <Route exact path="/contactus"> <ContactUs /> </Route>
-
-            <Route exact path="/profile"> { isauthenticated? <Profilepage />  : <Home isadmin={isadmin} setIsadmin={setIsadmin} /> }</Route>
 
             <Route exact path="/trip/:name"> <Trip isadmin={isadmin} isAuth={isauthenticated} /> </Route>
 
             <Route exact path="/trips/:type"> <AllTrips /> </Route>
 
-            <Route exact path="/packagespage"> <PackagesPage /> </Route>
+            <Route exact path="/trips"> <PackagesPage /> </Route>
 
             <Route exact path="/faq"> <FAQ isadmin={isadmin} /> </Route>
 
-            <Route exact path="/blogs/write"> <WriteABlog /> </Route>
-
             <Route exact path="/blogs/:title/:id"> <IndivisualBlogPage isadmin={isadmin} setIsadmin={setIsadmin} /> </Route>
 
-            <Route exact path="/myblogs/editblogs"> <EditBlogsPage /> </Route>
 
-            <Route exact path="/myblogs"> <MyBlogs /> </Route>
+            <Route exact path="/logout"> { isauthenticated? <Logout />  : <NotLoggedIn /> }</Route>
 
-            <Route exact path="/resetpassword"> <ResetPassword /> </Route>
+            <Route exact path="/profile"> { isauthenticated? <Profilepage />  : <NotLoggedIn /> }</Route>
 
-            <Route exact path="/bookings"> <BookingHistory /> </Route>
+            <Route exact path="/blogs/write"> { isauthenticated? <WriteABlog />  : <NotLoggedIn /> } </Route>
+
+            <Route exact path="/myblogs/editblogs"> { isauthenticated? <EditBlogsPage />  : <NotLoggedIn /> } </Route>
+
+            <Route exact path="/myblogs">{ isauthenticated?  <MyBlogs /> : <NotLoggedIn /> } </Route>
+
+            <Route exact path="/resetpassword"> { isauthenticated? <ResetPassword /> : <NotLoggedIn /> } </Route>
+
+            <Route exact path="/bookings"> { isauthenticated? <BookingHistory />   : <NotLoggedIn /> }</Route>
 
             <Route exact path='/tnc'> <TnC/> </Route>
 
@@ -174,7 +176,7 @@ function App() {
             <Route exact path="/admbooking"> <AdmBooking /> </Route>
             </>
             }
-
+            <Route> <NotFound /> </Route>
           </Switch>
           {/* ADMINS ONLY */}
           {/* {Onlyadmin()} */}
