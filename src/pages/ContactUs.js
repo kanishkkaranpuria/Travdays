@@ -151,14 +151,14 @@ const ContactUs = () => {
                             <span className='w-52'>Enter your name :</span>
                             {predefinedname ?
                                 <input required type="text" value={predefinedname} placeholder="Name" /> :
-                                <input required type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+                                <input required type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} maxLength={100}/>
                             }
                         </p>
                         <p className='flex items-center'>
                             <span className='w-52'>Enter your email :</span>
                             {predefinedemail ?
                                 <input required type="email" value={predefinedemail} placeholder="Email" id="name" /> :
-                                <input required type="email" placeholder="Email" id="name" onChange={(e) => setEmail(e.target.value)} />}
+                                <input required type="email" placeholder="Email" id="name" onChange={(e) => setEmail(e.target.value)} maxLength={254}/>}
                         </p>
                     </div>
                     }
@@ -171,15 +171,15 @@ const ContactUs = () => {
 
 
                 <div className='flex items-center'>
-                    <p className="w-52">your query is realted to :</p>
+                    <p className="w-52">Your query is realted to :</p>
 
                     <select name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
                         <option id={i} value={i + 1}>{mainqueries[keyName]}</option>
                     ))}   </select>
                 </div>
 
-                enter your qwery:
-                <textarea value={query} placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)}></textarea>
+                Enter your query:
+                <textarea value={query} placeHolder="Query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} maxLength={1000}></textarea>
                 <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
 
 

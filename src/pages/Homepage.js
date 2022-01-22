@@ -117,8 +117,12 @@ const Home = ({ isadmin, setIsadmin }) => {
         useEffect(()=>{
             let navbartTrigger = document.getElementById('triggerElement')
             let navbar = document.getElementById('navbar')
+            // let navLenConst = 0
+            // if (navbar){
+            //     navLenConst = navbar.getBoundingClientRect().bottom
+            // }
             window.addEventListener('scroll',()=>{
-                if (window.scrollY>window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+                if (window.scrollY  > window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
                     console.log("DArk navbar")
                     navbar.style.transform = 'translateY(-100%)'
                     if(window.pageYOffset< lastScroll){
@@ -127,19 +131,13 @@ const Home = ({ isadmin, setIsadmin }) => {
                     }
                     lastScroll = window.pageYOffset
                 }
-                // else if(window.scrollY<window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
-                //     console.log("Light navbar")
-                //     navbar.style.transform = 'translateY(0%)'
-                //     navbar.style.backgroundColor = '#00000033'  
-                // }
                 else{
-                    // console.log("DArk navbar")
                     console.log("Light navbar")
                     navbar.style.transform = 'translateY(0%)'
                     navbar.style.backgroundColor = '#00000033' 
                 }
             })
-        })
+        },[])
 
         const UseagainFaq = (faq) => {
 

@@ -498,7 +498,8 @@ const Trip = ({ isAuth,isadmin }) => {
                                 </svg>
 
                             </div>
-                            <span className='ml-2'> ({infoObject.ratingsCount})</span>
+                            {!reviewObject && <span className='ml-2'> ({infoObject.ratingsCount})</span>}
+                            {reviewObject && <span className='ml-2'> ({reviewObject.length})</span>}
                         </p>
                         <p className='flex text-2xl items-center text-center '><span>${infoObject.price}</span></p>
                         {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
@@ -544,7 +545,7 @@ const Trip = ({ isAuth,isadmin }) => {
                                     </svg>
                                 </div>
                                 <div className="flex w-full">
-                                    <textarea className="w-full" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} />
+                                    <textarea className="w-full" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} maxLength = {1000} />
                                     {errorForEmptySubmission && <p> Enter the review and Choose a rating to submit </p>}
                                 </div>
                                 <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { submitReview() }}>Submit Review</button>

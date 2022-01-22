@@ -8,6 +8,7 @@ const MyBlogs = ({ id, setId }) => {
 
   const history = useHistory()
   const observer = useRef()
+  const [reload, setReload] = useState(true)
   const [allblogs, setAllblogs] = useState([])
   const [blogpage, setBlogpage] = useState(1)
   const [hasmore, setHasmore] = useState(true)
@@ -34,7 +35,7 @@ const MyBlogs = ({ id, setId }) => {
         }
       })
     setLoading(false)
-  }, [blogpage])
+  }, [blogpage, reload])
 
 
   const lastDataElementRef = useCallback(node1 => {
@@ -52,14 +53,16 @@ const MyBlogs = ({ id, setId }) => {
 
   const deleteblog = (id) => {
     // window.confirm("Permanently Delete Blog?");
-    if (window.confirm("Press a button!")) {
+    if (window.confirm("Permanently Delete the Blog?")) {
       fullaxios({ url: 'blog/delete/' + id, type: 'delete' })
         .then(res => {
           console.log(res)
-          setAllblogs([])
+          setAllblogs([]) 
           setBlogpage(1)
           setHasmore(true)
           setLoading(true)
+          if (reload === true) setReload(false)
+          else setReload(true)
         })
     } else {
       console.log("You pressed Cancel!")
@@ -70,7 +73,7 @@ const MyBlogs = ({ id, setId }) => {
     return (
       <div className="blog-preview-card non-featured v1 relative">
         <div className="blog-photos overflow-hidden">
-          <img className='object-cover h-full w-full' src={data.image} alt="" />
+          <img onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='object-cover h-full w-full cursor-pointer' src={data.image} alt="" />
         </div>
         <div className='p-8 sm:p-1'>
           <div className="flex justify-between items-center">
@@ -82,15 +85,15 @@ const MyBlogs = ({ id, setId }) => {
                   data:[data]
                 }
               }} >Edit Blog</Link></p>
-            <p className='flex text-2xl items-center h-6' onClick={() => deleteblog(data.id)}>Delete
+            <p className='flex text-2xl items-center h-6 cursor-pointer' onClick={() => deleteblog(data.id)}>Delete
               <span className='flex h-6'>
 
 
               </span>
             </p>
           </div>
-          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl font-bold pt-6'>{data.title}</p>
-          <p className='pt-6 leading-tight text-xl'>{data.body}</p>
+          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl font-bold pt-6 cursor-pointer'>{data.title}</p>
+          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='pt-6 leading-tight text-xl cursor-pointer'>{data.body}</p>
 
         </div>
       </div>

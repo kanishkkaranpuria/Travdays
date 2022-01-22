@@ -465,7 +465,7 @@ const IndivisualBlogPage = ({ isadmin }) => {
               <div className="m-2">
 
                 {liked ?
-                  <svg onClick={(() => { Like(false); LDsubmit(false, "") })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                  <svg onClick={(() => { Like(false); LDsubmit(false, "") })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="cursor-pointer">
                     <title>New Project</title>
                     <defs>
                       <image width="200" height="200" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQMAAACXljzdAAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAAF0Uk5TAEDm2GYAAAAcSURBVHic7cGBAAAAAMOg+VNf4QBVAQAAAAB8BhRQAAHaoBD5AAAAAElFTkSuQmCC" />
@@ -475,7 +475,7 @@ const IndivisualBlogPage = ({ isadmin }) => {
                   </svg>
                   // <svg onClick={(() => { Like(false); LDsubmit(false, "") })} width="35px" height="35px" viewBox="0 0 512 512" ><path d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z" /></svg> 
                   :
-                  <svg onClick={(() => { Like(true); LDsubmit(true, "") })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                  <svg onClick={(() => { Like(true); LDsubmit(true, "") })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="cursor-pointer">
                     <title>New Project</title>
                     <defs>
                       <image width="200" height="200" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQMAAACXljzdAAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAAF0Uk5TAEDm2GYAAAAcSURBVHic7cGBAAAAAMOg+VNf4QBVAQAAAAB8BhRQAAHaoBD5AAAAAElFTkSuQmCC" />
@@ -488,7 +488,7 @@ const IndivisualBlogPage = ({ isadmin }) => {
               </div>
               <div className="m-2">
                 {disliked ?
-                  <svg onClick={(() => { Dislike(false); LDsubmit("", false) })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                  <svg onClick={(() => { Dislike(false); LDsubmit("", false) })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="cursor-pointer">
                     <title>New Project</title>
                     <defs>
                       <image width="200" height="200" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQMAAACXljzdAAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAAF0Uk5TAEDm2GYAAAAcSURBVHic7cGBAAAAAMOg+VNf4QBVAQAAAAB8BhRQAAHaoBD5AAAAAElFTkSuQmCC" />
@@ -498,7 +498,7 @@ const IndivisualBlogPage = ({ isadmin }) => {
                   </svg>
                   // <svg onClick={(() => { Dislike(false); LDsubmit("", false) })} width="35px" height="35px" viewBox="0 0 512 512"><path d="M0 56v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H24C10.745 32 0 42.745 0 56zm40 200c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24zm272 256c-20.183 0-29.485-39.293-33.931-57.795-5.206-21.666-10.589-44.07-25.393-58.902-32.469-32.524-49.503-73.967-89.117-113.111a11.98 11.98 0 0 1-3.558-8.521V59.901c0-6.541 5.243-11.878 11.783-11.998 15.831-.29 36.694-9.079 52.651-16.178C256.189 17.598 295.709.017 343.995 0h2.844c42.777 0 93.363.413 113.774 29.737 8.392 12.057 10.446 27.034 6.148 44.632 16.312 17.053 25.063 48.863 16.382 74.757 17.544 23.432 19.143 56.132 9.308 79.469l.11.11c11.893 11.949 19.523 31.259 19.439 49.197-.156 30.352-26.157 58.098-59.553 58.098H350.723C358.03 364.34 384 388.132 384 430.548 384 504 336 512 312 512z" /></svg>
                   :
-                  <svg onClick={(() => { Dislike(true); LDsubmit("", true) })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" >
+                  <svg onClick={(() => { Dislike(true); LDsubmit("", true) })} width="35px" height="35px" version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="cursor-pointer">
                     <title>image</title>
                     <path id="Layer copy" fill='none' stroke='black' strokeWidth='5' class="s0" d="m9.01 24.17c0-4.64 1.84-9.09 5.13-12.37c3.28-3.28 7.73-5.13 12.37-5.13c4.64 0 9.09 1.84 12.37 5.13c3.28 3.28 5.13 7.73 5.13 12.37v70c0 4.64-1.84 9.09-5.13 12.37c-3.28 3.28-7.73 5.13-12.37 5.13c-4.64 0-9.09-1.84-12.37-5.13c-3.28-3.28-5.13-7.73-5.13-12.37v-70zm46.67 71.95c0 2.5 0.2 5 0.6 7.48c0.4 2.47 1 4.91 1.79 7.28c0.79 2.38 1.77 4.68 2.94 6.9c1.16 2.22 2.5 4.34 4 6.34l16.33 21.77c1.5 2 2.84 4.12 4 6.34c1.16 2.22 2.14 4.53 2.94 6.9c0.79 2.38 1.39 4.81 1.79 7.28c0.4 2.47 0.6 4.97 0.6 7.48v7.78c0 1.53 0.3 3.05 0.89 4.46c0.59 1.42 1.45 2.7 2.53 3.79c1.08 1.08 2.37 1.94 3.79 2.53c1.42 0.59 2.93 0.89 4.46 0.89c3.06 0 6.1-0.6 8.93-1.78c2.83-1.17 5.4-2.89 7.57-5.06c2.17-2.17 3.89-4.74 5.06-7.57c1.17-2.83 1.78-5.87 1.78-8.93v-46.67l41.53 0c3.45 0 6.86-0.77 9.98-2.24c3.12-1.48 5.87-3.63 8.06-6.3c2.19-2.67 3.76-5.79 4.59-9.14c0.84-3.35 0.92-6.84 0.24-10.23l-14-70c-0.52-2.63-1.5-5.14-2.88-7.44c-1.38-2.3-3.14-4.34-5.21-6.04c-2.07-1.7-4.42-3.03-6.94-3.93c-2.52-0.9-5.18-1.36-7.86-1.36l-63.19 0c-1.8 0-3.6 0.11-5.39 0.31c-1.79 0.21-3.57 0.52-5.32 0.94c-1.75 0.41-3.48 0.93-5.18 1.54c-1.69 0.61-3.35 1.33-4.96 2.13l-0.58 0.29c-1.93 0.96-3.72 2.19-5.31 3.65c-1.59 1.46-2.98 3.12-4.11 4.96c-1.13 1.84-2.01 3.82-2.6 5.9c-0.59 2.08-0.89 4.22-0.89 6.38v63.35z" />
                   </svg>
