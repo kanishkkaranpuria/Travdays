@@ -74,7 +74,10 @@ const Home = ({ isadmin, setIsadmin }) => {
             
         },[])
 
-
+        const rotateArrow = (e)=>{
+            console.log(e.target.children[1])
+            e.target.children[1].style.transform = 'rotate(180deg)'
+        }
         const Answers = (i) => {
             // var d = document.getElementById("selected");
             // console.log("thiss")
@@ -153,8 +156,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                                     ?  <div className='' >
 
 
-                                            <p onClick={()=>{Answers(faq.id)}} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <p onClick={(e)=>{
+                                                Answers(faq.id)
+                                                rotateArrow(e)
+                                            }} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
+                                                <svg  xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                                     </svg>
                                                     </p>
@@ -432,10 +438,86 @@ const Home = ({ isadmin, setIsadmin }) => {
                         <button><img className='w-[40px]' src="https://img.icons8.com/material/64/000000/youtube-play--v1.png" /></button>
                     </a>
                 </div>
+                
             </div>
+            
+            <div className="section flex flex-col testimonial relative min-h-[100vh-60px] sm:min-h-[930px]" >
+                    <h1><u><b>Footer:</b></u></h1>
+                    <hr/>
+                    <h5> <button onClick={()=>
+                        {
+                            history.push('/')
+                        }
+                        }> <u>Home </u></button> <br/>
+                        <button onClick={()=>{
+                            history.push('/packagespage')
+                        }}>
+                            <u>Our Packages</u> :
+                        </button> <br/>
+                        <h6>
+                        <button onClick={()=>{
+                            history.push('/trips/workation')
+                        }}>
+                            - <b>workation packages</b>
+                        </button><br/>
+                        <button onClick={()=>{
+                            history.push('/trips/solo')
+                        }}>
+                            - <b>solo packages</b>
+                        </button><br/>
+                        <button onClick={()=>{
+                            history.push('/trips/pet friendly')
+                        }}>
+                            - <b>pet friendly</b>
+                        </button><br/>
+                        </h6>
 
+                        <button onClick={()=>{
+                            history.push('/blogs')
+                        }}>
+                            <u>Blogs</u> 
+                        </button><br/>
+                        <button onClick={()=>{
+                            history.push('/gallery')
+                        }}>
+                            <u>Gallery</u> 
+                        </button><br/><br/>
+                        
+                        <button onClick={()=>{
+                            history.push('/aboutus')
+                        }}>
+                            <u>About Us</u> 
+                        </button><br/>
+                        <button onClick={()=>{
+                            history.push('/contactus')
+                        }}>
+                            <u>Contact Us</u> 
+                        </button><br/>
+                        <button onClick={()=>{
+                            history.push('/privacypolicy')
+                        }}>
+                            <u>Our Privacy Policy</u> 
+                        </button><br/>
+                        <button onClick={()=>{
+                            history.push('/tnc')
+                        }}>
+                            <u>Terms and Conditions</u> 
+                        </button><br/>
+                        <a href= '#social-media-links' >
+                            <u>Social media link</u>
+                        </a> 
 
+                        <p> Copy-right (if applicable) </p>
+                        
+
+                    </h5>
         </div>
+        <hr/>
+        </div>
+                    
+            <div className="footer flex h-[120px] relative" >
+                <marquee><h1> © Designed and developed by - <a href='https://instagram.com/spydev_' target='_blank'>Spydev Co</a> </h1></marquee>
+            </div>
         </div>
     );
 }

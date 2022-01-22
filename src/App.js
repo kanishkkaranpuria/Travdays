@@ -59,20 +59,17 @@ const hideMenu = () => {
 function App() {
   const [isadmin, setIsadmin] = useState(false);
   const [isauthenticated, setIsauthenticated] = useState(false);
-
+  const [namechanged, setNamechanged] = useState(0);
+  
   useEffect(() => {
     fullaxios({url: 'userinfo/status'})
-      //   .get(`faq/question?page=`+ page)
       .then((res) => {
         if (res) {
-          //res.data.admin)
-          //res.data)
           setIsadmin(res.data.admin)
           setIsauthenticated(res.data.authenticated)
         }
       })
       .catch(err => {
-        //err)
       })
   }, [])
 
@@ -98,7 +95,7 @@ function App() {
         <img className='w-[100vw] fixed z-[0] opacity-[25%]' src={BgImg2} alt=''/>
         <img className='w-[100vw] fixed z-[0] opacity-[15%]' src={BgImg3} alt=''/>
 
-        <Navbar isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
+        <Navbar setNamechanged={setNamechanged} namechanged= {namechanged} isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}
           <Link to='/'><p className='text-lg'>TravDays</p></Link>
@@ -139,7 +136,7 @@ function App() {
 
             <Route exact path="/logout"> { isauthenticated? <Logout />  : <NotLoggedIn /> }</Route>
 
-            <Route exact path="/profile"> { isauthenticated? <Profilepage />  : <NotLoggedIn /> }</Route>
+            <Route exact path="/profile"> { isauthenticated? <Profilepage setNamechanged={setNamechanged} />  : <NotLoggedIn /> }</Route>
 
             <Route exact path="/blogs/write"> { isauthenticated? <WriteABlog />  : <NotLoggedIn /> } </Route>
 

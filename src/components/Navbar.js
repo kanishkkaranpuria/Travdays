@@ -1,29 +1,31 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import fullaxios from "./FullAxios";
 import Cookie from "../components/Cookie";
 import { useHistory } from "react-router";
 import { black } from "tailwindcss/colors";
 import { NavLink } from "react-router-dom";
-const Navbar = ({ isauthenticated, setIsadmin, setIsauthenticated }) => {
+const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
 
     const activeNavbarStyle = {fontWeight: "bold", backgroundColor : "black"};
     const history = useHistory();
-    // useEffect(() => {
-    //     //("uerinfo status")
-    //     fullaxios({url : 'userinfo/status' 
-    //     })
-    //     .then(res => {
-    //       if (res){
-    //         //(res.data)
-    //     }})
-    //     .catch(err => {
-    //        if (err.response){if (err.response.data.detail === "Invalid page.") {
-    //        }
+    const [profiledata, setProfiledata] = useState([])
+    const [igotdata, setIgotdata] = useState(false);
 
-    //      }})
 
-    // }, [])
+    useEffect(() => {
+        fullaxios({ url: 'userinfo/info', type: 'get' })
+            .then(res => {
+                    setProfiledata(res.data)
+                    setIgotdata(true)
+            })
+            .catch(res => {
+                console.log(res)
+            })
+    }, [isauthenticated,namechanged])
+    
+   
+
 
     const logout = () => {
         console.log("logout")
@@ -31,11 +33,14 @@ const Navbar = ({ isauthenticated, setIsadmin, setIsauthenticated }) => {
             .then(res => {
                 //("here",res.data)
                 setIsadmin(false)
+                alert("you have logged out")
+                setIgotdata(false)
+                setProfiledata([])
                 setIsauthenticated(false)
                 // Cookie('setCookie',"accesstoken",0,-1)
                 Cookie('setCookie', "csrftoken", 0, -1)
                 Cookie('setCookie', "sessionid", 0, -1)
-                history.push('/')
+                history.push('/login')
             })
             .catch(err => {
                 //(err.data)
@@ -62,16 +67,17 @@ const Navbar = ({ isauthenticated, setIsadmin, setIsauthenticated }) => {
                 <NavLink className='h-full items-center flex' to='/contactus' activeStyle={activeNavbarStyle}>Contact Us</NavLink>
                 <NavLink className='h-full items-center flex' to='/faq' activeStyle={activeNavbarStyle}>FAQ</NavLink>
 
-                {isauthenticated ? <>
+                {isauthenticated && igotdata ? <>
                     <span className='packages btn flex items-center h-full text-lg relative'>
-                        <NavLink to='/profile' activeStyle={activeNavbarStyle}>Profile</NavLink>
+                        <NavLink className='h-full items-center flex' to='/' activeStyle={activeNavbarStyle}>Hello {profiledata.navbarname}</NavLink>
                         <span className='package-list absolute left-0 bottom-[-156px] flex flex-col w-max z-[4] invisible pointer-events-none'>
-                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/solo'><h4>Change Name</h4></NavLink>
-                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/pet friendly'><h4>Bookings</h4></NavLink>
-                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/workation'><h4>Blogs</h4></NavLink>
+                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/profile'><h4>Change Name</h4></NavLink>
+                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/bookings'><h4>Bookings</h4></NavLink>
+                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/myblogs'><h4>Blogs</h4></NavLink>
+                            <p className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow cursor-pointer' onClick={logout} ><h4>Logout</h4></p>
                         </span>
                     </span>
-                    <div className='h-full items-center flex cursor-pointer' onClick={logout}>Logout</div></> :
+                   </> :
                     <NavLink className='h-full items-center flex' to='/login' activeStyle={activeNavbarStyle}>Login</NavLink>}
                 <NavLink className='h-full items-center flex' to='' >Our AI Coming Soon</NavLink>
             </nav>
