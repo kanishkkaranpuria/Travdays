@@ -253,7 +253,7 @@ const AllTrips = () => {
           </div>
           <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
             <p className='flex justify-between items-center'>
-              {data.name && <p onClick={() => { history.push('/trip/' + data.name) }} className='text-xl font-bold cursor-pointer' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+              {data.name && <p   onClick={() => { history.push('/trip/' + data.name) }} className='text-xl font-bold cursor-pointer aumptags' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
               {/* {data.type[0] = data.type[0].toUpperCase()} */}
               {/* {data.type && <p className='text-sm'>{data.type}</p>} */}
               {data.location && <p className='font-semibold mx-2'>{data.location}</p>}
@@ -374,14 +374,14 @@ const AllTrips = () => {
       </svg> */}
       <div className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
         <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
-        <button className="p-2 px-8 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto" onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
+        <button  className="p-2 px-8 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton" onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
         <div className="flex absolute bottom-[-30%] right-0">
-          <button className="flex m-2" onClick={priceAscending} type="button">
+          <button  className="flex m-2 aumbutton" onClick={priceAscending} type="button">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 13l-5 5m0 0l-5-5m5 5V6" />
             </svg>
             <span className="sm:hidden">Price</span></button>
-          <button className="flex m-2" onClick={priceDescending} type="button">
+          <button  className="flex m-2 aumbutton" onClick={priceDescending} type="button">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 11l5-5m0 0l5 5m-5-5v12" />
             </svg>
@@ -389,9 +389,6 @@ const AllTrips = () => {
         </div>
         {/* godly method to lose and gain focus */}
         {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
-
-
-
 
         {/* {displaysearchresults && (
                 <div className="search-results-container">
