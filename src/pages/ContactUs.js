@@ -180,7 +180,7 @@ const ContactUs = () => {
 
                 Enter your query:
                 <textarea value={query} placeHolder="Query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} maxLength={1000}></textarea>
-                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' type="submit"  >submit</button>
 
 
 

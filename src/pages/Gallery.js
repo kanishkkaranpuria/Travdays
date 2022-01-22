@@ -378,7 +378,7 @@ const Gallery = () => {
               {/* <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
               <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div>
               <div className='w-full pt-4 h-[100px] my-2 bg-[#00000033] rounded-lg'></div> */}
-                     <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => { history.push('/trip/'+ location.name)}}>know more</button> 
+                     <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md aumbutton' onClick={() => { history.push('/trip/'+ location.name)}}>know more</button> 
 
             </div>
           }

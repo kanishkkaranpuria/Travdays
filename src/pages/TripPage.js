@@ -504,7 +504,7 @@ const Trip = ({ isAuth,isadmin }) => {
                         <p className='flex text-2xl items-center text-center '><span>${infoObject.price}</span></p>
                         {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
                         <p className='flex py-4 text-xl '><span>{infoObject.description}</span></p>
-                        <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { booking() }}> BOOK NOW </button>
+                        <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={() => { booking() }}> BOOK NOW </button>
 
                     </div>}
 
@@ -548,7 +548,7 @@ const Trip = ({ isAuth,isadmin }) => {
                                     <textarea className="w-full" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} maxLength = {1000} />
                                     {errorForEmptySubmission && <p> Enter the review and Choose a rating to submit </p>}
                                 </div>
-                                <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { submitReview() }}>Submit Review</button>
+                                <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={() => { submitReview() }}>Submit Review</button>
 
                             </div>
                         }

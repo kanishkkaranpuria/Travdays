@@ -18,7 +18,6 @@ const MyBlogs = ({ id, setId }) => {
   useEffect(() => {
     console.log("useeffect")
     setLoading(true)
-
     fullaxios({ url: 'blog/userblogs' + '?page=' + blogpage })
       .then(res => {
         if (res) {
@@ -31,7 +30,6 @@ const MyBlogs = ({ id, setId }) => {
           if (err.response.data.detail === "Invalid page.") {
             setHasmore(false)
           }
-
         }
       })
     setLoading(false)
@@ -79,17 +77,15 @@ const MyBlogs = ({ id, setId }) => {
           <div className="flex justify-between items-center">
             <p className='font-semibold sm:text-2xl'>{data.location}</p>
             <p className='font-semibold sm:text-2xl'>{data.created}</p>
-            <p className='font-semibold sm:text-2xl'><Link to={{
+            <button className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton" ><Link to={{
                 pathname : "/myblogs/editblogs", 
                 state : {
                   data:[data]
                 }
-              }} >Edit Blog</Link></p>
-            <p className='flex text-2xl items-center h-6 cursor-pointer' onClick={() => deleteblog(data.id)}>Delete
-              <span className='flex h-6'>
+              }} >Edit Blog</Link></button>
+            <p className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton" onClick={() => deleteblog(data.id)}>Delete
 
 
-              </span>
             </p>
           </div>
           <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl font-bold pt-6 cursor-pointer'>{data.title}</p>

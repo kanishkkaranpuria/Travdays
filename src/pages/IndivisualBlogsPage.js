@@ -447,13 +447,13 @@ const IndivisualBlogPage = ({ isadmin }) => {
             <div className="flex justify-between items-center mb-20">
               <div className="flex flex-col">
                 {isadmin && <div>
-                  {approved ? <button onClick={(() => { Approve(false) })} className=' sm:mx-auto m-2 text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Approve:&#9745;</button> :
+                  {approved ? <button onClick={(() => { Approve(false) })} className=' sm:mx-auto m-2 text-2xl  w-40 bg-white-500 font-semibold rounded-lg '>Approve:&#9745;</button> :
                     <button onClick={(() => { Approve(true) })} className=' sm:mx-auto m-2 text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Approve:&#9744;</button>}
                   {featured ? <button onClick={(() => { Feature(false) })} className=' sm:mx-auto m-2 text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>Feature:&#9745;</button> :
                     <button onClick={(() => { Feature(true) })} className=' sm:mx-auto m-2 text-2xl  w-40 bg-white-500 font-semibold rounded-lg'>  Feature:&#9744;</button>}
                   <div>
-                    <button onClick={Submit} className=' sm:mx-auto p-2 m-2 w-40 bg-blue-500 font-semibold rounded-lg'  >submit</button>
-                    <button onClick={Deleteblog} className=' sm:mx-auto p-2 m-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>
+                    <button onClick={Submit} className=' sm:mx-auto p-2 m-2 w-40 bg-blue-500 font-semibold rounded-lg aumbutton'  >submit</button>
+                    <button onClick={Deleteblog} className=' sm:mx-auto p-2 m-2 w-40 bg-blue-500 font-semibold rounded-lg aumbutton'  >Delete</button>
                   </div>
                 </div>}
               </div>

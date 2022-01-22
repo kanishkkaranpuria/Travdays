@@ -16,7 +16,10 @@ html{
   color:chartreuse;
 }
 .aumbutton:hover{
-  
+  background-color: #D4F571;
+}
+.aumeditblog:hover{
+
 }
 .aumnormalblog:hover{
 
@@ -26,6 +29,9 @@ html{
 }
 .aumfeaturedblog:hover{
   display: none;
+}
+.aumpackagepage:hover{
+  opacity: 0.6;
 }
   /* edit trips page  */
 /* PARAM: */

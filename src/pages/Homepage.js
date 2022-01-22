@@ -311,7 +311,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     </div>
                 </div>
                 <div className="p-6 sm:p-2">
-                    <button> <p className='text-8xl sm:text-6xl font-bold leading-normal' onClick={() => { history.push('/gallery') }}>Gallery</p> </button>
+                    <button> <p className='text-8xl sm:text-6xl font-bold leading-normal aumptags' onClick={() => { history.push('/gallery') }}>Gallery</p> </button>
                     <p className='text-3xl pl-4 font-semibold '>select your destination by aesthetics</p>
                     <p className="p-4 leading-tight">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.

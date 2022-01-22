@@ -263,7 +263,7 @@ const AllTrips = () => {
 
     return (
       <>
-        <div id = {`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card">
+        <div onClick={() => { history.push('/trip/' + data.name) }} id = {`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card aumnormalblog2">
           <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2 z-[0]'>
             <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
             <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
@@ -272,7 +272,7 @@ const AllTrips = () => {
           </div>
           <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
             <p className='flex justify-between items-center'>
-              {data.name && <p   onClick={() => { history.push('/trip/' + data.name) }} className='text-xl font-bold cursor-pointer aumptags' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+              {data.name && <p    className='text-xl font-bold cursor-pointer ' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
               {/* {data.type[0] = data.type[0].toUpperCase()} */}
               {/* {data.type && <p className='text-sm'>{data.type}</p>} */}
               {data.location && <p className='font-semibold mx-2'>{data.location}</p>}
