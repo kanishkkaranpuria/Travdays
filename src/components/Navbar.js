@@ -73,7 +73,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                         <span className='package-list absolute left-0 bottom-[-156px] flex flex-col w-max z-[4] invisible pointer-events-none'>
                             <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/profile'><h4>Change Name</h4></NavLink>
                             <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/bookings'><h4>Bookings</h4></NavLink>
-                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/myblogs'><h4>Blogs</h4></NavLink>
+                            <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/myblogs'><h4>My blogs</h4></NavLink>
                             <p className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow cursor-pointer' onClick={logout} ><h4>Logout</h4></p>
                         </span>
                     </span>

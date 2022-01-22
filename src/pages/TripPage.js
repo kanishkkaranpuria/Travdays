@@ -504,7 +504,7 @@ const Trip = ({ isAuth,isadmin }) => {
                         <p className='flex text-2xl items-center text-center '><span>${infoObject.price}</span></p>
                         {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
                         <p className='flex py-4 text-xl '><span>{infoObject.description}</span></p>
-                        <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={() => { booking() }}> BOOK NOW </button>
+                        <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  'onClick={() => { booking() }}> BOOK NOW </button>
 
                     </div>}
 
@@ -548,7 +548,7 @@ const Trip = ({ isAuth,isadmin }) => {
                                     <textarea className="w-full" required placeholder='Reviews..' value={userGivenDescription} onChange={(e) => setUserGivenDescription(e.target.value)} maxLength = {1000} />
                                     {errorForEmptySubmission && <p> Enter the review and Choose a rating to submit </p>}
                                 </div>
-                                <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={() => { submitReview() }}>Submit Review</button>
+                                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { submitReview() }}>Submit Review</button>
 
                             </div>
                         }
@@ -598,9 +598,9 @@ const Trip = ({ isAuth,isadmin }) => {
                             Your Trip: 
                             <input required readOnly value={name} />
                         </label>
-                        <div className="flex">
-                            <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setBackToDisplay(true); console.log("wtaf") }} >Back</button>
-                            <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' type="submit">Submit</button>
+                        <div className="flex items-center">
+                            <button className='p-2 mx-4 w-20 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' onClick={() => { setBackToDisplay(true); console.log("wtaf") }} >Back</button>
+                            <button className='p-2 w-20 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' type="submit">Submit</button>
                         </div>
                     </form>
 

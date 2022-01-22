@@ -251,7 +251,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                         <div className="flex sm:justify-center">
 
                             {isadmin && <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold rounded-md' onClick={() => { history.push("/adminOnly") }}>Admin Only</button>}
-                            <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold rounded-md' onClick={() => { history.push("/contactus") }} >Contact us</button>
+                            <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold rounded-md ' onClick={() => { history.push("/contactus") }} >Contact us</button>
                             <button id='learn-more-btn' className='m-2 p-1 w-40 sm:w-32 sm:m-1 rounded-md'>Learn more</button>
                         </div>
                         <div className='flex sm:justify-around space-x-8 opacity-40 p-4'>

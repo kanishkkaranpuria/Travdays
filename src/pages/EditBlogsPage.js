@@ -681,8 +681,8 @@ const EditBlogsPage = (props) => {
                 {/* {console.log(displayImage)} */}
 
                 {previewdisplayImage && <img src={previewdisplayImage} />}
-                {!previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Set Display Image</button>}
-                {previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Change Display Image</button>}
+                {!previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' onClick={onClickFocus}>Set Display Image</button>}
+                {previewdisplayImage && <button className='p-2 w-60 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' onClick={onClickFocus}>Change Display Image</button>}
 
                 <input maxLength="100" minLength="1" className='w-full font-semibold text-lg leading-none bg-transparent' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} placeholder="Enter your title here..." />
 
@@ -695,8 +695,8 @@ const EditBlogsPage = (props) => {
                     <button onClick={(() => { setAnonymous(true) })} className=' sm:mx-auto text-xl  w-full bg-white-500 font-semibold rounded-lg'> Do you want to keep your identity hidden? &#9744;</button>}
 
                 <div className="flex p-5 w-full justify-between">
-                    <button className="p-3 w-1/3 bg-red-800 font-semibold rounded-lg sm:mx-auto" onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
-                    <button className="p-3 w-1/3 bg-green-500 font-semibold rounded-lg sm:mx-auto" onClick={() => { submitBlog() }}>Publish Now</button>
+                    <button className="p-3 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto  hover:bg-blue-700 text-white font-bold " onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
+                    <button className="p-3 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto    hover:bg-blue-700 text-white font-bold " onClick={() => { submitBlog() }}>Publish Now</button>
                 </div>
             </div>
         )
@@ -899,7 +899,7 @@ const EditBlogsPage = (props) => {
                 {/* {console.log(element)} */}
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
-                {numberOfAllDatas && <button className='p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
+                {numberOfAllDatas && <button className='p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
 
             </div>
         );

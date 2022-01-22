@@ -77,13 +77,13 @@ const MyBlogs = ({ id, setId }) => {
           <div className="flex justify-between items-center">
             <p className='font-semibold sm:text-2xl'>{data.location}</p>
             <p className='font-semibold sm:text-2xl'>{data.created}</p>
-            <button className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton" ><Link to={{
+            <button className="p-2 px-8 mx-auto bg-blue-500  sm:mx-auto aumbutton  font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  " ><Link to={{
                 pathname : "/myblogs/editblogs", 
                 state : {
                   data:[data]
                 }
               }} >Edit Blog</Link></button>
-            <p className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton" onClick={() => deleteblog(data.id)}>Delete
+            <p className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto  hover:bg-blue-700 text-white font-bold  " onClick={() => deleteblog(data.id)}>Delete
 
 
             </p>
