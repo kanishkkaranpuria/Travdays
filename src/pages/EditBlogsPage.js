@@ -797,7 +797,7 @@ const EditBlogsPage = (props) => {
                     if (res) {
                         console.log(res)
                         console.log(res.data)
-                        // history.push('/blogs')
+                        history.push('/myblogs')
                     }
                 })
                 .catch(err => {
@@ -855,7 +855,7 @@ const EditBlogsPage = (props) => {
                                 <>
                                     {/* {console.log("everythign is working!!!!!!!!!!!!!!!")} */}
                                     {/* {console.log(alldata[1])} */}
-                                    <img src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
+                                    <img src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} className="mx-auto cursor-pointer rounded-[20px]" />
                                     {/* <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" /> */}
                                 </>
                                 :

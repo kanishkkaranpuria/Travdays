@@ -777,7 +777,7 @@ const WriteABlog = () => {
                         console.log(res)
                         console.log(res.data)
                         localStorage.clear()
-                        // history.push('/blogs')
+                        history.push('/myblogs')
                     }
                 })
                 .catch(err => {
@@ -836,7 +836,7 @@ const WriteABlog = () => {
                                 (data && (data.slice(0, 11) === "data:image/"))
                                     ?
                                     <>
-                                        <img className="mx-auto " src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} />
+                                        <img className="mx-auto " src={data} tabIndex="0" id={`this ${element}`} onKeyDown={(e) => { paraKeyControl(e, element, 'image') }} className="mx-auto cursor-pointer rounded-[20px]"/>
                                         {/* <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, element)} ref={inputRef} type="file" accept="image/*" /> */}
                                     </>
                                     :

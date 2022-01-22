@@ -151,14 +151,14 @@ const ContactUs = () => {
                             <span className='w-52'>Enter your name :</span>
                             {predefinedname ?
                                 <input required type="text" value={predefinedname} placeholder="Name" /> :
-                                <input required type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+                                <input required type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} inputProps={{maxLength :100}}/>
                             }
                         </p>
                         <p className='flex items-center'>
                             <span className='w-52'>Enter your email :</span>
                             {predefinedemail ?
                                 <input required type="email" value={predefinedemail} placeholder="Email" id="name" /> :
-                                <input required type="email" placeholder="Email" id="name" onChange={(e) => setEmail(e.target.value)} />}
+                                <input required type="email" placeholder="Email" id="name" onChange={(e) => setEmail(e.target.value)} inputProps={{maxLength :254}}/>}
                         </p>
                     </div>
                     }
@@ -179,7 +179,7 @@ const ContactUs = () => {
                 </div>
 
                 enter your qwery:
-                <textarea value={query} placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)}></textarea>
+                <textarea value={query} placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} inputProps={{maxLength :1000}}></textarea>
                 <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
 
 
