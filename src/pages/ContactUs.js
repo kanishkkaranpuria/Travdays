@@ -171,15 +171,15 @@ const ContactUs = () => {
 
 
                 <div className='flex items-center'>
-                    <p className="w-52">your query is realted to :</p>
+                    <p className="w-52">Your query is realted to :</p>
 
                     <select name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
                         <option id={i} value={i + 1}>{mainqueries[keyName]}</option>
                     ))}   </select>
                 </div>
 
-                enter your qwery:
-                <textarea value={query} placeHolder="query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} maxLength={1000}></textarea>
+                Enter your query:
+                <textarea value={query} placeHolder="Query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} maxLength={1000}></textarea>
                 <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
 
 

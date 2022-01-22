@@ -510,6 +510,7 @@ transition: all 200ms ease-in-out;
 }
 .footer{
   height: 60px;
+  text-align:center;
 }
 }
 

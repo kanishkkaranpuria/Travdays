@@ -18,6 +18,7 @@ import Logout from './pages/Logout';
 import Login from './pages/Login';
 import PackagesPage from './pages/PackagesPage';
 import { Link } from 'react-router-dom';
+import Privacy from './pages/PrivacyPolicy';
 import { useState, useParams, useEffect } from 'react';
 import Addtrips from './ADMIN/Addtrips';
 import Edittrips from './ADMIN/Edittrips';
@@ -36,6 +37,9 @@ import BgImg1 from "./pages/images/TravDays_logos/bg_layer_1.svg"
 import BgImg2 from "./pages/images/TravDays_logos/bg_layer_2.svg"
 import BgImg3 from "./pages/images/TravDays_logos/bg_layer_3.svg"
 import EditBlogsPage from './pages/EditBlogsPage';
+import TnC from './pages/TermsAndConditions';
+import AboutUs from './pages/AboutUs';
+
 
 
 const showMenu = () => {
@@ -145,7 +149,11 @@ function App() {
 
             <Route exact path="/bookings"> <BookingHistory /> </Route>
 
+            <Route exact path='/tnc'> <TnC/> </Route>
 
+            <Route exact path='/aboutus'> <AboutUs/> </Route>
+
+            <Route exact path='/privacypolicy'> <Privacy/> </Route>
 
             {(isadmin === true) &&
             <>
