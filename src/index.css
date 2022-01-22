@@ -4,6 +4,7 @@
 
 html{
   overflow-y: overlay;
+  width: 100vw;
 }
 :root{
   --primary:#F7F7F5;
@@ -556,6 +557,32 @@ transition: all 200ms ease-in-out;
     grid-template-rows: 40% 60%;
   }
 }
+  @media (max-width: 450px){
+    #one.card{
+      position: relative;
+      /* top: -5px; */
+      animation: none ;
+      -webkit-animation: none;
+      -moz-animation: none;
+      -o-animation: none;
+    }
+    #two.card{
+      position: relative;
+      /* bottom: -5px; */
+      animation: none ;
+      -webkit-animation: none;
+      -moz-animation: none;
+      -o-animation: none;
+    }
+    #three.card{
+      position: relative;
+      /* top: -5px; */
+      animation: none ;
+      -webkit-animation:none ;
+      -moz-animation: none;
+      -o-animation: none;
+    }
+  }
 
 /* *****************************************************  keyfrmaes */
 

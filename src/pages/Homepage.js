@@ -74,7 +74,10 @@ const Home = ({ isadmin, setIsadmin }) => {
             
         },[])
 
-
+        const rotateArrow = (e)=>{
+            console.log(e.target.children[1])
+            e.target.children[1].style.transform = 'rotate(180deg)'
+        }
         const Answers = (i) => {
             // var d = document.getElementById("selected");
             // console.log("thiss")
@@ -153,8 +156,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                                     ?  <div className='' >
 
 
-                                            <p onClick={()=>{Answers(faq.id)}} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <p onClick={(e)=>{
+                                                Answers(faq.id)
+                                                rotateArrow(e)
+                                            }} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
+                                                <svg  xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                                     </svg>
                                                     </p>

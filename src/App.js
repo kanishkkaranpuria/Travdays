@@ -111,7 +111,7 @@ function App() {
 
         </div>
         <MobileMenu />
-        <div className="content pt-[48px] flex justify-center ">
+        <div className="content sm:pt-[48px] pt-[60px] flex justify-center ">
           <Switch>
 
             <Route exact path="/"> <Home isadmin={isadmin} setIsadmin={setIsadmin} /> </Route>
