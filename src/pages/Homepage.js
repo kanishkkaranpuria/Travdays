@@ -126,13 +126,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     }
                     lastScroll = window.pageYOffset
                 }
-                // else if(window.scrollY<window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
-                //     console.log("Light navbar")
-                //     navbar.style.transform = 'translateY(0%)'
-                //     navbar.style.backgroundColor = '#00000033'  
-                // }
                 else{
-                    // console.log("DArk navbar")
                     console.log("Light navbar")
                     navbar.style.transform = 'translateY(0%)'
                     navbar.style.backgroundColor = '#00000033' 

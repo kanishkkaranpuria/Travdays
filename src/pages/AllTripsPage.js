@@ -239,12 +239,31 @@ const AllTrips = () => {
       // allstars[2] = "url(#partial)"
     }
   }
+  let lastScroll=0
 
-  const ShowData = (data) => {
+      let searchbartTrigger = document.getElementById('template0')
+      if (searchbartTrigger){
+      console.log("SEARCHBAR TRIGGER",searchbartTrigger)
+      let searchbar = document.getElementById('searchbar')
+      window.addEventListener('scroll',()=>{
+          if (window.scrollY>window.pageYOffset + searchbartTrigger.getBoundingClientRect().top){
+              searchbar.style.transform = 'translateY(-200%)'
+              if(window.pageYOffset< lastScroll){
+                searchbar.style.transform = 'translateY(0%)'
+              }
+              lastScroll = window.pageYOffset
+          }
+          else{
+              searchbar.style.transform = 'translateY(0%)'
+          }
+      })
+    }
+
+  const ShowData = (data,index) => {
 
     return (
       <>
-        <div className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card">
+        <div id = {`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card">
           <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2 z-[0]'>
             <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
             <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
@@ -372,7 +391,7 @@ const AllTrips = () => {
       {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg> */}
-      <div className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
+      <div id = 'searchbar' className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
         <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
         <button className="p-2 px-8 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto" onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
         <div className="flex absolute bottom-[-30%] right-0">
@@ -414,13 +433,13 @@ const AllTrips = () => {
             if (datas.length === index + 1) {
               return (
                 <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
-                  {ShowData(data)}
+                  {ShowData(data,index)}
                 </div>
               );
             } else {
               return (
                 <div className="m-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
-                  {ShowData(data)}
+                  {ShowData(data,index)}
                 </div>
               );
             }
