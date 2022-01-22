@@ -237,7 +237,7 @@ class Query(models.Model):
     choice      = models.CharField( max_length=8,choices=MY_CHOICES)
     query       = models.CharField( max_length=1000, default="")
     email       = models.EmailField( max_length=254, null=True, blank=True)
-    name        = models.CharField( max_length=50, null=True, blank=True)
+    name        = models.CharField( max_length=100, null=True, blank=True)
     user        = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     phoneNumber = models.IntegerField(default=None,blank=True,null=True)
     created     = models.DateTimeField(auto_now_add=True,null=True)       

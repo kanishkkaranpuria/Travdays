@@ -24,29 +24,6 @@ class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
         model = AdminMedia
         fields = ['id', 'image', 'video']
 
-    # def get_image(self,obj):
-    #     if len(obj.adminmedia.exclude(image='').exclude(image__isnull=True) ) != 0:
-    #         request = self.context.get('request')
-    #         image_url = obj.adminmedia.exclude(image='').exclude(image__isnull=True) 
-    #         qs=[]
-    #         for i in image_url:
-    #             print(request.build_absolute_uri(i.image.url))
-    #             qs.append(request.build_absolute_uri(i.image.url))
-    #         return qs
-    #     return None
-
-    # def get_video(self,obj):
-    #     if len(obj.adminmedia.exclude(video='').exclude(video__isnull=True) ) != 0:
-    #         request = self.context.get('request')
-    #         video_url = obj.adminmedia.exclude(video='').exclude(video__isnull=True)
-    #         qs=[]
-    #         for i in video_url:
-    #             print(request.build_absolute_uri(i.video.url))
-    #             qs.append(request.build_absolute_uri(i.video.url))
-    #         return qs
-    #     return None
-
-
 class TripDisplaySerializer(serializers.ModelSerializer):
 
     displayImage = serializers.SerializerMethodField()
@@ -95,6 +72,14 @@ class TripDisplaySerializer(serializers.ModelSerializer):
             return body + "..."
         return a + " ..."
 
+class NetReviewSerializer(serializers.ModelSerializer):
+
+    ratings      = serializers.ReadOnlyField()
+    ratingsCount = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Trip
+        fields = ['ratings','ratingsCount']
 
 class ReviewDisplaySerializer(serializers.ModelSerializer):
 
@@ -115,7 +100,6 @@ class CreateReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['user','description','trip', 'ratings']
-
 
 class CreateTripSerializer(serializers.ModelSerializer):
 
