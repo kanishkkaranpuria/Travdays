@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 
 
 
+
 const Home = ({ isadmin, setIsadmin }) => {
 
     const history = useHistory()
@@ -116,8 +117,12 @@ const Home = ({ isadmin, setIsadmin }) => {
         useEffect(()=>{
             let navbartTrigger = document.getElementById('triggerElement')
             let navbar = document.getElementById('navbar')
+            // let navLenConst = 0
+            // if (navbar){
+            //     navLenConst = navbar.getBoundingClientRect().bottom
+            // }
             window.addEventListener('scroll',()=>{
-                if (window.scrollY>window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+                if (window.scrollY  > window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
                     console.log("DArk navbar")
                     navbar.style.transform = 'translateY(-100%)'
                     if(window.pageYOffset< lastScroll){
@@ -132,7 +137,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     navbar.style.backgroundColor = '#00000033' 
                 }
             })
-        })
+        },[])
 
         const UseagainFaq = (faq) => {
 
@@ -406,112 +411,32 @@ const Home = ({ isadmin, setIsadmin }) => {
                 </div>
              </div>
             
-            <div className="footer flex h-[120px] relative" id='social-media-links'>
+            <div className="footer flex h-[120px] relative">
                 <div className='flex h-full w-full justify-around items-center opacity-70 p-4'>
 
-                    <a href='https://www.facebook.com/kanishk.karanpuria' target='_blank'>
-                        <button><img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png" /></button>
-                    </a>
+                    <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png" />
 
-                    <a href='https://instagram.com/kanishk666' target="_blank">
+                    <a href='https://instagram.com/kanishk666'>
                         <button><img className='w-[40px]' src="https://img.icons8.com/material/64/000000/instagram-new--v1.png" /></button>
                     </a>
 
-                    <a href='https://api.whatsapp.com/send/?phone=919892443600&text&app_absent=0' target="_blank" >
+                    <a href='https://api.whatsapp.com/send/?phone=919892443600&text&app_absent=0' >
                         <button > <img className='w-[50px]' src="https://img.icons8.com/ios/96/000000/whatsapp--v1.png" /> </button>
                     </a>
 
-                    <a href='https://twitter.com/_kanishk666' target="_blank">
+                    <a href='https://twitter.com/_kanishk666'>
                         <button><img className='w-[40px]' src="https://img.icons8.com/small/64/000000/twitter.png" /></button>
                     </a>
 
-                    <a href='https://www.youtube.com/watch?v=JxzZxdht-XY' target="_blank">
+                    <a href='https://www.youtube.com/watch?v=JxzZxdht-XY'>
                         <button><img className='w-[40px]' src="https://img.icons8.com/material/64/000000/youtube-play--v1.png" /></button>
                     </a>
                 </div>
             </div>
 
 
-        </div><hr/>
-        <div className="section flex flex-col testimonial relative min-h-[100vh-60px] sm:min-h-[930px]" >
-                    <h1><u><b>Footer:</b></u></h1>
-                    <hr/>
-                    <h5> <button onClick={()=>
-                        {
-                            history.push('/')
-                        }
-                        }> <u>Home </u></button> <br/>
-                        <button onClick={()=>{
-                            history.push('/packagespage')
-                        }}>
-                            <u>Our Packages</u> :
-                        </button> <br/>
-                        <h6>
-                        <button onClick={()=>{
-                            history.push('/trips/workation')
-                        }}>
-                            - <b>workation packages</b>
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/trips/solo')
-                        }}>
-                            - <b>solo packages</b>
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/trips/pet friendly')
-                        }}>
-                            - <b>pet friendly</b>
-                        </button><br/>
-                        </h6>
-
-                        <button onClick={()=>{
-                            history.push('/blogs')
-                        }}>
-                            <u>Blogs</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/gallery')
-                        }}>
-                            <u>Gallery</u> 
-                        </button><br/><br/>
-                        
-                        <button onClick={()=>{
-                            history.push('/aboutus')
-                        }}>
-                            <u>About Us</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/contactus')
-                        }}>
-                            <u>Contact Us</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/privacypolicy')
-                        }}>
-                            <u>Our Privacy Policy</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/tnc')
-                        }}>
-                            <u>Terms and Conditions</u> 
-                        </button><br/>
-                        <a href= '#social-media-links' >
-                            <u>Social media link</u>
-                        </a> 
-
-                        <p> Copy-right (if applicable) </p>
-                        
-
-                    </h5>
         </div>
-        <hr/>
-        <div className="footer flex h-[120px] relative" >
-            <marquee><h1> © Designed and developed by - <a href='https://instagram.com/spydev_'>Spydev Co</a> </h1></marquee>
         </div>
-
-        
-    </div>
-    
     );
 }
 

@@ -246,7 +246,7 @@ const AllTrips = () => {
       console.log("SEARCHBAR TRIGGER",searchbartTrigger)
       let searchbar = document.getElementById('searchbar')
       window.addEventListener('scroll',()=>{
-          if (window.scrollY>window.pageYOffset + searchbartTrigger.getBoundingClientRect().top){
+          if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top){ //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
               searchbar.style.transform = 'translateY(-200%)'
               if(window.pageYOffset< lastScroll){
                 searchbar.style.transform = 'translateY(0%)'
