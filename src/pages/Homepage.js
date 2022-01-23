@@ -10,6 +10,7 @@ import GalleryBottom from "./images/TravDays_logos/gallery-bottom.svg"
 import FaqTop from "./images/TravDays_logos/faq-top.svg"
 import BackgroundImage from "./images/TravDays_logos/backgroundImage.jpg"
 import { useHistory } from "react-router";
+import { useLocation } from 'react-router-dom'
 
 
 
@@ -119,35 +120,41 @@ const Home = ({ isadmin, setIsadmin }) => {
             })
             }
         }
-        let lastScroll=0
+        // let lastScroll=0
+        // const location = useLocation();
 
-        useEffect(()=>{
-            let navbartTrigger = document.getElementById('triggerElement')
-            let navbar = document.getElementById('navbar')
-            // let navLenConst = 0
-            // if (navbar){
-            //     navLenConst = navbar.getBoundingClientRect().bottom
-            // }
-            if (navbar.getBoundingClientRect().top == 0){
-                navbar.style.backgroundColor = '#00000000' 
-            }
-            window.addEventListener('scroll',()=>{
-                if (window.scrollY  > window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
-                    console.log("DArk navbar")
-                    navbar.style.transform = 'translateY(-100%)'
-                    if(window.pageYOffset< lastScroll){
-                        navbar.style.transform = 'translateY(0%)'
-                        navbar.style.backgroundColor = '#046C6D'
-                    }
-                    lastScroll = window.pageYOffset
-                }
-                else{
-                    console.log("Light navbar")
-                    navbar.style.transform = 'translateY(0%)'
-                    navbar.style.backgroundColor = '#00000000' 
-                }
-            })
-        },[])
+        // useEffect(()=>{
+        //     console.log("location",location)
+        //     if(location.pathname==='/'){
+        //     let navbartTrigger = document.getElementById('triggerElement')
+        //     let navbar = document.getElementById('navbar')
+        //     // let navLenConst = 0
+        //     // if (navbar){
+        //     //     navLenConst = navbar.getBoundingClientRect().bottom
+        //     // }
+        //     if (navbar.getBoundingClientRect().top == 0){
+        //         navbar.style.backgroundColor = '#00000000' 
+        //     }
+        //     window.addEventListener('scroll',()=>{
+        //         if (window.scrollY  > window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+        //             console.log("DArk navbar")
+        //             navbar.style.transform = 'translateY(-100%)'
+        //             if(window.pageYOffset< lastScroll){
+        //                 navbar.style.transform = 'translateY(0%)'
+        //                 navbar.style.backgroundColor = '#046C6D'
+        //             }
+        //             lastScroll = window.pageYOffset
+        //         }
+        //         else{
+        //             console.log("Light navbar")
+        //             navbar.style.transform = 'translateY(0%)'
+        //             navbar.style.backgroundColor = '#00000000' 
+        //         }
+        //     })}else{
+        //         navbar.style.backgroundColor = '#046C6D'
+
+        //     }
+        // },[location])
 
         const UseagainFaq = (faq) => {
 

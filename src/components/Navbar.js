@@ -5,6 +5,7 @@ import Cookie from "../components/Cookie";
 import { useHistory } from "react-router";
 import { black } from "tailwindcss/colors";
 import { NavLink } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
 
     const activeNavbarStyle = {fontWeight: "500", backgroundColor : "#00000033"};
@@ -24,8 +25,42 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
             })
     }, [isauthenticated,namechanged])
     
-   
 
+        let lastScroll=0
+        const location = useLocation();
+
+        useEffect(()=>{
+            console.log("location bool", location.pathname==='/')
+            let navbartTrigger = document.getElementById('triggerElement')
+            let navbar = document.getElementById('navbar')
+            function scrollFunction() {
+                if (window.scrollY > window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+                    console.log("DArk navbar")
+                    navbar.style.transform = 'translateY(-100%)'
+                    if(window.pageYOffset< lastScroll){
+                        navbar.style.transform = 'translateY(0%)'
+                        navbar.style.backgroundColor = '#046C6D'
+                    }
+                    lastScroll = window.pageYOffset
+                }
+                else if (window.scrollY < window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
+                    console.log("Light navbar")
+                    navbar.style.transform = 'translateY(0%)'
+                    navbar.style.backgroundColor = '#00000000' 
+                }
+              }
+            console.log("location",location)
+            if(location.pathname==='/'){    
+            if (navbar.getBoundingClientRect().top == 0){
+                navbar.style.backgroundColor = '#00000000' 
+            }
+            window.addEventListener('scroll',scrollFunction)
+            }else{
+                window.removeEventListener('scroll', scrollFunction);
+                console.log("else ran not homepage")
+                navbar.style.backgroundColor = '#046C6D'
+            }
+            },[location])
 
     const logout = () => {
         console.log("logout")
