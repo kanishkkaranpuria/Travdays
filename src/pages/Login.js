@@ -25,6 +25,7 @@ const Login = ({setIsauthenticated}) => {
                 console.log("wtaf")
                 console.log(res.data)
                 // Cookie('setCookie','accesstoken', res.data.access_token, 1)
+                
                 setIsauthenticated(true)
                 history.push("/")
             })
