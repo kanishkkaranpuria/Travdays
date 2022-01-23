@@ -159,6 +159,11 @@ const Trip = ({ isAuth,isadmin }) => {
 
     }, [page, backToDisplay, refetch])
 
+    useEffect(() => {
+      console.log("heloooooooooooooooooooooo",reviewObject)
+    }, [reviewObject]);
+    
+
 
     const booking = () => {
         if (isAuth) {
@@ -499,7 +504,7 @@ const Trip = ({ isAuth,isadmin }) => {
 
                             </div>
                             {!reviewObject && <span className='ml-2'> ({infoObject.ratingsCount})</span>}
-                            {reviewObject && <span className='ml-2'> ({reviewObject.length})</span>}
+                            {reviewObject && <span className='ml-2'> WTFFF({reviewObject.length})</span>}
                         </p>
                         <p className='flex text-2xl items-center text-center '><span>${infoObject.price}</span></p>
                         {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
