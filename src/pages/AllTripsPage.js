@@ -394,7 +394,7 @@ const AllTrips = () => {
       <div id = 'searchbar' className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
         <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
         <button  className="p-2 px-8 max-h-10 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton" onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
-        <div className="flex absolute bottom-[-30%] right-0">
+        <div className="flex sm:absolute sm:bottom-[-30%] sm:right-0">
           <button  className="flex m-2 aumbutton" onClick={priceAscending} type="button">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 13l-5 5m0 0l-5-5m5 5V6" />

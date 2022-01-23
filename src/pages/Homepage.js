@@ -29,8 +29,8 @@ const Home = ({ isadmin, setIsadmin }) => {
         const Qref = useRef();
         const [id,setId]= useState();
         const [answerstatus, setAnswerstatus] = useState({})
-
-
+        const [arrowBool,setArrowBool] = useState(true);
+ 
 
         //pagination 
         const observer = useRef()
@@ -73,10 +73,14 @@ const Home = ({ isadmin, setIsadmin }) => {
         } )
             
         },[])
-
+        // var x=0
         const rotateArrow = (e)=>{
-            console.log(e.target.children[1])
-            e.target.children[1].style.transform = 'rotate(180deg)'
+            if(e.target.children[1].style.transform === 'rotate(180deg)'){
+            e.target.children[1].style.transform = 'rotate(0deg)'
+            }
+            else{
+                e.target.children[1].style.transform = 'rotate(180deg)'
+            }
         }
         const Answers = (i) => {
             // var d = document.getElementById("selected");
@@ -124,20 +128,23 @@ const Home = ({ isadmin, setIsadmin }) => {
             // if (navbar){
             //     navLenConst = navbar.getBoundingClientRect().bottom
             // }
+            if (navbar.getBoundingClientRect().top == 0){
+                navbar.style.backgroundColor = '#00000000' 
+            }
             window.addEventListener('scroll',()=>{
                 if (window.scrollY  > window.pageYOffset + navbartTrigger.getBoundingClientRect().top){
                     console.log("DArk navbar")
                     navbar.style.transform = 'translateY(-100%)'
                     if(window.pageYOffset< lastScroll){
                         navbar.style.transform = 'translateY(0%)'
-                        navbar.style.backgroundColor = 'black'
+                        navbar.style.backgroundColor = '#046C6D'
                     }
                     lastScroll = window.pageYOffset
                 }
                 else{
                     console.log("Light navbar")
                     navbar.style.transform = 'translateY(0%)'
-                    navbar.style.backgroundColor = '#00000033' 
+                    navbar.style.backgroundColor = '#00000000' 
                 }
             })
         },[])
@@ -159,12 +166,13 @@ const Home = ({ isadmin, setIsadmin }) => {
                                             <p onClick={(e)=>{
                                                 Answers(faq.id)
                                                 rotateArrow(e)
+                                                setArrowBool(true)
                                             }} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
                                                 <svg  xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                                     </svg>
                                                     </p>
-                                            {answerstatus[faq.id] &&    <p className="leading-tight px-8 answer">{answer[faq.id]} </p>}
+                                            {answerstatus[faq.id] &&  <p className="leading-tight px-8 answer">{answer[faq.id]} </p>}
                                             {/* <span className='' onClick={()=>{Answers(faq.id)}} > */}
 
                                             {/* <option className="" id="selected"  value={faq.id}>{faq.question} 
@@ -185,7 +193,11 @@ const Home = ({ isadmin, setIsadmin }) => {
                                    </p>
                                        <p className="flex items-center font-semibold cursor-pointer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat.</p>
                                             </div> */}
-                                            <p onClick={()=>{Answers(faq.id)}} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
+                                            <p onClick={(e)=>{
+                                                Answers(faq.id)
+                                                rotateArrow(e)
+                                                setArrowBool(false)
+                                            }} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question} 
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                                     </svg>

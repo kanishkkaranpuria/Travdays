@@ -94,8 +94,8 @@ const Gallery = () => {
   const prevDatas = useRef([])
   const observer = useRef()
   const [gridStyle, setGridStyle] = useState("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
-  const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]')
-  const [displayPackageStyle, setDisplayPackageStyle] = useState('flex hidden sm:flex relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
+  const [gallerystyle, setGallerystyle] = useState('grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full')
+  const [displayPackageStyle, setDisplayPackageStyle] = useState('hidden sm:hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
   const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[300px] md:min-h-[120px]')
 
 
@@ -103,13 +103,13 @@ const Gallery = () => {
     if (show) {
       setGridStyle("gallery bg-[#00000000] sm:h-[90vh] p-box-shadow-2 overflow-hidden rounded-[20px]")
       setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
-      setDisplayPackageStyle('relative h-[90vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
+      setDisplayPackageStyle('sm:span relative h-[90vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
       setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px]')
     }
     else {
       setGridStyle("w-full sm:gallery")
-      setGallerystyle("grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-[85vh]")
-      setDisplayPackageStyle('flex hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
+      setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
+      setDisplayPackageStyle('hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
       setGridWithPackageStyle('overflow-hidden min-h-[170px] xl:min-h-[300px] md:min-h-[120px]')
     }
   }
@@ -265,11 +265,11 @@ const Gallery = () => {
         </div>
         {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
         <div className={displayPackageStyle}>
-            <svg onClick={() => showPackage(false)} className="ml-auto cursor-pointer mb-2 sticky top-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
+            <svg onClick={() => showPackage(false)} className="ml-auto cursor-pointer mb-2 sticky top-2 z-[4]" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
               <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z">
               </path>
             </svg>
-          <div className='sticky top-2 hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto min-h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
+          <div className='sticky top-2 hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
           {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
 
           {location &&
