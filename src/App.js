@@ -156,6 +156,8 @@ function App() {
 
             {(isadmin === true) &&
             <>
+            <Switch>
+            
             <Route exact path="/adminOnly"> <MainAdmin /> </Route>
 
             <Route exact path="/addtrips"> <Addtrips /> </Route>
@@ -171,9 +173,13 @@ function App() {
             <Route exact path="/admfaq"> <AdmFaq /> </Route>
               
             <Route exact path="/admbooking"> <AdmBooking /> </Route>
+
+            <Route path = "*"> < NotFound /> </Route>
+            
+            </Switch>
             </>
-            }
-            <Route> <NotFound /> </Route>
+            }      
+            <Route path> < NotFound /> </Route>
           </Switch>
           {/* ADMINS ONLY */}
           {/* {Onlyadmin()} */}
