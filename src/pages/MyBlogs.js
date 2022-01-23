@@ -75,7 +75,8 @@ const MyBlogs = ({ id, setId }) => {
         </div>
         <div className='p-8 sm:p-1'>
           <div className="flex justify-between items-center">
-            <p className='font-semibold sm:text-2xl'>{data.location}</p>
+           <div>
+           <p className='font-semibold sm:text-2xl'>{data.location}</p>
             <p className='font-semibold sm:text-2xl'>{data.created}</p>
             <button className="p-2 px-8 mx-auto bg-blue-500  sm:mx-auto aumbutton  font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  " ><Link to={{
                 pathname : "/myblogs/editblogs", 
@@ -83,10 +84,11 @@ const MyBlogs = ({ id, setId }) => {
                   data:[data]
                 }
               }} >Edit Blog</Link></button>
-            <p className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto  hover:bg-blue-700 text-white font-bold  " onClick={() => deleteblog(data.id)}>Delete
+            <button className="p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto  hover:bg-blue-700 text-white font-bold  " onClick={() => deleteblog(data.id)}>Delete
 
 
-            </p>
+            </button>
+            </div>
           </div>
           <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl font-bold pt-6 cursor-pointer'>{data.title}</p>
           <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='pt-6 leading-tight text-xl cursor-pointer'>{data.body}</p>

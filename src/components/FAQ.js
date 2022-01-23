@@ -199,7 +199,7 @@ const FAQ = ({isadmin}) => {
                                 ?  <div className='mb-4' >
 
                                         <p className='cursor-pointer' onClick={()=>{Answers(faq.id)}} >
-                                        <option className="text-xl sm:text-[0.8rem] font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
+                                        <option className="text-2xl sm:text-[0.8rem] font-semibold inline-block" id="selected"  value={faq.id}>{faq.question}
                                         </option>
 
                                             {/* placeholder for questions in database */}
@@ -228,7 +228,7 @@ const FAQ = ({isadmin}) => {
 
                                 {/* {console.log(faq.id)} */}
                                 
-                                {answerstatus[faq.id] && <div className="text-2xl sm:text-[0.8rem] font-semibold inline-block" >{answer[faq.id]} 
+                                {answerstatus[faq.id] && <div className="text-xl sm:text-[0.8rem] font-semibold inline-block" >{answer[faq.id]} 
 
                                 {/* placeholder for answers in db */}
                                 {/* <p className="leading-tight px-8 pb-8">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non optio modi laborum doloribus accusantium dolor aut alias soluta placeat. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique quod tempore cum, fuga ea obcaecati porro soluta sit laborum adipisci, iure nihil praesentium consequuntur modi. Porro eius veniam dolorem corrupti! </p> */}

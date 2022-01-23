@@ -48,7 +48,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
     }
 
     return (
-        <navbar id='navbar' className='navbar backdrop-filter bg-[#00000033] ease-in-out' >
+        <navbar id='navbar' className='navbar backdrop-filter bg-[#046C6D]' >
             <nav className="logo text-2xl tracking-[5px]">
                 <NavLink className='p-6 font-bold' to='/'>TravDays</NavLink>
             </nav>
