@@ -86,7 +86,7 @@ const Trip = ({ isAuth,isadmin }) => {
                 console.log(err)
             })
 
-    }, [backToDisplay || reviewSubmitted])
+    }, [backToDisplay || reviewSubmitted ])
 
     useEffect(() => {
         if (isAuth) {

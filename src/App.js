@@ -136,7 +136,7 @@ function App() {
 
             <Route exact path="/logout"> { isauthenticated? <Logout />  : <NotLoggedIn /> }</Route>
 
-            <Route exact path="/profile"> { isauthenticated? <Profilepage setNamechanged={setNamechanged} />  : <NotLoggedIn /> }</Route>
+            <Route exact path="/changename"> { isauthenticated? <Profilepage setNamechanged={setNamechanged} />  : <NotLoggedIn /> }</Route>
 
             <Route exact path="/blogs/write"> { isauthenticated? <WriteABlog />  : <NotLoggedIn /> } </Route>
 
