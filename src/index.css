@@ -98,8 +98,10 @@ ______$$$$$$$$$$$$$$$$ */
 }
 
 .Atext {
-  background-color: #04AA6D;
-  color: white;
+  border-radius: 8px;
+  background-color: #f63b3b;
+  /* #3b82f6 */
+  color: #000000;
   font-size: 16px;
   padding: 16px 32px;
 }
@@ -112,7 +114,7 @@ ______$$$$$$$$$$$$$$$$ */
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   text-align: center;
-  background-color: #04AA6D;
+  /* background-color: #04AA6D; */
   padding: 10px,10px;
 }
 

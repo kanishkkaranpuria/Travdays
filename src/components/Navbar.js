@@ -7,7 +7,7 @@ import { black } from "tailwindcss/colors";
 import { NavLink } from "react-router-dom";
 const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
 
-    const activeNavbarStyle = {fontWeight: "bold", backgroundColor : "black"};
+    const activeNavbarStyle = {fontWeight: "500", backgroundColor : "#00000033"};
     const history = useHistory();
     const [profiledata, setProfiledata] = useState([])
     const [igotdata, setIgotdata] = useState(false);
@@ -55,20 +55,21 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
             <nav className="flex w-2/3 h-full items-center justify-around">
                 {/* <NavLink to='/IndivisualBlogPage'>indi-blog</NavLink> */}
                 {/* <span className='packages btn p-6 flex items-center h-full text-lg relative'> */}
-                <NavLink className='h-full items-center flex' to='/trips' activeStyle={activeNavbarStyle}>Packages</NavLink>
+                <NavLink className=' items-center flex h-[75%] p-4 rounded-md' to='/trips' activeStyle={activeNavbarStyle}>Packages</NavLink>
                     {/* <span className='package-list absolute left-0 bottom-[-52px] flex w-max z-[4] invisible pointer-events-none'>
                     <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/solo'><h4>Solo</h4></NavLink>
                     <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/pet friendly'><h4>Pet Friendly</h4></NavLink>
                     <NavLink  className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/trips/workation'><h4>Workation</h4></NavLink>
                     </span> */}
                 {/* </span > */}
-                <NavLink className='h-full items-center flex' to='/blogs' activeStyle={activeNavbarStyle}>Blogs</NavLink>
-                <NavLink className='h-full items-center flex' to='/gallery' activeStyle={activeNavbarStyle}>Gallery</NavLink>
-                <NavLink className='h-full items-center flex' to='/contactus' activeStyle={activeNavbarStyle}>Contact Us</NavLink>
-                <NavLink className='h-full items-center flex' to='/faq' activeStyle={activeNavbarStyle}>FAQ</NavLink>
+                <NavLink className='items-center flex h-[75%] p-4 rounded-md' to='/blogs' activeStyle={activeNavbarStyle}>Blogs</NavLink>
+                <NavLink className='items-center flex h-[75%] p-4 rounded-md' to='/gallery' activeStyle={activeNavbarStyle}>Gallery</NavLink>
+                <NavLink className='items-center flex h-[75%] p-4 rounded-md' to='/contactus' activeStyle={activeNavbarStyle}>Contact Us</NavLink>
+                <NavLink className='items-center flex h-[75%] p-4 rounded-md' to='/faq' activeStyle={activeNavbarStyle}>FAQ</NavLink>
 
                 {isauthenticated && igotdata ? <>
                     <span className='packages btn flex items-center h-full text-lg relative'>
+<<<<<<< Updated upstream
                         <NavLink className='h-full items-center flex' to='/changename' activeStyle={activeNavbarStyle}>Hello {profiledata.navbarname}</NavLink>
                         <span className='package-list absolute left-0 bottom-[-156px] flex flex-col w-max z-[4] invisible pointer-events-none'>
                             <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/Changename'><h4>Change Name</h4></NavLink>
@@ -76,11 +77,19 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                             <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/bookings'><h4>Bookings</h4></NavLink>
                             <NavLink className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow' to='/myblogs'><h4>My blogs</h4></NavLink>
                             <p className='bg-[#00000088] px-6 pb-6 rounded-b-[10px] p-box-shadow cursor-pointer' onClick={logout} ><h4>Logout</h4></p>
+=======
+                        <NavLink className='items-center flex h-[75%] p-4 rounded-md ' to='/profilepage' activeStyle={activeNavbarStyle}>Hello {profiledata.navbarname}</NavLink>
+                        <span className='package-list absolute left-0 bottom-[-207px] flex flex-col w-max z-[4] invisible pointer-events-none'>
+                            <NavLink className='bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2' to='/profile'><h4>Change Name</h4></NavLink>
+                            <NavLink className=' relative top-[-15px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2' to='/bookings'><h4>Bookings</h4></NavLink>
+                            <NavLink className='relative top-[-30px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2' to='/myblogs'><h4>Blogs</h4></NavLink>
+                            <p className='relative top-[-45px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2 cursor-pointer' onClick={logout} ><h4>Logout</h4></p>
+>>>>>>> Stashed changes
                         </span>
                     </span>
                    </> :
-                    <NavLink className='h-full items-center flex' to='/login' activeStyle={activeNavbarStyle}>Login</NavLink>}
-                <NavLink className='h-full items-center flex' to='' >Our AI Coming Soon</NavLink>
+                    <NavLink className=' items-center flex h-[75%] p-4 rounded-md' to='/login' activeStyle={activeNavbarStyle}>Login</NavLink>}
+                <NavLink className=' items-center flex h-[75%] p-4 rounded-md' to='' >Our AI Coming Soon</NavLink>
             </nav>
         </navbar>
     );

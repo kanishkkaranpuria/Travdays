@@ -247,11 +247,9 @@ const Addtrips = () => {
                             <option> workation </option>
                         </select>
                     </p>
-                    <span className="bg-blue-500 p-2 rounded-md">
+                    <span className="">
                         <input type="file" multiple style={{ display: 'none' }} name="file" id="file" onChange={Imagechangehandler} />
-                        <label htmlFor="file">
-                            <i className="materail-icon">ADD IMAGE</i>
-                        </label>
+                        <button className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg">add image</button>
                     </span>
                 </div>
 

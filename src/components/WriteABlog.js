@@ -655,7 +655,7 @@ const WriteABlog = () => {
 
         return (
             <div className="section">
-            <div className="w-1/3 mx-auto flex flex-col justify-center items-center">
+            <div className="w-1/2 p-box-shadow-2 rounded-[20px] p-8 mt-[5%] mx-auto flex flex-col justify-center items-center">
                 <p className="text-4xl p-5 font-bold">Blog Preview</p>
                 <input style={{ display: 'none' }} name="awesome af" onChange={e => (handledisplayimage(e))} ref={inputRef} type="file" accept="image/*" />
                 {/* {displayImage && <img src= {handledisplayimage(displayImage)}/>}  */}

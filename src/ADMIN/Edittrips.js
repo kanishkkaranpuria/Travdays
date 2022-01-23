@@ -319,7 +319,7 @@ const Edittrips  = () => {
                       
                         {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
                      
-                        {exdata &&<form className='flex flex-col mx-auto max-w-[1000px] lg:shadow-xl rounded-lg lg:p-8 mt-[5%] ' onSubmit={Submit}  action="">
+                        {exdata &&<form className='flex flex-col mx-auto max-w-[1000px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] ' onSubmit={Submit}  action="">
                             <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Edit trips</span>
                             <br />
                             <span className='text-xl sm:text-xl sm:p-2 inline-block '>Delete existing media</span>
@@ -397,9 +397,7 @@ const Edittrips  = () => {
                                 <span className='text-xl sm:text-xl font-bold sm:p-2 inline-block '>Add new Media</span>
                                 <br />
                                        <input type="file" multiple style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler}   />
-                                                               <label htmlFor="file">
-                                                                   <i className="text-xl sm:text-xl bg-blue-500 font-bold sm:p-2">ADD IMAGE</i>
-                                                               </label>
+                                                                   <button className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg">add image</button>
                                  <p className='Arealcontainer'>                           
                                                                {imagepreview2 &&  imagepreview2.map((data,i)=>{
                                        
@@ -486,7 +484,7 @@ const Edittrips  = () => {
                                     </div>
                                     <div className="ml-2">
                                     <p>nights :</p>
-                                    <input  required type="number"  defaultValue={exdata.duration.split(" Days ")[1].split(" Nights")[0]} id="name"   onChange={(e) => setDurationnights(e.target.value) } />
+                                    <input className="m-0" required type="number"  defaultValue={exdata.duration.split(" Days ")[1].split(" Nights")[0]} id="name"   onChange={(e) => setDurationnights(e.target.value) } />
 
                                 
                                                 
@@ -497,16 +495,19 @@ const Edittrips  = () => {
                                     </p>
                                 </div>
                                 
-                                    <p className='flex items-center sm:relative'>
-                                    <span className='w-52'>Enter Trip price....................: Rs</span>
-                                    <input required type="number" placeholder = "Price" defaultValue={exdata.price} onChange={(e) => setPrice(e.target.value)} />
+                                    <p className='mt-4 flex items-center sm:relative'>
+                                    <span className='w-52'>Enter Trip price</span>
+                                    <div className="mr-2">
+                                        <p>₹</p>
+                                    <input className="mt-0" required type="number" placeholder = "Price" defaultValue={exdata.price} onChange={(e) => setPrice(e.target.value)} />
+                                    </div>
                                     {/* {displayalert && <p className=' sm:absolute sm:bottom-0 sm:right-0 sm:px-0 px-2 text-sm text-red-500'>number must contain 10 digits</p>} */}
                                     </p>
                                     </div>
                                 
                                     
-                            <div className='flex'>
-                            <p>Select Trip type : </p>
+                            <div className='flex items-center'>
+                            <p className="w-52">Select Trip type : </p>
                         {exdata.type==="solo"&& <select  name="val" id="selected">
                                 <option> solo </option>   
                                 <option> pet friendly </option>   
@@ -528,14 +529,13 @@ const Edittrips  = () => {
                                      
                             <textarea defaultValue={exdata.description} required placeHolder = "Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value) }></textarea>
                             <div className='flex'>  
-                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+                            <button className=' sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
+                            <button className=' sm:mx-auto  m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
                             </div>
                             
-                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
 
             </form>}                       
                         </div>
-                            <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
                          </div>
         </div>
         </div>
