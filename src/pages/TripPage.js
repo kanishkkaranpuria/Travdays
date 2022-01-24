@@ -13,6 +13,7 @@ const Trip = ({ isAuth,isadmin }) => {
     let history = useHistory()
 
     const [page, setPage] = useState(1) // page 1 pe req initial run fir ++ hota jaayega
+    const [page1, setPage1] = useState(0) // page 1 pe req initial run fir ++ hota jaayega
     const [loading, setLoading] = useState(false) // initially false
     const [loadingdone2, setLoadingdone2] = useState(false) // initially false 
     const [loadingdone3, setLoadingdone3] = useState(false) // initially false 
@@ -61,17 +62,6 @@ const Trip = ({ isAuth,isadmin }) => {
                 console.log(err)
             })
 
-        // fullaxios({ url: 'userinfo/status' })
-        //     .then(res => {
-        //         if (res) {
-        //             // console.log(res.data)
-        //             setIsAuth(res.data.authenticated)
-        //             console.log(isAuth)
-        //         }
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
 
         fullaxios({ url: 'trip/media/' + name })
             .then(res => {
@@ -136,6 +126,23 @@ const Trip = ({ isAuth,isadmin }) => {
         if (node) observer.current.observe(node)
     }, [loading, hasMore])
 
+    const [rating, setRating] = useState(null);
+
+    useEffect(() => {
+        fullaxios({ url: 'trip/ratings/' + name  })
+        .then(res => {
+            if (res) {
+                // setFeatured(prev=>[...prev,...res.data])
+                console.log( res.data)
+                setRating(res.data)
+            }
+
+        })
+        .catch(err => {
+            }
+        )
+    }, [refetch ,page1]);
+    
 
     useEffect(() => {
         setLoading(true)
@@ -159,10 +166,7 @@ const Trip = ({ isAuth,isadmin }) => {
 
     }, [page, backToDisplay, refetch])
 
-    useEffect(() => {
-      console.log("heloooooooooooooooooooooo",reviewObject)
-    }, [reviewObject]);
-    
+  
 
 
     const booking = () => {
@@ -195,6 +199,7 @@ const Trip = ({ isAuth,isadmin }) => {
                     console.log('review submitted')
                     history.push(`/trip/${name}`)
                     setReviewObject([])
+                    setPage1(prev=>prev+1)
                     setHasMore(true)
                     setErrorForEmptySubmission(false)
                     setUserGivenDescription("")
@@ -226,8 +231,8 @@ const Trip = ({ isAuth,isadmin }) => {
     function calculation(data, stardata) {
         // var star = "url(#full)";
         for (let i = 1; i < 6; i++) {
-            console.log(data.ratings)
-            console.log(i)
+            // console.log(data.ratings)
+            // console.log(i)
             var ratings;
             if (data.ratings) ratings = parseFloat(data.ratings)
             else{
@@ -253,8 +258,8 @@ const Trip = ({ isAuth,isadmin }) => {
             else {
                 stardata = Object.assign(stardata, { [i]: "url(#empty)" })
             }
-            console.log(stardata)
-            console.log(percentage)
+            // console.log(stardata)
+            // console.log(percentage)
             // stardata[1] = "url(#full)"
             // stardata[2] = "url(#partial)"
         }
@@ -419,7 +424,6 @@ const Trip = ({ isAuth,isadmin }) => {
                         <defs>
                             <linearGradient id="partial" x1="0" x2="100%" y1="0" y2="0">
                                 <stop offset="0" stop-color="#F3C117"></stop>
-                                {console.log(percentage)}
                                 <stop offset={percentage} stop-color="#F3C117"></stop>
                                 <stop offset={percentage} stop-color="#E8E8E8"></stop>
                                 <stop offset="1" stop-color="#E8E8E8"></stop>
@@ -459,11 +463,11 @@ const Trip = ({ isAuth,isadmin }) => {
                            
                         <p className='text-3xl flex'>
                             <span className=''>{infoObject.name}</span>
-                                {console.log(infoObject)}
+                                {/* {console.log(infoObject)} */}
 
                             <span className='flex text-lg items-center text-center ml-auto '>({infoObject.type})</span>
                         </p>
-                        <p className='flex text-2xl items-center text-center pr-1'><span className="pr-2">{infoObject.ratings}</span>
+                       {rating&& <p className='flex text-2xl items-center text-center pr-1'><span className="pr-2">{rating.ratings}</span> 
                             <div className="stars flex" >
 
 
@@ -503,9 +507,8 @@ const Trip = ({ isAuth,isadmin }) => {
                                 </svg>
 
                             </div>
-                            {!reviewObject && <span className='ml-2'> ({infoObject.ratingsCount})</span>}
-                            {reviewObject && <span className='ml-2'> WTFFF({reviewObject.length})</span>}
-                        </p>
+                            <span className='ml-2'> ({rating.ratingsCount})</span>
+                        </p>}
                         <p className='flex text-2xl items-center text-center '><span>${infoObject.price}</span></p>
                         {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
                         <p className='flex py-4 text-xl '><span>{infoObject.description}</span></p>
