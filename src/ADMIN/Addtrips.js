@@ -249,12 +249,14 @@ const Addtrips = () => {
                     </p>
                     <span className="">
                         <input type="file" multiple style={{ display: 'none' }} name="file" id="file" onChange={Imagechangehandler} />
-                        <button className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg">add image</button>
+                        <label htmlFor="file">
+                        <p type="none" className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white font-bold">add image</p>
+                        </label>
                     </span>
                 </div>
 
                 <textarea required placeHolder="Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value)}></textarea>
-                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit" >submit</button>
+                <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white font-bold' type="submit" >submit</button>
 
 
 

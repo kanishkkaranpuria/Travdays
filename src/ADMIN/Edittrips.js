@@ -397,7 +397,9 @@ const Edittrips  = () => {
                                 <span className='text-xl sm:text-xl font-bold sm:p-2 inline-block '>Add new Media</span>
                                 <br />
                                        <input type="file" multiple style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler}   />
-                                                                   <button className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg">add image</button>
+                                                       <label htmlFor="file">
+                                                                   <button type="none" className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white">add image</button>
+                                                       </label>
                                  <p className='Arealcontainer'>                           
                                                                {imagepreview2 &&  imagepreview2.map((data,i)=>{
                                        
@@ -529,8 +531,8 @@ const Edittrips  = () => {
                                      
                             <textarea defaultValue={exdata.description} required placeHolder = "Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value) }></textarea>
                             <div className='flex'>  
-                            <button className=' sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg' onClick={DeleteTrip}  >Delete the trip</button>
-                            <button className=' sm:mx-auto  m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg' type="submit"  >submit</button>
+                            <button className=' sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white' onClick={DeleteTrip}  >Delete the trip</button>
+                            <button className=' sm:mx-auto  m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white ' type="submit"  >submit</button>
                             </div>
                             
 
