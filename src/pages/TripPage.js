@@ -400,7 +400,7 @@ const Trip = ({ isAuth,isadmin }) => {
                         mediaObject && mediaObject.map((data) => (
                             <div className="flex flow-col justify-center items-center" >
                                 {data.image && <img className='w-full h-[500px] object-cover' src={data.image} />}
-                                {data.video && <video className='w-full h-[500px] object-cover' controls src={data.video} alt='' width='100%' />}
+                                {data.video && <video controlsList="nodownload" className='w-full h-[500px] object-cover' controls src={data.video} alt='' width='100%' />}
                             </div>
                         )
                         )
@@ -457,8 +457,8 @@ const Trip = ({ isAuth,isadmin }) => {
                                   {console.log(locimg.slice(21,27) === "images")} */}
                         {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                         {/* {locimg && <img src={locimg}  alt="" className ="object-cover h-[500px]  w-[750px]"/>}
-                                  {locvideo && <video controls src={locvideo}  alt="" className ="object-cover h-[500px]  w-[750px]"/>} */}
-                        {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
+                                  {locvideo && <video controlsList="nodownload" controls src={locvideo}  alt="" className ="object-cover h-[500px]  w-[750px]"/>} */}
+                        {/* {locimg && <video controlsList="nodownload" controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                         {isadmin &&  <button className='m-2 p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/'+ infoObject.name+ '/' +infoObject.id  )}}>Edit current trip</button>   }
                            
                         <p className='text-3xl flex'>

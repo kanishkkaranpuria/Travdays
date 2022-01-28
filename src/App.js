@@ -41,7 +41,7 @@ import TnC from './pages/TermsAndConditions';
 import AboutUs from './pages/AboutUs';
 import NotFound from './pages/NotFound';
 import NotLoggedIn from './pages/NotloggedInPage';
-
+import UndefinedError from "./components/FetchErrorHandling/UndefinedError";
 
 const showMenu = () => {
   document.getElementById('mobile-menu').style.transform = "translateY(0%)";
@@ -60,17 +60,32 @@ function App() {
   const [isadmin, setIsadmin] = useState(false);
   const [isauthenticated, setIsauthenticated] = useState(false);
   const [namechanged, setNamechanged] = useState(0);
-  
+  const [preLoading, setPreLoading] = useState(true)
+  const [error, setError] = useState(false)
   useEffect(() => {
     fullaxios({url: 'userinfo/status'})
       .then((res) => {
         if (res) {
           setIsadmin(res.data.admin)
           setIsauthenticated(res.data.authenticated)
+          setTimeout(() => {
+            const preLoader = document.querySelector('.loader-container')
+            preLoader.remove();
+            setPreLoading(false)
+          }, 1000);
         }
       })
       .catch(err => {
+        if(err){
+          setTimeout(() => {
+            const preLoader = document.querySelector('.loader-container')
+            preLoader.remove();
+            setPreLoading(false)
+            setError(true)
+          }, 2000);
+        }
       })
+    console.log(document.querySelector('.loader-container'))
   }, [])
 
   // useEffect(()=>
@@ -90,7 +105,9 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+        <div className="App">
+        {!preLoading && error && <UndefinedError /> }
+        {!preLoading && !error && <>
         <img className='w-[100vw] fixed z-[0] opacity-[30%]' src={BgImg1} alt=''/>
         <img className='w-[100vw] fixed z-[0] opacity-[25%]' src={BgImg2} alt=''/>
         <img className='w-[100vw] fixed z-[0] opacity-[15%]' src={BgImg3} alt=''/>
@@ -184,6 +201,7 @@ function App() {
           {/* ADMINS ONLY */}
           {/* {Onlyadmin()} */}
         </div>
+        </>}
       </div>
     </Router>
   );

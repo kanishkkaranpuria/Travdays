@@ -79,9 +79,14 @@ import fullaxios from '../components/FullAxios';
 
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router';
+import Loading from '../components/Loading';
+import UndefinedError from '../components/FetchErrorHandling/UndefinedError';
 
 const Gallery = () => {
 
+  
+  const [error, setError] = useState(false)
+  const [realLoading, setRealLoading] = useState(true)
   var percentage = "";
   var allstars = {};
   const history = useHistory()
@@ -137,13 +142,18 @@ const Gallery = () => {
           // setLocimg(datas[0].image)
           // setLocimg(res.data[0].image)
           // setLocvideo(res.data[0].video)
-
           setDigit(1)
-
           prevDatas.current = datas
+          setRealLoading(false)
+
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        if(err){
+          setError(true)
+          console.error(err)
+        }
+      });
     setLoading(false);
   }, [page])
 
@@ -242,6 +252,10 @@ const Gallery = () => {
   }
 
   return (
+    <>
+      {realLoading && <Loading />}
+      {!realLoading && error && <UndefinedError />}
+      {!realLoading && !error &&
     <div className='max-w-[80%] section sm:max-w-full pb-0'>
       <div className={gridStyle}>
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
@@ -282,9 +296,9 @@ const Gallery = () => {
                 <p className='text-4xl pb-2'>{location.name}</p>
                 <div className='h-[500px] sm:h-[250px] max-w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
                   {locimg && <img src={locimg} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
-                  {locvideo && <video controls src={locvideo} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
+                  {locvideo && <video controlsList="nodownload" controls src={locvideo} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
                 </div>
-                {/* {locimg && <video controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
+                {/* {locimg && <video controlsList="nodownload" controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                 <p className='text-2xl pt-2'>{location.location}</p>
                 <p className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 md:h-4 w-6 pr-1 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -371,7 +385,7 @@ const Gallery = () => {
                 {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {location.ratingsCount}</span></p> */}
               </div>
               <p className='text-2xl'>Description</p>
-              <p className='leading-tight'>{location.description}</p>
+              <p className='leading-tight mb-8'>{location.description}</p>
               {/* <p className='text-xl py-4'>packages if any available</p>  */}
               {console.log(location)}
               <p>  </p>
@@ -413,7 +427,8 @@ const Gallery = () => {
 
         </div>
       </div>
-    </div>
+    </div>}
+    </>
   );
 }
 

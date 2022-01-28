@@ -3,6 +3,9 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useParams, useHistory } from "react-router";
 import fullaxios from "../components/FullAxios";
 import stars from './images/stars.png'
+import NotFound from "./NotFound";
+import UndefinedError from "../components/FetchErrorHandling/UndefinedError";
+import Loading from "../components/Loading";
 
 const AllTrips = () => {
 
@@ -24,6 +27,9 @@ const AllTrips = () => {
   const [displaysearchresults, setDisplaysearchresults] = useState(false)
   const [searchtext, setSearchtext] = useState(null)
   const observer = useRef()
+
+  const [error, setError] = useState(false)
+  const [realLoading, setRealLoading] = useState(true)
 
   useEffect(() => {
     setDatas([])
@@ -87,6 +93,7 @@ const AllTrips = () => {
             prevDatas.current = datas
             setLoading1(false)
             setLoading(false)
+            setRealLoading(false)
           }
         }
         )
@@ -95,8 +102,11 @@ const AllTrips = () => {
             if (err.response.data.detail === "Invalid page.") {
               setHasMore(false);
             }
-            // console.log(err)
-            // setLoading(false)
+            if (typeof (err.response) === "undefined") {
+              console.log("this should work goddamit")
+              setError(false)
+            }
+            setRealLoading(false)
 
 
           }
@@ -112,6 +122,7 @@ const AllTrips = () => {
             console.log(object)
             prevDatas.current = datas
             setLoading1(false)
+            setRealLoading(false)
             // setLoading(false)
           }
         })
@@ -120,6 +131,11 @@ const AllTrips = () => {
             if (err.response.data.detail === "Invalid page.") {
               setHasMore(false);
             }
+            if (typeof (err.response) === "undefined") {
+              console.log("this should work goddamit")
+              setError(false)
+            }
+            setRealLoading(false)
             // setLoading(false)
             // console.log(err)
           }
@@ -128,68 +144,79 @@ const AllTrips = () => {
     // setLoading(false);
   }, [page, fetch, object])
   // _____________________________________________________________________________________________________________________________________
-  const [hoverdatas, setHoveratas] = useState([]);
-  const [hoverpage, setHoverpage] = useState(0);
-  const [hoverloading, setHoverloading] = useState(true);
-  const [hoverhasMore, setHoverhasMore] = useState(true);
-  const hoverprevDatas = useRef([])
-  const hoverobserver = useRef()
-  const MouseOver = (name) => {
-    // event.target.style.background = 'red';
-    // setHoverloading(true)
-    // setHoverhasMore(true)
-    setGlobalUrl(name)
-    setHoverpage(1)
-    // axios
-    //   .get(`http://127.0.0.1:8000/trip/media/` + name + `?page=` + hoverpage)
-    //   .then(res => {
-    //     setHoveratas(prev => [...prev, ...res.data])
-    //     console.log(res.data)
-    //     hoverprevDatas.current = hoverdatas
-    //   })
-    //   .catch(err => {
-    //     // if (err.response.data.detail === "Invalid page.") {
-    //     //   setHoverhasMore(false);
-    //     // }
-    //     console.log(err)
-    //   })
-    //   setHoverloading(false);
-  }
-  function MouseOut(event) {
-    event.target.style.background = "";
+  // const [hoverdatas, setHoveratas] = useState([]);
+  // const [hoverpage, setHoverpage] = useState(0);
+  // const [hoverloading, setHoverloading] = useState(true);
+  // const [hoverhasMore, setHoverhasMore] = useState(true);
+  // const hoverprevDatas = useRef([])
+  // const hoverobserver = useRef()
+  // const MouseOver = (name) => {
+  // event.target.style.background = 'red';
+  // setHoverloading(true)
+  // setHoverhasMore(true)
+  // setGlobalUrl(name)
+  // setHoverpage(1)
+  // axios
+  //   .get(`http://127.0.0.1:8000/trip/media/` + name + `?page=` + hoverpage)
+  //   .then(res => {
+  //     setHoveratas(prev => [...prev, ...res.data])
+  //     console.log(res.data)
+  //     hoverprevDatas.current = hoverdatas
+  //   })
+  //   .catch(err => {
+  //     // if (err.response.data.detail === "Invalid page.") {
+  //     //   setHoverhasMore(false);
+  //     // }
+  //     console.log(err)
+  //   })
+  //   setHoverloading(false);
+  // }
 
-  }
-  const lastDataElementRef2 = useCallback(node => {
-    console.log('last element')
-    if (hoverloading) return
-    if (hoverobserver.current) hoverobserver.current.disconnect()
-    hoverobserver.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hoverhasMore) {
-        setHoverpage(prev => prev + 1)
-      }
-    })
-    if (node) hoverobserver.current.observe(node)
-  }, [hoverloading, hoverhasMore])
-  useEffect(() => {
-    console.log(globalUrl)
-    fullaxios({ url: 'trip/media/' + globalUrl + '?page=' + hoverpage })
-      .then(res => {
-        if (res) {
-          setHoveratas(prev => [...prev, ...res.data])
-          console.log(res.data)
-          hoverprevDatas.current = hoverdatas
-        }
-      })
-      .catch(err => {
-        if (err.response) {
-          if (err.response.data.detail === "Invalid page.") {
-            setHoverhasMore(false);
-          }
 
-        }
-      })
-    setHoverloading(false);
-  }, [hoverpage])
+  // function MouseOut(event) {
+  //   event.target.style.background = "";
+
+  // }
+  // const lastDataElementRef2 = useCallback(node => {
+  //   console.log('last element')
+  //   if (hoverloading) return
+  //   if (hoverobserver.current) hoverobserver.current.disconnect()
+  //   hoverobserver.current = new IntersectionObserver(entries => {
+  //     if (entries[0].isIntersecting && hoverhasMore) {
+  //       setHoverpage(prev => prev + 1)
+  //     }
+  //   })
+  //   if (node) hoverobserver.current.observe(node)
+  // }, [hoverloading, hoverhasMore])
+
+  // useEffect(() => {
+  //   console.log(globalUrl)
+  //   fullaxios({ url: 'trip/media/asdf' + globalUrl + '?page=' + hoverpage })
+  //     .then(res => {
+  //       console.log("nothing makes sense anymore")
+  //       if (res) {
+  //         setHoveratas(prev => [...prev, ...res.data])
+  //         console.log("let's go", res.data)
+  //         setRealLoading(false)
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log("this should work goddamit")
+  //       console.log(err)
+  //       if (err.response) {
+  //         if (err.response.data.detail === "Invalid page.") {
+  //           setHoverhasMore(false);
+  //         }
+  //       }
+  //       console.log("this should work goddamit")
+  //       if (typeof (err.response) === "undefined") {
+  //         console.log("this should work goddamit")
+  //         setError(false)
+  //       }
+  //       setRealLoading(false)
+  //     })
+  //   setHoverloading(false);
+  // }, [hoverpage])
 
   const fetchSearchedDataFromBackend = (searchtexts) => {
     console.log("this works everytime")
@@ -239,30 +266,30 @@ const AllTrips = () => {
       // allstars[2] = "url(#partial)"
     }
   }
-  let lastScroll=0
+  let lastScroll = 0
 
-      let searchbartTrigger = document.getElementById('template0')
-      if (searchbartTrigger){
-      let searchbar = document.getElementById('searchbar')
-      window.addEventListener('scroll',()=>{
-          if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top){ //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
-              searchbar.style.transform = 'translateY(-200%)'
-              if(window.scrollY< lastScroll){
-                searchbar.style.transform = 'translateY(0%)'
-              }
-              lastScroll = window.scrollY
-          }
-          else{
-              searchbar.style.transform = 'translateY(0%)'
-          }
-      })
-    }
+  let searchbartTrigger = document.getElementById('template0')
+  if (searchbartTrigger) {
+    let searchbar = document.getElementById('searchbar')
+    window.addEventListener('scroll', () => {
+      if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top) { //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
+        searchbar.style.transform = 'translateY(-200%)'
+        if (window.scrollY < lastScroll) {
+          searchbar.style.transform = 'translateY(0%)'
+        }
+        lastScroll = window.scrollY
+      }
+      else {
+        searchbar.style.transform = 'translateY(0%)'
+      }
+    })
+  }
 
-  const ShowData = (data,index) => {
+  const ShowData = (data, index) => {
 
     return (
       <>
-        <div onClick={() => { history.push('/trip/' + data.name) }} id = {`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card aumnormalblog2">
+        <div onClick={() => { history.push('/trip/' + data.name) }} id={`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card aumnormalblog2">
           <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2 z-[0]'>
             <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
             <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
@@ -271,7 +298,8 @@ const AllTrips = () => {
           </div>
           <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
             <p className='flex justify-between items-center'>
-              {data.name && <p    className='text-xl font-bold cursor-pointer ' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>}
+              {/* {data.name && <p className='text-xl font-bold cursor-pointer ' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>} */}
+              {data.name && <p className='text-xl font-bold cursor-pointer '>{data.name}</p>}
               {/* {data.type[0] = data.type[0].toUpperCase()} */}
               {/* {data.type && <p className='text-sm'>{data.type}</p>} */}
               {data.location && <p className='font-semibold mx-2'>{data.location}</p>}
@@ -385,30 +413,33 @@ const AllTrips = () => {
 
 
   return (<>
-    <div className='section relative flex flex-col items-center'>
-
-      {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
+    {realLoading && <Loading />}
+    {!realLoading && error && <UndefinedError />}
+    {/* {realLoading &&  } */}
+    {!realLoading && !error &&
+      <div className='section relative flex flex-col items-center'>
+        {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg> */}
-      <div id = 'searchbar' className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
-        <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
-        <button  className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
-        <div className="flex absolute bottom-[-30%] right-0">
-          <button  className="flex m-2 aumbutton" onClick={priceAscending} type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 13l-5 5m0 0l-5-5m5 5V6" />
-            </svg>
-            <span className="sm:hidden">Price</span></button>
-          <button  className="flex m-2 aumbutton" onClick={priceDescending} type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 11l5-5m0 0l5 5m-5-5v12" />
-            </svg>
-            <span className="sm:hidden">Price</span></button>
-        </div>
-        {/* godly method to lose and gain focus */}
-        {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
+        <div id='searchbar' className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
+          <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
+          <button className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
+          <div className="flex right-0">
+            <button className="flex m-2 aumbutton" onClick={priceAscending} type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+              </svg>
+              <span className="sm:hidden">Price</span></button>
+            <button className="flex m-2 aumbutton" onClick={priceDescending} type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 11l5-5m0 0l5 5m-5-5v12" />
+              </svg>
+              <span className="sm:hidden">Price</span></button>
+          </div>
+          {/* godly method to lose and gain focus */}
+          {/* onFocus = {() =>setDisplaysearchresults(true)} onBlur = {() => setDisplaysearchresults(false)} */}
 
-        {/* {displaysearchresults && (
+          {/* {displaysearchresults && (
                 <div className="search-results-container">
                     <div className = 'w-[500px]'></div>
                     <div className="search-results">
@@ -418,32 +449,24 @@ const AllTrips = () => {
             )} */}
 
 
-      </div>
+        </div>
 
 
-      {/* the grid logic was added in the index.css file by naman */}
-      {loading1 ? <div><p>loading...</p></div> :
-        <div className="trips pt-[80px] bg-none">
-
-          {datas && datas.map((data, index) => {
-            if (datas.length === index + 1) {
-              return (
-                <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
-                  {ShowData(data,index)}
-                </div>
-              );
-            } else {
-              return (
-                <div className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
-                  {ShowData(data,index)}
-                </div>
-              );
-            }
-          })
-          }
-
-        </div>}
-    </div>
+        {datas && datas.map((data, index) => {
+          if (datas.length === index + 1) {
+            return (
+              <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
+                {ShowData(data, index)}
+              </div>
+            );
+          } else {
+            return (
+              <div className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
+                {ShowData(data, index)}
+              </div>
+            );
+          }})}
+  </div>}
   </>);
 }
 

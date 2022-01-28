@@ -507,10 +507,10 @@ const Home = ({ isadmin, setIsadmin }) => {
                         </a>
                     </div>
                     <div className="w-full flex absolute" >
-                        <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee>
+                        {/* <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee> */}
                     </div>
                     <div className="w-full flex absolute bottom-0" >
-                        <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee>
+                        {/* <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee> */}
                     </div>
 
                 </div>

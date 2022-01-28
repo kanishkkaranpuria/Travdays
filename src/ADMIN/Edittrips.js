@@ -333,7 +333,7 @@ const Edittrips  = () => {
                                             else if (data.type.slice(0,5) === "video"){
                                                 return(
                                                     <div className="Acontainer">
-                                                    <video controls src={data.media }alt="" />
+                                                    <video controlsList="nodownload" controls src={data.media }alt="" />
                                                     </div>
                                                     )
                                                 }
@@ -355,7 +355,7 @@ const Edittrips  = () => {
                                         else if (data.type.slice(0,5) === "video"){
                                           return(
                                               <div className="Acontainer">
-                                                 <video className="imageee"  controls src={data.media }alt="" />
+                                                 <video controlsList="nodownload" className="imageee"  controls src={data.media }alt="" />
                                                     <div onClick={()=>{DeleteMedia(i,data.id)}} className="Amiddle">
                                                         <div className="Atext">Delete</div>
                                                         </div> 
@@ -377,7 +377,7 @@ const Edittrips  = () => {
                                             else if (data.video!==undefined){
                                                 return(
                                                     <div   className="Acontainer">
-                                                       <video className="imageee" controls src={data.video }alt="" />
+                                                       <video controlsList="nodownload" className="imageee" controls src={data.video }alt="" />
                                                        <div className="Amiddle">
                                                         <div onClick={()=>{DeleteMedia(i,data.id)}}  className="Atext">Delete</div>
                                                         </div> 
@@ -413,7 +413,7 @@ const Edittrips  = () => {
                                           else if (data.type.slice(0,5) === "video"){
                                             return(
                                                 <div className="Acontainer">
-                                                   <video className="imageee"  controls src={data.media }alt="" />
+                                                   <video controlsList="nodownload" className="imageee"  controls src={data.media }alt="" />
                                                       <div onClick={()=>{RemoveMedia2(i)}} className="Amiddle">
                                                           <div className="Atext">Delete</div>
                                                           </div> 
@@ -435,7 +435,7 @@ const Edittrips  = () => {
                                               else if (data.video!==undefined){
                                                   return(
                                                       <div   className="Acontainer">
-                                                         <video className="imageee" controls src={data.video }alt="" />
+                                                         <video controlsList="nodownload" className="imageee" controls src={data.video }alt="" />
                                                          <div className="Amiddle">
                                                           <div onClick={()=>{RemoveMedia2(i)}}  className="Atext">Delete</div>
                                                           </div> 

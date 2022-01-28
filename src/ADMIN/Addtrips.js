@@ -206,7 +206,7 @@ const Addtrips = () => {
                         else if (data.type.slice(0, 5) === "video") {
                             return (
                                 <div className="Acontainer">
-                                    <video className="imageee" controls src={data.media} alt="" />
+                                    <video controlsList="nodownload" className="imageee" controls src={data.media} alt="" />
                                     <div onClick={() => { test(i) }} className="Amiddle">
                                         <div className="Atext">Delete</div>
                                     </div>

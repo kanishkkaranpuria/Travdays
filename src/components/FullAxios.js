@@ -1,4 +1,5 @@
 import axios from 'axios';
+import NotFound from '../pages/NotFound';
 import Cookie from './Cookie';
 
 const baseURL = '/api/';
@@ -85,12 +86,15 @@ const fullaxios = (object) => {
 			console.log(error.config)
 
 			if (typeof error.response === 'undefined') {
-				alert(
-					'A server/network error occurred. ' +
-					'Looks like CORS might be the problem. ' +
-					'Sorry about this - we will get it fixed shortly.'
-				);
+				// alert(
+				// 	'A server/network error occurred. ' +
+				// 	'Looks like CORS might be the problem. ' +
+				// 	'Sorry about this - we will get it fixed shortly.'
+				// );
 				return Promise.reject(error);
+				return(
+					<NotFound /> 
+					)
 			}
 			console.log(originalRequest.url,"line 94")
 			console.log(error.response.status,"line 95")

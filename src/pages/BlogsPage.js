@@ -4,8 +4,13 @@ import WriteABlog from "../components/WriteABlog";
 import axios from "axios";
 import fullaxios from "../components/FullAxios";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
+import UndefinedError from "../components/FetchErrorHandling/UndefinedError";
 
 const Blogs = ({id,setId}) => {
+  
+  const [error, setError] = useState(false)
+  const [realLoading, setRealLoading] = useState(true)
   const history = useHistory()
   const [sortlink, setSortlink] = useState("votefilter")
   const [loading, setLoading] = useState(false)
@@ -23,7 +28,6 @@ const Blogs = ({id,setId}) => {
       console.log("created")
       setBlogpage(1)
     }
-
 
   }
   const ID = (dataId) => {
@@ -65,11 +69,14 @@ const Blogs = ({id,setId}) => {
       setAllblogs(prev=>[...prev,...res.data])
     }})
     .catch(err => {
-       if (err.response){if (err.response.data.detail === "Invalid page.") {
+       if (err.response){
+         if (err.response.data.detail === "Invalid page.") {
          setHasmore2(false)
-       }
-
-     }})
+        }
+        else{
+           setError(true)
+        }
+        }})
      setLoading(false)
 }, [blogpage,sortlink])
 
@@ -98,13 +105,19 @@ const Blogs = ({id,setId}) => {
       fullaxios({url : 'blog/featured?page=' + fpage})
       .then(res => {
         if (res){
-        setFeatured(prev=>[...prev,...res.data])
+          setRealLoading(false)
+          setFeatured(prev=>[...prev,...res.data])
       }})
       .catch(err => {
-         if (err.response){if (err.response.data.detail === "Invalid page.") {
+         if (err.response){
+           if (err.response.data.detail === "Invalid page.") {
            setHasmore(false)
            setLoading(false)
-         }
+          }
+          else{
+            setRealLoading(false)
+            setError(true)
+          }
  
        }})
        setLoading(false)
@@ -135,6 +148,10 @@ const Blogs = ({id,setId}) => {
 
 
     return (
+      <>
+      {realLoading && <Loading />}
+      {!realLoading && error && <UndefinedError />}
+      {!realLoading && !error &&
         <div className="blog relative pt-[60px] w-full">
         <img onClick ={()=>{history.push("blogs/write")}}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/>
         {/* <img onClick ={Sorted}className='fixed bottom-16 right-16 sm:right-2 sm:bottom-8 z-[1] cursor-pointer' src="https://img.icons8.com/material-rounded/64/000000/plus--v1.png"/> */}
@@ -267,6 +284,8 @@ const Blogs = ({id,setId}) => {
         })}
             
         </div>
+        }
+        </>
     );
 }
  

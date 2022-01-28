@@ -5,6 +5,8 @@ import Cookie from "../components/Cookie";
 import { useHistory } from "react-router";
 import { black } from "tailwindcss/colors";
 import { NavLink } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
+
 const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
 
     // const activeNavbarStyle = {fontWeight: "500", backgroundColor : "#00000033"};
@@ -23,7 +25,50 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                 console.log(res)
             })
     }, [isauthenticated,namechanged])
-    
+
+
+    let lastScroll = 0
+    const location = useLocation();
+
+    useEffect(() => {
+        let navbartTrigger = document.getElementById('triggerElement')
+        let navbar = document.getElementById('navbar')
+
+        const navLen = navbar.getBoundingClientRect().bottom
+
+        const scrollFunction = function () {
+            
+            if (window.scrollY + navLen> window.pageYOffset + navbartTrigger.getBoundingClientRect().top) {
+                console.log("DArk navbar")
+                console.log(navLen)
+                navbar.style.transform = 'translateY(-100%)'
+                let newScroll = window.scrollY
+                if (newScroll < lastScroll) {
+                    console.log(navLen)
+                    navbar.style.backgroundColor = '#046C6D'
+                    navbar.style.transform = 'translateY(0%)'
+                }
+                lastScroll = newScroll
+            }
+            else if (window.scrollY + navLen< window.pageYOffset + navbartTrigger.getBoundingClientRect().top) {
+                console.log("Light navbar")
+                navbar.style.transform = 'translateY(0%)'
+                navbar.style.backgroundColor = '#00000000'
+            }
+        }
+        console.log("location", location.pathname)
+        if (location.pathname === '/') {
+            if (navLen <= navbar.getBoundingClientRect().top <=0) {
+                navbar.style.backgroundColor = '#00000000'
+            }
+            window.addEventListener('scroll', scrollFunction)
+        } else {
+            console.log("else ran not homepage")
+            navbar.style.backgroundColor = '#046C6D'
+            window.removeEventListener('scroll', scrollFunction);
+        }
+    }, [location])
+
    
 
 
@@ -69,7 +114,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
 
                 {isauthenticated && igotdata ? <>
                     <span className='packages btn flex items-center h-full text-lg relative'>
-                        <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus ' to='/' >Hello {profiledata.navbarname}</NavLink>
+                        <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/profilepage' >Hello {profiledata.navbarname}</NavLink>
                         <span className='package-list absolute left-0 bottom-[-260px] flex flex-col w-max z-[4] invisible pointer-events-none'>
                             <NavLink className='bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr ' to='/changename'><h4>Change Name</h4></NavLink>
                             <NavLink className=' relative top-[-15px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/bookings'><h4>Bookings</h4></NavLink>
