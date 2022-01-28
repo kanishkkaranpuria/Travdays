@@ -127,7 +127,7 @@ const ResetPassword = () => {
                     <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
                     <div type="name" className="email flex items-center">
                         <p className="w-40">Email:</p >
-                     <input required type="text" value={email} />
+                    <input readOnly type="text" value={email} />
                     </div>
                     <div className="password flex items-center">
                         <p className="w-40">Enter Password:</p>

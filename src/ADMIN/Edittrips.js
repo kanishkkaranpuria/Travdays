@@ -293,6 +293,7 @@ const Edittrips  = () => {
          }
 
          const DeleteTrip  = () => {
+             
              setDeelete(true)
             let confirmBoxx = window.confirm("delete seriously?")
             //confirmBoxx)
@@ -445,7 +446,7 @@ const Edittrips  = () => {
                                        })
                                        }
                                     </p>                           
-                                     {imagepreview2.length!==0 &&   <button onClick={SubmitMedia} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'   >Add Media</button>}    
+                                     {imagepreview2.length!==0 &&   <button onClick={SubmitMedia} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white font-bold'   >Add Media</button>}    
                                     <div className='sm:pb-4'> 
                                             <div className="">
                                             <p className='flex items-center'>
