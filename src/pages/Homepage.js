@@ -463,70 +463,39 @@ const Home = ({ isadmin, setIsadmin }) => {
             <div className="section flex flex-col testimonial relative min-h-[100vh-60px] sm:min-h-[930px]" >
                     <h1><u><b>Footer:</b></u></h1>
                     <hr/>
-                    <h5> <button onClick={()=>
-                        {
-                            history.push('/')
-                        }
-                        }> <u>Home </u></button> <br/>
-                        <button onClick={()=>{
-                            history.push('/packagespage')
-                        }}>
-                            <u>Our Packages</u> :
-                        </button> <br/>
-                        <h6>
-                        <button onClick={()=>{
-                            history.push('/trips/workation')
-                        }}>
-                            - <b>workation packages</b>
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/trips/solo')
-                        }}>
-                            - <b>solo packages</b>
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/trips/pet friendly')
-                        }}>
-                            - <b>pet friendly</b>
-                        </button><br/>
-                        </h6>
+                    <h5> 
+                        <Link to='/'>Home</Link>
 
-                        <button onClick={()=>{
-                            history.push('/blogs')
-                        }}>
-                            <u>Blogs</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/gallery')
-                        }}>
-                            <u>Gallery</u> 
-                        </button><br/><br/>
+                        <br/>
+
+                        <Link to='/packages'>Our Packages:</Link>
                         
-                        <button onClick={()=>{
-                            history.push('/aboutus')
-                        }}>
-                            <u>About Us</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/contactus')
-                        }}>
-                            <u>Contact Us</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/privacypolicy')
-                        }}>
-                            <u>Our Privacy Policy</u> 
-                        </button><br/>
-                        <button onClick={()=>{
-                            history.push('/tnc')
-                        }}>
-                            <u>Terms and Conditions</u> 
-                        </button><br/>
-                        <a href= '#social-media-links' >
-                            <u>Social media link</u>
-                        </a> 
+                        
+                        <h6>
 
-                        <p> Copy-right (if applicable) </p>
+                        <Link to='/trips/workation'> - Workation Packages</Link> <br/>
+                        <Link to='/trips/solo' > - Solo Packages</Link> <br/>
+                        <Link to='/trips/pet friendly'> - Pet Friendly Packages</Link> <br/>
+
+
+                        </h6> <br/>
+
+                        <Link to='/blogs'>Blogs</Link> <br/>
+
+                        <Link to='/gallery'>Travdays Gallery</Link> <br/>
+                        
+                        
+                        <Link to='/aboutus'>About Us</Link> <br/>
+
+                        <Link to='/contactus'>Contact Us</Link> <br/>
+
+
+                        <Link to='/privacypolicy'> Privacy Policy</Link> <br/>
+
+                        <Link tp='/tnc'>Terms&Conditions</Link> <br/>
+
+
+                        {/* <Link to='copyright' >©CopyRight</Link> */}
                         
 
                     </h5>
@@ -535,7 +504,7 @@ const Home = ({ isadmin, setIsadmin }) => {
         </div>
                     
             <div className="footer flex h-[120px] relative" >
-                <marquee><h1> © Designed and developed by - <a href='https://instagram.com/spydev_' target='_blank'>Spydev Co</a> </h1></marquee>
+                <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee>
             </div>
         </div>
     );
