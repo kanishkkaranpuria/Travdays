@@ -64,9 +64,8 @@ const Login = ({setIsauthenticated}) => {
     }
     return (
         <div className="section">
-                   <div>
             {!otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly bg-[#f5f5f7]">
-                <p  onClick = {changeboolvalue}>Click here to Login via OTP</p>
+                <p className="hover:text-blue-500" onClick = {changeboolvalue}>Click here to Login via OTP</p>
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-0 items-center justify-evenly" onSubmit={submit_details}>
                     <p className="text-4xl text-center">Login Page</p>
                     <div type="email" className="email flex items-center">
@@ -81,7 +80,7 @@ const Login = ({setIsauthenticated}) => {
                         <button type="submit" className="sm:absolute sm:right-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                     </div>
                 </form>
-                <p >New to Travdays?<Link className="aumptags" to="/register"> Click here to Sign Up </Link></p>
+                <p >New to Travdays?<Link className="aumptags" to="/register"> <span className="hover:text-blue-500">Click here to Sign Up</span> </Link></p>
             </div>}
 
             {otploginbool && !otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
@@ -96,7 +95,7 @@ const Login = ({setIsauthenticated}) => {
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Submit</button>
                     </div>
                 </form>
-                <p>New to Travdays?<Link to="/register"> Click here to Sign Up </Link></p>
+                <p>New to Travdays?<Link  to="/register"> <span className="hover:text-blue-500">Click here to Sign Up</span> </Link></p>
             </div>}
             {otppagebool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                 <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={confirm_otp}>
@@ -114,7 +113,6 @@ const Login = ({setIsauthenticated}) => {
                     </div>
                 </form>
             </div>}
-        </div>
         </div>
     );
 }

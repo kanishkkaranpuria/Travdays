@@ -112,7 +112,7 @@ const Registration = ({setIsauthenticated}) => {
                     <button type="submit" className="sm:absolute sm:right-0 sm:mr-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                 </div>
             </form>
-            <div className="sm:p-8" onClick={view_otp_registration}>Or Register and Login using OTP. To Login use the Otp sent in your Mail</div>
+            <div className="sm:p-8 hover:text-blue-500" onClick={view_otp_registration}>Or Register and Login using OTP. To Login use the Otp sent in your Mail</div>
         </div>}
 
         {otpReg && bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">

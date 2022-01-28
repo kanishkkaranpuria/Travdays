@@ -428,13 +428,13 @@ const AllTrips = () => {
           {datas && datas.map((data, index) => {
             if (datas.length === index + 1) {
               return (
-                <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
+                <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
                   {ShowData(data,index)}
                 </div>
               );
             } else {
               return (
-                <div className="m-5 md:p-[0.5rem] flex justify-center xl:min-w-[1033px] lg:min-w-[781px] bg-[#f5f5f7] " key={data.id}>
+                <div className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
                   {ShowData(data,index)}
                 </div>
               );

@@ -222,6 +222,7 @@ const FAQ = ({isadmin}) => {
                                         {/* <span className='font-semibold'> Lorem ipsum dolor sit amet consectetur adipisicing elit ?</span> */}
 
                                         </p>
+                                {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
                                         
 
                                 </div> }
@@ -238,7 +239,7 @@ const FAQ = ({isadmin}) => {
                                 {/* {console.log(answerstatus)} */}
                                 {/* {console.log(answer)} */}
                                 {/* {answer && <div className="">{answer.answer}</div> } */}
-                                {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  }
+                                {/* {isadmin &&  <button onClick={()=>{Delete(faq.id)}} className='sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>  } */}
 
                             </div>
                                )

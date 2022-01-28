@@ -311,11 +311,6 @@ const Edittrips  = () => {
               
     return ( 
         <div className="section">
-        <div className="">
-            <div >
-                                    
-            
-                        <div className="row">  
                       
                         {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
                      
@@ -538,9 +533,6 @@ const Edittrips  = () => {
 
             </form>}                       
                         </div>
-                         </div>
-        </div>
-        </div>
      );
 }
 

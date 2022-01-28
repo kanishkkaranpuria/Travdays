@@ -158,7 +158,7 @@ ______$$$$$$$$$$$$$$$$ */
 .App{
   width: 100%;
   /* max-width: 1440px; */
-  background-color:var(--primary) ;
+  /* background-color:var(--primary) ; */
   overflow: hidden;
 }
 body {
@@ -223,6 +223,15 @@ code {
   color:var(--accent);
   transition: all 300ms ease-out;
   /* box-shadow: 0 0 10px 0; */
+}
+.navlinkActiveHoverFocus:hover{
+background-color: #00000033;
+}
+.navlinkActiveHoverFocus:active{
+background-color: #00000033;
+}
+.navlinkActiveHoverFocus:focus{
+background-color: #00000033;
 }
 #searchbar{
   transition: all 150ms ease-in-out;
