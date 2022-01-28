@@ -31,8 +31,11 @@ html{
 .aumnormalblog2:hover{
   background-color: gainsboro
 }
-.aumfeaturedblog:hover{
-  display: none;
+
+
+.aumfeaturedblog2:hover{
+}
+.aumfeaturedblog3:hover{
 }
 .aumpackagepage:hover{
   opacity: 0.6;

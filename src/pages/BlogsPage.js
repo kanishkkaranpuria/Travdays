@@ -128,7 +128,7 @@ const Blogs = ({id,setId}) => {
 
 
 
-   
+
 
 
 
@@ -163,16 +163,18 @@ const Blogs = ({id,setId}) => {
             }
             else{
               return(
+                <div className="featuringblogss">
                 <div  className="blog-preview-card featured relative cursor-pointer aumfeaturedblog" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}} >
                   <div className='gradient'></div>
               <img className='star absolute right-2 top-2' src="https://img.icons8.com/fluency/32/000000/star.png"/>
-                  <div className='p-8 sm:p-2 absolute bottom-0 text-white'>
+                  <div className='p-8 sm:p-2 absolute bottom-0 text-white aumfeaturedblog3 '>
                       <p className='text-3xl sm:text-xl '>{data.title}</p>
                       <p className='flex text-2xl items-center text-center '><span>{data.location}</span>
                       </p>
                   </div>
                   <img className='w-full h-full top-0 object-cover bg aumfeaturedblog2' src={data.image} alt=""/>
                   {/* <p className='leading-tight pt-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem animi iusto, rerum fugit nam aut incidunt impedit reprehenderit a quos explicabo ad doloribus cum quidem! Reiciendis enim cum quam eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est aliquam ut eligendi vitae ea architecto eaque illo, atque reprehenderit? Aperiam maiores repudiandae aspernatur doloribus consectetur commodi voluptate fugit impedit laboriosam.</p> */}
+              </div>
               </div>
               );
             }
@@ -189,15 +191,15 @@ const Blogs = ({id,setId}) => {
           if(allblogs.length === index+1){
             return(
               <div ref={lastDataElementRef2}  className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center aumnormalblog">
-        <div className="blog-preview-card non-featured v1 relative cursor-pointer" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
+        <div className="blog-preview-card non-featured v1 relative cursor-pointer " onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
 
               {/* <div ref={lastDataElementRef2} className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
         <div className="blog-preview-card non-featured v1 relative"> */}
         
-                <div className="blog-photos overflow-hidden">
-                    <img className='object-cover h-full w-full' src={data.image} alt=""/>
+                <div className="blog-photos overflow-hidden ">
+                    <img className='object-cover h-full w-full '  src={data.image} alt=""/>
                 </div>
-                <div className='sm:flex sm:w-full sm:flex-col p-8 sm:p-1 aumnormalblog2'>
+                <div className='sm:flex sm:w-full sm:flex-col p-8 sm:p-1 aumnormalblog2 '>
                     <div className="flex sm:flex-col justify-between items-center">
                     <p className='font-semibold sm:text-2xl'>{data.location}</p>
                     <p className='font-semibold sm:text-2xl'>{data.created}</p>
@@ -222,19 +224,20 @@ const Blogs = ({id,setId}) => {
                 </div>
             </div>
           </div>
+          
             )
           }
           else{
             return(
               <div className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center aumnormalblog">
-              <div className="blog-preview-card non-featured v1 relative cursor-pointer" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
+              <div className="blog-preview-card non-featured v1 relative cursor-pointer aumnormalblog2" onClick={()=>{history.push('/blogs/'+ data.title +'/'+ data.id)}}>
 
               {/* <div  className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
               <div className="blog-preview-card non-featured v1 relative"> */}
                       <div className="blog-photos overflow-hidden">
                           <img className='object-cover h-full w-full' src={data.image} alt=""/>
                       </div>
-                      <div className='p-8 sm:p-1 aumnormalblog2'>
+                      <div className='p-8 sm:p-1 aumnormalblog2 '>
                           <div className="flex sm:flex-col sm:items-start justify-between items-center">
                           <p className='font-semibold sm:text-2xl'>{data.location}</p>
                           <p className='font-semibold sm:text-2xl'>{data.created}</p>
