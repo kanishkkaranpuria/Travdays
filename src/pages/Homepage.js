@@ -460,7 +460,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                 
             </div>
             
-            {/* <div className="section flex flex-col testimonial relative min-h-[100vh-60px] sm:min-h-[930px]" >
+            <div className="section flex flex-col testimonial relative min-h-[100vh-60px] sm:min-h-[930px]" >
                     <h1><u><b>Footer:</b></u></h1>
                     <hr/>
                     <h5> 
@@ -494,14 +494,18 @@ const Home = ({ isadmin, setIsadmin }) => {
 
                         <Link tp='/tnc'>Terms&Conditions</Link> <br/>
 
+
+                        {/* <Link to='copyright' >©CopyRight</Link> */}
+                        
+
                     </h5>
-        </div> */}
+        </div>
         <hr/>
         </div>
                     
-            {/* <div className="footer flex h-[120px] relative" >
+            <div className="footer flex h-[120px] relative" >
                 <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee>
-            </div> */}
+            </div>
         </div>
     );
 }
