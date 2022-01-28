@@ -398,7 +398,7 @@ const Edittrips  = () => {
                                 <br />
                                        <input type="file" multiple style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler}   />
                                                        <label htmlFor="file">
-                                                                   <button type="none" className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white">add image</button>
+                                                                  <p className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white">add image  </p>
                                                        </label>
                                  <p className='Arealcontainer'>                           
                                                                {imagepreview2 &&  imagepreview2.map((data,i)=>{
@@ -531,7 +531,7 @@ const Edittrips  = () => {
                                      
                             <textarea defaultValue={exdata.description} required placeHolder = "Trip description..." name="" id="" cols="70" rows="6" onChange={(e) => setDescripition(e.target.value) }></textarea>
                             <div className='flex'>  
-                            <button className=' sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white' onClick={DeleteTrip}  >Delete the trip</button>
+                            <p className=' sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white cursor-pointer' onClick={DeleteTrip}  >Delete the trip</p>
                             <button className=' sm:mx-auto  m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white ' type="submit"  >submit</button>
                             </div>
                             
