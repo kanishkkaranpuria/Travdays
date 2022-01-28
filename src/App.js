@@ -112,7 +112,7 @@ function App() {
         <img className='w-[100vw] fixed z-[0] opacity-[25%]' src={BgImg2} alt=''/>
         <img className='w-[100vw] fixed z-[0] opacity-[15%]' src={BgImg3} alt=''/>
 
-        <Navbar setNamechanged={setNamechanged} namechanged= {namechanged} isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
+        <Navbar  isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}
           <Link to='/'><p className='text-lg'>TravDays</p></Link>
@@ -124,7 +124,7 @@ function App() {
           </svg>
 
         </div>
-        <MobileMenu />
+        <MobileMenu  isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}  />
         <div className="content pt-[60px] sm:pt-[48px] flex justify-center ">
           <Switch>
 
