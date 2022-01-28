@@ -64,8 +64,8 @@ class TripDisplaySerializer(serializers.ModelSerializer):
 
     def get_description(self,obj):
         a = obj.description
-        if len(a)>200:
-            a = a[:200].split(" ")[:-1] 
+        if len(a)>450:
+            a = a[:450].split(" ")[:-1] 
             body = ''
             for word in a: 
                 body = body + word + " " 
