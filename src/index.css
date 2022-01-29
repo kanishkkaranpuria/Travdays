@@ -445,6 +445,10 @@ grid-template-columns: repeat(3, minmax(0, 1fr));
 visibility: visible;
 pointer-events: auto;
 }
+.packages2.btn2:hover .package-list2{
+visibility: visible;
+pointer-events: auto;
+}
 /* .packages.btn:hover{
   background: #00000088;
 } */

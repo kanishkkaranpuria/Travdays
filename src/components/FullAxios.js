@@ -22,7 +22,7 @@ const fullaxios = (object) => {
 	if (url === undefined) return;
 	if (type === undefined || (type !== "get" && type !== "post" && type !== "patch" && type !== "delete")) type = "get";
 	if (data === undefined) data = null;
-	if (sendcookie === undefined)sendcookie = false;
+	if (sendcookie === undefined)sendcookie = true;
 	if (formdata === undefined)formdata = false;
 
 	// if (url === null){

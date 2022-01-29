@@ -99,9 +99,9 @@ const Gallery = () => {
   const prevDatas = useRef([])
   const observer = useRef()
   const [gridStyle, setGridStyle] = useState("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
-  const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full')
+  const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full')
   const [displayPackageStyle, setDisplayPackageStyle] = useState('hidden sm:hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
-  const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[300px] md:min-h-[120px]')
+  const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[300px] md:min-h-[120px] md:max-h-[120px]')
 
 
   const showPackage = (show) => {
@@ -109,13 +109,13 @@ const Gallery = () => {
       setGridStyle("gallery bg-[#00000000] sm:h-[90vh] p-box-shadow-2 overflow-hidden rounded-[20px]")
       setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
       setDisplayPackageStyle('sm:span relative h-[90vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
-      setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px]')
+      setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
     }
     else {
       setGridStyle("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
-      setGallerystyle("grid grid-cols-5 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
+      setGallerystyle("grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
       setDisplayPackageStyle('hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
-      setGridWithPackageStyle('overflow-hidden min-h-[170px] xl:min-h-[300px] md:min-h-[120px]')
+      setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
     }
   }
 

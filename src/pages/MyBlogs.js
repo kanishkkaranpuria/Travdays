@@ -69,7 +69,7 @@ const MyBlogs = ({ id, setId }) => {
 
   const displayingAllBlogs = (data, index) => {
     return (
-      <div className="blog-preview-card non-featured v1 relative">
+      <div className="blog-preview-card non-featured v1 relative pb-20">
         <div className="blog-photos overflow-hidden">
           <img onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='object-cover h-full w-full cursor-pointer' src={data.image} alt="" />
         </div>

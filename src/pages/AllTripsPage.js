@@ -289,12 +289,12 @@ const AllTrips = () => {
 
     return (
       <>
-        <div onClick={() => { history.push('/trip/' + data.name) }} id={`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card aumnormalblog2">
+        <div onClick={() => { history.push('/trip/' + data.name) }} id={`template${index}`} className=" md:text-white md:relative flex md:flex-col rounded-[20px] overflow-hidden trip-card aumnormalblog2 cursor-pointer">
           <div className='md:relative w-[300px] md:w-full h-[300px] md:h-[300px] flex justify-center md:p-0 p-2 z-[0]'>
             <div className='md:flex md:w-full md:h-1/4 bg-gradient-to-b from-[#00000088] to-[#00000000] absolute top-0 hidden z-[-1]'></div>
             <div className='md:flex md:w-full md:h-1/2 bg-gradient-to-t from-[#00000088] to-[#00000000] absolute bottom-0 hidden z-[-1]'></div>
             {/* {console.log(data.displayImage)}  */}
-            {data.displayImage && <img src={data.displayImage} onClick={() => { history.push('/trip/' + data.name) }} alt="" className="z-[-2] w-full h-full object-cover rounded-[20px] cursor-pointer" />}
+            {data.displayImage && <img src={data.displayImage} onClick={() => { history.push('/trip/' + data.name) }} alt="" className="z-[-2] w-full h-full object-cover rounded-[20px]" />}
           </div>
           <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
             <p className='flex justify-between items-center'>
@@ -417,7 +417,7 @@ const AllTrips = () => {
     {!realLoading && error && <UndefinedError />}
     {/* {realLoading &&  } */}
     {!realLoading && !error &&
-      <div className='section relative flex flex-col items-center'>
+      <div className='section relative flex flex-col items-center pt-20'>
         {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg> */}
