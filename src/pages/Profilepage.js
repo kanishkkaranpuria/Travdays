@@ -48,13 +48,10 @@ const Profilepage = ({setNamechanged}) => {
     
         return (
      <div className="section">
-                <div className = "flex w-full">
-           
-
-         <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
-            <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={change_name}>
+         {/* <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly"> */}
+            <form className="flex flex-col mx-auto max-w-[1000px] px-40 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={change_name}>
                 <p className="text-4xl text-center">Change Name</p>
-                <div type="name" className="email flex items-center">
+                <div type="name" className="email flex sm:flex-col items-center">
                     <p className="w-40">Enter Name:</p >
                     <input required type="text" placeholder={profiledata.name} onChange={(e) => setName(e.target.value)} />
                 </div>
@@ -63,8 +60,7 @@ const Profilepage = ({setNamechanged}) => {
                 </div>
             </form>
         </div>
-                </div>
-     </div>
+                // </div>
     );
 }
 

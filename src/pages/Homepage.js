@@ -441,7 +441,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     </div>
                 </div>
 
-                <div className="footer sm:flex sm:flex-col relative grid grid-cols-3 p-8 px-16">
+                <div className="footer sm:flex sm:flex-col  relative grid grid-cols-3 p-8 px-16">
 
                     <div className="" >
                         {/* <h1><u><b>Footer:</b></u></h1> */}
@@ -486,7 +486,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                         {/* <Link to='copyright' >©CopyRight</Link> */}
 
                     </div>
-                    <div className='flex h-full justify-around items-center opacity-70 p-4'>
+                    <div className='flex sm:w-full h-full justify-around items-center opacity-70 p-4'>
 
                         <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png" />
 

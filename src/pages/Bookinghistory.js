@@ -39,28 +39,26 @@ const BookingHistory = () => {
 
 
   return (
-    <div>
+    <div className='z-[3] sm:w-[300px] w-[500px]'>
 
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
          return ( <div ref = {lastDataElementRef} className="" key={data.id}>
-            <div className="datas-preview">
+            <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
             {data.trip && <div>{data.trip}</div>}
             {data.query && <div>{data.query}</div>}
             {data.phoneNumber && <div>{data.phoneNumber}</div>}
             {data.created && <div>{data.created}</div>}
             </div>
-            <p>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
           </div>);
           }else {
               return ( <div className="" key={data.id} >
-            <div className="datas-preview">
+            <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
             {data.trip && <div>{data.trip}</div>}
             {data.query && <div>{data.query}</div>}
             {data.phoneNumber && <div>{data.phoneNumber}</div>}
             {data.created && <div>{data.created}</div>}
             </div>
-            <p>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
 
           </div>);
           }

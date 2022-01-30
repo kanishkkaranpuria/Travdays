@@ -89,10 +89,10 @@ const ResetPassword = () => {
     return (
        <div className="section">
             <div>
-            {!page2bool && !page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_email}>
-                    <p className="text-4xl text-center">Reset Password</p>
-                    {!authStatus && <div type="email" className="email flex items-center">
+            {!page2bool && !page3bool && 
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_email}>
+                    <p className="text-4xl sm:text-3xl text-center">Reset Password</p>
+                    {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Enter your email:</p >
                         <input required type="text" onChange={(e) => setEmail(e.target.value)} />
                     </div>}
@@ -101,17 +101,17 @@ const ResetPassword = () => {
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">{!authStatus && "Submit"} {authStatus && "Confirm Change Password"}</button>
                     </div>
                 </form>
-            </div>}
+            }
             {/* {!page2bool && !page3bool && authStatus && <button type="submit" onClick={submit_email} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Confirm Change Password</button>} */}
 
-            {page2bool && !page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_otp}>
-                    <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
-                    {!authStatus && <div type="email" className="email flex items-center">
+            {page2bool && !page3bool && 
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_otp}>
+                    <p className="text-4xl sm:text-3xl text-center">Enter Your OTP to Activate Your Account</p>
+                    {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Email:</p >
                         {<input required type="text" value={email} />}</div>}
 
-                    <div type="number" className="email flex items-center">
+                    <div type="number" className="email flex sm:flex-col items-center">
                         <p className="w-40" >OTP:</p >
                         <input required type="text" onChange={(e) => setOtp(e.target.value)} />
                     </div>
@@ -120,12 +120,12 @@ const ResetPassword = () => {
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                     </div>
                 </form>
-            </div>}
+            }
 
-            {!page2bool && page3bool && <div className="flex flex-col mt-20 min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 items-center justify-evenly" onSubmit={submit_password}>
-                    <p className="text-4xl text-center">Enter Your OTP to Activate Your Account</p>
-                    <div type="name" className="email flex items-center">
+            {!page2bool && page3bool && 
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_password}>
+                    <p className="text-4xl sm:text-3xl text-center">Enter Your OTP to Activate Your Account</p>
+                    <div type="name" className="email flex sm:flex-col items-center">
                         <p className="w-40">Email:</p >
                     <input readOnly type="text" value={email} />
                     </div>
@@ -142,7 +142,7 @@ const ResetPassword = () => {
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                     </div>
                 </form>
-            </div>}
+            }
         </div>
        </div>
     );
