@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import GalleryView,GalleryPackageView,VideoView
+from .views import GalleryView,GalleryPackageView
 
 
 
 urlpatterns = [
     path('', GalleryView.as_view()),
     path('package/<int:pk>', GalleryPackageView.as_view()),
-    path('vid', VideoView.as_view()),
+    # path('vid', VideoView.as_view()),
 ]
