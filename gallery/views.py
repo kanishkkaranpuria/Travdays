@@ -1,3 +1,4 @@
+from distutils.command.build import build
 from rest_framework import status
 from database.models import *
 from rest_framework.decorators import APIView
@@ -7,6 +8,10 @@ from trips.serializers import SingleTripDisplaySerializer
 from datetime import datetime, timedelta
 import ast, random
 from rest_framework.permissions import AllowAny
+from moviepy.editor import *
+from urllib.parse import urlparse
+import requests
+from django.core.files.base import ContentFile
 
 class GalleryView(APIView): 
 
@@ -37,7 +42,7 @@ class GalleryView(APIView):
         if len(temp.previousId) != 0:
             previousGalleryIds = ast.literal_eval(temp.previousId)
         galleryIds = AdminMedia.objects.exclude(trip = None).only('id').values_list('id', flat=True).exclude(id__in = previousGalleryIds)
-        num = 5
+        num = 15
         if(galleryIds.count()<num):
             num=galleryIds.count()
         randomNumber = random.sample(set(galleryIds),num)
@@ -49,6 +54,25 @@ class GalleryView(APIView):
         serializer = GallerySerializer(galleries,context={"request" : request}, many = True)
         print(galleries)
         return Response(serializer.data)
+
+class VideoView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def get(self,request):
+        # print(current_site.domain)
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',request.build_absolute_uri)
+        vid = AdminMedia.objects.get(id=30)
+        clip = VideoFileClip(request.build_absolute_uri(vid.video.url))
+        clip.save_frame("media/admin media/images/thumbnail.jpg",t=0.00) 
+
+        # img_url = request.build_absolute_uri("media/admin media/images/thumbnail.jpg") #this is also gibing app path hence error
+        img_url = "http://127.0.0.1:8000/media/admin media/images/thumbnail.jpg"
+        name = urlparse(img_url).path.split('/')[-1]
+        response = requests.get(img_url)
+        if response.status_code == 200:
+            vid.image.save(name, ContentFile(response.content), save=True)
+        return Response({"success":vid.image.url})
 
 class GalleryPackageView(APIView): 
 
