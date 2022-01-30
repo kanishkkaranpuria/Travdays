@@ -77,7 +77,8 @@ const Home = ({ isadmin, setIsadmin }) => {
         }, [])
         // var x=0
         const rotateArrow = (e) => {
-            if (e.target.children[1].style.transform === 'rotate(180deg)') {
+            console.log(e.target.children[1]    )
+            if (e.target.children[1].style.transform = 'rotate(180deg)') {
                 e.target.children[1].style.transform = 'rotate(0deg)'
             }
             else {
@@ -85,10 +86,7 @@ const Home = ({ isadmin, setIsadmin }) => {
             }
         }
         const Answers = (i) => {
-            // var d = document.getElementById("selected");
-            // console.log("thiss")
-            // console.log(d)
-            // console.log(i.target);
+            
 
             if (answerstatus[i] === true) {
                 // console.log('it is true')
