@@ -16,18 +16,11 @@ const Blogs = ({id,setId}) => {
   const [loading, setLoading] = useState(false)
   let blogsort
   const Sorted = () => {
-    if (sortlink==="votefilter"){
-      setSortlink("created")
+    
+    console.log('sort active')
+
       setAllblogs([])
-      console.log("not created")
       setBlogpage(1)
-    }
-    else if (sortlink==="created"){
-      setSortlink("votefilter")
-      setAllblogs([])
-      console.log("created")
-      setBlogpage(1)
-    }
 
   }
   const ID = (dataId) => {
@@ -203,6 +196,18 @@ const Blogs = ({id,setId}) => {
 
 {/* ***********************************************   unfeatured blogs  */}
         {/* <p className='text-5xl font-bold p-4'>Blogs</p> */}
+
+
+        <div className='sm:pb-4'>
+          <label className='flex text-3xl mb-6'> <u>Sort by:</u> </label>
+          
+          
+          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted(); setSortlink('votefilter') }} >Vote</button>
+          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted(); setSortlink('created')    }} >New</button>
+          <h3>(current sort - <i> {(sortlink==='created')&&<u>New</u>}
+          {(sortlink==='votefilter'&&<u>Vote</u>)} </i> )</h3>
+        </div>
+
 
         {allblogs && allblogs.map((data,index)=> {
           if(allblogs.length === index+1){
