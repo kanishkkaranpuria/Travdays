@@ -127,6 +127,8 @@ const AdmBooking = () => {
        
      
       const Delete = (id) => {
+        let confirmBox = window.confirm("Delete the booking?")
+        if(confirmBox===true){
         console.log(id)
         setDeleted(true)
         setLoading(true)
@@ -140,22 +142,22 @@ const AdmBooking = () => {
           setLoading(false)
           setPage1(1)
           setDeleted(false)
-  
-          
           })
           .catch(res => {
           })
+        }
       }
 
 
-      const Approval = (id) => {
-        let confirmBox = window.confirm("Approve this booking?")
-        //confirmBox)
+      const Approval = (id,what) => {
+
+        let confirmBox = window.confirm("Submit the response?")
+
         if(confirmBox===true){
 
           setApproval(true)
         fullaxios({url: 'booking/view'  , type: 'patch',data:{
-          approved:true ,
+          approved:what ,
           id:id
           
         } })
@@ -212,7 +214,7 @@ const AdmBooking = () => {
                                 <p  className='text-3xl font-semibold  pt-2 '>{data.user}</p>
                                 <p  className='text-3xl font-semibold  pt-2 '>{data.created }</p>
                                 </div>
-                               <p  className='text-xl font-semibold  pt-8 '>Contact no : {data. phoneNumber}</p>
+                               <p  className='text-xl font-semibold  pt-8 '>Contact no : {data.phoneNumber}</p>
                             <div className="flex justify-between items-center">
                                 <div className="flex flex-col">
                             <p className='text-xl font-semibold  pt-2 '>Email : {data.email}</p>
@@ -234,7 +236,8 @@ const AdmBooking = () => {
                         
   
                     <button onClick={()=>{Delete(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Delete</button>
-                    {data.approved===false && <button onClick={()=>{Approval(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Approvee</button> }  
+                    {data.approved===false && <button onClick={()=>{Approval(data.id,true)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Approve</button> }  
+                    {data.approved===true && <button onClick={()=>{Approval(data.id,false)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  > Unapprove</button> }  
                     </div>
   
                   </div>
@@ -272,7 +275,8 @@ const AdmBooking = () => {
                         </div>
                         
                     <button onClick={()=>{Delete(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Delete</button>
-                    {data.approved===false && <button onClick={()=>{Approval(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Approvee</button> }  
+                    {data.approved===false && <button onClick={()=>{Approval(data.id,true)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Approvee</button> }  
+                    {data.approved===true && <button onClick={()=>{Approval(data.id,false)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Unapprovee</button> }  
   
                     </div>
   
