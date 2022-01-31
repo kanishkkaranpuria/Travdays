@@ -77,13 +77,13 @@ const Home = ({ isadmin, setIsadmin }) => {
         }, [])
         // var x=0
         const rotateArrow = (e) => {
-            console.log(e.target.children[1]    )
-            if (e.target.children[1].style.transform = 'rotate(180deg)') {
-                e.target.children[1].style.transform = 'rotate(0deg)'
-            }
-            else {
-                e.target.children[1].style.transform = 'rotate(180deg)'
-            }
+            // console.log(e.target.children[1]   )
+            // if (e.target.children[1].style.transform = 'rotate(180deg)') {
+            //     e.target.children[1].style.transform = 'rotate(0deg)'
+            // }
+            // else {
+            //     e.target.children[1].style.transform = 'rotate(180deg)'
+            // }
         }
         const Answers = (i) => {
             

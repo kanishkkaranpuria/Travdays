@@ -13,6 +13,7 @@ const AdmBooking = () => {
       const [loading1, setLoading1] = useState(false)
       const [deleted, setDeleted] = useState(false)
       const [approved, setApproved] = useState(true)
+      const [approval, setApproval] = useState(false)
       const observer = useRef()
       
       const lastDataElementRef = useCallback(node => {
@@ -31,7 +32,7 @@ const AdmBooking = () => {
         }, [loading, hasmore])
   
         useEffect(() => {
-          if(approved===true && deleted===false){
+          if(approved===true && deleted===false && approval===false){
           setLoading1(true)
             fullaxios({url: 'booking/view?page='+ page1 })
             .then((res) => {
@@ -56,7 +57,7 @@ const AdmBooking = () => {
           }}
           )
         }
-        else if(approved===false && deleted===false){
+        else if(approved===false && deleted===false && approval===false){
           fullaxios({url: 'booking/unapproved?page='+ page1 })
           .then((res) => {
             setLoading(false)
@@ -79,7 +80,7 @@ const AdmBooking = () => {
         }}
         )
         }
-      }, [page1,approved,deleted])
+      }, [page1,approved,deleted,approval])
   
       useEffect(() => {
     console.log(page)
@@ -145,7 +146,35 @@ const AdmBooking = () => {
           .catch(res => {
           })
       }
-       
+
+
+      const Approval = (id) => {
+        let confirmBox = window.confirm("Approve this booking?")
+        //confirmBox)
+        if(confirmBox===true){
+
+          setApproval(true)
+        fullaxios({url: 'booking/view'  , type: 'patch',data:{
+          approved:true ,
+          id:id
+          
+        } })
+        .then(res => {
+          console.log(res.data)
+          setAllcontactus([])
+          setLoading(false)
+          setPage1(1)
+          setApproval(false)
+  
+          
+          })
+          .catch(res => {
+          })
+      }
+
+    }
+      
+     
   
   
   
@@ -153,8 +182,8 @@ const AdmBooking = () => {
         {loading ? <div><p>loading...</p></div> :
           <div className="blog flex flex-col relative pt-[60px] w-full">
 
-{ approved ?<button className='mx-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] hover:bg-[#000000aa]  rounded-md' onClick={() => {BFilter(false)}}>Unapproved bookings</button> :
-      <button className='mx-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] hover:bg-[#000000aa] rounded-md' onClick={() => {BFilter(true)}}>All bookings</button> }
+{ approved ?<button className='mx-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] hover:bg-[#000000aa]  rounded-md' onClick={() => {BFilter(false)}}> Show Unapproved bookings</button> :
+      <button className='mx-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] hover:bg-[#000000aa] rounded-md' onClick={() => {BFilter(true)}}> Show All bookings</button> }
   
            {!allcontactus && <div className="">
            <div  className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
@@ -204,7 +233,8 @@ const AdmBooking = () => {
                         </div>
                         
   
-                    <button onClick={()=>{Delete(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>
+                    <button onClick={()=>{Delete(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Delete</button>
+                    {data.approved===false && <button onClick={()=>{Approval(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Approvee</button> }  
                     </div>
   
                   </div>
@@ -241,8 +271,9 @@ const AdmBooking = () => {
 
                         </div>
                         
+                    <button onClick={()=>{Delete(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Delete</button>
+                    {data.approved===false && <button onClick={()=>{Approval(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white'  >Approvee</button> }  
   
-                    <button onClick={()=>{Delete(data.id)}} className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg'  >Delete</button>
                     </div>
   
                   </div>

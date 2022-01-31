@@ -15,13 +15,17 @@ const Blogs = ({id,setId}) => {
   const [sortlink, setSortlink] = useState("votefilter")
   const [loading, setLoading] = useState(false)
   let blogsort
-  const Sorted = () => {
-    
-    console.log('sort active')
-
+  const Sorted = (random) => {
+    if(sortlink==="votefilter" && random==="votefilter" ){
+    }
+    else if(sortlink==="created" &&random==="created"){
+    }
+    else{
       setAllblogs([])
       setBlogpage(1)
+      setHasmore2(true)
 
+    }
   }
   const ID = (dataId) => {
     setId(dataId)
@@ -202,8 +206,8 @@ const Blogs = ({id,setId}) => {
           <label className='flex text-3xl mb-6'> <u>Sort by:</u> </label>
           
           
-          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted(); setSortlink('votefilter') }} >Vote</button>
-          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted(); setSortlink('created')    }} >New</button>
+          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("votefilter"); setSortlink('votefilter') }} >Vote</button>
+          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("created"); setSortlink('created')    }} >New</button>
           <h3>(current sort - <i> {(sortlink==='created')&&<u>New</u>}
           {(sortlink==='votefilter'&&<u>Vote</u>)} </i> )</h3>
         </div>

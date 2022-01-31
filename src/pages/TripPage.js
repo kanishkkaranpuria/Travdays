@@ -95,6 +95,9 @@ const Trip = ({ isAuth,isadmin }) => {
 
     const submitBooking = (e) => {
         e.preventDefault()
+        let confirmBox = window.confirm("confirm booking?")
+        //confirmBox)
+        if(confirmBox===true){
         fullaxios({
             url: 'booking/', type: 'post', data: {
 
@@ -105,14 +108,14 @@ const Trip = ({ isAuth,isadmin }) => {
             }
         })
             .then(res => {
+                history.push('/bookings')
                 console.log(res)
-                alert('booking confirmed!')
-                history.push('/profile')
             })
             .catch(err => {
                 console.log(err)
             })
     }
+}
 
     const lastDataElementRef = useCallback(node => {
         console.log('last element')

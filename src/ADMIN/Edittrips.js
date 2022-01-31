@@ -184,7 +184,6 @@ const Edittrips  = () => {
         
         fullaxios({ url: 'trip/create/' , type:'patch', data : formData , formdata : true   })
         .then((res)=>{
-            //"res", res.data)
             if(exdata.name!==tripname &&tripname!==null ){
                 history.push("/tripedit/"+tripname+"/"+id)
             }

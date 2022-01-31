@@ -39,7 +39,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
         const scrollFunction = function () {
             
             if (window.scrollY + navLen> window.pageYOffset + navbartTrigger.getBoundingClientRect().top) {
-                console.log("DArk navbar")
+                // console.log("DArk navbar")
                 console.log(navLen)
                 navbar.style.transform = 'translateY(-100%)'
                 let newScroll = window.scrollY
@@ -51,7 +51,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                 lastScroll = newScroll
             }
             else if (window.scrollY + navLen< window.pageYOffset + navbartTrigger.getBoundingClientRect().top) {
-                console.log("Light navbar")
+                // console.log("Light navbar")
                 navbar.style.transform = 'translateY(0%)'
                 navbar.style.backgroundColor = '#00000000'
             }
@@ -62,13 +62,23 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                 navbar.style.backgroundColor = '#00000000'
             }
             window.addEventListener('scroll', scrollFunction)
+            console.log("added scroll")
         } else {
             console.log("else ran not homepage")
             navbar.style.backgroundColor = '#046C6D'
             window.removeEventListener('scroll', scrollFunction);
         }
+        
+        console.log("is this even running")
+        return () => {
+            console.log("removed scroolll")
+            window.removeEventListener('scroll', scrollFunction);
+                   };
+
+
     }, [location])
 
+    
    
 
 
