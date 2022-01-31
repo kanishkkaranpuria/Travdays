@@ -42,6 +42,7 @@ import AboutUs from './pages/AboutUs';
 import NotFound from './pages/NotFound';
 import NotLoggedIn from './pages/NotloggedInPage';
 import UndefinedError from "./components/FetchErrorHandling/UndefinedError";
+import MobileProfile from './components/MobileProfile';
 
 const showMenu = () => {
   document.getElementById('mobile-menu').style.transform = "translateY(0%)";
@@ -125,6 +126,7 @@ function App() {
 
         </div>
         <MobileMenu  isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}  />
+
         <div className="content pt-[60px] sm:pt-[48px] flex justify-center ">
           <Switch>
 
