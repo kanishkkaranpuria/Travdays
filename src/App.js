@@ -126,7 +126,6 @@ function App() {
 
         </div>
         <MobileMenu  isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}  />
-
         <div className="content pt-[60px] sm:pt-[48px] flex justify-center ">
           <Switch>
 
