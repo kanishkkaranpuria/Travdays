@@ -6,6 +6,7 @@ import stars from './images/stars.png'
 import NotFound from "./NotFound";
 import UndefinedError from "../components/FetchErrorHandling/UndefinedError";
 import Loading from "../components/Loading";
+import { useLocation } from 'react-router-dom'
 
 const AllTrips = () => {
 
@@ -28,6 +29,8 @@ const AllTrips = () => {
   const [searchtext, setSearchtext] = useState(null)
   const observer = useRef()
 
+  const [sorting,setSorting] = useState('price');
+
   const [error, setError] = useState(false)
   const [realLoading, setRealLoading] = useState(true)
 
@@ -47,6 +50,7 @@ const AllTrips = () => {
     setHasMore(true)
     setPage(1)
     setDatas([])
+    setSorting('price')
     if (fetch === true) setFetch(false)
     else if (fetch === false) setFetch(true)
   }
@@ -56,6 +60,7 @@ const AllTrips = () => {
     setHasMore(true)
     setPage(1)
     setDatas([])
+    setSorting('-price')
     console.log(page)
     console.log(datas)
     console.log(hasMore)
@@ -266,24 +271,35 @@ const AllTrips = () => {
       // allstars[2] = "url(#partial)"
     }
   }
-  let lastScroll = 0
 
+
+  let lastScroll = 0
+  const urlLocation = useLocation();
   let searchbartTrigger = document.getElementById('template0')
-  if (searchbartTrigger) {
-    let searchbar = document.getElementById('searchbar')
-    window.addEventListener('scroll', () => {
-      if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top) { //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
-        searchbar.style.transform = 'translateY(-200%)'
-        if (window.scrollY < lastScroll) {
-          searchbar.style.transform = 'translateY(0%)'
-        }
-        lastScroll = window.scrollY
-      }
-      else {
+  var searchbar 
+  const scrollSearchBarFunction = function () {
+    if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top) { //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
+      searchbar.style.transform = 'translateY(-100%)'
+      if (window.scrollY < lastScroll) {
         searchbar.style.transform = 'translateY(0%)'
       }
-    })
+      lastScroll = window.scrollY
+    } else {
+      searchbar.style.transform = 'translateY(0%)'
+    }
   }
+  useEffect(() => {
+    if (searchbartTrigger) {
+      searchbar = document.getElementById('searchbar')
+      if (urlLocation.pathname.slice(0, 7) === '/trips/') {
+        window.addEventListener('scroll', scrollSearchBarFunction)
+      } else {
+        window.removeEventListener('scroll', scrollSearchBarFunction);
+      }
+      return () => window.removeEventListener("scroll", scrollSearchBarFunction)
+    }
+  }, [urlLocation,searchbartTrigger])
+
 
   const ShowData = (data, index) => {
 
@@ -465,8 +481,9 @@ const AllTrips = () => {
                 {ShowData(data, index)}
               </div>
             );
-          }})}
-  </div>}
+          }
+        })}
+      </div>}
   </>);
 }
 

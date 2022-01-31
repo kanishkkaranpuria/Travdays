@@ -28,7 +28,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
 
 
     let lastScroll = 0
-    const location = useLocation();
+    let location = useLocation();
 
     useEffect(() => {
         let navbartTrigger = document.getElementById('triggerElement')
@@ -68,14 +68,7 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
             navbar.style.backgroundColor = '#046C6D'
             window.removeEventListener('scroll', scrollFunction);
         }
-        
-        console.log("is this even running")
-        return () => {
-            console.log("removed scroolll")
-            window.removeEventListener('scroll', scrollFunction);
-                   };
-
-
+        return () => window.removeEventListener("scroll", scrollFunction)
     }, [location])
 
     

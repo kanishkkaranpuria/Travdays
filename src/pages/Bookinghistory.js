@@ -33,7 +33,12 @@ const BookingHistory = () => {
       setDatas(prev => [...prev, ...res.data])
       prevDatas.current = datas
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+      if (err.response) {
+        if (err.response.data.detail === "Invalid page.") {
+          setHasMore(false);
+        }}
+    });
     setLoading(false);
   }, [page])
 
