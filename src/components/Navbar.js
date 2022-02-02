@@ -66,6 +66,7 @@ const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated 
         } else {
             console.log("else ran not homepage")
             navbar.style.backgroundColor = '#046C6D'
+            navbar.style.transform = 'translateY(0%)'
             window.removeEventListener('scroll', scrollFunction);
         }
         return () => window.removeEventListener("scroll", scrollFunction)
