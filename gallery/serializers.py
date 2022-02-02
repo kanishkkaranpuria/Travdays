@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from database.models import AdminMedia
+from database.models import AdminMedia,Trip
 
 from moviepy.editor import *
 from urllib.parse import urlparse
@@ -25,8 +25,6 @@ class GallerySerializer(serializers.ModelSerializer):
         if obj.image == '' or obj.image == None:
             clip = VideoFileClip(request.build_absolute_uri(obj.video.url))
             clip.save_frame(f"media/admin media/images/thumbnail{obj.id}.jpg",t=0.00) 
-            #now saving image in the image field
-            # img_url = request.build_absolute_uri(f"media/admin media/images/thumbnail{obj.id}.jpg")
             img_url = f"http://127.0.0.1:8000/media/admin media/images/thumbnail{obj.id}.jpg"
             name = urlparse(img_url).path.split('/')[-1]
             response = requests.get(img_url)
@@ -35,3 +33,27 @@ class GallerySerializer(serializers.ModelSerializer):
             else:
                 return None
         return request.build_absolute_uri(obj.image.url)
+
+class SingleTripGalleryDisplaySerializer(serializers.ModelSerializer):
+
+    ratings      = serializers.ReadOnlyField()
+    ratingsCount = serializers.ReadOnlyField()
+    duration     = serializers.SerializerMethodField()
+    video        = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Trip
+        fields = ['id','type','name','location','description','price', 'ratings','ratingsCount','duration',"video"]
+
+    def get_duration(self,obj):
+        dur = "" if obj.duration == '' else obj.duration.split(",")
+        if dur != "":
+            return f"{dur[0]} Days {dur[1]} Nights"
+        return ""
+
+    def get_video(self,obj):
+        if obj.adminmedia.exclude(video='').exists():
+            pk = self.context.get('pk')
+            request = self.context.get('request')
+            return request.build_absolute_uri(AdminMedia.objects.get(id = pk).video.url)
+        return None

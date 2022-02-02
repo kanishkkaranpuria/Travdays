@@ -3,8 +3,8 @@ from rest_framework import status
 from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-from .serializers import GallerySerializer
-from trips.serializers import SingleTripDisplaySerializer
+from .serializers import GallerySerializer,SingleTripGalleryDisplaySerializer
+# from trips.serializers import SingleTripDisplaySerializer
 from datetime import datetime, timedelta
 import ast, random
 from rest_framework.permissions import AllowAny
@@ -55,34 +55,15 @@ class GalleryView(APIView):
         print(galleries)
         return Response(serializer.data)
 
-# class VideoView(APIView):
 
-#     permission_classes = [AllowAny]
-
-#     def get(self,request):
-#         # print(current_site.domain)
-#         print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',request.build_absolute_uri)
-#         vid = AdminMedia.objects.get(id=30)
-#         clip = VideoFileClip(request.build_absolute_uri(vid.video.url))
-#         clip.save_frame("media/admin media/images/thumbnail.jpg",t=0.00) 
-
-#         img_url = request.build_absolute_uri("media/admin media/images/thumbnail.jpg") #this is also gibing app path hence error
-#         print(img_url)
-#         img_url = "http://127.0.0.1:8000/media/admin media/images/thumbnail.jpg"
-#         name = urlparse(img_url).path.split('/')[-1]
-#         response = requests.get(img_url)
-#         if response.status_code == 200:
-#             vid.image.save(name, ContentFile(response.content), save=True)
-#         return Response({"success":vid.image.url})
-
-class GalleryPackageView(APIView): 
+class GalleryPackageView(APIView):
 
     permission_classes = [AllowAny]
 
     def get(self,request,pk):
         if AdminMedia.objects.filter(id = pk).exists():
             trip = Trip.objects.get(adminmedia__id = pk)
-            serializer = SingleTripDisplaySerializer(trip)
+            serializer = SingleTripGalleryDisplaySerializer(trip,context={'pk': pk,'request':request})
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response({"error":"invalid inpurt"},status=status.HTTP_400_BAD_REQUEST)
 
