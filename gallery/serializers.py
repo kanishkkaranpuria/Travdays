@@ -52,8 +52,8 @@ class SingleTripGalleryDisplaySerializer(serializers.ModelSerializer):
         return ""
 
     def get_video(self,obj):
-        if obj.adminmedia.exclude(video='').exists():
-            pk = self.context.get('pk')
+        pk = self.context.get('pk')
+        if obj.adminmedia.get(id = pk).video != '' or obj.adminmedia.get(id = pk).video == None:
             request = self.context.get('request')
             return request.build_absolute_uri(AdminMedia.objects.get(id = pk).video.url)
         return None
