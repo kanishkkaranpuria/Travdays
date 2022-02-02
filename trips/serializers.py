@@ -20,9 +20,16 @@ class SingleTripDisplaySerializer(serializers.ModelSerializer):
 
 class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = AdminMedia
         fields = ['id', 'image', 'video']
+
+    def get_image(self,obj):
+        if obj.video == '' or obj.video == None:
+            return obj.image.url
+        return None
 
 class TripDisplaySerializer(serializers.ModelSerializer):
 
