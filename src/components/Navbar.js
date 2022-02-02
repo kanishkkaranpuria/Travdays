@@ -7,7 +7,7 @@ import { black } from "tailwindcss/colors";
 import { NavLink } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 
-const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
+const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
 
     // const activeNavbarStyle = {fontWeight: "500", backgroundColor : "#00000033"};
     const history = useHistory();
