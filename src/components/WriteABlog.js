@@ -663,8 +663,8 @@ const WriteABlog = () => {
                 {/* {console.log(displayImage)} */}
 
                 {previewdisplayImage && <img src={previewdisplayImage} />}
-                {!previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={onClickFocus}>Set Display Image</button>}
-                {previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={onClickFocus}>Change Display Image</button>}
+                {!previewdisplayImage && <button className='p-1 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={onClickFocus}>Set Display Image</button>}
+                {previewdisplayImage && <button className='p-1 w-60 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={onClickFocus}>Change Display Image</button>}
 
                 <input maxLength="100" minLength="1" className='w-full font-semibold text-lg leading-none bg-transparent' type="text" id="title" value={title} onChange={(e) => { setTitle(e.target.value) }} placeholder="Enter your title here..." />
 
@@ -677,8 +677,8 @@ const WriteABlog = () => {
                     <button onClick={(() => { setAnonymous(true) })} className=' sm:mx-auto text-xl  w-full bg-white-500 font-semibold rounded-lg'> Do you want to keep your identity hidden? &#9744;</button>}
 
                 <div className="flex p-5 w-full justify-between">
-                    <button className="p-3 w-1/3 bg-red-800 font-semibold rounded-lg sm:mx-auto aumbutton" onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
-                    <button className="p-3 w-1/3 bg-green-500 font-semibold rounded-lg sm:mx-auto aumbutton" onClick={() => { submitBlog() }}>Publish Now</button>
+                    <button className="p-2 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold" onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
+                    <button className="p-2 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold" onClick={() => { submitBlog() }}>Publish Now</button>
                 </div>
             </div>
             </div>
@@ -881,8 +881,8 @@ const WriteABlog = () => {
                     {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                     {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
                             <div className="p-8">
-                            {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
-                    {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto aumbutton' onClick={() => { clearBlog() }}>Clear Blog</button>}
+                            {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
+                    {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={() => { clearBlog() }}>Clear Blog</button>}
 
                             </div>
                 </div>

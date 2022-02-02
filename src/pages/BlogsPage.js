@@ -203,13 +203,13 @@ const Blogs = ({id,setId}) => {
 
 
         <div className='sm:pb-4'>
-          <label className='flex text-3xl mb-6'> <u>Sort by:</u> </label>
-          
-          
-          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("votefilter"); setSortlink('votefilter') }} >Vote</button>
-          <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("created"); setSortlink('created')    }} >New</button>
-          <h3>(current sort - <i> {(sortlink==='created')&&<u>New</u>}
-          {(sortlink==='votefilter'&&<u>Vote</u>)} </i> )</h3>
+              {/* <label className='flex text-3xl mb-6'> <u>Sort by:</u> </label>
+              
+              
+              <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("votefilter"); setSortlink('votefilter') }} >Vote</button>
+              <button className=' sm:mx-auto p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("created"); setSortlink('created')    }} >New</button>
+              <h3>(current sort - <i> {(sortlink==='created')&&<u>New</u>}
+              {(sortlink==='votefilter'&&<u>Vote</u>)} </i> )</h3> */}
         </div>
 
 

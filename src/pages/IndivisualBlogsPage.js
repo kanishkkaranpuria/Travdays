@@ -8,7 +8,7 @@ import fullaxios from "../components/FullAxios";
 import { isCompositeComponentWithType } from "react-dom/test-utils";
 import { version } from "react";
 
-const IndivisualBlogPage = ({ isadmin }) => {
+const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
   const [iblogimg, setIblogimg] = useState([])
   const [iblogdata, setIblogdata] = useState({})
   const [featured, setFeatured] = useState(null)
@@ -182,14 +182,20 @@ const IndivisualBlogPage = ({ isadmin }) => {
   //like 
 
   const Like = (likke) => {
-    console.log(likke)
-    if (likke === true) {
-      setLiked(true)
-      setDisliked(false)
+    if(isauthenticated){
+      console.log(likke)
+      if (likke === true) {
+        setLiked(true)
+        setDisliked(false)
+      }
+      else if (likke === false) {
+        setLiked(false)
+      }
     }
-    else if (likke === false) {
-      setLiked(false)
+    else{
+      alert("Login to submit a response")
     }
+  
   }
 
 
@@ -200,14 +206,19 @@ const IndivisualBlogPage = ({ isadmin }) => {
   }, [variable])
 
   const Dislike = (dislike) => {
-    console.log(dislike)
-    if (dislike === true) {
-      setLiked(false)
-      setDisliked(true)
+    if(isauthenticated){
+      if (dislike === true) {
+        setLiked(false)
+        setDisliked(true)
+      }
+      else if (dislike === false) {
+        setDisliked(false)
+      }
     }
-    else if (dislike === false) {
-      setDisliked(false)
+    else{
+      alert("Login to submit a response")
     }
+   
   }
 
   //submite the string response 

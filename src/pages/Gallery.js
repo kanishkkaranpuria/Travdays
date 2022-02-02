@@ -189,12 +189,14 @@ const Gallery = () => {
     setLocid(data.id)
     setLocimg(data.image)
     setLocvideo(data.video)
-    // console.log(data.video)
   }
 
   useEffect(() => {
+    setLocation(null)
+    console.log("wtf",locid)
     fullaxios({ url: 'gallery/package/' + locid })
       .then(res => {
+        console.log("wtf")
         // console.log("resssssssssss", res.data)
         if (res) {
           // setLocation(prev => [...prev, ...res.data])
@@ -295,8 +297,8 @@ const Gallery = () => {
                 {/* {console.log( <image src={locimg}  alt="" className ="object-cover h-full  w-full"/>)} */}
                 <p className='text-4xl pb-2'>{location.name}</p>
                 <div className='h-[500px] sm:h-[250px] max-w-[700px] flex justify-center bg-[#00000011] p-box-shadow-2-inner rounded-xl'>
-                  {locimg && <img src={locimg} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
-                  {locvideo && <video controlsList="nodownload" controls src={locvideo} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
+                  {location.video && <video controlsList="nodownload" controls src={location.video} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
+                  { location.video===null && <img src={locimg} alt="" className="object-cover h-[500px] sm:h-[250px] rounded-xl" />}
                 </div>
                 {/* {locimg && <video controlsList="nodownload" controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                 <p className='text-2xl pt-2'>{location.location}</p>
