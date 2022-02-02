@@ -29,10 +29,10 @@ const AllTrips = () => {
   const [searchtext, setSearchtext] = useState(null)
   const observer = useRef()
 
-  const [sorting,setSorting] = useState('price');
-
+  
   const [error, setError] = useState(false)
   const [realLoading, setRealLoading] = useState(true)
+  const [sorted, setSorted] = useState();
 
   useEffect(() => {
     setDatas([])
@@ -50,7 +50,7 @@ const AllTrips = () => {
     setHasMore(true)
     setPage(1)
     setDatas([])
-    setSorting('price')
+    setSorted(1)
     if (fetch === true) setFetch(false)
     else if (fetch === false) setFetch(true)
   }
@@ -60,7 +60,7 @@ const AllTrips = () => {
     setHasMore(true)
     setPage(1)
     setDatas([])
-    setSorting('-price')
+    setSorted(2)
     console.log(page)
     console.log(datas)
     console.log(hasMore)
@@ -289,16 +289,25 @@ const AllTrips = () => {
     }
   }
   useEffect(() => {
+    console.log("useeffecttt is running")
+    console.log(urlLocation)
+    console.log(searchbartTrigger)
     if (searchbartTrigger) {
       searchbar = document.getElementById('searchbar')
       if (urlLocation.pathname.slice(0, 7) === '/trips/') {
+        console.log("scrollll created")
         window.addEventListener('scroll', scrollSearchBarFunction)
       } else {
         window.removeEventListener('scroll', scrollSearchBarFunction);
       }
-      return () => window.removeEventListener("scroll", scrollSearchBarFunction)
-    }
+      return () => {
+        console.log("scrollllllll")
+        window.removeEventListener("scroll", scrollSearchBarFunction)
+      }
+      }
   }, [urlLocation,searchbartTrigger])
+
+  console.log("why tf is this running")
 
 
   const ShowData = (data, index) => {
@@ -314,7 +323,6 @@ const AllTrips = () => {
           </div>
           <div className='md:absolute md:h-full p-4 md:p-2 w-full'>
             <p className='flex justify-between items-center'>
-              {/* {data.name && <p className='text-xl font-bold cursor-pointer ' onMouseOver={() => MouseOver(data.name)} onMouseOut={MouseOut}>{data.name}</p>} */}
               {data.name && <p className='text-xl font-bold cursor-pointer '>{data.name}</p>}
               {/* {data.type[0] = data.type[0].toUpperCase()} */}
               {/* {data.type && <p className='text-sm'>{data.type}</p>} */}
