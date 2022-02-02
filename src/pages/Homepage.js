@@ -77,7 +77,7 @@ const Home = ({ isadmin, setIsadmin }) => {
         }, [])
         // var x=0
         const rotateArrow = (e) => {
-            // console.log(e.target.children[1]   )
+            // console.log(e.target.children[1])
             // if (e.target.children[1].style.transform = 'rotate(180deg)') {
             //     e.target.children[1].style.transform = 'rotate(0deg)'
             // }
@@ -110,9 +110,6 @@ const Home = ({ isadmin, setIsadmin }) => {
                         if (res) {
                             setAnswer((prev) => ({ ...prev, [i]: [res.data.answer] }))
                             setAnswerstatus((prev) => ({ ...prev, [i]: true }))
-                            // console.log(res.data)
-                            // console.log("it worked")
-
                         }
                     })
                     .catch(err => {

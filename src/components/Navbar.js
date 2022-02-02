@@ -104,10 +104,10 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                 {/* <NavLink to='/IndivisualBlogPage'>indi-blog</NavLink> */}
                 <span className='packages2 btn2 flex items-center h-full text-lg relative'>
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/trips'  >Packages</NavLink>
-                    <span className='package-list2 absolute left-0 bottom-[-170px] flex flex-col w-max z-[4] invisible pointer-events-none'>
+                    <span className='package-list2 absolute left-0 bottom-[-160px] flex flex-col w-max z-[4] invisible pointer-events-none'>
                     <NavLink className=' relative top-[-15px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/trips/workation'><h4>Workation</h4></NavLink>
                     <NavLink className=' relative top-[-30px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/trips/solo'><h4>Solo Travel</h4></NavLink>
-                    <NavLink className='relative top-[-45px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/trips/pet friendly'><h4>Pet Friendly</h4></NavLink>
+                    <NavLink className='relative top-[-45px] bg-[#046C6D] px-6 pb-4 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/trips/pet friendly'><h4>Pet Friendly</h4></NavLink>
                     </span>
                 </span >
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/blogs' >Blogs</NavLink>
@@ -118,12 +118,12 @@ const Navbar = ({ setNamechanged , namechanged ,isauthenticated, setIsadmin, set
                 {isauthenticated && igotdata ? <>
                     <span className='packages btn flex items-center h-full text-lg relative'>
                         <span className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus cursor-pointer' to='/profilepage' >Hello {profiledata.navbarname}</span>
-                        <span className='package-list absolute left-0 bottom-[-260px] flex flex-col w-max z-[4] invisible pointer-events-none'>
+                        <span className='package-list absolute left-0 bottom-[-250px] flex flex-col w-max z-[4] invisible pointer-events-none'>
                             <NavLink className='bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr ' to='/changename'><h4>Change Name</h4></NavLink>
                             <NavLink className=' relative top-[-15px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/bookings'><h4>Bookings</h4></NavLink>
                             <NavLink className=' relative top-[-30px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/resetpassword'><h4>Reset password</h4></NavLink>
                             <NavLink className='relative top-[-45px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/myblogs'><h4> My Blogs</h4></NavLink>
-                            <p className='relative top-[-60px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2 cursor-pointer  navhoverrrr' onClick={logout} ><h4>Logout</h4></p>
+                            <p className='relative top-[-60px] bg-[#046C6D] px-6 pb-4 rounded-b-[10px] p-box-shadow-2 cursor-pointer  navhoverrrr' onClick={logout} ><h4>Logout</h4></p>
                         </span>
                     </span>
                    </> :

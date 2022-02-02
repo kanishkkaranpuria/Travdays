@@ -275,8 +275,8 @@ const AllTrips = () => {
 
   let lastScroll = 0
   const urlLocation = useLocation();
-  let searchbartTrigger = document.getElementById('template0')
   var searchbar 
+  let searchbartTrigger = document.getElementById('template0')
   const scrollSearchBarFunction = function () {
     if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top) { //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
       searchbar.style.transform = 'translateY(-100%)'
@@ -288,10 +288,13 @@ const AllTrips = () => {
       searchbar.style.transform = 'translateY(0%)'
     }
   }
+  console.log("even this shit is useee")
   useEffect(() => {
     console.log("useeffecttt is running")
     console.log(urlLocation)
     console.log(searchbartTrigger)
+    searchbartTrigger = document.getElementById('template0')  
+    
     if (searchbartTrigger) {
       searchbar = document.getElementById('searchbar')
       if (urlLocation.pathname.slice(0, 7) === '/trips/') {
@@ -307,7 +310,7 @@ const AllTrips = () => {
       }
   }, [urlLocation,searchbartTrigger])
 
-  console.log("why tf is this running")
+  console.log("why tf is this running usee")
 
 
   const ShowData = (data, index) => {
