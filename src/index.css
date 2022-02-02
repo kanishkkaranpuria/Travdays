@@ -44,6 +44,10 @@ html{
 .aumpackagepage:hover{
   transform: scale(1.04);
 }
+.galleryhover:hover{
+  transform: scale(1.02);
+  
+}
   /* edit trips page  */
 /* PARAM: */
 /* _______________________$$$$$$$$$$$$

@@ -275,7 +275,6 @@ const Home = ({ isadmin, setIsadmin }) => {
                         </div>
                         <div className='flex sm:justify-around space-x-8 opacity-40 p-4'>
                             <img src="https://img.icons8.com/material/32/000000/facebook-new.png" />
-                            {/* <button><img src="./img/google.png" alt="my image" onClick={this.myfunction} /></button> */}
                             <img src="https://img.icons8.com/material/32/000000/instagram-new--v1.png" />
                             <img src="https://img.icons8.com/small/32/000000/twitter.png" />
                             <img src="https://img.icons8.com/material/32/000000/youtube-play--v1.png" />
@@ -331,8 +330,8 @@ const Home = ({ isadmin, setIsadmin }) => {
                 {/* <svg className='absolute left-0 bottom-[-426px] -rotate-180 w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,288L60,288C120,288,240,288,360,293.3C480,299,600,309,720,309.3C840,309,960,299,1080,293.3C1200,288,1320,288,1380,288L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
                 {/* <svg className='absolute bottom-[-389px] -rotate-180 left-0 w-full'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#046C6D" fill-opacity="1" d="M0,256L60,256C120,256,240,256,360,261.3C480,267,600,277,720,266.7C840,256,960,224,1080,224C1200,224,1320,256,1380,272L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg> */}
                 {/* <svg className='absolute top-[-246px] w-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000088" fill-opacity="1" d="M0,192L80,176C160,160,320,128,480,144C640,160,800,224,960,261.3C1120,299,1280,309,1360,314.7L1440,320L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> */}
-                <div className="flex items-center justify-center">
-                    <div className="gallery-preview" onClick={() => { history.push('/gallery') }} >
+                <div className="flex items-center justify-center galleryhover">
+                    <div className="gallery-preview " onClick={() => { history.push('/gallery') }} >
                     </div>
                 </div>
                 <div className="p-6 sm:p-2">
