@@ -229,7 +229,7 @@ class Query(models.Model):
     MY_CHOICES = (
         ('1', 'Booking'),
         ('2', 'Trip'),
-        ('3', 'Query 3'),
+        ('3', 'Queryyyyyyyyyyyyyyyyyyyyyyyyy 3'),
         ('4', 'Query 4'),
         ('5', 'Query 5'),
         ('6', 'Other'),

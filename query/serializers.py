@@ -10,7 +10,8 @@ class CreateQuerySerializer(serializers.ModelSerializer):
 
 class QuerySerializer(serializers.ModelSerializer):
 
-    user = serializers.SerializerMethodField()
+    user   = serializers.SerializerMethodField()
+    choice = serializers.SerializerMethodField()
 
     class Meta:
         model = Query
@@ -20,4 +21,7 @@ class QuerySerializer(serializers.ModelSerializer):
         if obj.user :
             return obj.user.email
         return None
+
+    def get_choice(self,obj):
+        return obj.get_choice_display()
 
