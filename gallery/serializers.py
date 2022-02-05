@@ -10,13 +10,19 @@ class GallerySerializer(serializers.ModelSerializer):
 
     trip  = serializers.SerializerMethodField()
     image = serializers.SerializerMethodField()
+    video = serializers.SerializerMethodField()
 
     class Meta:
         model = AdminMedia
-        fields = ['id','image','trip']
+        fields = ['id','image','trip','video']
 
     def get_trip(self,obj):
         return obj.trip.name
+
+    def get_video(self,obj):
+        if obj.video == '' or obj.video == None:
+            return False
+        return True
 
     def get_image(self,obj):
         request = self.context.get('request')
