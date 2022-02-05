@@ -174,7 +174,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                                 rotateArrow(e)
                                 setArrowBool(true)
                             }} className="flex items-center font-semibold cursor-pointer"><span className="text-2xl font-semibold">Q</span>{faq.question}
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-auto rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                 </svg>
                             </p>
@@ -335,7 +335,7 @@ const Home = ({ isadmin, setIsadmin }) => {
                     </div>
                 </div>
                 <div className="p-6 sm:p-2">
-                    <button> <p className='text-8xl sm:text-6xl font-bold leading-normal aumptags' onClick={() => { history.push('/gallery') }}>Gallery</p> </button>
+                    <button> <p className='text-8xl sm:text-6xl font-bold leading-normal    aumptags' onClick={() => { history.push('/gallery') }}>Gallery</p> </button>
                     <p className='text-3xl pl-4 font-semibold '>select your destination by aesthetics</p>
                     <p className="p-4 leading-tight">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
