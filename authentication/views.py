@@ -1,3 +1,4 @@
+from django.db.models import Q
 import jwt
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -14,10 +15,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .utils import generate_access_token, generate_refresh_token
 import datetime,random
 
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import EmailMessage
 
@@ -45,7 +45,10 @@ class RegisterUserView(APIView):
                     return Response({'error': 'Passwords do not match'},status=status.HTTP_400_BAD_REQUEST)     
                 if len(password) < 6:
                     return Response({'error': 'Password must have at least 6 characters'},status=status.HTTP_400_BAD_REQUEST) 
-            if not User.objects.filter(email=email).exists():
+            if not User.objects.filter(Q(email = email) & Q(active = True)).exists():
+                nonActiveUser = User.objects.filter(email = email)
+                if nonActiveUser.exists():
+                    nonActiveUser.first().delete()
                 user = User(
                     name=name,
                     email = email,
@@ -54,7 +57,6 @@ class RegisterUserView(APIView):
                 user.save()
                 if User.objects.filter(email=email).exists():
                     u = User.objects.get(email = email)
-                    current_site = get_current_site(request)
                     email_subject = 'Account Activation'    
                     token = PasswordResetTokenGenerator().make_token(u) 
                     otp = Otp(user = user)
@@ -111,8 +113,8 @@ class OTP_Validation(APIView):
                 print("response is sent")
                 return response
             print("Response is sent")
-            return Response({"success":"User Account Activated"},status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"Something went wrong"},status=status.HTTP_200_OK)
+        return Response({"error":"Incorrect OTP"},status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
 
