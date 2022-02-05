@@ -3,7 +3,7 @@ from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import NetReviewSerializer,SingleTripDisplaySerializer,SingleTripMediaDisplaySerializer,TripDisplaySerializer,ReviewDisplaySerializer,CreateReviewSerializer,CreateTripSerializer,CreateTripMediaSerializer
+from .serializers import SingleMediaDisplaySerializer,NetReviewSerializer,SingleTripDisplaySerializer,SingleTripMediaDisplaySerializer,TripDisplaySerializer,ReviewDisplaySerializer,CreateReviewSerializer,CreateTripSerializer,CreateTripMediaSerializer
 from rest_framework import status
 from .pagination import TripsPagination,TripMediaPagination, ReviewsPagination
 import json
@@ -64,6 +64,17 @@ class TripMediaView(APIView, TripMediaPagination):
             serializer = SingleTripMediaDisplaySerializer(results,context={"request" : request}, many = True)
             return Response(serializer.data, status = status.HTTP_200_OK)
         return Response({"error":f"trip with name '{name}' doesn't exist"}, status = status.HTTP_400_BAD_REQUEST)
+
+class SingleVideoView(APIView, TripMediaPagination):
+
+    permission_classes = [AllowAny]
+
+    def get(self,request,pk):
+        if AdminMedia.objects.filter(pk = pk).exists():
+            media = AdminMedia.objects.filter(id = pk)
+            serializer = SingleMediaDisplaySerializer(media,context={"request" : request,"pk":pk}, many = True)
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({"error":"Incorrect Input"}, status = status.HTTP_400_BAD_REQUEST)
 
 class AdminTripMediaView(APIView):
 

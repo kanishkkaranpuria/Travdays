@@ -96,8 +96,6 @@ class User(AbstractBaseUser):
     def is_superuser(self):
         return self.staff and self.admin and self.active
 
-
-
 User = get_user_model()
 
 class Trip(models.Model):
