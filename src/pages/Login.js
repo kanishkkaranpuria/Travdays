@@ -117,7 +117,6 @@ const Login = ({setIsauthenticated,isopen,setIsopen}) => {
                     </div>
                 </form>
             </div>}
-            <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Proccess complete" p1="You have been logged in" p2="" />
 
         </div>
     );
