@@ -190,7 +190,7 @@ const ContactUs = () => {
                 Enter your query:
                 <textarea value={query} placeHolder="Query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} maxLength={1000}></textarea>
                 <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' type="submit"  >submit</button>
-               <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Thank you for contacting us" p1="your response has been submitted" p2="One of our team member will be contacting you shortly" />
+               <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Thank you for contacting us" p1="Your response has been submitted" p2="One of our team member will be contacting you shortly" />
                 {/* <Logoutmodal open={isopen} >
              <div className=" z-50 bg-black bg-opacity-50 inset-0 fixed" id="small-modal">
                 <div  class=" xoverflow-y-auto overflow-x-hidden fixed left-1/3 top-1/3  justify-center items-center md:inset-0    sm:h-full" >

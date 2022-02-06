@@ -13,6 +13,24 @@ const MyBlogs = ({ id, setId }) => {
   const [blogpage, setBlogpage] = useState(1)
   const [hasmore, setHasmore] = useState(true)
   const [loading, setLoading] = useState(true)
+  const [Approved, setApproved] = useState(false);
+
+
+  // useEffect(() => {
+  //   console.log(id)
+  //   if (id) {
+  //     fullaxios({ url: 'blog/status/' + id })
+  //       .then(res => {
+  //         setFeatured(res.data.featured)
+  //         setApproved(res.data.approved)
+  //       })
+  //       .catch(err => {
+
+
+  //       })
+  //     }
+      
+  // }, [])
 
 
   useEffect(() => {
@@ -81,6 +99,8 @@ const MyBlogs = ({ id, setId }) => {
             <p className='font-semibold sm:text-2xl'>{data.created}</p>
            </div>
            <div className="flex space-x-2">
+             <p className='font-semibold sm:text-2xl'></p>
+
             <button className="p-2 px-8  bg-blue-500  sm:mx-auto aumbutton  font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  " ><Link to={{
                 pathname : "/myblogs/editblogs", 
                 state : {

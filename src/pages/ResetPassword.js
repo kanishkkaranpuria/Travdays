@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import Cookie from "../components/Cookie";
 import { Link } from 'react-router-dom';
 import fullaxios from "../components/FullAxios";
+import Logoutmodal from "../components/Logoutmodal";
 
 const ResetPassword = () => {
 
@@ -12,11 +13,12 @@ const ResetPassword = () => {
     const [otp, setOtp] = useState('');
     const [userdata, setUserdata] = useState([]);
     const [page2bool, setPage2bool] = useState(false);
-    const [page3bool, setPage3bool] = useState(false);
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [page3bool, setPage3bool] = useState(false);
     const history = useHistory()
-
+    //modallll
+    const [isopen, setIsopen] = useState(false)
 
 
     useEffect(() => {
@@ -69,6 +71,7 @@ const ResetPassword = () => {
         })
             .then(res => {
                 console.log(res.data)
+                setIsopen(false)
                 setPage2bool(false)
                 setPage3bool(true)
             })
@@ -83,7 +86,6 @@ const ResetPassword = () => {
             }
         })
             .then(res => {
-                console.log(res)
                 history.push("/")
             })
     }
@@ -100,7 +102,10 @@ const ResetPassword = () => {
                     </div>}
                         {authStatus && <div>An OTP will be sent to your email, Enter it to confirm your request</div> }    
                     <div className=" ">
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">{!authStatus && "Submit"} {authStatus && "Confirm Change Password"}</button>
+                    {authStatus && <button type="submit" onClick={()=>setIsopen(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Confirm Change Password</button>}
+                    {!authStatus &&   <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>}
+                        <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Waiting for otp" p1="We are generating an otp, please check your email" p2="" />
+
                     </div>
                 </form>
             }

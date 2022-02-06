@@ -177,7 +177,6 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
       setApproved(approval)
 
     }
-
   }
   //like 
 

@@ -8,6 +8,7 @@ const Profilepage = ({setNamechanged}) => {
     const [name, setName] = useState('')
     const [changeNameBool, setChangeNameBool] = useState(false)
     const history = useHistory()
+//modalllll
 
 
     useEffect(() => {
