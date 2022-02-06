@@ -166,7 +166,7 @@ function App() {
 
             <Route exact path="/myblogs">{ isauthenticated?  <MyBlogs /> : <NotLoggedIn /> } </Route>
 
-            <Route exact path="/resetpassword"> { isauthenticated? <ResetPassword /> : <NotLoggedIn /> } </Route>
+            <Route exact path="/resetpassword"> { isauthenticated? <ResetPassword /> : <ResetPassword/> } </Route>
 
             <Route exact path="/bookings"> { isauthenticated? <BookingHistory />   : <NotLoggedIn /> }</Route>
 

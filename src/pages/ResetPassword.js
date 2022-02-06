@@ -24,12 +24,14 @@ const ResetPassword = () => {
         fullaxios({ url: 'userinfo/status' })
             .then(res => {
                 setAuthStatus(res.data.authenticated)
-                console.log("auth status", authStatus)
             })
             .catch(err => {
                 console.log(err)
             })
 
+    }, [])
+
+    useEffect(()=>{
         fullaxios({ url: 'userinfo/info' })
             .then(res => {
                 setUserdata(res.data)
@@ -40,8 +42,7 @@ const ResetPassword = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
-
+    },[authStatus])
 
     const submit_email = (e) => {
         console.log("email")
@@ -86,6 +87,7 @@ const ResetPassword = () => {
                 history.push("/")
             })
     }
+    console.log('authStatus',authStatus)
     return (
        <div className="section">
             <div>
