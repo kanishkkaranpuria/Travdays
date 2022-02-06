@@ -11,11 +11,12 @@ import FaqTop from "./images/TravDays_logos/faq-top.svg"
 import BackgroundImage from "./images/TravDays_logos/backgroundImage.jpg"
 import { useHistory } from "react-router";
 import { useLocation } from 'react-router-dom'
+import Logoutmodal from "../components/Logoutmodal";
 
 
 
 
-const Home = ({ isadmin, setIsadmin }) => {
+const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
 
     const history = useHistory()
 
@@ -509,6 +510,7 @@ const Home = ({ isadmin, setIsadmin }) => {
 
                 </div>
             </div>
+            <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Proccess complete" p1="You have been logged in" p2="" />
 
         </div>
     );

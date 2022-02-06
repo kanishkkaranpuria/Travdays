@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import fullaxios from "../components/FullAxios";
+import Logoutmodal from "../components/Logoutmodal";
 
 
 const ContactUs = () => {
@@ -17,6 +18,13 @@ const ContactUs = () => {
     const [temp, setTemp] = useState([])
     const [predefinedname, setPredefinedname] = useState(null)
     const [predefinedemail, setPredefinedemail] = useState(null)
+    //modalll
+    const [isopen, setIsopen] = useState(false);
+  
+  const Cancelmodal = () => {
+      
+    }
+   
 
 
     useEffect(() => {
@@ -52,7 +60,8 @@ const ContactUs = () => {
             .then(res => {
                 if (res) {
 
-                    alert("Form submission is complete! ")
+                    // alert("Form submission is complete! ")
+                    setIsopen(true)
                     setTemp('')
                     setQuery('')
                     //"it worked")
@@ -181,9 +190,33 @@ const ContactUs = () => {
                 Enter your query:
                 <textarea value={query} placeHolder="Query..." name="" id="" cols="70" rows="6" onChange={(e) => setQuery(e.target.value)} maxLength={1000}></textarea>
                 <button className=' sm:mx-auto p-2 w-40 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' type="submit"  >submit</button>
-
-
-
+               <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Thank you for contacting us" p1="your response has been submitted" p2="One of our team member will be contacting you shortly" />
+                {/* <Logoutmodal open={isopen} >
+             <div className=" z-50 bg-black bg-opacity-50 inset-0 fixed" id="small-modal">
+                <div  class=" xoverflow-y-auto overflow-x-hidden fixed left-1/3 top-1/3  justify-center items-center md:inset-0    sm:h-full" >
+    <div class="relative px-4 w-full max-w-md h-full md:h-auto">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                    Thank you for contacting
+                </h3>
+                <button onClick={()=>{setIsopen(false)}} type="button" class=" animate-bounce text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="small-modal">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    Your response has been submitted 
+                </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    you will be contacted by one of your crew members shortly
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</div></div>
+                </Logoutmodal> */}
             </form>
         </div>
     );

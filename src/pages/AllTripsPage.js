@@ -273,44 +273,8 @@ const AllTrips = () => {
   }
 
 
-  let lastScroll = 0
-  const urlLocation = useLocation();
-  var searchbar 
-  let searchbartTrigger = document.getElementById('template0')
-  const scrollSearchBarFunction = function () {
-    if (window.scrollY + searchbartTrigger.getBoundingClientRect().bottom > searchbartTrigger.getBoundingClientRect().top) { //(window.scrollY+window.pageYOffset + searchbartTrigger.getBoundingClientRect().bottom > window.pageYOffset + searchbartTrigger.getBoundingClientRect().top)
-      searchbar.style.transform = 'translateY(-100%)'
-      if (window.scrollY < lastScroll) {
-        searchbar.style.transform = 'translateY(0%)'
-      }
-      lastScroll = window.scrollY
-    } else {
-      searchbar.style.transform = 'translateY(0%)'
-    }
-  }
-  console.log("even this shit is useee")
-  useEffect(() => {
-    console.log("useeffecttt is running")
-    console.log(urlLocation)
-    console.log(searchbartTrigger)
-    searchbartTrigger = document.getElementById('template0')  
-    
-    if (searchbartTrigger) {
-      searchbar = document.getElementById('searchbar')
-      if (urlLocation.pathname.slice(0, 7) === '/trips/') {
-        console.log("scrollll created")
-        window.addEventListener('scroll', scrollSearchBarFunction)
-      } else {
-        window.removeEventListener('scroll', scrollSearchBarFunction);
-      }
-      return () => {
-        console.log("scrollllllll")
-        window.removeEventListener("scroll", scrollSearchBarFunction)
-      }
-      }
-  }, [urlLocation,searchbartTrigger])
 
-  console.log("why tf is this running usee")
+ 
 
 
   const ShowData = (data, index) => {
@@ -444,13 +408,13 @@ const AllTrips = () => {
     {!realLoading && error && <UndefinedError />}
     {/* {realLoading &&  } */}
     {!realLoading && !error &&
-      <div className='section relative flex flex-col items-center pt-20'>
+      <div className='section relative flex flex-col  items-center pt-6'>
         {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg> */}
-        <div id='searchbar' className="searchAndfilter fixed top-[60px] sm:top-[48px] md:top-[48px] z-[4] rounded-[20px] bg-[#f7f7f5ea] flex w-[800px] sm:w-full md:w-full justify-center items-center">
+        <div id='searchbar' className="  top-[60px] sm:top-[48px] md:top-[48px] z-[4]  rounded-[20px]  flex w-[800px] sm:w-full md:w-full justify-center items-center">
           <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
-          <button className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
+          <button  className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
           <div className="flex right-0">
             <button className="flex m-2 aumbutton" onClick={priceAscending} type="button">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

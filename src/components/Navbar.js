@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import { black } from "tailwindcss/colors";
 import { NavLink } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
+import Logoutmodal from "./Logoutmodal";
 
 const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
 
@@ -13,6 +14,8 @@ const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated 
     const history = useHistory();
     const [profiledata, setProfiledata] = useState([])
     const [igotdata, setIgotdata] = useState(false);
+//modallll
+const [isopen, setIsopen] = useState(false);
 
 
     useEffect(() => {
@@ -81,6 +84,7 @@ const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated 
         fullaxios({ url: 'auth/logout', sendcookie: true })
             .then(res => {
                 //("here",res.data)
+                setIsopen(true)
                 setIsadmin(false)
                 setIgotdata(false)
                 setProfiledata([])
@@ -130,6 +134,8 @@ const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated 
                     <NavLink className=' items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/login' >Login</NavLink>}
                 <NavLink className=' items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='' >Our AI Coming Soon</NavLink>
             </nav>
+            <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Proccess complete" p1="You have been logged out" p2="" />
+
         </navbar>
     );
 }

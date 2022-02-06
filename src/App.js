@@ -43,6 +43,7 @@ import NotFound from './pages/NotFound';
 import NotLoggedIn from './pages/NotloggedInPage';
 import UndefinedError from "./components/FetchErrorHandling/UndefinedError";
 import MobileProfile from './components/MobileProfile';
+import Logoutmodal from './components/Logoutmodal';
 
 const showMenu = () => {
   document.getElementById('mobile-menu').style.transform = "translateY(0%)";
@@ -63,6 +64,8 @@ function App() {
   const [namechanged, setNamechanged] = useState(0);
   const [preLoading, setPreLoading] = useState(true)
   const [error, setError] = useState(false)
+  //modall varialble
+  const [isopen,setIsopen] = useState(false);
   useEffect(() => {
     fullaxios({url: 'userinfo/status'})
       .then((res) => {
@@ -113,7 +116,8 @@ function App() {
         <img className='w-[100vw] fixed z-[0] opacity-[25%]' src={BgImg2} alt=''/>
         <img className='w-[100vw] fixed z-[0] opacity-[15%]' src={BgImg3} alt=''/>
 
-        <Navbar  namechanged={namechanged} isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated}/>
+
+        <Navbar  namechanged={namechanged} isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated} setIsopen={setIsopen} isopen={isopen} />
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}
           <Link to='/'><p className='text-lg'>TravDays</p></Link>
@@ -129,17 +133,17 @@ function App() {
         <div className="content pt-[60px] sm:pt-[48px] flex justify-center ">
           <Switch>
 
-            <Route exact path="/"> <Home isadmin={isadmin} setIsadmin={setIsadmin} /> </Route>
+            <Route exact path="/"> <Home isadmin={isadmin} setIsadmin={setIsadmin}  isopen={isopen} setIsopen={setIsopen} /> </Route>
 
             <Route exact path="/blogs"> <Blogs /> </Route>
 
             <Route exact path="/gallery"> <Gallery /> </Route>
 
-            <Route exact path="/login"> <Login setIsauthenticated={setIsauthenticated} /> </Route>
+            <Route exact path="/login"> <Login setIsauthenticated={setIsauthenticated} isopen={isopen} setIsopen={setIsopen} /> </Route>
 
             <Route exact path="/register"> <Registration setIsauthenticated = {setIsauthenticated} /> </Route>
 
-            <Route exact path="/contactus"> <ContactUs /> </Route>
+            <Route exact path="/contactus"> <ContactUs setIsopen={setIsopen} isopen={isopen} /> </Route>
 
             <Route exact path="/trip/:name"> <Trip isadmin={isadmin} isAuth={isauthenticated} /> </Route>
 

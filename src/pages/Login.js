@@ -3,14 +3,17 @@ import { useState } from 'react';
 import { useHistory } from "react-router";
 import Cookie from "../components/Cookie";
 import { Link } from 'react-router-dom';
+import Logoutmodal from "../components/Logoutmodal";
 
-const Login = ({setIsauthenticated}) => {
+const Login = ({setIsauthenticated,isopen,setIsopen}) => {
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [otploginbool, setOtploginbool] = useState(false);
     const [otppagebool, setOtppagebool] = useState(false);
     const [otp, setOtp] = useState('');
+    //modalll
+
     const history = useHistory()
 
     const submit_details = (e) => {
@@ -24,6 +27,7 @@ const Login = ({setIsauthenticated}) => {
             .then(res => {
                 console.log("wtaf")
                 console.log(res.data)
+                setIsopen(true)
                 // Cookie('setCookie','accesstoken', res.data.access_token, 1)
                 
                 setIsauthenticated(true)
@@ -113,6 +117,8 @@ const Login = ({setIsauthenticated}) => {
                     </div>
                 </form>
             </div>}
+            <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Proccess complete" p1="You have been logged in" p2="" />
+
         </div>
     );
 }

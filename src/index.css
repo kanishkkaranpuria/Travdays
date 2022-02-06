@@ -19,6 +19,10 @@ html{
 .aumptags:hover{
   color: black;
 }
+.modal-bg {
+  background-color: rgba(0,0,0,0.5);
+  z-index: -9999;
+}
 .aumbutton:hover{
   background-color: #2f5510;
 }
