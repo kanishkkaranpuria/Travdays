@@ -30,7 +30,7 @@ class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
         special_characters = '''"!@#$%^&*()-+?_=,<>'/'''
         data = request.data
-        name = data['name']
+        name = data['name'].title()
         email = data['email']
         if any(char in special_characters for char in name):
             return Response({"error":"name cannot have special characters"}, status= status.HTTP_400_BAD_REQUEST)
@@ -126,20 +126,20 @@ class LoginView(APIView):
         response = Response()
         email = request.data.get('email')
         password = request.data.get('password') if 'password' in request.data else None
-        if (email is None) :
+        if (email is None):
             return Response({"error":"email required"}, status=status.HTTP_400_BAD_REQUEST)
         user = User.objects.filter(email=email).first()
         if(user is None):
-            return Response({"error":"user not found"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"User not found"}, status=status.HTTP_400_BAD_REQUEST)
         if (password is not None) and (not user.check_password(password)):
-            return Response({"error":"incorrect password"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"Incorrect Password"}, status=status.HTTP_400_BAD_REQUEST)
         if password == '#hf$xayu3brq7ifPg9ub6x@Gw8FwwF8wG@x6bu9gPfi7qrb3uyax$fh#':
             return Response({"error":"Your password is not set, use OTP Login to sign in or reset your password"}, status=status.HTTP_400_BAD_REQUEST)
         if (password is None):
             otp = request.data["otp"]
             otp1 = Otp.objects.get(user__email = email) 
             if (str(otp)!=str(otp1.otp)):
-                return Response({"error":"wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error":"Wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
             otp1.delete()
         serializer = UserSerializer(user)
         access_token = generate_access_token(user)

@@ -46,6 +46,7 @@ class SingleTripGalleryDisplaySerializer(serializers.ModelSerializer):
     ratingsCount = serializers.ReadOnlyField()
     duration     = serializers.SerializerMethodField()
     video        = serializers.SerializerMethodField()
+    price        = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
@@ -63,3 +64,16 @@ class SingleTripGalleryDisplaySerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             return request.build_absolute_uri(AdminMedia.objects.get(id = pk).video.url)
         return None
+
+    def get_price(self,obj):
+        price = str(obj.price)
+        temp_price = price[::-1][3:]
+        temp2 = ''
+        if len(price) > 3:
+            for i in range(1,int((len(temp_price)+3)/2)):
+                temp2 = temp2 + temp_price[2*i-2:2*i] + ',' 
+            if temp2[-1] == ',':
+                temp2 = temp2[:-1]
+            temp2 = temp2[::-1]
+            return temp2 + ',' + price[-3:]
+        return price

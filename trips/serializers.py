@@ -13,6 +13,7 @@ class SingleTripDisplaySerializer(serializers.ModelSerializer):
     ratings      = serializers.ReadOnlyField()
     ratingsCount = serializers.ReadOnlyField()
     duration     = serializers.SerializerMethodField()
+    price        = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
@@ -23,6 +24,19 @@ class SingleTripDisplaySerializer(serializers.ModelSerializer):
         if dur != "":
             return f"{dur[0]} Days {dur[1]} Nights"
         return ""
+
+    def get_price(self,obj):
+        price = str(obj.price)
+        temp_price = price[::-1][3:]
+        temp2 = ''
+        if len(price) > 3:
+            for i in range(1,int((len(temp_price)+3)/2)):
+                temp2 = temp2 + temp_price[2*i-2:2*i] + ',' 
+            if temp2[-1] == ',':
+                temp2 = temp2[:-1]
+            temp2 = temp2[::-1]
+            return temp2 + ',' + price[-3:]
+        return price
 
 class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
 
@@ -67,6 +81,7 @@ class TripDisplaySerializer(serializers.ModelSerializer):
     ratingsCount = serializers.ReadOnlyField()
     duration     = serializers.SerializerMethodField()
     description  = serializers.SerializerMethodField()
+    price        = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
@@ -81,13 +96,7 @@ class TripDisplaySerializer(serializers.ModelSerializer):
                 new = obj.adminmedia.order_by('?')[0]
                 new.displayImage=True
                 new.save()
-            # image_url = obj.adminmedia.filter(displayImage=True)
             image_url = obj.adminmedia.get(displayImage=True)
-            # qs=[]
-            # for i in image_url:
-            #     print(request.build_absolute_uri(i.image.url))
-            #     qs.append(request.build_absolute_uri(i.image.url))
-            # return qs
             return request.build_absolute_uri(image_url.image.url)
         displayImage  = AdminMedia.objects.get(trip = None, displayImage = True)
         return request.build_absolute_uri(displayImage.image.url)
@@ -107,6 +116,19 @@ class TripDisplaySerializer(serializers.ModelSerializer):
                 body = body + word + " " 
             return body + "..."
         return a + " ..."
+
+    def get_price(self,obj):
+        price = str(obj.price)
+        temp_price = price[::-1][3:]
+        temp2 = ''
+        if len(price) > 3:
+            for i in range(1,int((len(temp_price)+3)/2)):
+                temp2 = temp2 + temp_price[2*i-2:2*i] + ',' 
+            if temp2[-1] == ',':
+                temp2 = temp2[:-1]
+            temp2 = temp2[::-1]
+            return temp2 + ',' + price[-3:]
+        return price
 
 class NetReviewSerializer(serializers.ModelSerializer):
 
