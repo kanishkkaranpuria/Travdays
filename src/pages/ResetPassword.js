@@ -102,7 +102,7 @@ const ResetPassword = () => {
                     </div>}
                         {authStatus && <div>An OTP will be sent to your email, Enter it to confirm your request</div> }    
                     <div className=" ">
-                    {authStatus && <button type="submit" onClick={()=>setIsopen(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Confirm Change Password</button>}
+                    {authStatus && <button type="submit" onClick={()=>setIsopen(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md"> Gnerate OTP </button>}
                     {!authStatus &&   <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>}
                         <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Waiting for otp" p1="We are generating an otp, please check your email" p2="" />
 

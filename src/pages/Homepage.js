@@ -249,7 +249,7 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
 
     // const Home = () => {
     return (
-        <div className="main w-full items-center justify-center relative">
+        <div className="main w-full items-center justify-center relative" id='homepage'>
             <img id='backgroundImg' alt='' src={BackgroundImage} className='fixed z-0 top-0 ' />
             {/* <div className='w-full h-full absolute top-0 bg-gradient-to-r from-black to-transparent'></div> */}
             <div className='w-full h-full fixed top-0 bg-[#00000088] z-0'></div>
@@ -505,6 +505,9 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                             <button><img className='w-[40px]' src="https://img.icons8.com/material/64/000000/youtube-play--v1.png" /></button>
                         </a>
                     </div>
+                    
+                    <a href='#homepage'>Back to the top</a>
+                    
                     <div className="w-full flex absolute" >
                         {/* <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee> */}
                     </div>
