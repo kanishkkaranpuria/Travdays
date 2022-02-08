@@ -86,7 +86,11 @@ const ResetPassword = () => {
             }
         })
             .then(res => {
-                history.push("/")
+                if(!authStatus){
+                    history.push("/login")
+                }else{
+                    history.push("/")
+                }
             })
     }
     console.log('authStatus',authStatus)
@@ -100,7 +104,7 @@ const ResetPassword = () => {
                         <p className="w-40">Enter your email:</p >
                         <input required type="text" onChange={(e) => setEmail(e.target.value)} />
                     </div>}
-                        {authStatus && <div>An OTP will be sent to your email, Enter it to confirm your request</div> }    
+                        {authStatus && <div>An OTP will be sent to your email, Enter it to verify your request</div> }    
                     <div className=" ">
                     {authStatus && <button type="submit" onClick={()=>setIsopen(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md"> Gnerate OTP </button>}
                     {!authStatus &&   <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>}
