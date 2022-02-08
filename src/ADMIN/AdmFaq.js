@@ -1,7 +1,12 @@
 import { useState,useEffect } from "react";
 import fullaxios from "../components/FullAxios";
+import { useHistory } from "react-router";
+
 
 const AdmFaq = () => {
+
+    const history = useHistory()
+
     const [query, setQuery] = useState();
     const [querytype, setQuerytype] = useState();
     const [answer, setAnswer] = useState();
@@ -37,6 +42,8 @@ const AdmFaq = () => {
             } })
             .then(res => {
                 console.log(res.data)
+                alert('submitted')
+                history.push('/adminonly')
                 if (res) {
                     console.log("it worked")
                 }
