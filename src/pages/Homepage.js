@@ -483,7 +483,9 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                     </div>
                     <div className='flex sm:w-full h-full justify-around items-center opacity-70 p-4'>
 
-                        <h1> <u>Social media:</u> </h1><br/>
+                        <div className='flex sm:w-full h-full justify-around items-left opacity-100 p-4'>
+                            <h1> <b> <u>Social media:</u></b> </h1><br/>
+                        </div>
 
                         <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png" />
 
