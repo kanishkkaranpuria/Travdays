@@ -4,14 +4,12 @@ from database.models import *
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from .serializers import GallerySerializer,SingleTripGalleryDisplaySerializer
-# from trips.serializers import SingleTripDisplaySerializer
 from datetime import datetime, timedelta
 import ast, random
 from rest_framework.permissions import AllowAny
 from moviepy.editor import *
-# from urllib.parse import urlparse
-# import requests
-# from django.core.files.base import ContentFile
+from django.db.models import Case, When
+
 
 class GalleryView(APIView): 
 
@@ -21,22 +19,22 @@ class GalleryView(APIView):
         page = int(self.request.query_params.get('page', None))
         deltaTime = datetime.now().astimezone() - timedelta(days=1)
         qs = GalleryPageTemp.objects.filter(updated_at__lt=deltaTime)
-        print("1 day has passed, deleter qs - ",qs)
+        # print("1 day has passed, deleter qs - ",qs)
         qs.delete()
         if page == 1:
             qs = GalleryPageTemp.objects.filter(userKey = request.session.get('name'))
-            print(qs)
+            # print(qs)
             if qs.count()>0:
                 qs.delete()
             a = GalleryPageTemp(previousId = '')
             a.save()
             request.session.flush()
             request.session['name'] = str(f"{request.user}{a.id}")
-            print('session created',request.session.get('name'))
+            # print('session created',request.session.get('name'))
             a.userKey = request.session['name']
             a.save()
-            print('created')
-        print('session created',request.session.get('name') )
+            # print('created')
+        # print('session created',request.session.get('name') )
         previousGalleryIds = []
         temp = GalleryPageTemp.objects.get(userKey = request.session.get('name'))
         if len(temp.previousId) != 0:
@@ -46,13 +44,14 @@ class GalleryView(APIView):
         if(galleryIds.count()<num):
             num=galleryIds.count()
         randomNumber = random.sample(set(galleryIds),num)
-        galleries=AdminMedia.objects.filter(id__in=randomNumber)
+        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(randomNumber)])
+        galleries=AdminMedia.objects.filter(id__in=randomNumber).order_by(preserved)
         obj = temp
         obj.previousId = str(randomNumber+previousGalleryIds)
         obj.save()
         print("_____________________-",temp.previousId)
         serializer = GallerySerializer(galleries,context={"request" : request}, many = True)
-        print(galleries)
+        print('galleries',galleries.values_list("id",flat=True))
         return Response(serializer.data)
 
 

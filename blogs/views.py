@@ -127,15 +127,21 @@ class CreateBlog(APIView):
         
         #Logic to arrange make consecutive elements of the array of different types 
 
+        adding_keyword1 = 0      # This variable will have number of times the keyword " ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  " is added
+        image_counter = 0        # Counts number of images added
         i = 0
         bool = True
         while(bool):
             while(i+1<len(array)):
                 if (type(array[i]) == type(array[i+1]) and isinstance(array[i],str)):
+                    # if array[i+1] != '':
+                        # print(adding_keyword1)
                     array = [*array[:i],array[i] +" ,cqpOcItEpTLXPWSF<?{~D2wq5GJj9amveXJQ  "+ array[i+1],*array[i+2:]]
+                    adding_keyword1 = adding_keyword1 + 1
                 else:
                     if type(array[i]) == type(array[i+1]):
                         array = [*array[:i+1],"",*array[i+1:]]
+                        image_counter = image_counter + 1
                     i += 1
                 break
             if i+1 >= len(array):
@@ -143,12 +149,18 @@ class CreateBlog(APIView):
 
         # alternative elements are images and blog paras
         # adding a para ending marker and adding entire blog in one variable
+        adding_keyword2 = 0      # This variable will have number of times the keyword "    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc," is added
         blog = ''
         for i in range(len(array[::2])):
             blog = blog + array[::2][i] + "    QJXevma9jJG5qw2D~{?<FSWPXLTpEtIcOpqc,"
+            adding_keyword2 = adding_keyword2 + 1
+
+        # checking blog length
+        blog_len = len(blog) - (40*adding_keyword1 + 41*adding_keyword2) +  adding_keyword1
+        if blog_len>200000:
+            return Response({"error":"Max word limit reached"}, status=status.HTTP_400_BAD_REQUEST)
 
         # saving para
-
         data['blog'] = blog
         serializer = CreateBlogSerializer(data = data)
         if serializer.is_valid():
