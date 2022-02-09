@@ -58,7 +58,7 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
             })
     }
     return ( 
-        <div onClick={hideMenu} id="mobile-menu" className="flex flex-col text-white bg-black fixed top-0 z-[4] w-full h-full opacity-90">
+        <div onClick={hideMenu} id="mobile-menu" className="flex flex-col text-white bg-black fixed top-0 z-[20] w-full h-full opacity-90">
         
             <nav className="flex flex-col w-full h-full items-center justify-center">
                {profile ? <> 

@@ -123,7 +123,7 @@ const [isopen, setIsopen] = useState(false);
 
                 {isauthenticated && igotdata ? <>
                     <span className='packages btn flex items-center h-full text-lg relative'>
-                        <span className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus cursor-pointer' to='/profilepage' >Hello {profiledata.navbarname}</span>
+                        <span className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus cursor-pointer'>Hello {profiledata.navbarname}</span>
                         <span className='package-list absolute left-0 bottom-[-245px] flex flex-col w-max z-[4] invisible pointer-events-none'>
                             <NavLink className='bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr ' to='/changename'><h4>Change Name</h4></NavLink>
                             <NavLink className=' relative top-[-15px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/bookings'><h4>Bookings</h4></NavLink>

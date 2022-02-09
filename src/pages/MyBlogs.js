@@ -4,6 +4,7 @@ import WriteABlog from "../components/WriteABlog";
 import axios from "axios";
 import fullaxios from "../components/FullAxios";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 const MyBlogs = ({ id, setId }) => {
 
   const history = useHistory()
@@ -32,6 +33,7 @@ const MyBlogs = ({ id, setId }) => {
       
   // }, [])
 
+  const [realLoading, setRealLoading] = useState(true)
 
   useEffect(() => {
     console.log("useeffect")
@@ -41,6 +43,7 @@ const MyBlogs = ({ id, setId }) => {
         if (res) {
           setAllblogs(prev => [...prev, ...res.data])
           console.log(res.data)
+          setRealLoading(false)
         }
       })
       .catch(err => {
@@ -48,6 +51,7 @@ const MyBlogs = ({ id, setId }) => {
           if (err.response.data.detail === "Invalid page.") {
             setHasmore(false)
           }
+          setRealLoading(false)
         }
       })
     setLoading(false)
@@ -122,8 +126,10 @@ const MyBlogs = ({ id, setId }) => {
   }
 
   return (
+    <>
+    {realLoading && <Loading />}
+    {!realLoading &&
     <div className="blog relative pt-[60px] w-full">
-
       {allblogs && allblogs.map((data, index) => {
         if (allblogs.length === index + 1) {
           return (
@@ -138,11 +144,12 @@ const MyBlogs = ({ id, setId }) => {
               {displayingAllBlogs(data, index)}
             </div>
           )
-
+          
         }
       })}
-
     </div>
+    }
+    </>
   );
 }
 

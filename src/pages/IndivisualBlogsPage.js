@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import fullaxios from "../components/FullAxios";
 import { isCompositeComponentWithType } from "react-dom/test-utils";
 import { version } from "react";
+import Loading from "../components/Loading";
 
 const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
   const [iblogimg, setIblogimg] = useState([])
@@ -28,6 +29,8 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
   const [loading, setLoading] = useState(false)
   const [hasmore, setHasmore] = useState(true)
   const [page, setPage] = useState(1)
+  const [realLoading, setRealLoading] = useState(true)
+  const [paginationLoading, setPaginationLoading] = useState(false)
 
   const toDataURL = url => fetch(url)
     .then(response => response.blob())
@@ -91,8 +94,7 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
                 })
             }
           })
-
-
+          setRealLoading(false)
           //   setIblogdata(res.data)
           console.log(res.data[0].slice(-3,))
           console.log()
@@ -110,6 +112,7 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
               setLoading(false)
             }
           }
+          setRealLoading(false)
         })
     }
   }, [page, hasmore])
@@ -302,6 +305,7 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
 
   useEffect(() => {
     console.log(id)
+    setPaginationLoading(true)
     if (id) {
       fullaxios({ url: 'blog/indi/' + id + '/' + 1 })
         .then(res => {
@@ -311,6 +315,8 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
           console.log(res.data[0].slice(-3,))
           console.log()
           console.log(res.data)
+          setPaginationLoading(false)
+
         })
         .catch(err => {
           if (err.response) {
@@ -318,6 +324,7 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
               console.log("wtf is happening")
               setHasmore(false)
               setLoading(false)
+              setPaginationLoading(false)
             }
           }
         })
@@ -447,10 +454,10 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
     console.log(hasmore)
   }, [iblogdata, iblogimg, page])
   return (
+    <>
+    {realLoading && <Loading/>}
+    {!realLoading &&
     <div className='section'>
-
-
-
       {iblogdata && <div className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
         <div className="blog-preview-card relative ">
           <div className=' sm:p-1'>
@@ -538,6 +545,14 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
 
 
             })} </p>
+            {paginationLoading && 
+              <div className="p-4 m-auto">
+              <div className="m-auto" data-visualcompletion="loading-state" style={{ height: '32px', width: '32px' }}>
+                  <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
+                  </svg>
+                  </div>
+              </div>
+            }
           </div>
 
 
@@ -546,6 +561,9 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
       </div>
       }
     </div>
+  }
+  </>
+  
   );
 }
 

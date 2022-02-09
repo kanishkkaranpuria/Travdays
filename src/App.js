@@ -86,7 +86,7 @@ function App() {
             preLoader.remove();
             setPreLoading(false)
             setError(true)
-          }, 2000);
+          }, 1000);
         }
       })
     console.log(document.querySelector('.loader-container'))
@@ -139,11 +139,9 @@ function App() {
 
             <Route exact path="/gallery"> <Gallery /> </Route>
 
-            <Route exact path="/login"> <Login setIsauthenticated={setIsauthenticated} isopen={isopen} setIsopen={setIsopen} /> </Route>
+            <Route exact path="/login"> { isauthenticated ? <Home isadmin={isadmin} setIsadmin={setIsadmin}/> : <Login setIsauthenticated={setIsauthenticated} isopen={isopen} setIsopen={setIsopen}/> }</Route>
 
-            <Route exact path="/register"> <Registration setIsauthenticated = {setIsauthenticated} /> </Route>
-
-            <Route exact path="/contactus"> <ContactUs setIsopen={setIsopen} isopen={isopen} /> </Route>
+            <Route exact path="/contactus"> <ContactUs isauthenticated = {isauthenticated}  setIsopen={setIsopen} isopen={isopen} /> </Route>
 
             <Route exact path="/trip/:name"> <Trip isadmin={isadmin} isAuth={isauthenticated} /> </Route>
 

@@ -314,7 +314,7 @@ const Edittrips  = () => {
                       
                         {/* <button className='edit-btn'onClick = {onClickFocus}>Change image</button> */}
                      
-                        {exdata &&<form className='flex flex-col mx-auto max-w-[1000px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] ' onSubmit={Submit}  action="">
+                        {exdata &&<form className='flex flex-col mx-auto max-w-[1000px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%]' onSubmit={Submit}>
                             <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Edit trips</span>
                             <br />
                             <span className='text-xl sm:text-xl sm:p-2 inline-block '>Delete existing media</span>
@@ -393,7 +393,7 @@ const Edittrips  = () => {
                                 <br />
                                        <input type="file" multiple style={{display:'none'}} name ="file" id="file" onChange={Imagechangehandler}   />
                                                        <label htmlFor="file">
-                                                                  <p className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white">add image  </p>
+                                                                  <p className=" sm:mx-auto m-2 p-2 w-40 bg-blue-500 font-semibold rounded-lg hover:bg-blue-700 text-white cursor-pointer">add image  </p>
                                                        </label>
                                  <p className='Arealcontainer'>                           
                                                                {imagepreview2 &&  imagepreview2.map((data,i)=>{

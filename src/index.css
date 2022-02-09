@@ -229,7 +229,7 @@ code {
 }
 
 .navbar{
-  z-index: 5;
+  z-index: 20;
   position: fixed;
   width: 100%;
   top: 0;
@@ -501,6 +501,23 @@ transition: all 200ms ease-in-out;
 
 /* Some extra shit added by naman */
 
+.fade-anim{
+  animation: fadeAnim 1s ease-out;
+}
+
+@keyframes fadeAnim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.highlight {
+  opacity: 50%;
+}
+
 .namans-textarea {
   border: none;
   overflow: auto;
@@ -511,9 +528,71 @@ transition: all 200ms ease-in-out;
   box-shadow: none;
 }
 
+.pagination-loading{
+  animation-duration: 1.2s;
+  animation-timing-function: steps(12);
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  animation-name: PaginationLoading;
+}
+
+@keyframes PaginationLoading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 /* ******************************************************************************************MEDIA QUERIES */
-  @media only screen and (max-width: 800px) {
+@media only screen and (min-width: 800px) {
+  
+  .zoomout{
+    zoom: 80%;
+  }
+}
+
+/* ***************************************Login Page Styles */
+
+@media only screen and (max-width: 910px) {
+  
+  .loginpageflex{
+    display: flex;
+    flex-direction: column;
+  }
+  .loginpageshit{
+    margin-top: 5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .loginpagetext1{
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+  .loginpagetext2{
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: center;
+  }
+  .loginpagemargin{
+    margin-top: 1rem;
+  }
+}
+
+@media only screen and (min-width : 450px) and (max-width: 800px) {
+  .loginpage{
+    width: 80%;
+  }
+  
+  }
+/* ***************************************Login Page Styles */
+
+@media only screen and (max-width: 800px) {
   
   .navbar{
     display: none;
@@ -525,6 +604,12 @@ transition: all 200ms ease-in-out;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+}
+@media only screen and (min-width : 330px) and (max-width: 650px) {
+  .trips{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media only screen and (max-width: 330px) {
 .trips{

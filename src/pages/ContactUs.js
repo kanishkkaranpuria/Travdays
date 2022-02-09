@@ -3,10 +3,14 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import fullaxios from "../components/FullAxios";
 import Logoutmodal from "../components/Logoutmodal";
+import Loading from "../components/Loading";
 
 
-const ContactUs = () => {
+const ContactUs = ({ isauthenticated }) => {
 
+
+    const [error, setError] = useState(false)
+    const [realLoading, setRealLoading] = useState(true)
     const [email, setEmail] = useState();
     const [phonenum, setPhonenum] = useState();
     const [query, setQuery] = useState();
@@ -28,8 +32,8 @@ const ContactUs = () => {
 
 
     useEffect(() => {
-        
-      //email)
+
+        //email)
     }, [email])
 
 
@@ -125,23 +129,24 @@ const ContactUs = () => {
 
 
     useEffect(() => {
-        fullaxios({ url: 'userinfo/info', type: 'get' })
-            .then(res => {
-                if (res) {
-                    //res.data)
-                    setPredefinedname(res.data.name)
-                    setPredefinedemail(res.data.email)
-                    // setName(res.data.name)
-                    // setEmail(res.data.email)
-                    // //"")
-                    // history.push('/')1
-                }
-            })
-            .catch(res => {
-                //"hello didnt work")
-                // if (res.status === 400)
-                //     alert("invalid OTP!!")
-            })
+        if (isauthenticated) {
+            fullaxios({ url: 'userinfo/info', type: 'get' })
+                .then(res => {
+                    if (res) {
+                        //res.data)
+                        setPredefinedname(res.data.name)
+                        setPredefinedemail(res.data.email)
+                        setRealLoading(false)
+                        // setName(res.data.name)
+                        // setEmail(res.data.email)
+                        // //"")
+                        // history.push('/')1
+                    }
+                })
+        }
+        else{
+            setRealLoading(false)
+        }
     }, [])
 
     //   setChoice = e.value;
@@ -149,25 +154,28 @@ const ContactUs = () => {
 
 
     return (
+        <>
+        {realLoading && <Loading/>}
+        { !realLoading &&
         <div className=" section contact-us">
             <form className='flex flex-col mx-auto max-w-[800px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] sm:p-4 ' onSubmit={submitquery} action="">
                 <span className='text-4xl sm:text-xl font-bold sm:p-2 inline-block '>Contact Us</span>
 
                 <div className='sm:pb-4'>
-                
+
                     {!authenticated && <div className="">
                         <p className='flex items-center'>
                             <span className='w-52'>Enter your name :</span>
                             {predefinedname ?
                                 <input required type="text" value={predefinedname} placeholder="Name" /> :
-                                <input required type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} maxLength={100}/>
+                                <input required type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} maxLength={100} />
                             }
                         </p>
                         <p className='flex items-center'>
                             <span className='w-52'>Enter your email :</span>
                             {predefinedemail ?
                                 <input required type="email" value={predefinedemail} placeholder="Email" id="name" /> :
-                                <input required type="email" placeholder="Email" id="name" onChange={(e) => setEmail(e.target.value)} maxLength={254}/>}
+                                <input required type="email" placeholder="Email" id="name" onChange={(e) => setEmail(e.target.value)} maxLength={254} />}
                         </p>
                     </div>
                     }
@@ -218,7 +226,8 @@ const ContactUs = () => {
 </div></div>
                 </Logoutmodal> */}
             </form>
-        </div>
+        </div>}
+        </>
     );
 }
 

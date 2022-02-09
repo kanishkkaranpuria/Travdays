@@ -1,77 +1,3 @@
-// import axios from "axios";
-// import { useState,useEffect } from "react";
-// import {React} from "react";
-
-// const Gallery = () => {
-//     const [allimages, setAllimages] = useState(null)
-//     const [res, setRes] = useState(null)
-//     let baseURL = 'http://192.168.0.111:8000/'
-//     useEffect(() => {
-
-//         axios({
-//             method:'GET',
-//             url: 'http://127.0.0.1:8000/gallery/?page=1 ',
-
-//             // configuration
-//         })
-//         .then(res =>  {
-//             setAllimages(res.data)
-//             console.log(res.data)
-//         }  
-
-//         )
-
-
-//         ;
-
-
-//     }, [])
-
-
-
-//     return (
-
-//         <div  className="gallery">
-
-
-
-
-//         {allimages && allimages.map((allimage)=>(
-//         <div className="">
-
-//           { allimages && <img src={allimage.image} alt="" />} 
-
-//         </div>
-
-
-
-//         ))}
-
-
-
-
-//     </div>
-
-
-//     );
-// }
-
-// export default Gallery;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
@@ -99,23 +25,27 @@ const Gallery = () => {
   const prevDatas = useRef([])
   const observer = useRef()
   const [gridStyle, setGridStyle] = useState("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
-  const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full')
-  const [displayPackageStyle, setDisplayPackageStyle] = useState('hidden sm:hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
-  const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[300px] md:min-h-[120px] md:max-h-[120px]')
-
-
+  const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 md:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] lg:h-[108vh] sm:h-full')
+  const [displayPackageStyle, setDisplayPackageStyle] = useState('hidden sm:hidden relative h-[90vh] lg:h-[108vh] sm:h-[50%] sm:rounded-t-[20px]')
+  const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+  const [paginationLoading, setPaginationLoading] = useState(false)
+  const [colSpan, setColSpan] = useState('md:col-span-3 col-span-5')
+  const [packageLoading, setPackageLoading] = useState(false)
+  
   const showPackage = (show) => {
     if (show) {
       setGridStyle("gallery bg-[#00000000] sm:h-[90vh] p-box-shadow-2 overflow-hidden rounded-[20px]")
-      setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
-      setDisplayPackageStyle('sm:span relative h-[90vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
+      setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] lg:h-[108vh] sm:h-full")
+      setDisplayPackageStyle('sm:span relative h-[90vh] lg:h-[108vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
       setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+      setColSpan('md:col-span-3 col-span-3')
     }
     else {
       setGridStyle("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
-      setGallerystyle("grid grid-cols-5 sm:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] sm:h-full")
-      setDisplayPackageStyle('hidden relative h-[90vh] sm:h-[50%] sm:rounded-t-[20px]')
-      setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+      setGallerystyle("grid grid-cols-5 md:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] lg:h-[108vh] sm:h-full")
+      setDisplayPackageStyle('hidden relative h-[90vh] lg:h-[108vh] sm:h-[50%] sm:rounded-t-[20px]')
+      setGridWithPackageStyle('overflow-hidden min-h-[200px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+      setColSpan('md:col-span-3 col-span-5')
     }
   }
 
@@ -135,6 +65,7 @@ const Gallery = () => {
   }, [loading, hasMore])
 
   useEffect(() => {
+    setPaginationLoading(true)
     fullaxios({ url: 'gallery/?page=' + page, type: "get", sendcookie: true })
       .then(res => {
         if (res) {
@@ -145,12 +76,18 @@ const Gallery = () => {
           setDigit(1)
           prevDatas.current = datas
           setRealLoading(false)
-
+          setPaginationLoading(false)
+          if (res.data.length === 0){
+            setHasMore(false)
+            setPaginationLoading(false)
+          }
         }
       })
       .catch(err => {
         if(err){
           setError(true)
+          setRealLoading(false)
+          setPaginationLoading(false)
           console.error(err)
         }
       });
@@ -194,6 +131,7 @@ const Gallery = () => {
   useEffect(() => {
     setLocation(null)
     console.log("wtf",locid)
+    setPackageLoading(true)
     fullaxios({ url: 'gallery/package/' + locid })
       .then(res => {
         console.log("wtf")
@@ -201,10 +139,14 @@ const Gallery = () => {
         if (res) {
           // setLocation(prev => [...prev, ...res.data])
           setLocation(res.data)
+          setPackageLoading(false)
           // prevDatas.current = datas
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error(err)
+        setPackageLoading(false)
+      });
   }, [locid])
 
   useEffect(() => {
@@ -258,7 +200,7 @@ const Gallery = () => {
       {realLoading && <Loading />}
       {!realLoading && error && <UndefinedError />}
       {!realLoading && !error &&
-    <div className='max-w-[80%] section sm:max-w-full pb-0'>
+    <div className='max-w-[80%] section sm:max-w-full pb-0 zoomout lg:pt-4'>
       <div className={gridStyle}>
         {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
         <div className={gallerystyle}>
@@ -278,18 +220,41 @@ const Gallery = () => {
           })
 
           }
+          <div className={colSpan}>
+          {paginationLoading &&
+            <div className="p-4 m-auto">
+              <div className="m-auto" data-visualcompletion="loading-state" style={{ height: '32px', width: '32px' }}>
+                <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
+                </svg>
+              </div>
+            </div>
+          }
+          {/* {!paginationLoading && !hasMore && 
+            <div className="p-4 mx-auto">
+              <div className="text-center">
+              <p>Woah! You have reached the end</p>
+              </div>
+            </div>} */}
+          </div>
         </div>
         {/* <button className="edit-btn" onClick={handleScroll}>Gimme media</button> */}
         <div className={displayPackageStyle}>
-            <svg onClick={() => showPackage(false)} className="ml-[94%] cursor-pointer mb-2 sticky top-2 z-[4]" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
+            <svg onClick={() => showPackage(false)} className="ml-[94%] cursor-pointer mb-2 sticky top-4 z-[4]" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" >
               <path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z">
               </path>
             </svg>
           <div className='sticky top-2 hidden sm:flex w-full justify-center p-1'> <span className=' mx-auto h-[10px] w-[80px] bg-gray-400 rounded-md '></span></div>
           {/* <p className='text-8xl font-bold'>Trip details go here</p> */}
-
-          {location &&
-            <div className='p-4 pb-0 sm:p-[0.5rem] overflow-y-auto'>
+          {packageLoading && 
+            <div className="p-auto m-auto h-full">
+              <div className="m-auto h-full flex" data-visualcompletion="loading-state" style={{width: '32px'}}>
+                <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
+                </svg>
+              </div>
+            </div>
+            } 
+          {location && !packageLoading &&
+            <div className=' px-4 py-0 sm:p-[0.5rem] overflow-y-auto'>
               <div className='my-4 sm:my-0 sm:my-[1.1rem]'>
                 {/* {console.log(locimg)} */}
                 {/* {console.log(locimg.slice(21,27))}
@@ -381,7 +346,7 @@ const Gallery = () => {
                   }
                 </p>
                 <div className="hidden sm:flex">Ratings: {location.ratingsCount}</div>
-                <p className='flex text-xl items-center text-center '><span>${location.price}</span>              
+                <p className='flex text-xl items-center text-center '><span>₹{location.price}</span>              
               <button className='m-2 ml-auto sm:ml-auto p-2 w-40 sm:w-32 sm:m-1 font-semibold bg-[#00000088] rounded-md  aumbutton' onClick={() => { history.push('/trip/' + location.name) }}>know more</button>
                 </p>
                 {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {location.ratingsCount}</span></p> */}

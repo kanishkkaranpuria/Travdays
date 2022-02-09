@@ -28,6 +28,7 @@ const AllTrips = () => {
   const [displaysearchresults, setDisplaysearchresults] = useState(false)
   const [searchtext, setSearchtext] = useState(null)
   const observer = useRef()
+  const [paginationLoading, setPaginationLoading] = useState(false)
 
   
   const [error, setError] = useState(false)
@@ -88,6 +89,7 @@ const AllTrips = () => {
   useEffect(() => {
     console.log("i was here")
     // setLoading1(true)
+    setPaginationLoading(true)
     if (searchtext === "" || searchtext === null) {
       fullaxios({ url: 'trip/universal/' + JSON.stringify(object) + '?page=' + page })
         .then(res => {
@@ -99,20 +101,26 @@ const AllTrips = () => {
             setLoading1(false)
             setLoading(false)
             setRealLoading(false)
+            setPaginationLoading(false)
           }
         }
         )
         .catch(err => {
           if (err.response) {
             if (err.response.data.detail === "Invalid page.") {
+              console.log("sethasmore")
               setHasMore(false);
             }
-            if (typeof (err.response) === "undefined") {
+            else if (typeof (err.response) === "undefined") {
               console.log("this should work goddamit")
-              setError(false)
+              setError(true)
+            }
+            else
+            {
+              setError(true)
             }
             setRealLoading(false)
-
+            setPaginationLoading(false)
 
           }
         })
@@ -128,6 +136,7 @@ const AllTrips = () => {
             prevDatas.current = datas
             setLoading1(false)
             setRealLoading(false)
+            setPaginationLoading(false)
             // setLoading(false)
           }
         })
@@ -138,9 +147,11 @@ const AllTrips = () => {
             }
             if (typeof (err.response) === "undefined") {
               console.log("this should work goddamit")
-              setError(false)
+              setError(true)
             }
+            setError(true)
             setRealLoading(false)
+            setPaginationLoading(false)
             // setLoading(false)
             // console.log(err)
           }
@@ -408,7 +419,8 @@ const AllTrips = () => {
     {!realLoading && error && <UndefinedError />}
     {/* {realLoading &&  } */}
     {!realLoading && !error &&
-      <div className='section relative flex flex-col  items-center pt-6'>
+      // <div className='section relative flex flex-col  items-center pt-6'>
+      <div className='section trips pt-20 md:pt-20 '>
         {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg> */}
@@ -446,19 +458,28 @@ const AllTrips = () => {
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
             return (
-              <div ref={lastDataElementRef} className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
+              <div ref={lastDataElementRef} className="m-1 flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
                 {ShowData(data, index)}
               </div>
             );
           } else {
             return (
-              <div className="m-5 md:p-[0.5rem] flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
+              <div className="m-1 flex justify-center xl:w-[1033px] lg:w-[781px] bg-[#f5f5f7] " key={data.id}>
                 {ShowData(data, index)}
               </div>
             );
-          }
-        })}
-      </div>}
+          }})}
+          {paginationLoading && <div className="p-4 m-auto">
+          <div className="m-auto" data-visualcompletion="loading-state" style={{ height: '32px', width: '32px' }}>
+            <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
+            </svg>
+          </div>
+        </div>}
+        {/* {!paginationLoading && !hasMore && 
+            <div className="m-auto">
+              <p className="text-center">Woah! You have reached the end</p>
+            </div> } */}
+  </div>}
   </>);
 }
 

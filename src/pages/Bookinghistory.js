@@ -1,6 +1,8 @@
+import react from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useHistory } from 'react-router';
 import fullaxios from '../components/FullAxios';
+import Loading from '../components/Loading';
 
 
 const BookingHistory = () => {
@@ -12,6 +14,7 @@ const BookingHistory = () => {
   const [hasMore, setHasMore] = useState(true);
   const prevDatas = useRef([])
   const observer = useRef()
+  const [realLoading, setRealoading] = useState(true)
 
 
   const lastDataElementRef = useCallback(node => {
@@ -32,23 +35,29 @@ const BookingHistory = () => {
       console.log(res.data)
       setDatas(prev => [...prev, ...res.data])
       prevDatas.current = datas
+      setRealoading(false)
     })
     .catch(err => {
       if (err.response) {
         if (err.response.data.detail === "Invalid page.") {
           setHasMore(false);
         }}
+      console.error(err)
+      setRealoading(false)  
     });
     setLoading(false);
   }, [page])
 
 
   return (
+    <>
+    {realLoading && <Loading/> }
+    {!realLoading &&
     <div className='z-[3] sm:w-[300px] w-[500px]'>
 
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
-         return ( <div ref = {lastDataElementRef} className="" key={data.id}>
+            return ( <div ref = {lastDataElementRef} className="" key={data.id}>
             <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
             {data.trip && <div>{data.trip}</div>}
             {data.query && <div>{data.query}</div>}
@@ -57,8 +66,8 @@ const BookingHistory = () => {
             </div>
           </div>);
           }else {
-              return ( <div className="" key={data.id} >
-            <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
+            return ( <div className="" key={data.id} >
+              <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
             {data.trip && <div>{data.trip}</div>}
             {data.query && <div>{data.query}</div>}
             {data.phoneNumber && <div>{data.phoneNumber}</div>}
@@ -73,6 +82,8 @@ const BookingHistory = () => {
 
 
       </div>
+      }
+      </>
   );
 }
 

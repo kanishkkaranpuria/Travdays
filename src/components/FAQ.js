@@ -2,6 +2,7 @@ import { useEffect,useState,useRef,useCallback } from "react"
 import axios from "axios";
 import { useHistory } from "react-router";
 import fullaxios from "./FullAxios";
+import Loading from "./Loading";
 
 const FAQ = ({isadmin}) => {
     const [answer, setAnswer] = useState({});
@@ -13,6 +14,7 @@ const FAQ = ({isadmin}) => {
     const [answerstatus, setAnswerstatus] = useState({})
     const [deleted, setDeleted] = useState(false)
     const history = useHistory();
+    const [realLoading, setRealLoading] = useState(true)
 
 
 
@@ -50,6 +52,7 @@ const FAQ = ({isadmin}) => {
         console.log("resresres")
         if (res){
           setFaqs(prev=>[...prev,...res.data])
+          setRealLoading(false)
           console.log(res.data)
           console.log(res)
       }})
@@ -59,6 +62,7 @@ const FAQ = ({isadmin}) => {
           if (err.response.data.detail === "Invalid page.") {
             setHasMore(false);
           }
+          setRealLoading(false)
         }
        } )
         
@@ -132,7 +136,8 @@ const FAQ = ({isadmin}) => {
    
 
     return ( <>
-    {loading ? <div><p>loading...</p></div> :
+    {realLoading && <Loading/> }
+    {!realLoading &&
         <div className="section">
                   <div className=' w-[800px] sm:w-[100%] mx-auto mt-[5%] p-box-shadow-2 rounded-lg h-[80vh] overflow-y-auto p-6 sm:pt-[60px] bg-[#f5f5f7] '>
                 <span className='text-6xl sm:text-xl font-bold sm:p-2 inline-block faq-link'>FAQ</span>

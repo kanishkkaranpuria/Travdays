@@ -446,7 +446,7 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
 
                             <br />
 
-                            <Link to='/packages'>Our Packages:</Link>
+                            <Link to='/trips'>Our Packages:</Link>
 
 
                             <h6>

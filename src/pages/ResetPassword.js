@@ -98,7 +98,7 @@ const ResetPassword = () => {
        <div className="section">
             <div>
             {!page2bool && !page3bool && 
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_email}>
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_email}>
                     <p className="text-4xl sm:text-3xl text-center">Reset Password</p>
                     {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Enter your email:</p >
@@ -116,7 +116,7 @@ const ResetPassword = () => {
             {/* {!page2bool && !page3bool && authStatus && <button type="submit" onClick={submit_email} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Confirm Change Password</button>} */}
 
             {page2bool && !page3bool && 
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_otp}>
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_otp}>
                     <p className="text-4xl sm:text-3xl text-center">Enter Your OTP to Activate Your Account</p>
                     {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Email:</p >
@@ -134,7 +134,7 @@ const ResetPassword = () => {
             }
 
             {!page2bool && page3bool && 
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_password}>
+                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_password}>
                     <p className="text-4xl sm:text-3xl text-center">Enter Your OTP to Activate Your Account</p>
                     <div type="name" className="email flex sm:flex-col items-center">
                         <p className="w-40">Email:</p >
