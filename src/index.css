@@ -51,7 +51,14 @@ html{
   transform: scale(1.02);
   
 }
-  /* edit trips page  */
+
+.galleryhover2{
+  transition: transform 130ms ease-in-out;
+}
+.galleryhover2:hover{
+  transform: scale(1.055);
+}
+/* edit trips page  */
 /* PARAM: */
 /* _______________________$$$$$$$$$$$$
 ___________________$$$$___________$$$$$

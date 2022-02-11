@@ -27,7 +27,7 @@ const Gallery = () => {
   const [gridStyle, setGridStyle] = useState("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
   const [gallerystyle, setGallerystyle] = useState('grid grid-cols-5 md:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] lg:h-[108vh] sm:h-full')
   const [displayPackageStyle, setDisplayPackageStyle] = useState('hidden sm:hidden relative h-[90vh] lg:h-[108vh] sm:h-[50%] sm:rounded-t-[20px]')
-  const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+  const [gridWithPackageStyle, setGridWithPackageStyle] = useState('overflow-hidden min-h-[200px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px] galleryhover2')
   const [paginationLoading, setPaginationLoading] = useState(false)
   const [colSpan, setColSpan] = useState('md:col-span-3 col-span-5')
   const [packageLoading, setPackageLoading] = useState(false)
@@ -37,14 +37,14 @@ const Gallery = () => {
       setGridStyle("gallery bg-[#00000000] sm:h-[90vh] p-box-shadow-2 overflow-hidden rounded-[20px]")
       setGallerystyle("grid grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] lg:h-[108vh] sm:h-full")
       setDisplayPackageStyle('sm:span relative h-[90vh] lg:h-[108vh] w-full sm:h-full sm:rounded-t-[20px] bg-[#f5f5f7] overflow-y-auto')
-      setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+      setGridWithPackageStyle('overflow-hidden min-h-[150px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px] galleryhover2')
       setColSpan('md:col-span-3 col-span-3')
     }
     else {
       setGridStyle("w-full bg-[#00000000] p-box-shadow-2 overflow-hidden rounded-[20px] sm:gallery")
       setGallerystyle("grid grid-cols-5 md:grid-cols-3 overflow-y-auto sm:rounded-none rounded-b-[20px] h-[90vh] lg:h-[108vh] sm:h-full")
       setDisplayPackageStyle('hidden relative h-[90vh] lg:h-[108vh] sm:h-[50%] sm:rounded-t-[20px]')
-      setGridWithPackageStyle('overflow-hidden min-h-[200px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px]')
+      setGridWithPackageStyle('overflow-hidden min-h-[200px] xl:min-h-[250px] md:min-h-[120px] md:max-h-[120px] galleryhover2')
       setColSpan('md:col-span-3 col-span-5')
     }
   }
