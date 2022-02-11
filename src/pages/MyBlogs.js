@@ -91,12 +91,12 @@ const MyBlogs = ({ id, setId }) => {
 
   const displayingAllBlogs = (data, index) => {
     return (
-      <div className="blog-preview-card non-featured v1 relative pb-20">
+      <div onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className="blogg-preview-card non-featured v1 relative pb-20 ">
         <div className="blog-photos overflow-hidden">
-          <img onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='object-cover h-full w-full cursor-pointer' src={data.image} alt="" />
+          <img  className='object-cover h-full w-full cursor-pointer' src={data.image} alt="" />
         </div>
-        <div className='p-8 sm:p-1'>
-          <div className="flex justify-between items-center">
+        <div className='p-8 sm:p-1 aumnormalblog2'>
+          <div className="flex justify-between items-center ">
            {/* <div> */}
            <div>
            <p className='font-semibold sm:text-2xl'>{data.location}</p>
@@ -117,8 +117,8 @@ const MyBlogs = ({ id, setId }) => {
 
             {/* </div> */}
           </div>
-          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl font-bold pt-6 cursor-pointer'>{data.title}</p>
-          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='pt-6 leading-tight text-xl cursor-pointer'>{data.body}</p>
+          <p  className='text-4xl font-bold pt-6 cursor-pointer'>{data.title}</p>
+          <p  className='pt-6 leading-tight text-xl cursor-pointer'>{data.body}</p>
 
         </div>
       </div>
@@ -133,14 +133,14 @@ const MyBlogs = ({ id, setId }) => {
       {allblogs && allblogs.map((data, index) => {
         if (allblogs.length === index + 1) {
           return (
-            <div ref={lastDataElementRef} className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+            <div ref={lastDataElementRef} className="max-w-[1440px] sm:max-w-[580px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center ">
               {displayingAllBlogs(data, index)}
             </div>
           )
         }
         else {
           return (
-            <div className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+            <div className="max-w-[1440px] sm:max-w-[580px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center ">
               {displayingAllBlogs(data, index)}
             </div>
           )

@@ -78,6 +78,45 @@ html{
 }
 .pricehover:hover{
   transform: scale(1.25);
+
+}
+
+/* myboogssss stylinggggggg */
+
+
+.blogg-preview-card {
+  /* max-width: 205px;
+  height: 245px; */
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  background-image: none;
+  /* background-image: url(https://picsum.photos/200/300);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; */
+  border-radius: 20px;
+  overflow: hidden;
+}
+.blogg-preview-card.non-featured.v1{
+  background-color: var(--primary);
+  grid-template-columns: 30% 70%;
+  /* margin: 1rem; */
+  width: 500px;
+  height: 350px;
+}
+
+.blogg-preview-card.featured > .bg {
+  z-index: -2;
+}
+
+
+.blogg-preview-card.non-featured{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  padding: 0;
+  height: 500px;
+  min-width: 100%;
+  background-image: none;
 }
 /* edit trips page  */
 /* PARAM: */
@@ -189,6 +228,9 @@ ______$$$$$$$$$$$$$$$$ */
   clear: both;
   display: table;
 }
+
+
+
 /* soryyyyyyyyyyyyyy param */
 
 
