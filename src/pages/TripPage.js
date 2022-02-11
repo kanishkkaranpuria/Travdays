@@ -790,7 +790,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                 </div>
                                 {/* <div style={{ color:"black", borderTop: "2px solid #fff ", marginLeft: 20, marginRight: 20 }}></div> */}
                                 {/* <p></p> */}
-                                <p className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug'><span>{infoObject.description}</span></p>
+                               {infoObject && <p className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug'><span>{infoObject.description}</span></p>}
                                 <br />
                                 <br />
                                 <br />

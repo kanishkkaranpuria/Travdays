@@ -129,7 +129,7 @@ const MyBlogs = ({ id, setId }) => {
     <>
     {realLoading && <Loading />}
     {!realLoading &&
-    <div className="blog relative pt-[60px] w-full">
+    <div className="blog relative  pt-[60px] w-full">
       {allblogs && allblogs.map((data, index) => {
         if (allblogs.length === index + 1) {
           return (
@@ -147,8 +147,15 @@ const MyBlogs = ({ id, setId }) => {
           
         }
       })}
+      
+    {!loading && !hasmore && 
+            <div className="m-auto p-4">
+              <p className="text-center">Woah! You have reached the end</p>
+            </div> }
     </div>
     }
+    
+    
     </>
   );
 }

@@ -126,7 +126,7 @@ function App() {
 
   return (
     <Router>
-        <div className="App">
+        <div className="App ">
         {!preLoading && error && <UndefinedError /> }
         {!preLoading && !error && <>
         <img className='w-[100vw] fixed z-[0] opacity-[30%]' src={BgImg1} alt=''/>

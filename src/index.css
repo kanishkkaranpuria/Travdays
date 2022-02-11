@@ -6,6 +6,7 @@ html{
   overflow-y: overlay;
   width: 100vw;
 }
+
 :root{
   --primary:#F7F7F5;
   --secondary-1:#FFA914;
@@ -23,8 +24,12 @@ html{
   background-color: rgba(0,0,0,0.5);
   z-index: -9999;
 }
+.aumbutton{
+  background-color: #057779;
+  color: #D4F571;
+}
 .aumbutton:hover{
-  background-color: #2f5510;
+  background-color: #105b5f;
 }
 .aumeditblog:hover{
 
@@ -59,13 +64,20 @@ html{
   transform: scale(1.035);
 }
 .galleryhover3{
-overflow: hidden;
+  overflow: hidden;
 }
 
 .mobilecross{
   position: fixed;
   top: 0;
   right: 0;
+}
+
+.pricehover{
+  transition: transform 100ms ease-in-out;
+}
+.pricehover:hover{
+  transform: scale(1.25);
 }
 /* edit trips page  */
 /* PARAM: */

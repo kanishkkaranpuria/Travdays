@@ -75,7 +75,9 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
                             <NavLink  onClick={hideMenu} className='p-4 text-xl' to='/resetpassword'><h4>Reset password</h4></NavLink>
                             <NavLink onClick={hideMenu}  className='p-4 text-xl' to='/myblogs'><h4> My Blogs</h4></NavLink>
                </>:<>
-               <div onClick={hideMenu} className="p-8 text-5xl mobilecross">x</div>
+               <div onClick={hideMenu} className="p-6 text-5xl mobilecross">
+                     <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+               </div>
                <Link onClick={hideMenu} className='p-6 text-3xl' to='/'>TravDays</Link>
                 {/* <Link className='p-4 text-xl' to='/IndivisualBlogPage'>indi-blog</Link> */}
                 <Link  onClick={hideMenu} className='p-4 text-xl' to='/trips'>Packages</Link>

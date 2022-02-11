@@ -432,12 +432,12 @@ const AllTrips = () => {
           <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter") { fetchSearchedDataFromBackend(e.target.value) } }} />
           <button className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext !== null) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
           <div className="flex right-0">
-            <button className="flex m-2 aumbutton" onClick={priceAscending} type="button">
+            <button className="flex m-2 pricehover" onClick={priceAscending} type="button">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 13l-5 5m0 0l-5-5m5 5V6" />
               </svg>
               <span className="sm:hidden">Price</span></button>
-            <button className="flex m-2 aumbutton" onClick={priceDescending} type="button">
+            <button className="flex m-2 pricehover" onClick={priceDescending} type="button">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 11l5-5m0 0l5 5m-5-5v12" />
               </svg>
