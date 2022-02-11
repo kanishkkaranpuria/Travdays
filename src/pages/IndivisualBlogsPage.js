@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, } from "react";
+import { useState, useEffect, useRef, useCallback, useLayoutEffect, } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 // import {browserHistory} from 'react-router'
@@ -66,6 +66,10 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
     })
     if (node) observer.current.observe(node)
   }, [loading, hasmore])
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  },[]);
 
   useEffect(() => {
     console.log(id)
@@ -440,7 +444,6 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
             {iblogdata[keyName].slice(0, -4)}
           </div>
         }
-        <br />
         {iblogdata[keyName].slice(-3,) === "img" && <img className="mx-auto rounded-[20px]" src={iblogdata[keyName].slice(0, -4)} alt="" />}
         {iblogdata[keyName].slice(0, 11) === "data:image/" && <img className="mx-auto rounded-[20px]" src={iblogdata[keyName].slice(0, -4)} />}
       </div>
@@ -458,9 +461,9 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
     {realLoading && <Loading/>}
     {!realLoading &&
     <div className='section'>
-      {iblogdata && <div className="max-w-[1440px] mx-auto px-8 py-2 w-full flex flex-col justify-center">
+      {iblogdata && <div className="max-w-[1440px] mx-auto px-8 md:px-0 py-2 w-full flex flex-col justify-center">
         <div className="blog-preview-card relative ">
-          <div className=' sm:p-1'>
+          <div className=' sm:p-2'>
             <div className="flex justify-between items-center mb-20">
               <div className="flex flex-col">
                 {isadmin && <div>
@@ -524,19 +527,19 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
               </div>
             </div>
 
-            <span className=' pl-10 font-bold my-10 text-4xl'>{title}</span>
+            <span className=' pl-8  md:pl-0 font-bold my-10 text-4xl'>{title}</span>
 
-            <p className='px-8 py-2 pt-3 leading-tight text-xl'> {Object.keys(iblogdata).map((keyName, i) => {
+            <p className='px-8 md:px-0 py-2 pt-3 leading-tight text-xl'> {Object.keys(iblogdata).map((keyName, i) => {
               if (Object.keys(iblogdata).length === i + 1) {
                 return (
-                  <div ref={lastDataElementRef} className="">
+                  <div ref={lastDataElementRef} className="py-4">
                     {FullBlog(keyName, i)}
                   </div>
                 )
               }
               else {
                 return (
-                  <div className="">
+                  <div className="py-4">
                     {FullBlog(keyName, i)}
 
                   </div>
