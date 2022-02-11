@@ -621,14 +621,14 @@ const Trip = ({ isAuth, isadmin }) => {
                                 }
 
                             </div>
-                            <div className='w-full overflow-y-hidden overflow-x-scroll mx-auto flex pt-4 lg:hidden' style={{scrollSnapType: 'x mandatory'}}>
+                            <div className='w-full overflow-y-hidden overflow-x-scroll mx-auto flex lg:hidden snap-x snap-mandatory' style={{scrollSnapType: 'x mandatory'}}>
                                 {
                                     mediaObject && mediaObject.map((data, element) => (
                                         <>
                                                     {console.log(typeof data.video)}
                                                     {console.log("ugh", data.video)}
-                                                    {data.image && !videoLoading && (data.video === false) && <img className='w-full md:h-[300px] min-w-full h-[600px] object-cover rounded-lg fade-anim' style={{scrollSnapAlign: 'center'}} src={data.image} />}
-                                                    {data.video && !videoLoading && (typeof data.video !== "boolean") && <video controlsList="nodownload" className='min-w-full md:h-[300px] h-[600px] object-cover rounded-lg'  style={{scrollSnapAlign: 'center'}} controls src={data.video} alt='' width='100%' />}
+                                                    {data.image && !videoLoading && (data.video === false) && <img className='w-full md:h-[300px] min-w-full h-[600px] object-cover rounded-3xl fade-anim px-10 pb-4' style={{scrollSnapAlign: 'center', scrollSnapStop: 'always'}} src={data.image} />}
+                                                    {data.video && !videoLoading && (typeof data.video !== "boolean") && <video controlsList="nodownload" className='min-w-full md:h-[300px] h-[600px] object-cover rounded-lg'  style={{scrollSnapAlign: 'center', scrollSnapStop: 'always'}} controls src={data.video} alt='' width='100%' />}
                                                     {videoLoading &&
                                                         <div className="p-auto m-auto h-full">
                                                             <div className="m-auto h-full flex justify-center" data-visualcompletion="loading-state" style={{ width: '32px' }}>
@@ -643,7 +643,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                 }
 
                             </div>
-                            <div className=' flex flex-col col-span-2 w-[90%]'>
+                            <div className=' flex flex-col col-span-2 w-[90%] md:w-full'>
                                 {function () {
                                     reviewStars = Object.assign(calculation(infoObject, reviewStars))
                                 }()}
@@ -698,13 +698,13 @@ const Trip = ({ isAuth, isadmin }) => {
                                     {/* {locimg && <video controlsList="nodownload" controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
                                     {isadmin && <button className='m-2 p-2 w-28 sm:w-32 sm:m-1 font-semibold absolute top-14 right-10 bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/' + infoObject.name + '/' + infoObject.id) }}>Edit Trip</button>}
 
-                                    <p className='text-3xl mb-3 flex font-semibold'>
+                                    <p className='text-3xl md:text-2xl mb-3 flex font-semibold'>
                                         <span className=''>{infoObject.name}</span>
                                         {/* {console.log(infoObject)} */}
 
                                         {/* <span className='flex text-lg items-center text-center ml-auto '>({infoObject.type})</span> */}
                                     </p>
-                                    {rating && <p className='flex text-2xl items-center text-center pr-1'><span className="pr-2">{rating.ratings}</span>
+                                    {rating && <p className='flex text-2xl  md:text-xl items-center text-center pr-1'><span className="pr-2">{rating.ratings}</span>
                                         <div className="stars flex" >
 
 
@@ -748,7 +748,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                     </p>}
                                     <hr className="border mt-1" />
                                     {/* <p className='flex text-2xl items-center text-center '><span>₹{infoObject.price}</span></p> */}
-                                    <p className='flex text-2xl items-center text-center pt-10'><span>₹52,300</span></p>
+                                    <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center pt-10'><span>₹52,300</span></p>
                                     {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
                                     {/* <p className='flex py-4 text-xl whitespace-pre-line'><span>{infoObject.description}</span></p> */}
                                     <div>
