@@ -461,10 +461,10 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
     {realLoading && <Loading/>}
     {!realLoading &&
     <div className='section'>
-      {iblogdata && <div className="max-w-[1440px] mx-auto px-8 md:px-0 py-2 w-full flex flex-col justify-center">
+      {iblogdata && <div className="max-w-[1440px] mx-auto md:px-0 w-full flex flex-col justify-center p-2"  style={{zoom: '80%'}}>
         <div className="blog-preview-card relative ">
           <div className=' sm:p-2'>
-            <div className="flex justify-between items-center mb-20">
+            <div className="flex justify-between items-center mb-10">
               <div className="flex flex-col">
                 {isadmin && <div>
                   {approved ? <button onClick={(() => { Approve(false) })} className=' sm:mx-auto m-2 text-2xl  w-40 bg-white-500 font-semibold rounded-lg '>Approve:&#9745;</button> :
