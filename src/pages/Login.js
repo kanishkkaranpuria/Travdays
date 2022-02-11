@@ -97,13 +97,13 @@ const Login = ({setIsauthenticated,isopen,setIsopen}) => {
             })
     }
     return (
-        <div className="bg-white w-[100%] h-[91vh] z-[10] flex loginpageflex justify-evenly items-center">
+        <div className="bg-white w-[100%] z-[10] flex loginpageflex justify-evenly items-center">
             <div className="flex flex-col m-2 loginpageshit loginpage">
                 <p className=" text-8xl loginpagetext1 text-[rgb(4,108,109)]">Travdays </p>
                 <p className=" pt-5 text-4xl loginpagetext2 sm:hidden">Your dream holiday is just a few clicks away.</p>
             </div>
             <div className="m-2 loginpage sm:w-full">
-                {!otploginbool && !otppagebool && !registrationPage && <div className="flex flex-col mt-20 loginpagemargin min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
+                {!otploginbool && !otppagebool && !registrationPage && <div className="flex flex-col mt-15 loginpagemargin min-h-[500px] mx-auto max-w-[1000px] items-center p-box-shadow-2 rounded-2xl justify-evenly">
                         <p className="text-4xl text-center">Log In</p>
                     <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 items-center justify-evenly" onSubmit={submit_details}>
                         <div type="email" className="email flex items-center">
@@ -115,13 +115,13 @@ const Login = ({setIsauthenticated,isopen,setIsopen}) => {
                             <input placeholder="Password" className="bg-white rounded-md mt-0" required type="password" onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         {error && <p className=" text-red-600 pb-2">{error}</p>}
-                        <div className="flex items-center">
+                        <div className="flex items-center pb-2">
                             <button type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Log In</button>
                             {showLoading ? <img className="ml-2" src="/image/vF9DX0rAdyp.gif" alt="" /> : null}
                         </div>
-
+                        <button type="button" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md" onClick={changeboolvalue}>Log In via OTP</button>
                     </form>
-                        <p className="text-blue-500 hover:underline cursor-pointer mt-4" onClick={changeboolvalue}>Forgot Password? Login via OTP</p>
+                        <Link to = "/resetpassword" className="text-blue-500 hover:underline cursor-pointer mt-4">Forgot Password?</Link>
                     <div className="flex flex-col items-center">
                         <p >New to Travdays?</p>
                         {/* <Link to="/register"> */}

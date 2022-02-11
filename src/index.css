@@ -558,7 +558,13 @@ transition: all 200ms ease-in-out;
 }
 
 /* ***************************************Login Page Styles */
+@media only screen and (min-width: 910px) {
 
+  .loginpageflex{
+    height: 91vh;
+  }
+
+}
 @media only screen and (max-width: 910px) {
   
   .loginpageflex{
@@ -566,7 +572,7 @@ transition: all 200ms ease-in-out;
     flex-direction: column;
   }
   .loginpageshit{
-    margin-top: 5rem;
+    margin-top: 1rem;
     justify-content: center;
     align-items: center;
   }

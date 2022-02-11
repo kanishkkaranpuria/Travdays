@@ -12,7 +12,7 @@ const AllTrips = () => {
 
   const { type } = useParams();
   var object = useMemo(() => { return { "type": type } }, [type])
-  console.log("object")
+  // console.log("object")
   // var object = {"type":type};
   const [globalUrl, setGlobalUrl] = useState('');
   const [datas, setDatas] = useState([]);
@@ -30,7 +30,7 @@ const AllTrips = () => {
   const observer = useRef()
   const [paginationLoading, setPaginationLoading] = useState(false)
 
-  
+
   const [error, setError] = useState(false)
   const [realLoading, setRealLoading] = useState(true)
   const [sorted, setSorted] = useState();
@@ -43,7 +43,7 @@ const AllTrips = () => {
     setHasMore(true)
     setGlobalUrl('')
   }, [type])
-  console.log(object)
+  // console.log(object)
 
   const priceAscending = () => {
     if ("sort" in object) object["sort"] = "price"
@@ -70,7 +70,7 @@ const AllTrips = () => {
   }
 
   const lastDataElementRef = useCallback(node => {
-    console.log('last element')
+    // console.log('last element')
     if (loading) return
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(entries => {
@@ -87,7 +87,7 @@ const AllTrips = () => {
   //   }, [searchtext])
 
   useEffect(() => {
-    console.log("i was here")
+    // console.log("i was here")
     // setLoading1(true)
     setPaginationLoading(true)
     if (searchtext === "" || searchtext === null) {
@@ -96,7 +96,7 @@ const AllTrips = () => {
           if (res) {
             setDatas(prev => [...prev, ...res.data])
             console.log(res.data)
-            console.log(object)
+            // console.log(object)
             prevDatas.current = datas
             setLoading1(false)
             setLoading(false)
@@ -108,17 +108,14 @@ const AllTrips = () => {
         .catch(err => {
           if (err.response) {
             if (err.response.data.detail === "Invalid page.") {
-              console.log("sethasmore")
+              // console.log("sethasmore")
               setHasMore(false);
             }
             else if (typeof (err.response) === "undefined") {
-              console.log("this should work goddamit")
+              // console.log("this should work goddamit")
               setError(true)
             }
-            else
-            {
-              setError(true)
-            }
+            // setError(true)
             setRealLoading(false)
             setPaginationLoading(false)
 
@@ -132,7 +129,7 @@ const AllTrips = () => {
           if (res) {
             setDatas(prev => [...prev, ...res.data])
             console.log(res.data)
-            console.log(object)
+            // console.log(object)
             prevDatas.current = datas
             setLoading1(false)
             setRealLoading(false)
@@ -146,10 +143,10 @@ const AllTrips = () => {
               setHasMore(false);
             }
             if (typeof (err.response) === "undefined") {
-              console.log("this should work goddamit")
+              // console.log("this should work goddamit")
               setError(true)
             }
-            setError(true)
+            // setError(true)
             setRealLoading(false)
             setPaginationLoading(false)
             // setLoading(false)
@@ -236,6 +233,7 @@ const AllTrips = () => {
 
   const fetchSearchedDataFromBackend = (searchtexts) => {
     console.log("this works everytime")
+    console.log("searchtexts", "this")
     setSearchtext(searchtexts)
     setAumSearchtext(searchtext)
     setHasMore(true)
@@ -254,7 +252,7 @@ const AllTrips = () => {
   function calculation(data) {
     // var star = "url(#full)";
     for (let i = 1; i < 6; i++) {
-      console.log(data.ratings)
+      // console.log(data.ratings)
       var ratings = parseFloat(data.ratings)
       if (ratings >= i) {
         allstars = Object.assign(allstars, { [i]: "url(#full)" })
@@ -264,28 +262,31 @@ const AllTrips = () => {
       // }
       else if (ratings < i && ratings > (i - 1)) {
         percentage = ((parseFloat(ratings) - i + 1) * 100)
-        console.log(ratings)
-        console.log(percentage)
+        // console.log(ratings)
+        // console.log(percentage)
         percentage = percentage.toFixed()
-        console.log(percentage)
+        // console.log(percentage)
         percentage = percentage.toString() + "%"
-        console.log(percentage)
+        // console.log(percentage)
         // percentage = "30%"
         allstars = Object.assign(allstars, { [i]: "url(#partial)" })
       }
       else {
         allstars = Object.assign(allstars, { [i]: "url(#empty)" })
       }
-      console.log(allstars)
-      console.log(percentage)
+      // console.log(allstars)
+      // console.log(percentage)
       // allstars[1] = "url(#full)"
       // allstars[2] = "url(#partial)"
     }
   }
 
+  useEffect(() => {
+    // console.log("searchtext",searchtext)
+    // console.log("searchtext",typeof searchtext)
+  }, [searchtext])
 
 
- 
 
 
   const ShowData = (data, index) => {
@@ -339,7 +340,7 @@ const AllTrips = () => {
                     <defs>
                       <linearGradient id="partial" x1="0" x2="100%" y1="0" y2="0">
                         <stop offset="0" stop-color="#F3C117"></stop>
-                        {console.log(percentage)}
+                        {/* {console.log(percentage)} */}
                         <stop offset={percentage} stop-color="#F3C117"></stop>
                         <stop offset={percentage} stop-color="#E8E8E8"></stop>
                         <stop offset="1" stop-color="#E8E8E8"></stop>
@@ -414,19 +415,22 @@ const AllTrips = () => {
   }
 
 
-  return (<>
+  return (
+  <>
     {realLoading && <Loading />}
     {!realLoading && error && <UndefinedError />}
     {/* {realLoading &&  } */}
     {!realLoading && !error &&
       // <div className='section relative flex flex-col  items-center pt-6'>
-      <div className='section trips pt-20 md:pt-20 '>
+      <div className='section'> 
+        {/* //the trips class  consists of all the grid logic */}
         {/* <svg xmlns="http://www.w3.org/2000/svg" className="z-[5] h-16 w-16 fixed bottom-16 right-16 md:right-4 hidden sm:block " viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
       </svg> */}
-        <div id='searchbar' className="  top-[60px] sm:top-[48px] md:top-[48px] z-[4]  rounded-[20px]  flex w-[800px] sm:w-full md:w-full justify-center items-center">
-          <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) { fetchSearchedDataFromBackend(e.target.value) } }} />
-          <button  className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
+      <div className="flex justify-center" style={{ backgroundColor: 'transparent'}}>
+        <div id='searchbar' className="top-[60px] sm:top-[48px] md:top-[48px] z-[4]  rounded-[20px]  flex w-[800px] sm:w-full md:w-full justify-center items-center">
+          <input type="text" className="w-1/2 mx-2 sm:w-full" placeholder=" Search...." onChange={(e) => { setSearchtext(e.target.value); }} onKeyDown={(e) => { if (e.key === "Enter") { fetchSearchedDataFromBackend(e.target.value) } }} />
+          <button className=' sm:mx-auto p-2 w-20 bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { if (searchtext !== null) fetchSearchedDataFromBackend(searchtext) }}> Search </button>
           <div className="flex right-0">
             <button className="flex m-2 aumbutton" onClick={priceAscending} type="button">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -453,7 +457,10 @@ const AllTrips = () => {
 
 
         </div>
+      </div>
 
+
+        <div className="trips mr-2">
 
         {datas && datas.map((data, index) => {
           if (datas.length === index + 1) {
@@ -468,18 +475,20 @@ const AllTrips = () => {
                 {ShowData(data, index)}
               </div>
             );
-          }})}
-          {paginationLoading && <div className="p-4 m-auto">
+          }
+        })}
+        {paginationLoading && <div className="p-4 m-auto">
           <div className="m-auto" data-visualcompletion="loading-state" style={{ height: '32px', width: '32px' }}>
             <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
             </svg>
           </div>
         </div>}
+        </div>
         {/* {!paginationLoading && !hasMore && 
             <div className="m-auto">
               <p className="text-center">Woah! You have reached the end</p>
             </div> } */}
-  </div>}
+      </div>}
   </>);
 }
 

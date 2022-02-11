@@ -66,6 +66,23 @@ function App() {
   const [error, setError] = useState(false)
   //modall varialble
   const [isopen,setIsopen] = useState(false);
+
+  const [profiledata, setProfiledata] = useState([])
+  const [igotdata, setIgotdata] = useState(null);
+
+
+  useEffect(() => {
+        fullaxios({ url: 'userinfo/info', type: 'get' })
+            .then(res => {
+                    setProfiledata(res.data)
+                    setIgotdata(true)
+            })
+            .catch(res => {
+                setIgotdata(false)
+                console.log(res)
+            })
+    }, [isauthenticated,namechanged])
+
   useEffect(() => {
     fullaxios({url: 'userinfo/status'})
       .then((res) => {
@@ -117,7 +134,7 @@ function App() {
         <img className='w-[100vw] fixed z-[0] opacity-[15%]' src={BgImg3} alt=''/>
 
 
-        <Navbar  namechanged={namechanged} isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated} setIsopen={setIsopen} isopen={isopen} />
+        <Navbar  namechanged={namechanged} isauthenticated = {isauthenticated} setIsadmin={setIsadmin} setIsauthenticated = {setIsauthenticated} setIsopen={setIsopen} isopen={isopen} igotdata={igotdata} setIgotdata={setIgotdata} profiledata={profiledata} setProfiledata={setProfiledata} />
         <div className="berger hidden w-full md:flex items-center justify-between md:fixed top-0  p-2 z-[5] bg-gray-400 opacity-80" >
           {/* <img className='h-10' src={logo} alt=""/> */}
           <Link to='/'><p className='text-lg'>TravDays</p></Link>
@@ -164,7 +181,7 @@ function App() {
 
             <Route exact path="/myblogs">{ isauthenticated?  <MyBlogs /> : <NotLoggedIn /> } </Route>
 
-            <Route exact path="/resetpassword"> { isauthenticated? <ResetPassword /> : <ResetPassword/> } </Route>
+            <Route exact path="/resetpassword"> <ResetPassword /> </Route>
 
             <Route exact path="/bookings"> { isauthenticated? <BookingHistory />   : <NotLoggedIn /> }</Route>
 

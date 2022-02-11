@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import fullaxios from "../components/FullAxios";
 import { useParams } from "react-router";
 import { useHistory } from 'react-router'
@@ -6,7 +6,6 @@ import { useState, useRef, useCallback } from "react";
 import { useEffect } from "react";
 import Loading from "../components/Loading";
 import UndefinedError from "../components/FetchErrorHandling/UndefinedError";
-
 
 const Trip = ({ isAuth, isadmin }) => {
 
@@ -24,6 +23,7 @@ const Trip = ({ isAuth, isadmin }) => {
     const [hasMoreMedia, setHasMoreMedia] = useState(true) // A state to make the code realise that all the images have been recieved.
     const [pageMedia, setPageMedia] = useState(3) //page number of the media requested
     const [tempNumber, setTempNumber] = useState(1) //page number of the media requested
+    const [videoLoading, setVideoLoading] = useState(false)
 
     const [backToDisplay, setBackToDisplay] = useState(false) // to come back from book now feature
 
@@ -50,6 +50,10 @@ const Trip = ({ isAuth, isadmin }) => {
     const [error, setError] = useState(false)
     const [paginationLoading, setPaginationLoading] = useState(false)
     const [displayImage, setDisplayImage] = useState(0)
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0)
+    },[]);
 
     useEffect(() => {
         setIsbooking(false);
@@ -444,7 +448,29 @@ const Trip = ({ isAuth, isadmin }) => {
     //     x.classList.remove('translate-y-full');
     //     x.classList.add('translate-y-2');
     // }, [])
-    const changeMainMedia = (element) => {
+    const changeMainMedia = (element, mediaObject) => {
+        if (mediaObject[element].video === true) {
+            setVideoLoading(true)
+            fullaxios({ url: 'trip/singlevideo/' + mediaObject[element].id })
+                .then(res => {
+                    if (res) {
+                        console.log("hereaa", res.data[0].video)
+                        console.log("hereaa", res.data.video)
+                        let tempMedia = mediaObject
+                        tempMedia[element].video = res.data[0].video
+                        setMediaObject(tempMedia)
+                        console.log("hereaa", tempMedia)
+                        setVideoLoading(false)
+                        // setDisplayImage(element)
+                    }
+
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+
+        }
+
         setDisplayImage(element)
         let highlited = document.getElementsByClassName("highlight")
         highlited[0].classList.remove('highlight')
@@ -469,10 +495,8 @@ const Trip = ({ isAuth, isadmin }) => {
                                         // console.log("here affff", tempNumber, element)
                                         return (
                                             <div className="singleMedia" >
-                                                {data.image && element === 0 && <img id={`element${element}`} className='w-full highlight max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element)} src={data.image} />}
-                                                {data.video && element === 0 && <video id={`element${element}`} className='w-full highlight max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element)} src={data.video} alt='' width='100%' />}
-                                                {data.image && element !== 0 && <img id={`element${element}`} className='w-full max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element)} src={data.image} />}
-                                                {data.video && element !== 0 && <video id={`element${element}`} className='w-full max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element)} src={data.video} alt='' width='100%' />}
+                                                {data.image && element === 0 && <img id={`element${element}`} className='w-full highlight max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element, mediaObject)} src={data.image} />}
+                                                {data.image && element !== 0 && <img id={`element${element}`} className='w-full max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element, mediaObject)} src={data.image} />}
                                             </div>
                                         )
                                     }
@@ -489,8 +513,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                         // console.log("here affff", tempNumber, element)
                                         return (
                                             <div className="singleMedia" >
-                                                {data.image && <img id={`element${element}`} className='w-full max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element)} src={data.image} />}
-                                                {data.video && <video id={`element${element}`} className='w-full max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element)} src={data.video} alt='' width='100%' />}
+                                                {data.image && <img id={`element${element}`} className='w-full max-w-[60px] h-[90px] mb-2 object-cover cursor-pointer rounded-md' onClick={() => changeMainMedia(element, mediaObject)} src={data.image} />}
                                             </div>
                                         )
                                     }
@@ -541,12 +564,12 @@ const Trip = ({ isAuth, isadmin }) => {
                     {/* {console.log(loading)} */}
                     {console.log(loadingdone2)}
                     {console.log(loadingdone3)}
-                    {loadingdone2 && loadingdone3 && <div className='mx-auto sm:overflow-y-auto '>
+                    {loadingdone2 && loadingdone3 && <div className='mx-auto '>
                         {console.log("this should not work", infoObject)}
                         {console.log("hasmore", hasMore)}
-                        {!isbooking && <div className=" w-full pt-10  grid grid-cols-5 sm:grid-cols-1 sm:grid-rows-[500px,500px] ">
+                        {!isbooking && <div className=" w-full pt-10 lg:grid  lg:grid-cols-5">
                             {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
-                            <div className="w-1/3 h-[600px] mx-auto flex flex-col justify-center items-center">
+                            <div className="w-1/3 h-[600px] mx-auto flex flex-col justify-center items-center md:hidden">
                                 <svg id="body_1" width="51" height="38" onClick={scrollUpMedia} className="cursor-pointer">
 
                                     <g transform="matrix(0.5 0 0 0.49350652 0 0)">
@@ -573,20 +596,52 @@ const Trip = ({ isAuth, isadmin }) => {
                                 </svg>
                             </div>
                             {/* <button onClick={MediaPagination}>backup</button> */}
-                            <div className=' col-start-2 col-span-2 xl:w-5/6 w-[95%] sm:rounded-none sm:h-[85vh]'>
-
+                            <div className=' lg:col-start-2 lg:col-span-2 xl:w-5/6 lg:w-[95%] md:hidden'>
                                 {
                                     mediaObject && mediaObject.map((data, element) => (
                                         <>
                                             {(element === displayImage) &&
-                                                <div className="flex flow-col justify-center items-center" >
-                                                    {data.image && <img className='w-full h-[600px] object-cover rounded-lg fade-anim' src={data.image} />}
-                                                    {data.video && <video controlsList="nodownload" className='w-full h-[600px] object-cover rounded-lg' controls src={data.video} alt='' width='100%' />}
+                                                <div className="flex flow-col justify-center items-center h-full" >
+                                                    {console.log(typeof data.video)}
+                                                    {console.log("ugh", data.video)}
+                                                    {data.image && !videoLoading && (data.video === false) && <img className='w-full md:h-[300px] h-[600px] object-cover rounded-lg fade-anim' src={data.image} />}
+                                                    {data.video && !videoLoading && (typeof data.video !== "boolean") && <video controlsList="nodownload" className='w-full md:h-[300px] h-[600px] object-cover rounded-lg' controls src={data.video} alt='' width='100%' />}
+                                                    {videoLoading &&
+                                                        <div className="p-auto m-auto h-full">
+                                                            <div className="m-auto h-full flex justify-center" data-visualcompletion="loading-state" style={{ width: '32px' }}>
+                                                                <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 </div>}
                                         </>
                                     )
                                     )
                                 }
+
+                            </div>
+                            <div className='w-full overflow-y-hidden overflow-x-scroll mx-auto flex pt-4 lg:hidden' style={{scrollSnapType: 'x mandatory'}}>
+                                {
+                                    mediaObject && mediaObject.map((data, element) => (
+                                        <>
+                                                    {console.log(typeof data.video)}
+                                                    {console.log("ugh", data.video)}
+                                                    {data.image && !videoLoading && (data.video === false) && <img className='w-full md:h-[300px] min-w-full h-[600px] object-cover rounded-lg fade-anim' style={{scrollSnapAlign: 'center'}} src={data.image} />}
+                                                    {data.video && !videoLoading && (typeof data.video !== "boolean") && <video controlsList="nodownload" className='min-w-full md:h-[300px] h-[600px] object-cover rounded-lg'  style={{scrollSnapAlign: 'center'}} controls src={data.video} alt='' width='100%' />}
+                                                    {videoLoading &&
+                                                        <div className="p-auto m-auto h-full">
+                                                            <div className="m-auto h-full flex justify-center" data-visualcompletion="loading-state" style={{ width: '32px' }}>
+                                                                <svg aria-label="Loading..." className="pagination-loading" viewBox="0 0 100 100"><rect fill="#555555" height={6} opacity={0} rx={3} ry={3} transform="rotate(-90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.08333333333333333" rx={3} ry={3} transform="rotate(-60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.16666666666666666" rx={3} ry={3} transform="rotate(-30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.25" rx={3} ry={3} transform="rotate(0 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.3333333333333333" rx={3} ry={3} transform="rotate(30 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.4166666666666667" rx={3} ry={3} transform="rotate(60 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5" rx={3} ry={3} transform="rotate(90 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.5833333333333334" rx={3} ry={3} transform="rotate(120 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.6666666666666666" rx={3} ry={3} transform="rotate(150 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.75" rx={3} ry={3} transform="rotate(180 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.8333333333333334" rx={3} ry={3} transform="rotate(210 50 50)" width={25} x={72} y={47} /><rect fill="#555555" height={6} opacity="0.9166666666666666" rx={3} ry={3} transform="rotate(240 50 50)" width={25} x={72} y={47} />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                        </>
+                                    )
+                                    )
+                                }
+
                             </div>
                             <div className=' flex flex-col col-span-2 w-[90%]'>
                                 {function () {
@@ -727,7 +782,7 @@ const Trip = ({ isAuth, isadmin }) => {
                         {/* <hr className="bg-black opacity-100 mt-5 mx-auto w-5/6" /> */}
 
                         <div className="w-full flex flex-col justify-center items-center">
-                            <div className="flex flex-col justify-center items-center w-5/6 mt-10">
+                            <div className="flex flex-col justify-center items-center w-5/6 md:w-full mt-10">
                                 <div className="flex w-full items-center">
                                     <hr className="bg-black opacity-100  mx-auto w-2/5" />
                                     <p className="text-2xl font-medium mx-4 whitespace-nowrap">Detailed Description</p>
@@ -735,7 +790,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                 </div>
                                 {/* <div style={{ color:"black", borderTop: "2px solid #fff ", marginLeft: 20, marginRight: 20 }}></div> */}
                                 {/* <p></p> */}
-                                <p className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug	'><span>{infoObject.description}</span></p>
+                                <p className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug'><span>{infoObject.description}</span></p>
                                 <br />
                                 <br />
                                 <br />
@@ -743,13 +798,13 @@ const Trip = ({ isAuth, isadmin }) => {
                         </div>
 
                         <div className="w-full flex flex-col justify-center items-center">
-                            <div className="flex flex-col justify-center items-center w-5/6">
+                            <div className="flex flex-col justify-center items-center w-5/6 md:w-full">
                                 <div className="flex w-full items-center my-4">
                                     <hr className="bg-black opacity-100  mx-auto w-2/5" />
                                     <p className="text-2xl font-medium mx-4 ">Reviews</p>
                                     <hr className="bg-black opacity-100 mx-auto w-2/5" />
                                 </div>
-                                <div className='px-20 pb-12 w-full'>
+                                <div className='lg:px-20 pb-12 w-full'>
 
                                     {/* <span className='flex text-3xl mb-6'>Reviews</span> */}
 

@@ -8,27 +8,14 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 import Logoutmodal from "./Logoutmodal";
 
-const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated }) => {
+const Navbar = ({  namechanged ,isauthenticated, setIsadmin, setIsauthenticated, igotdata, setIgotdata, profiledata, setProfiledata }) => {
 
     // const activeNavbarStyle = {fontWeight: "500", backgroundColor : "#00000033"};
     const history = useHistory();
-    const [profiledata, setProfiledata] = useState([])
-    const [igotdata, setIgotdata] = useState(false);
-//modallll
-const [isopen, setIsopen] = useState(false);
+    //modallll
+    const [isopen, setIsopen] = useState(false);
 
-
-    useEffect(() => {
-        fullaxios({ url: 'userinfo/info', type: 'get' })
-            .then(res => {
-                    setProfiledata(res.data)
-                    setIgotdata(true)
-            })
-            .catch(res => {
-                console.log(res)
-            })
-    }, [isauthenticated,namechanged])
-
+    
 
     let lastScroll = 0
     let location = useLocation();
@@ -120,7 +107,14 @@ const [isopen, setIsopen] = useState(false);
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/gallery' >Gallery</NavLink>
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/contactus' >Contact Us</NavLink>
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/faq' >FAQ</NavLink>
-
+                {console.log("here af",typeof isauthenticated)}
+                {console.log("here af",isauthenticated)}
+                {console.log("here af",typeof igotdata)}
+                {console.log("here af",igotdata)}
+                {typeof igotdata !== "boolean" ? <>
+                <span className=' items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus'>Loading...</span>
+                </>
+                :<>
                 {isauthenticated && igotdata ? <>
                     <span className='packages btn flex items-center h-full text-lg relative'>
                         <span className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus cursor-pointer'>Hello {profiledata.navbarname}</span>
@@ -134,6 +128,8 @@ const [isopen, setIsopen] = useState(false);
                     </span>
                    </> :
                     <NavLink className=' items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/login' >Login</NavLink>}
+                </>
+                    }
                 <NavLink className=' items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='' >Our AI Coming Soon</NavLink>
             </nav>
             <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Proccess complete" p1="You have been logged out" p2="" />
