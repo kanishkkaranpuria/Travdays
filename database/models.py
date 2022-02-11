@@ -284,11 +284,18 @@ class WhitelistedTokens(models.Model):
         verbose_name_plural = 'Whitelisted Tokens'
 
 class Otp(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='otp')
-    otp = models.IntegerField(null=True,blank=True)
+    user       = models.OneToOneField(User, on_delete=models.CASCADE, related_name='otp')
+    otp        = models.IntegerField(null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.otp)
+
+    def save(self, *args, **kwargs):
+        deltaTime = datetime.now().astimezone() - timedelta(days=0,hours=0,minutes=3)
+        qs = Otp.objects.filter(created_at__lt=deltaTime)
+        qs.delete()
+        super(Otp, self).save(*args, **kwargs)
 
 class Temp(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='temp')

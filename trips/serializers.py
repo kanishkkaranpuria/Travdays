@@ -68,6 +68,20 @@ class SingleTripMediaDisplaySerializer(serializers.ModelSerializer):
             return False
         return True
 
+class MobileViewSingleTripMediaDisplaySerializer(serializers.ModelSerializer):
+
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AdminMedia
+        fields = ['id', 'image','video']
+
+    def get_image(self,obj):
+        request = self.context.get('request')
+        if obj.video == '' or obj.video == None:
+            return request.build_absolute_uri(obj.image.url)
+        return None
+
 class SingleMediaDisplaySerializer(serializers.ModelSerializer):
 
     class Meta:
