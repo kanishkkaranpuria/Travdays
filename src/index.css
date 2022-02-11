@@ -56,7 +56,10 @@ html{
   transition: transform 130ms ease-in-out;
 }
 .galleryhover2:hover{
-  transform: scale(1.055);
+  transform: scale(1.035);
+}
+.galleryhover3{
+overflow: hidden;
 }
 /* edit trips page  */
 /* PARAM: */
