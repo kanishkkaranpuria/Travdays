@@ -292,7 +292,7 @@ class Otp(models.Model):
         return str(self.otp)
 
     def save(self, *args, **kwargs):
-        deltaTime = datetime.now().astimezone() - timedelta(days=0,hours=0,minutes=3)
+        deltaTime = datetime.now().astimezone() - timedelta(days=0,hours=1)
         qs = Otp.objects.filter(created_at__lt=deltaTime)
         qs.delete()
         super(Otp, self).save(*args, **kwargs)
