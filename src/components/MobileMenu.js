@@ -67,12 +67,15 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
         
             <nav className="flex flex-col w-full h-full items-center justify-center">
                {profile ? <> 
+
+                
                 <NavLink  onClick={()=>{Profile(false)}} className='p-4 text-xl' to='/'><h4 className=""> Go back </h4></NavLink>
                 <NavLink onClick={hideMenu} className='p-4 text-xl' to='/changename'><h4>Change Name</h4></NavLink>
                             <NavLink onClick={hideMenu} className='p-4 text-xl' to='/bookings'><h4>Bookings</h4></NavLink>
                             <NavLink  onClick={hideMenu} className='p-4 text-xl' to='/resetpassword'><h4>Reset password</h4></NavLink>
                             <NavLink onClick={hideMenu}  className='p-4 text-xl' to='/myblogs'><h4> My Blogs</h4></NavLink>
                </>:<>
+               <div onClick={hideMenu} className="p-8 text-3xl mobilecross">X</div>
                <Link onClick={hideMenu} className='p-6 text-3xl' to='/'>TravDays</Link>
                 {/* <Link className='p-4 text-xl' to='/IndivisualBlogPage'>indi-blog</Link> */}
                 <Link  onClick={hideMenu} className='p-4 text-xl' to='/trips'>Packages</Link>

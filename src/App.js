@@ -47,8 +47,8 @@ import Logoutmodal from './components/Logoutmodal';
 
 const showMenu = () => {
   document.getElementById('mobile-menu').style.transform = "translateY(0%)";
-  document.getElementById('show-menu-btn').style.display = 'none';
-  document.getElementById('hide-menu-btn').style.display = 'flex';
+  document.getElementById('show-menu-btn').style.display = 'flex';
+  document.getElementById('hide-menu-btn').style.display = 'none';
 
 }
 const hideMenu = () => {
@@ -141,7 +141,7 @@ function App() {
           <svg xmlns="http://www.w3.org/2000/svg" id='show-menu-btn' className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={showMenu}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-          <svg xmlns="http://www.w3.org/2000/svg" id='hide-menu-btn' className="h-8 w-8 hidden" fill="none" viewBox="0 0 24 24" stroke="black" onClick={hideMenu}>
+          <svg xmlns="http://www.w3.org/2000/svg" id='hide-menu-btn' className="h-8 w-8 hidden  " fill="none" viewBox="0 0 24 24" stroke="black" onClick={hideMenu}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
 

@@ -61,6 +61,12 @@ html{
 .galleryhover3{
 overflow: hidden;
 }
+
+.mobilecross{
+  position: fixed;
+  top: 0;
+  right: 0;
+}
 /* edit trips page  */
 /* PARAM: */
 /* _______________________$$$$$$$$$$$$
