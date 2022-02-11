@@ -75,7 +75,7 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
                             <NavLink  onClick={hideMenu} className='p-4 text-xl' to='/resetpassword'><h4>Reset password</h4></NavLink>
                             <NavLink onClick={hideMenu}  className='p-4 text-xl' to='/myblogs'><h4> My Blogs</h4></NavLink>
                </>:<>
-               <div onClick={hideMenu} className="p-8 text-3xl mobilecross">X</div>
+               <div onClick={hideMenu} className="p-8 text-5xl mobilecross">x</div>
                <Link onClick={hideMenu} className='p-6 text-3xl' to='/'>TravDays</Link>
                 {/* <Link className='p-4 text-xl' to='/IndivisualBlogPage'>indi-blog</Link> */}
                 <Link  onClick={hideMenu} className='p-4 text-xl' to='/trips'>Packages</Link>

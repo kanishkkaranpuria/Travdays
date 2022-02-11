@@ -496,6 +496,7 @@ const Edittrips  = () => {
                                     <span className='w-52'>Enter Trip price</span>
                                     <div className="mr-2">
                                         <p>₹</p>
+                                        {console.log("what is this",exdata)}
                                     <input className="mt-0" required type="number" placeholder = "Price" defaultValue={exdata.price} onChange={(e) => setPrice(e.target.value)} />
                                     </div>
                                     {/* {displayalert && <p className=' sm:absolute sm:bottom-0 sm:right-0 sm:px-0 px-2 text-sm text-red-500'>number must contain 10 digits</p>} */}
