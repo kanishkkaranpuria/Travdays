@@ -69,7 +69,7 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
                {profile ? <> 
 
                 
-                <NavLink  onClick={()=>{Profile(false)}} className='p-4 text-xl' to='/'><h4 className=""> Go back </h4></NavLink>
+                <div onClick={()=>{Profile(false)}} className='p-4 text-xl' ><h4 className=""> Go back </h4></div>
                 <NavLink onClick={hideMenu} className='p-4 text-xl' to='/changename'><h4>Change Name</h4></NavLink>
                             <NavLink onClick={hideMenu} className='p-4 text-xl' to='/bookings'><h4>Bookings</h4></NavLink>
                             <NavLink  onClick={hideMenu} className='p-4 text-xl' to='/resetpassword'><h4>Reset password</h4></NavLink>
