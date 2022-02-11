@@ -59,12 +59,26 @@ html{
 
 .galleryhover2{
   transition: transform 130ms ease-in-out;
+  position: relative;
+
 }
 .galleryhover2:hover{
   transform: scale(1.035);
 }
 .galleryhover3{
   overflow: hidden;
+}
+
+.galleryimage{
+  display: block;
+}
+/* gallery play botton for video */
+
+.gallerycontainer2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .mobilecross{
@@ -118,6 +132,9 @@ html{
   min-width: 100%;
   background-image: none;
 }
+
+
+
 /* edit trips page  */
 /* PARAM: */
 /* _______________________$$$$$$$$$$$$

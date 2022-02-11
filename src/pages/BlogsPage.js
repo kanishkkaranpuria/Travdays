@@ -162,6 +162,7 @@ const Blogs = ({ id, setId }) => {
           <div className="flex sm:flex-col sm:items-start justify-between items-center">
             <p className='font-semibold sm:text-2xl'>{data.location}</p>
             <p className='font-semibold sm:text-2xl'>{data.created}</p>
+          
             {/* <p className='flex text-2xl items-center h-6'>x.x 
                           <span className='flex h-6'>
                     

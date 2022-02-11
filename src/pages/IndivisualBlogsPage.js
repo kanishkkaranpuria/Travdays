@@ -188,8 +188,9 @@ const IndivisualBlogPage = ({ isadmin ,isauthenticated}) => {
   //like 
 
   const Like = (likke) => {
+    // console.log("whatt",likke)
+    console.log("whatt",isauthenticated)
     if(isauthenticated){
-      console.log(likke)
       if (likke === true) {
         setLiked(true)
         setDisliked(false)

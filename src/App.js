@@ -168,7 +168,7 @@ function App() {
 
             <Route exact path="/faq"> <FAQ isadmin={isadmin} /> </Route>
 
-            <Route exact path="/blogs/:title/:id"> <IndivisualBlogPage isadmin={isadmin} isAuth={isauthenticated} /> </Route>
+            <Route exact path="/blogs/:title/:id"> <IndivisualBlogPage isadmin={isadmin} isauthenticated={isauthenticated} /> </Route>
 
 
             <Route exact path="/logout"> { isauthenticated? <Logout />  : <NotLoggedIn /> }</Route>

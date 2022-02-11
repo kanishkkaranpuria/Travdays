@@ -157,8 +157,29 @@ const Gallery = () => {
   const AllImagesDisplay = (data) => {
     return (
       <>
-        {data.image && <img src={data.image} onClick={() => { showPackage(true); Selected(data) }} alt="" className="object-cover h-full lg:p-1 xl:p-2  lg:rounded-2xl w-full cursor-pointer" />}
-        {data.video && < video src={data.video} onClick={() => { showPackage(true); Selected(data) }} alt="" className="object-cover h-full lg:p-1 xl:p-2 lg:rounded-2xl w-full cursor-pointer" />}
+        {data.image && data.video===true &&<>
+        <img src={data.image} onClick={() => { showPackage(true); Selected(data) }} alt="" className="object-cover h-full lg:p-1 xl:p-2  lg:rounded-2xl w-full cursor-pointer galleryimage" />
+        <div className="gallerycontainer2">
+              <svg xmlns="http://www.w3.org/2000/svg" id="body_1" width="82" height="62">
+
+          <g transform="matrix(0.8039216 0 0 0.8051948 0 0)">
+              <g transform="matrix(0.07700001 0 0 0.07700001 12.499999 -0)">
+                  <g>
+                      <g>
+                          <path d="M500 10C 229.4 10 10 229.4 10 500C 10 770.6 229.4 990 500 990C 770.6 990 990 770.6 990 500C 990 229.40002 770.6 10 500 10zM316.3 745L316.3 255L745 500L316.3 745z" stroke="none" fill="#000000" fill-rule="nonzero" />
+          </g>
+                  </g>
+              </g>
+          </g>
+      </svg> 
+
+        </div>
+        </>}
+        {data.image &&  data.video===false && <>
+        
+          <img src={data.image} onClick={() => { showPackage(true); Selected(data) }} alt="" className="object-cover h-full lg:p-1 xl:p-2  lg:rounded-2xl w-full cursor-pointer" />
+
+      </>}
       </>
     );
   }
