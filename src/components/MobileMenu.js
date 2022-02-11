@@ -69,7 +69,17 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
                {profile ? <> 
 
                 
-                <div onClick={()=>{Profile(false)}} className='p-4 text-xl' ><h4 className=""> Go back </h4></div>
+                <div onClick={()=>{Profile(false)}} className='p-4 text-xl' >
+                <svg xmlns="http://www.w3.org/2000/svg"  id="body_1" className="absolute top-21 left-8 cursor-pointer " width="51" height="38">
+                            <g transform="matrix(0.5 0 0 0.49350652 0 0)">
+                                <g transform="matrix(0.07700001 0 0 0.07700001 12.499999 -0)">
+                                    <g>
+                                        <path d="M188.6 453.3L504.9 137L373 137L10 500L373 863L504.9 863L189.2 547.3L990 547.3L990 546.6L990 453.89996L990 453.19995L188.6 453.19995L188.6 453.3z" stroke="none" fill="#FFFFFF" fill-rule="nonzero" />
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                </div>
                 <NavLink onClick={hideMenu} className='p-4 text-xl' to='/changename'><h4>Change Name</h4></NavLink>
                             <NavLink onClick={hideMenu} className='p-4 text-xl' to='/bookings'><h4>Bookings</h4></NavLink>
                             <NavLink  onClick={hideMenu} className='p-4 text-xl' to='/resetpassword'><h4>Reset password</h4></NavLink>
