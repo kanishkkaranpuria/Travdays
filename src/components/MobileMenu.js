@@ -10,7 +10,7 @@ import Logoutmodal from "./Logoutmodal";
 import logo from '../pages/images/TravDays_logos/transparent_logo.png'
 const hideMenu = ()=>{
     
-    document.getElementById('mobile-menu').style.transform='translateY(-100%)';
+    document.getElementById('mobile-menu').style.transform='translateY(-200%)';
     document.getElementById('hide-menu-btn').style.display='none';
     document.getElementById('show-menu-btn').style.display='flex';
 }
