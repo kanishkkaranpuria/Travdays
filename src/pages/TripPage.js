@@ -783,11 +783,11 @@ const Trip = ({ isAuth, isadmin }) => {
 
                         <div className="w-full flex flex-col justify-center items-center">
                             <div className="flex flex-col justify-center items-center w-5/6 md:w-full mt-10">
-                                <div className="flex w-full items-center">
+                                {!isbooking&&<div className="flex w-full items-center">
                                     <hr className="bg-black opacity-100  mx-auto w-2/5" />
                                     <p className="text-2xl font-medium mx-4 whitespace-nowrap">Detailed Description</p>
                                     <hr className="bg-black opacity-100 mx-auto w-2/5" />
-                                </div>
+                                </div>}
                                 {/* <div style={{ color:"black", borderTop: "2px solid #fff ", marginLeft: 20, marginRight: 20 }}></div> */}
                                 {/* <p></p> */}
                                {infoObject && <p className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug'><span>{infoObject.description}</span></p>}
@@ -799,11 +799,11 @@ const Trip = ({ isAuth, isadmin }) => {
 
                         <div className="w-full flex flex-col justify-center items-center">
                             <div className="flex flex-col justify-center items-center w-5/6 md:w-full">
-                                <div className="flex w-full items-center my-4">
+                                {!isbooking&&<div className="flex w-full items-center my-4">
                                     <hr className="bg-black opacity-100  mx-auto w-2/5" />
                                     <p className="text-2xl font-medium mx-4 ">Reviews</p>
                                     <hr className="bg-black opacity-100 mx-auto w-2/5" />
-                                </div>
+                                </div>}
                                 <div className='lg:px-20 pb-12 w-full'>
 
                                     {/* <span className='flex text-3xl mb-6'>Reviews</span> */}
@@ -904,7 +904,15 @@ const Trip = ({ isAuth, isadmin }) => {
 
                         {
                             isAuth && isbooking && <div className="flex flex-col justify-center items-center">
+                                    
+                                    <div className="flex w-full items-center my-4">
+                                        <hr className="bg-black opacity-100  mx-auto w-2/5" />
+                                        <p className="text-2xl font-medium mx-4 ">Booking for Trip:</p>
+                                        <hr className="bg-black opacity-100 mx-auto w-2/5" />
+                                    </div>
                                 <form className="flex flex-col" onSubmit={submitBooking}>
+
+
                                     <label className="flex items-center justify-center">
                                         Enter your query:
                                         <input placeholder='enter your query, if any' onChange={(e) => { setBookingQuery(e.target.value) }} />
