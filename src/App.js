@@ -170,7 +170,6 @@ function App() {
 
             <Route exact path="/blogs/:title/:id"> <IndivisualBlogPage isadmin={isadmin} isauthenticated={isauthenticated} /> </Route>
 
-
             <Route exact path="/logout"> { isauthenticated? <Logout />  : <NotLoggedIn /> }</Route>
 
             <Route exact path="/changename"> { isauthenticated? <Profilepage setNamechanged={setNamechanged} />  : <NotLoggedIn /> }</Route>

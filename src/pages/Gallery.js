@@ -160,20 +160,10 @@ const Gallery = () => {
         {data.image && data.video===true &&<>
         <img src={data.image} onClick={() => { showPackage(true); Selected(data) }} alt="" className="object-cover h-full lg:p-1 xl:p-2  lg:rounded-2xl w-full cursor-pointer galleryimage" />
         <div className="gallerycontainer2">
-              <svg xmlns="http://www.w3.org/2000/svg" id="body_1" width="82" height="62">
-
-          <g transform="matrix(0.8039216 0 0 0.8051948 0 0)">
-              <g transform="matrix(0.07700001 0 0 0.07700001 12.499999 -0)">
-                  <g>
-                      <g>
-                          <path d="M500 10C 229.4 10 10 229.4 10 500C 10 770.6 229.4 990 500 990C 770.6 990 990 770.6 990 500C 990 229.40002 770.6 10 500 10zM316.3 745L316.3 255L745 500L316.3 745z" stroke="none" fill="#000000" fill-rule="nonzero" />
-          </g>
-                  </g>
-              </g>
-          </g>
-      </svg> 
+        <svg className='bg-black rounded-full' aria-label="Video" class="_8-yf5 edmGD" color="#ffffff" fill="#ffffff" height="60" role="img" viewBox="-9 -8 40 40" width="60"><path d="M5.888 22.5a3.46 3.46 0 01-1.721-.46l-.003-.002a3.451 3.451 0 01-1.72-2.982V4.943a3.445 3.445 0 015.163-2.987l12.226 7.059a3.444 3.444 0 01-.001 5.967l-12.22 7.056a3.462 3.462 0 01-1.724.462z"></path></svg>
 
         </div>
+        
         </>}
         {data.image &&  data.video===false && <>
         
