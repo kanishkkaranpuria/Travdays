@@ -89,7 +89,10 @@ const ResetPassword = () => {
                 if(!authStatus){
                     history.push("/login")
                 }else{
-                    history.push("/")
+                    setIsopen(true)
+                    setTimeout(() => {
+                        history.push("/")
+                    }, 2000);
                 }
             })
     }
@@ -151,6 +154,8 @@ const ResetPassword = () => {
 
                     <div className=" ">
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
+                        <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Password reseted" p1="Your new password has been updated to the database" p2="" />
+
                     </div>
                 </form>
             }
