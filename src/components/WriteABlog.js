@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import fullaxios from "./FullAxios";
 import TextareaAutosize from "react-textarea-autosize"
 import { useHistory } from "react-router";
+import Logoutmodal from "./Logoutmodal";
+
 // var temp = null;
 const WriteABlog = () => {
 
@@ -56,6 +58,12 @@ const WriteABlog = () => {
     const [previewdisplayImage, setPreviewdisplayImage] = useState(null)
     const [anonymous, setAnonymous] = useState(false)
     const [bloglocation, setBloglocation] = useState(null)
+    ///modalll
+    const [isopen, setIsopen] = useState(false);
+    const [p1, setP1 ]= useState("")
+    const [heading, setHeading] = useState("")
+
+
     // console.log(temp.current)
     // useEffect(() => {
     //     console.log(title, content)
@@ -433,11 +441,17 @@ const WriteABlog = () => {
                 // }
             }
             else {
-                alert("the maximum number of images in one blog is 8")
-            }
+                setIsopen(true);
+                setHeading("Max number reached")
+                setP1("The maximum number of images in one blog is 8")
+            // alert("the maximum number of images in one blog is 8")
         }
-        else {
-            alert("you can't add any format other than image")
+    }
+    else  {
+        setIsopen(true);
+        setHeading("Select a proper format")
+        setP1("You can't add any format other than image")
+        // alert("you can't add any format other than image")
         }
     }
 
@@ -553,7 +567,10 @@ const WriteABlog = () => {
             }
             catch (e) {
                 console.log("This is the maximum data you can add in a blog, either replace the photos with lower quality photos or decrease the number of photos");
-                alert("This is the maximum data you can add in a blog, either replace the photos with lower quality photos or decrease the number of photos");
+                setIsopen(true);
+                setHeading("Max data limit reached")
+                setP1("This is the maximum data you can add in a blog, either replace the photos with lower quality photos or decrease the number of photos")
+
                 // fires When localstorage gets full
                 // you can handle error here or empty the local storage
             }
@@ -648,7 +665,10 @@ const WriteABlog = () => {
             setDisplayImage(selected);
         }
         else {
-            alert("you can't add any format other than image")
+            setIsopen(true)
+            setHeading("Select valid format")
+            setP1("You can't add any format other than image")
+            // alert("you can't add any format other than image")
         }
     }
     const ActuallyPublishingtheBlog = () => {
@@ -680,6 +700,8 @@ const WriteABlog = () => {
                     <button className="p-2 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold" onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
                     <button className="p-2 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold" onClick={() => { submitBlog() }}>Publish Now</button>
                 </div>
+                <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />
+
             </div>
             </div>
         )
@@ -777,7 +799,12 @@ const WriteABlog = () => {
                         console.log(res)
                         console.log(res.data)
                         localStorage.clear()
-                        history.push('/myblogs')
+                        setIsopen(true)
+                        setHeading("Response Submited")
+                        setP1("New Blog has been created")
+                        setTimeout(() => {
+                            history.push('/myblogs')
+                        }, 2000);
                     }
                 })
                 .catch(err => {
@@ -785,7 +812,10 @@ const WriteABlog = () => {
                 })
         }
         else {
-            alert("You need to add the Title, some Data, the Display Image and the Blog Location before you submit the blog.")
+            setIsopen(true)
+            setHeading("Fill the requirements")
+            setP1("You need to add the Title, some Data, the Display Image and the Blog Location before you submit the blog.")
+            // alert("")
         }
     }
     var lmao;
@@ -883,6 +913,7 @@ const WriteABlog = () => {
                             <div className="p-8">
                             {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
                     {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={() => { clearBlog() }}>Clear Blog</button>}
+                    <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />
 
                             </div>
                 </div>

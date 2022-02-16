@@ -2,14 +2,16 @@ import fullaxios from "../components/FullAxios"
 import { useState, useEffect } from "react"
 import { useHistory } from "react-router";
 import { Link } from 'react-router-dom';
-
+import Logoutmodal from "../components/Logoutmodal";
 const Profilepage = ({setNamechanged}) => {
     const [profiledata, setProfiledata] = useState([])
     const [name, setName] = useState('')
     const [changeNameBool, setChangeNameBool] = useState(false)
     const history = useHistory()
-//modalllll
-
+      //modallllll
+      const [isopen, setIsopen] = useState(false);
+    
+  
 
     useEffect(() => {
         fullaxios({ url: 'userinfo/info', type: 'get' })
@@ -32,9 +34,10 @@ const Profilepage = ({setNamechanged}) => {
             .then(res => {
                 setNamechanged(prev=>prev+1)
                 console.log(res.data)
-                alert("name changed succesfully")
-
-                history.push('/')
+                setIsopen(true)
+                setTimeout(() => {
+                    history.push('/')
+                }, 2000);
                 setChangeNameBool(false);
 
             })
@@ -60,6 +63,8 @@ const Profilepage = ({setNamechanged}) => {
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>
                 </div>
             </form>
+            <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg="Change successful" p1="Your name has been changed successfully" p2="" />
+            
         </div>
                 // </div>
     );

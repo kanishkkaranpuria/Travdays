@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import fullaxios from "../components/FullAxios";
 import TextareaAutosize from "react-textarea-autosize"
 import { useHistory } from "react-router";
-// var temp = null;
+import Logoutmodal from "../components/Logoutmodal";
 import { useLocation } from "react-router-dom";
 const EditBlogsPage = (props) => {
 
@@ -110,6 +110,11 @@ const EditBlogsPage = (props) => {
     const [previewdisplayImage, setPreviewdisplayImage] = useState(data.image)
     const [anonymous, setAnonymous] = useState(false)
     const [bloglocation, setBloglocation] = useState(data.location)
+    //modallllll
+    const [isopen, setIsopen] = useState(false);
+    const [p1, setP1 ]= useState("")
+    const [heading, setHeading] = useState("")
+
     // console.log(temp.current)
     // useEffect(() => {
     //     console.log(title, content)
@@ -489,11 +494,17 @@ const EditBlogsPage = (props) => {
                 // }
             }
             else {
-                alert("the maximum number of images in one blog is 8")
+                setIsopen(true);
+                setHeading("Max number reached")
+                setP1("The maximum number of images in one blog is 8")
+                // alert("the maximum number of images in one blog is 8")
             }
         }
         else {
-            alert("you can't add any format other than image")
+            setIsopen(true);
+            setHeading("Select a proper format")
+            setP1("You can't add any format other than image")
+            // alert("you can't add any format other than image")
         }
     }
 
@@ -667,7 +678,10 @@ const EditBlogsPage = (props) => {
             setDisplayImage(selected);
         }
         else {
-            alert("you can't add any format other than image")
+            setIsopen(true)
+            setHeading("Select valid format")
+            setP1("You can't add any format other than image")
+            // alert("you can't add any format other than image")
         }
     }
     const ActuallyPublishingtheBlog = () => {
@@ -698,6 +712,8 @@ const EditBlogsPage = (props) => {
                     <button className="p-3 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto  hover:bg-blue-700 text-white font-bold " onClick={() => { setPublishblog(false); setWriteblog(true); }}>Go Back</button>
                     <button className="p-3 w-1/3 bg-blue-500 font-semibold rounded-lg sm:mx-auto    hover:bg-blue-700 text-white font-bold " onClick={() => { submitBlog() }}>Publish Now</button>
                 </div>
+                <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />
+
             </div>
         )
 
@@ -797,6 +813,9 @@ const EditBlogsPage = (props) => {
                     if (res) {
                         console.log(res)
                         console.log(res.data)
+                        setIsopen(true)
+                        setHeading("Response Submitted")
+                        setP1("Your blog has been edited")
                         history.push('/myblogs')
                     }
                 })
@@ -805,7 +824,9 @@ const EditBlogsPage = (props) => {
                 })
         }
         else {
-            alert("You need to add the Title, some Data, the Display Image and the Blog Location before you submit the blog.")
+            setIsopen(true)
+            setHeading("Fill the requirements")
+            setP1("You need to add the Title, some Data, the Display Image and the Blog Location before you submit the blog.")
         }
     }
     var lmao;
@@ -900,6 +921,7 @@ const EditBlogsPage = (props) => {
                 {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                 {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
                 {numberOfAllDatas && <button className='p-2 px-8 mx-auto bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
+                <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />
 
             </div>
         );

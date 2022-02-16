@@ -6,6 +6,7 @@ import { useState, useRef, useCallback } from "react";
 import { useEffect } from "react";
 import Loading from "../components/Loading";
 import UndefinedError from "../components/FetchErrorHandling/UndefinedError";
+import Logoutmodal from "../components/Logoutmodal";
 
 const Trip = ({ isAuth, isadmin }) => {
 
@@ -50,6 +51,12 @@ const Trip = ({ isAuth, isadmin }) => {
     const [error, setError] = useState(false)
     const [paginationLoading, setPaginationLoading] = useState(false)
     const [displayImage, setDisplayImage] = useState(0)
+
+    //modallllll
+      const [isopen, setIsopen] = useState(false);
+      const [p1, setP1 ]= useState("")
+      const [heading, setHeading] = useState("")
+  
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0)
@@ -237,7 +244,9 @@ const Trip = ({ isAuth, isadmin }) => {
             setIsbooking(true);
         }
         else {
-            alert("You have to sign in to book the website")
+            setIsopen(true)
+            setHeading("Sign in please")
+            setP1("You have to sign in to book any trip")
         }
     }
 
@@ -253,18 +262,24 @@ const Trip = ({ isAuth, isadmin }) => {
                 }
             })
                 .then(res => {
-                    console.log(res.data)
-                    console.log('review submitted')
-                    history.push(`/trip/${name}`)
-                    setReviewObject([])
-                    setPage1(prev => prev + 1)
-                    setHasMore(true)
-                    setErrorForEmptySubmission(false)
-                    setUserGivenDescription("")
-                    setUserGivenStars(0)
-                    if (page === 1) { if (refetch === true) { setRefetch(false) } else { setRefetch(true) } }
-                    else { setPage(1) }
-                    alert('Review submitted')
+                    setTimeout(() => {
+                        console.log(res.data)
+                        console.log('review submitted')
+                        history.push(`/trip/${name}`)
+                        setReviewObject([])
+                        setPage1(prev => prev + 1)
+                        setHasMore(true)
+                        setErrorForEmptySubmission(false)
+                        setUserGivenDescription("")
+                        setUserGivenStars(0)
+                        if (page === 1) { if (refetch === true) { setRefetch(false) } else { setRefetch(true) } }
+                        else { setPage(1) }
+                        
+                    }, 2000);
+                    setIsopen(true)
+                    setHeading("Review submitted")
+                    setP1("Review submitted")
+                    // alert('Review submitted')
                 })
                 .catch(err => {
                     console.log(err)
@@ -764,18 +779,14 @@ const Trip = ({ isAuth, isadmin }) => {
                                     <div className="w-full flex justify-center">
                                         <button className=' sm:mx-auto p-2 w-full bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { booking() }}> BOOK NOW </button>
                                     </div>
+                                    <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />
 
                                 </div>}
 
 
 
 
-                                {
-                                    (isAuth === false) && isbooking &&
-                                    <div>
-                                        {alert('you arent logged in, to make a booking, log in.')}
-                                    </div>
-                                }
+                         
                             </div>
                         </div>}
 
