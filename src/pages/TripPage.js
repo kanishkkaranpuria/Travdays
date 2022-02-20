@@ -770,7 +770,8 @@ const Trip = ({ isAuth, isadmin }) => {
                                         {infoObject.description.length > 250 ?
                                             (
                                                 <p className='py-4 text-lg font-normal whitespace-pre-line leading-snug	'>
-                                                    {`${infoObject.description.substring(0, 250)}...`}
+                                                    {`${infoObject.description.substring(0, 250)}- `}
+                                                    <a href="#detailed-description" className="text-blue-600">read more...</a>
                                                 </p>
                                             ) :
                                             <p>{infoObject.description}</p>
@@ -794,9 +795,13 @@ const Trip = ({ isAuth, isadmin }) => {
 
                         <div className="w-full flex flex-col justify-center items-center">
                             <div className="flex flex-col justify-center items-center w-5/6 md:w-full mt-10">
-                                {!isbooking&&<div className="flex w-full items-center">
-                                    <hr className="bg-black opacity-100  mx-auto w-2/5" />
-                                    <p className="text-2xl font-medium mx-4 whitespace-nowrap">Detailed Description</p>
+                                {
+                                !isbooking&&
+                                <div className="flex w-full items-center">
+                                    <hr id="detailed-description" className="bg-black opacity-100  mx-auto w-2/5" />
+                                    <p className="text-2xl font-medium mx-4 whitespace-nowrap" 
+                                    // id='detailed-description'
+                                    >Detailed Description</p>
                                     <hr className="bg-black opacity-100 mx-auto w-2/5" />
                                 </div>}
                                 {/* <div style={{ color:"black", borderTop: "2px solid #fff ", marginLeft: 20, marginRight: 20 }}></div> */}
@@ -810,7 +815,9 @@ const Trip = ({ isAuth, isadmin }) => {
 
                         <div className="w-full flex flex-col justify-center items-center">
                             <div className="flex flex-col justify-center items-center w-5/6 md:w-full">
-                                {!isbooking&&<div className="flex w-full items-center my-4">
+                                {
+                                !isbooking&&
+                                <div className="flex w-full items-center my-4">
                                     <hr className="bg-black opacity-100  mx-auto w-2/5" />
                                     <p className="text-2xl font-medium mx-4 ">Reviews</p>
                                     <hr className="bg-black opacity-100 mx-auto w-2/5" />
@@ -877,7 +884,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                     }
 
                                     {
-                                        reviewObject && reviewObject.map((data, index) => {
+                                        !isbooking&&reviewObject && reviewObject.map((data, index) => {
                                             if (reviewObject.length === index + 1) {
                                                 return (
                                                     <div ref={lastDataElementRef} className='px-2 my-2'>
@@ -905,7 +912,8 @@ const Trip = ({ isAuth, isadmin }) => {
                                             </div>
                                         </div>
                                     }
-                                    {!paginationLoading && !hasMore &&
+                                    {!paginationLoading && !hasMore && 
+                                    !isbooking&&
                                         <div className="m-auto">
                                             <p className="text-center">Woah! You have reached the end</p>
                                         </div>}
@@ -914,26 +922,30 @@ const Trip = ({ isAuth, isadmin }) => {
                         </div>
 
                         {
-                            isAuth && isbooking && <div className="flex flex-col justify-center items-center">
+                            isAuth && isbooking &&  <div className=" section contact-us"> <div className="flex flex-col justify-center items-center">
                                     
                                     <div className="flex w-full items-center my-4">
                                         <hr className="bg-black opacity-100  mx-auto w-2/5" />
                                         <p className="text-2xl font-medium mx-4 ">Booking for Trip:</p>
                                         <hr className="bg-black opacity-100 mx-auto w-2/5" />
                                     </div>
-                                <form className="flex flex-col" onSubmit={submitBooking}>
+
+                                <form 
+                                // className="flex flex-col"
+                                className='flex flex-col mx-auto max-w-[800px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] sm:p-4 '
+                                onSubmit={submitBooking}>
 
 
-                                    <label className="flex items-center justify-center">
-                                        Enter your query:
+                                    <label className='w-90'>
+                                        Enter your query: <br/>
                                         <input placeholder='enter your query, if any' onChange={(e) => { setBookingQuery(e.target.value) }} />
                                     </label>
-                                    <label className="flex items-center">
-                                        Your Phone number:
+                                    <label className='w-90'>
+                                        Your Phone number: <br/>
                                         <input required type="number" placeholder='enter your phone number' requiredd onChange={(e) => { setPhoneNumber(e.target.value) }} /><br />
                                     </label>
-                                    <label className="flex items-center">
-                                        Your Trip:
+                                    <label className='w-90'>
+                                        Your Trip: <br/>
                                         <input required readOnly value={name} />
                                     </label>
                                     <div className="flex items-center">
@@ -942,7 +954,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                     </div>
                                 </form>
 
-                            </div>}
+                            </div> </div> }
                     </div>}
 
                 </div>}</>
