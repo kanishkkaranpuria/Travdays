@@ -574,8 +574,8 @@ pointer-events: auto;
   box-shadow: 0 3px 6px 0px #00000088 ;
 }
 #mobile-menu{
-transform: translateY(-100%);
-transition: all 200ms ease-in-out;
+transform: translateY(-300%);
+transition: all 800ms ease-in-out;
 }
 
 

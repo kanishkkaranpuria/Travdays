@@ -569,6 +569,13 @@ const Trip = ({ isAuth, isadmin }) => {
             previousSlide.classList.add('translate-y-2');
         }
     }
+     const MoveToDescrition = () =>{
+        let offsetTop  = document.getElementById("detailed description").offsetTop;
+        window.scrollTo({
+            top: offsetTop-100, 
+            behavior: "smooth"
+        });
+     }
     return (
         <>
             {realLoading && <Loading />}
@@ -585,7 +592,7 @@ const Trip = ({ isAuth, isadmin }) => {
                         {!isbooking && <div className=" w-full pt-10 lg:grid  lg:grid-cols-5">
                             {/* <h2><button onClick={() => setLink(`explore`)}>All</button><button onClick={() => setLink(`explore/image`)}>Images</button><button onClick={() => setLink(`explore/audio`)}>Audio</button><button onClick={() => setLink(`explore/video`)}>Video</button></h2> */}
                             <div className="w-1/3 h-[600px] mx-auto flex flex-col justify-center items-center md:hidden">
-                                <svg id="body_1" width="51" height="38" onClick={scrollUpMedia} className="cursor-pointer">
+                                {mediaObject.length > 5 && <svg id="body_1" width="51" height="38" onClick={scrollUpMedia} className="cursor-pointer">
 
                                     <g transform="matrix(0.5 0 0 0.49350652 0 0)">
                                         <g transform="matrix(0.07700001 0 0 0.07700001 12.499999 -0)">
@@ -594,12 +601,12 @@ const Trip = ({ isAuth, isadmin }) => {
                                             </g>
                                         </g>
                                     </g>
-                                </svg>
+                                </svg>}
                                 {console.log(mediaObject.length)}
                                 <div className="h-[500px] w-full items-center overflow-hidden flex flex-col relative">
                                     {displayMedia(mediaObject)}
                                 </div>
-                                <svg id="body_1" width="51" height="38" onClick={() => { MediaPagination(); scrollDownMedia() }} className="rotate-180 cursor-pointer">
+                                {mediaObject.length > 5 && <svg id="body_1" width="51" height="38" onClick={() => { MediaPagination(); scrollDownMedia() }} className="rotate-180 cursor-pointer">
 
                                     <g transform="matrix(0.5 0 0 0.49350652 0 0)">
                                         <g transform="matrix(0.07700001 0 0 0.07700001 12.499999 -0)">
@@ -608,7 +615,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                             </g>
                                         </g>
                                     </g>
-                                </svg>
+                                </svg>}
                             </div>
                             {/* <button onClick={MediaPagination}>backup</button> */}
                             <div className=' lg:col-start-2 lg:col-span-2 xl:w-5/6 lg:w-[95%] md:hidden'>
@@ -762,16 +769,15 @@ const Trip = ({ isAuth, isadmin }) => {
                                         <span className='ml-2 text-md'>| {rating.ratingsCount} Reviews</span>
                                     </p>}
                                     <hr className="border mt-1" />
-                                    {/* <p className='flex text-2xl items-center text-center '><span>₹{infoObject.price}</span></p> */}
-                                    <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center pt-10'><span>₹52,300</span></p>
+                                    <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center pt-10'><span>₹{infoObject.price}</span></p>
+                                    {/* <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center pt-10'><span>₹52,300</span></p> */}
                                     {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
                                     {/* <p className='flex py-4 text-xl whitespace-pre-line'><span>{infoObject.description}</span></p> */}
                                     <div>
                                         {infoObject.description.length > 250 ?
                                             (
                                                 <p className='py-4 text-lg font-normal whitespace-pre-line leading-snug	'>
-                                                    {`${infoObject.description.substring(0, 250)}- `}
-                                                    <a href="#detailed-description" className="text-blue-600">read more...</a>
+                                                    {`${infoObject.description.substring(0, 250)}...`}<a onClick={MoveToDescrition} className="cursor-pointer text-blue-500">know more</a>
                                                 </p>
                                             ) :
                                             <p>{infoObject.description}</p>
@@ -806,7 +812,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                 </div>}
                                 {/* <div style={{ color:"black", borderTop: "2px solid #fff ", marginLeft: 20, marginRight: 20 }}></div> */}
                                 {/* <p></p> */}
-                               {infoObject && <p className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug'><span>{infoObject.description}</span></p>}
+                               {infoObject && <p id="detailed description" className='py-4 mx-4 text-lg font-normal whitespace-pre-line leading-snug'><span>{infoObject.description}</span></p>}
                                 <br />
                                 <br />
                                 <br />

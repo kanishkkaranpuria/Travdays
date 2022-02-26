@@ -287,9 +287,9 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                     <p className="w-full text-8xl sm:text-6xl font-bold tracking-[12px] text-[#D4F571]">Travdays</p>
                 </div>
                 <div className='card-grid sm:py-[20px]  max-w-[800px]'  >
-                    <Link className='' to='/trips/workation'><Card title="Workation" id='one' /></Link>
-                    <Link className='' to='/trips/solo'><Card title="Solo Travel" id='two' /></Link>
-                    <Link className='' to='/trips/pet friendly'><Card title="Pet Friendly" id='three' /></Link>
+                    <Link className='' to='/trips/workation'><Card title="Workation" id='one' src ='/image/workation.jpg'/></Link>
+                    <Link className='' to='/trips/pet friendly'><Card title="Pet Friendly" id='two' src ='/image/petFreindly.jfif'/></Link>
+                    <Link className='' to='/trips/solo'><Card title="Solo Travel" id='three' src= '/image/soloTravel.jpg' /></Link>
                 </div>
                 {/* <div class="swiper mySwiper hidden sm:flex">
                 <div class="swiper-wrapper">

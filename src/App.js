@@ -52,7 +52,7 @@ const showMenu = () => {
 
 }
 const hideMenu = () => {
-  document.getElementById('mobile-menu').style.transform = 'translateY(-200%)';
+  document.getElementById('mobile-menu').style.transform = 'translateY(-300%)';
   document.getElementById('hide-menu-btn').style.display = 'none';
   document.getElementById('show-menu-btn').style.display = 'flex';
 }
