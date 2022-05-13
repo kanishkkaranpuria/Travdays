@@ -70,7 +70,7 @@ const MobileMenu = ({ namechanged ,isauthenticated, setIsadmin, setIsauthenticat
 
                 
                 <div onClick={()=>{Profile(false)}} className='p-4 text-xl' >
-                <svg xmlns="http://www.w3.org/2000/svg"  id="body_1" className="absolute top-21 left-8 cursor-pointer " width="51" height="38">
+                <svg xmlns="http://www.w3.org/2000/svg"  id="body_1" className="absolute top-21 left-8 cursor-pointer " width="38" height="38">
                             <g transform="matrix(0.5 0 0 0.49350652 0 0)">
                                 <g transform="matrix(0.07700001 0 0 0.07700001 12.499999 -0)">
                                     <g>

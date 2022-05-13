@@ -824,7 +824,7 @@ const WriteABlog = () => {
         return (
 
             <div className="section" >
-                <div className='write-a-blog mt-[5%] mx-auto p-box-shadow-2 pt-8 flex flex-col items-center w-2/3 rounded-[20px] md:w-full'>
+                <div className='write-a-blog mt-[5%] mx-auto p-box-shadow-2 pt-8 flex flex-col items-center w-2/3 rounded-[20px] md:w-full sm:min-h-full sm:flex sm:flex-col sm:justify-between'>
                     {/* <p className='text-4xl'>Write a blog</p> */}
 
 
@@ -851,7 +851,7 @@ const WriteABlog = () => {
                     {/* {console.log(numberOfAllDatas)} */}
                     {/* {console.log(alldata)} */}
                     {numberOfAllDatas && alldata.map((data, element) => (
-                        <div className="w-full flex flex-row-reverse items-center relative">
+                        <div className="w-full flex flex-row-reverse items-center relative ">
                             {/* {console.log(image)} */}
                             {/* {console.log(imagepreview[element])} */}
                             {/* <input className='w-full min-h-auto' type="text" value = {content} onChange = {(e) => {createContent(e, element)}} placeholder = "Enter your Blog here..." /> */}
@@ -910,7 +910,7 @@ const WriteABlog = () => {
                     {/* {console.log(element)} */}
                     {/* {numberOfAllDatas && <input style={{ display: 'none' }} name="awesome af" onChange={e => handleImageChange(e, numberOfAllDatas)} ref={inputRef} type="file" accept="image/*" />} */}
                     {/* {numberOfAllDatas && <button className='p-2 w-40 bg-blue-500 font-semibold rounded-lg sm:mx-auto' onClick={onClickFocus}>Gimme media</button>} */}
-                            <div className="p-8 sm:px-0">
+                            <div className="p-8 sm:w-full sm:px-2 sm:flex sm:justify-between ">
                             {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={() => { setPublishblog(true); setWriteblog(false); }}>Publish Blog</button>}
                     {numberOfAllDatas && <button className='p-2 mx-2 px-8 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold' onClick={() => { clearBlog() }}>Clear Blog</button>}
                     <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />

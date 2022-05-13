@@ -91,18 +91,18 @@ const MyBlogs = ({ id, setId }) => {
 
   const displayingAllBlogs = (data, index) => {
     return (
-      <div onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className="blogg-preview-card non-featured v1 relative pb-20 ">
+      <div onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className="blog-preview-card non-featured v1 relative pb-20 ">
         <div className="blog-photos overflow-hidden">
           <img  className='object-cover h-full w-full cursor-pointer' src={data.image} alt="" />
         </div>
-        <div className='p-8 sm:p-1 aumnormalblog2'>
-          <div className="flex justify-between items-center ">
-           {/* <div> */}
-           <div>
-           <p className='font-semibold sm:text-2xl'>{data.location}</p>
-            <p className='font-semibold sm:text-2xl'>{data.created}</p>
+        <div className='p-4 sm:p-1 aumnormalblog2 relative'>
+           <div className="flex lg:w-[300px] sm:w-full justify-between">
+           <p className='font-semibold '>{data.location}</p>
+            <p className='font-semibold '>{data.created}</p>
            </div>
-           <div className="flex space-x-2">
+          <p  className='text-4xl sm:text-2xl font-bold pt-6 cursor-pointer'>{data.title}</p>
+          <p  className=' leading-tight text-xl cursor-pointer sm:overflow-hidden sm:text-[0.90rem] '>{data.body}</p>
+           <div className="flex space-x-2 sm:mt-8 absolute sm:bottom-2 lg:top-2 lg:right-2 ">
              <p className='font-semibold sm:text-2xl'></p>
 
             <button className="p-2 px-8  bg-blue-500  sm:mx-auto aumbutton  font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  " ><Link to={{
@@ -111,14 +111,9 @@ const MyBlogs = ({ id, setId }) => {
                   data:[data]
                 }
               }} >Edit Blog</Link></button>
-            <button className="p-2 px-8  bg-blue-500 font-semibold rounded-lg sm:mx-auto  hover:bg-blue-700 text-white font-bold  " onClick={() => deleteblog(data.id)}>Delete
+            <button className="p-2 px-8  bg-red-500 font-semibold rounded-lg sm:mx-auto  hover:bg-red-700 text-white font-bold  " onClick={() => deleteblog(data.id)}>Delete
             </button>
            </div>
-
-            {/* </div> */}
-          </div>
-          <p  className='text-4xl font-bold pt-6 cursor-pointer'>{data.title}</p>
-          <p  className='pt-6 leading-tight text-xl cursor-pointer'>{data.body}</p>
 
         </div>
       </div>

@@ -99,15 +99,14 @@ const ResetPassword = () => {
     console.log('authStatus',authStatus)
     return (
        <div className="section">
-            <div>
             {!page2bool && !page3bool && 
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_email}>
+                <form className="flex flex-col sm:h-[300px] mx-auto h-[100px] max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 " onSubmit={submit_email}>
                     <p className="text-4xl sm:text-3xl text-center">Reset Password</p>
                     {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Enter your email:</p >
                         <input required type="text" onChange={(e) => setEmail(e.target.value)} />
                     </div>}
-                        {authStatus && <div>An OTP will be sent to your email, Enter it to verify your request</div> }    
+                        {authStatus && <div className="p-4">An OTP will be sent to your email, Enter it to verify your request</div> }    
                     <div className=" ">
                     {authStatus && <button type="submit" onClick={()=>setIsopen(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md"> Gnerate OTP </button>}
                     {!authStatus &&   <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md">Submit</button>}
@@ -119,7 +118,7 @@ const ResetPassword = () => {
             {/* {!page2bool && !page3bool && authStatus && <button type="submit" onClick={submit_email} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  w-20 rounded-full">Confirm Change Password</button>} */}
 
             {page2bool && !page3bool && 
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_otp}>
+                <form className="flex flex-col sm:h-[300px] mx-auto h-[500px] max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 " onSubmit={submit_otp}>
                     <p className="text-4xl sm:text-3xl text-center">Enter Your OTP to Activate Your Account</p>
                     {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Email:</p >
@@ -137,7 +136,7 @@ const ResetPassword = () => {
             }
 
             {!page2bool && page3bool && 
-                <form className="flex flex-col h-full mx-auto max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_password}>
+                <form className="flex flex-col sm:h-[300px] mx-auto h-[500px] max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 " onSubmit={submit_password}>
                     <p className="text-4xl sm:text-3xl text-center">Enter Your OTP to Activate Your Account</p>
                     <div type="name" className="email flex sm:flex-col items-center">
                         <p className="w-40">Email:</p >
@@ -159,7 +158,7 @@ const ResetPassword = () => {
                     </div>
                 </form>
             }
-        </div>
+       
        </div>
     );
 }

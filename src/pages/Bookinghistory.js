@@ -58,20 +58,20 @@ const BookingHistory = () => {
         {datas && datas.map((data, index) => {
           if(datas.length === index+1){
             return ( <div ref = {lastDataElementRef} className="" key={data.id}>
-            <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
-            {data.trip && <div>{data.trip}</div>}
-            {data.query && <div>{data.query}</div>}
-            {data.phoneNumber && <div>{data.phoneNumber}</div>}
-            {data.created && <div>{data.created}</div>}
+             <div className="p-box-shadow-2 rounded-[12px] p-8 my-4 bg-[#f7f7f5] relative">
+            {data.trip && <div className='font-bold text-lg'>{data.trip}</div>}
+            {data.query && <div className='py-4'>{data.query}</div>}
+            {data.phoneNumber && <div className='absolute bottom-2'>Phone No: {data.phoneNumber}</div>}
+            {data.created && <div className='absolute bottom-2 right-4'>{data.created}</div>}
             </div>
           </div>);
           }else {
             return ( <div className="" key={data.id} >
-              <div className="blog-preview-card p-8 my-4 bg-[#f7f7f5] ">
-            {data.trip && <div>{data.trip}</div>}
-            {data.query && <div>{data.query}</div>}
-            {data.phoneNumber && <div>{data.phoneNumber}</div>}
-            {data.created && <div>{data.created}</div>}
+             <div className="p-box-shadow-2 rounded-[12px] p-8 my-4 bg-[#f7f7f5] relative">
+            {data.trip && <div className='font-bold text-lg'>{data.trip}</div>}
+            {data.query && <div className='py-4'>{data.query}</div>}
+            {data.phoneNumber && <div className='absolute bottom-2'>Phone No: {data.phoneNumber}</div>}
+            {data.created && <div className='absolute bottom-2 right-4'>{data.created}</div>}
             </div>
 
           </div>);

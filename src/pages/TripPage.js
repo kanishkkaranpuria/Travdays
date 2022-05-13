@@ -581,7 +581,7 @@ const Trip = ({ isAuth, isadmin }) => {
             {realLoading && <Loading />}
             {!realLoading && error && <UndefinedError />}
             {!realLoading && !error &&
-                <div className="bg-white w-full h-full z-10">
+                <div className="w-full h-full z-10">
                     {/* {console.log("tf")} */}
                     {/* {console.log(loading)} */}
                     {console.log(loadingdone2)}
@@ -718,7 +718,6 @@ const Trip = ({ isAuth, isadmin }) => {
                                     {/* {locimg && <img src={locimg}  alt="" className ="object-cover h-[500px]  w-[750px]"/>}
                                   {locvideo && <video controlsList="nodownload" controls src={locvideo}  alt="" className ="object-cover h-[500px]  w-[750px]"/>} */}
                                     {/* {locimg && <video controlsList="nodownload" controls src={locimg}  alt="" className ="object-cover h-full  w-full"/>} */}
-                                    {isadmin && <button className='m-2 p-2 w-28 sm:w-32 sm:m-1 font-semibold absolute top-14 right-10 bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/' + infoObject.name + '/' + infoObject.id) }}>Edit Trip</button>}
 
                                     <p className='text-3xl md:text-2xl mb-3 flex font-semibold'>
                                         <span className=''>{infoObject.name}</span>
@@ -783,8 +782,9 @@ const Trip = ({ isAuth, isadmin }) => {
                                             <p>{infoObject.description}</p>
                                         }
                                     </div>
-                                    <div className="w-full flex justify-center">
+                                    <div className="w-full justify-center">
                                         <button className=' sm:mx-auto p-2 w-full bg-blue-500 font-semibold rounded-lg  hover:bg-blue-700 text-white font-bold  ' onClick={() => { booking() }}> BOOK NOW </button>
+                                        {isadmin && <button className='mt-2 p-2 w-full font-semibold  bg-[#00000088]  rounded-md' onClick={() => { history.push('/tripedit/' + infoObject.name + '/' + infoObject.id) }}>Edit Trip</button>}
                                     </div>
                                     <Logoutmodal setIsopen={setIsopen} isopen={isopen} headingg={heading} p1={p1} p2="" />
 
@@ -835,7 +835,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                     {
 
                                         reviewCreationBool &&
-                                        <div className="flex flex-col p-6 mb-8 border-1 shadow-xl border-black">
+                                        <div className="flex flex-col p-6 mb-8 border-1 p-box-shadow-2 rounded-[8px] border-black">
                                             <p className="text-lg mb-3 font-medium">Write a Review</p>
                                             <div className="flex cursor-pointer">
 
@@ -893,7 +893,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                         !isbooking&&reviewObject && reviewObject.map((data, index) => {
                                             if (reviewObject.length === index + 1) {
                                                 return (
-                                                    <div ref={lastDataElementRef} className='px-2 my-2'>
+                                                    <div ref={lastDataElementRef} className='px-2 my-2 rounded-[8px] p-box-shadow-2 '>
                                                         {displayReviews(data, index)}
                                                         <hr />
                                                     </div>
@@ -902,7 +902,7 @@ const Trip = ({ isAuth, isadmin }) => {
                                             }
 
                                             else return (
-                                                <div className='px-2 my-2 mb-6'>
+                                                <div className='px-2 my-2 mb-6 rounded-[8px] p-box-shadow-2 '>
                                                     {displayReviews(data, index)}
                                                     <hr />
                                                 </div>
@@ -928,39 +928,40 @@ const Trip = ({ isAuth, isadmin }) => {
                         </div>
 
                         {
-                            isAuth && isbooking &&  <div className=" section contact-us"> <div className="flex flex-col justify-center items-center">
+                            isAuth && isbooking &&  <div className="section">
                                     
-                                    <div className="flex w-full items-center my-4">
-                                        <hr className="bg-black opacity-100  mx-auto w-2/5" />
-                                        <p className="text-2xl font-medium mx-4 ">Booking for Trip:</p>
-                                        <hr className="bg-black opacity-100 mx-auto w-2/5" />
-                                    </div>
 
+                                    {/* <div className="flex w-full items-center my-4">
+                                        <hr className="bg-black opacity-100  mx-auto w-2/5" />
+                                        <hr className="bg-black opacity-100 mx-auto w-2/5" />
+                                    </div> */}
                                 <form 
                                 // className="flex flex-col"
-                                className='flex flex-col mx-auto max-w-[800px] p-box-shadow-2 rounded-lg lg:p-8 mt-[5%] sm:p-4 '
+                                className='flex flex-col justify-center mx-auto max-w-[400px] sm:max-w-full p-box-shadow-2 rounded-lg lg:p-8 m-8 sm:mx-2 sm:p-4 '
                                 onSubmit={submitBooking}>
 
 
+                                    <span className="text-2xl flex justify-center font-bold mx-4 ">Booking for Trip:</span>
+                                    <label className='w-90 mb-4 text-lg font-medium'>
+                                        {/* Your Trip:  */}
+                                        <br></br>
+                                         <span>{name}</span>
+                                    </label>
                                     <label className='w-90'>
                                         Enter your query: <br/>
-                                        <input placeholder='enter your query, if any' onChange={(e) => { setBookingQuery(e.target.value) }} />
                                     </label>
+                                        <textarea placeholder='enter your query, if any' onChange={(e) => { setBookingQuery(e.target.value) }} />
                                     <label className='w-90'>
                                         Your Phone number: <br/>
+                                    </label>
                                         <input required type="number" placeholder='enter your phone number' requiredd onChange={(e) => { setPhoneNumber(e.target.value) }} /><br />
-                                    </label>
-                                    <label className='w-90'>
-                                        Your Trip: <br/>
-                                        <input required readOnly value={name} />
-                                    </label>
                                     <div className="flex items-center">
                                         <button className='p-2 mx-4 w-20 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' onClick={() => { setBackToDisplay(true); console.log("wtaf") }} >Back</button>
                                         <button className='p-2 w-20 bg-blue-500 font-semibold rounded-lg sm:mx-auto hover:bg-blue-700 text-white font-bold ' type="submit">Submit</button>
                                     </div>
                                 </form>
 
-                            </div> </div> }
+                             </div> }
                     </div>}
 
                 </div>}</>

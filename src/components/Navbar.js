@@ -32,6 +32,7 @@ const [isopen, setIsopen] = useState(false);
 
     let lastScroll = 0
     let location = useLocation();
+    let dropdown = document.getElementsByClassName('navhoverrrr')
 
     useEffect(() => {
         let navbartTrigger = document.getElementById('triggerElement')
@@ -43,7 +44,7 @@ const [isopen, setIsopen] = useState(false);
             
             if (window.scrollY + navLen> window.pageYOffset + navbartTrigger.getBoundingClientRect().top) {
                 // console.log("DArk navbar")
-                console.log(navLen)
+                // console.log(navLen)
                 navbar.style.transform = 'translateY(-100%)'
                 let newScroll = window.scrollY
                 if (newScroll < lastScroll) {
@@ -63,6 +64,10 @@ const [isopen, setIsopen] = useState(false);
         if (location.pathname === '/') {
             if (navLen <= navbar.getBoundingClientRect().top <=0) {
                 navbar.style.backgroundColor = '#00000000'
+                if (dropdown !== undefined){
+                    // dropdown.style.backgroundColor = '#00000011'
+                    console.log("it is defined")
+                }
             }
             window.addEventListener('scroll', scrollFunction)
             console.log("added scroll")
@@ -116,7 +121,12 @@ const [isopen, setIsopen] = useState(false);
                     <NavLink className='relative top-[-45px] bg-[#046C6D] px-6 pb-3 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/trips/pet friendly'><h4>Pet Friendly</h4></NavLink>
                     </span>
                 </span >
+                <span className="relative blogs-nav">
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/blogs' >Blogs</NavLink>
+                <span className='write-a-blog absolute left-0 flex flex-col w-max z-[4] invisible pointer-events-none'>
+                <NavLink className=' relative top-[-0px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/blogs/write'><h4>Write a blog</h4></NavLink>
+                </span>
+                </span>
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/gallery' >Gallery</NavLink>
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/contactus' >Contact Us</NavLink>
                 <NavLink className='items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/faq' >FAQ</NavLink>
@@ -131,6 +141,13 @@ const [isopen, setIsopen] = useState(false);
                             <NavLink className='relative top-[-45px] bg-[#046C6D] px-6 pb-6 rounded-b-[10px] p-box-shadow-2  navhoverrrr' to='/myblogs'><h4> My Blogs</h4></NavLink>
                             <p className='relative top-[-60px] bg-[#046C6D] px-6 pb-3 rounded-b-[10px] p-box-shadow-2 cursor-pointer  navhoverrrr' onClick={logout} ><h4>Logout</h4></p>
                         </span>
+                                                {/* <span className='package-list absolute left-0 bottom-[-245px] flex flex-col w-max z-[4] invisible pointer-events-none'>
+                            <NavLink className='bg-[#046C6D22] px-6 pb-6 rounded-b-[10px]   hover:bg-[#00000033] ' to='/changename'><h4>Change Name</h4></NavLink>
+                            <NavLink className=' relative top-[-15px] bg-[#046C6D22] px-6 pb-6 rounded-b-[10px]   hover:bg-[#00000033]' to='/bookings'><h4>Bookings</h4></NavLink>
+                            <NavLink className=' relative top-[-30px] bg-[#046C6D22] px-6 pb-6 rounded-b-[10px]   hover:bg-[#00000033]' to='/resetpassword'><h4>Reset password</h4></NavLink>
+                            <NavLink className='relative top-[-45px] bg-[#046C6D22] px-6 pb-6 rounded-b-[10px]   hover:bg-[#00000033]' to='/myblogs'><h4> My Blogs</h4></NavLink>
+                            <p className='relative top-[-60px] bg-[#046C6D22] px-6 pb-3 rounded-b-[10px]  cursor-pointer  hover:bg-[#00000033]' onClick={logout} ><h4>Logout</h4></p>
+                        </span> */}
                     </span>
                    </> :
                     <NavLink className=' items-center flex h-[75%] p-4 rounded-md navlinkActiveHoverFocus' to='/login' >Login</NavLink>}

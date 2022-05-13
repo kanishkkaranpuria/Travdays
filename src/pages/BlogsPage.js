@@ -153,15 +153,17 @@ const Blogs = ({ id, setId }) => {
     return (
       <div className="blog-preview-card non-featured v1 relative cursor-pointer aumnormalblog2" onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }}>
 
-        {/* <div  className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center">
+        {/* <div  className="">
               <div className="blog-preview-card non-featured v1 relative"> */}
         <div className="blog-photos overflow-hidden">
           <img className='object-cover h-full w-full' src={data.image} alt="" />
         </div>
         <div className='p-8 sm:p-1 aumnormalblog2 '>
-          <div className="flex sm:flex-col sm:items-start justify-between items-center">
-            <p className='font-semibold sm:text-2xl'>{data.location}</p>
-            <p className='font-semibold sm:text-2xl'>{data.created}</p>
+          <div className="flex sm:flex-col sm:items-start justify-between items-center ">
+            <div className="sm:flex sm:w-full sm:justify-between">
+            <p className='font-semibold '>{data.location}</p>
+            <p className='font-semibold '>{data.created}</p>
+            </div>
           
             {/* <p className='flex text-2xl items-center h-6'>x.x 
                           <span className='flex h-6'>
@@ -175,8 +177,8 @@ const Blogs = ({ id, setId }) => {
                           </span>
                       </p> */}
           </div>
-          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl break-all whitespace-normal overflow-ellipsis font-bold pt-6'>{data.title}</p>
-          <p className='pt-6 overflow-hidden h-[150px] break-all whitespace-normal overflow-ellipsis leading-tight text-xl'>{data.body}</p>
+          <p onClick={() => { history.push('/blogs/' + data.title + '/' + data.id) }} className='text-4xl sm:text-2xl break-all whitespace-normal overflow-ellipsis font-bold pt-6'>{data.title}</p>
+          <p className='pt-6 overflow-hidden h-[150px] break-all whitespace-normal overflow-ellipsis leading-tight text-xl sm:text-xs'>{data.body}</p>
 
           {/* <p  className='text-4xl break-all whitespace-normal overflow-ellipsis font-bold pt-6'>{data.title}</p>
                       <p className='pt-6 overflow-hidden h-[150px] break-all whitespace-normal overflow-ellipsis leading-tight text-xl'>{data.body}</p> */}
@@ -251,17 +253,17 @@ const Blogs = ({ id, setId }) => {
           {/* ***********************************************   unfeatured blogs  */}
           {/* <p className='text-5xl font-bold p-4'>Blogs</p> */}
 
-        <div className='flex items-center justify-center sm:pb-4'>
-          <p className=' text-3xl font-bold '> Sort by: </p>
-          <button className=' p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("votefilter"); setSortlink('votefilter') }} >Vote</button>
-          <button className=' p-3 w-100 bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("created"); setSortlink('created')    }} >New</button>
+        <div className='flex mt-[50px] lg:ml-[100px] sm:ml-[30px] sm:pb-4'>
+          <p className=' text-xl font-bold '> Sort by: </p>
+          <button className=' p-3 w-100 h-8 flex items-center justifycenter bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("votefilter"); setSortlink('votefilter') }} >Vote</button>
+          <button className=' p-3 w-100 h-8 flex items-center justifycenter bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("created"); setSortlink('created')    }} >New</button>
         </div>
 
 
           {allblogs && allblogs.map((data, index) => {
             if (allblogs.length === index + 1) {
               return (
-                <div ref={lastDataElementRef2} className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center aumnormalblog">
+                <div ref={lastDataElementRef2} className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center  ">
                   {showUnfeaturedBlogs(data, index)}
                 </div>
 
@@ -269,7 +271,7 @@ const Blogs = ({ id, setId }) => {
             }
             else {
               return (
-                <div className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center aumnormalblog">
+                <div className="max-w-[1440px] sm:max-w-[380px] mx-auto sm:px-2 px-8 py-2 w-full flex flex-col justify-center ">
                   {showUnfeaturedBlogs(data, index)}
                 </div>
               )

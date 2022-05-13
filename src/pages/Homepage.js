@@ -16,7 +16,7 @@ import Logoutmodal from "../components/Logoutmodal";
 
 
 
-const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
+const Home = ({ isadmin, setIsadmin, isopen, setIsopen }) => {
 
     const history = useHistory()
 
@@ -87,7 +87,7 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
             // }
         }
         const Answers = (i) => {
-            
+
 
             if (answerstatus[i] === true) {
                 // console.log('it is true')
@@ -250,6 +250,15 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
     // const Home = () => {
     return (
         <div className="main w-full items-center justify-center relative " id='homepage'>
+                   <a href='#homepage' className="fixed z-10 bottom-12 ml-4">
+                        {/* <svg viewBox="191.55 128.697 88.765 89.366" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(4, 107, 109); paint-order: fill; fill-rule: nonzero;" cx="234.954" cy="172.593" rx="23.562" ry="22.565" transform="matrix(0.99997, -0.007724, 0, 1.00003, 0.006959, 1.809593)" />
+                            <path fill-rule="evenodd" d="M 236.377 209.824 C 264.9 209.824 282.977 178.993 268.914 154.33 C 262.387 142.882 250.21 135.831 236.972 135.831 C 208.449 135.831 190.372 166.661 204.436 191.325 C 210.963 202.772 223.138 209.824 236.377 209.824 Z M 253.873 169.557 L 240.087 155.684 C 238.291 153.879 235.359 153.879 233.538 155.684 L 219.531 169.557 C 217.032 172.117 218.224 176.396 221.677 177.258 C 223.227 177.644 224.87 177.205 226.027 176.097 L 232.065 170.118 L 231.931 186.701 C 231.902 190.261 235.743 192.486 238.846 190.706 C 240.284 189.879 241.181 188.353 241.194 186.701 L 241.328 170.118 L 247.27 176.097 C 249.815 178.569 254.11 177.343 255.001 173.889 C 255.397 172.342 254.975 170.705 253.873 169.557 Z" clip-rule="evenodd" style="fill: rgb(255, 169, 20);" transform="matrix(0.999849, 0.01739, -0.01739, 0.999849, 3.041259, -4.089639)" />
+                        </svg> */}
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" viewBox="0 0 20 20" fill="#FFA914">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
+                        </svg>
+                    </a>
             <img id='backgroundImg' alt='' src={BackgroundImage} className='fixed z-0 top-0 ' />
             {/* <div className='w-full h-full absolute top-0 bg-gradient-to-r from-black to-transparent'></div> */}
             <div className='w-full h-full fixed top-0 bg-[#00000088] z-0 '></div>
@@ -287,9 +296,9 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                     <p className="w-full text-8xl sm:text-6xl font-bold tracking-[12px] text-[#D4F571]">Travdays</p>
                 </div>
                 <div className='card-grid sm:py-[20px]  max-w-[800px]'  >
-                    <Link className='' to='/trips/workation'><Card title="Workation" id='one' src ='/image/workation.jpg'/></Link>
-                    <Link className='' to='/trips/pet friendly'><Card title="Pet Friendly" id='two' src ='/image/petFreindly.jfif'/></Link>
-                    <Link className='' to='/trips/solo'><Card title="Solo Travel" id='three' src= '/image/soloTravel.jpg' /></Link>
+                    <Link className='' to='/trips/workation'><Card title="Workation" id='one' src='/image/workation.jpg' /></Link>
+                    <Link className='' to='/trips/pet friendly'><Card title="Pet Friendly" id='two' src='/image/petFreindly.jfif' /></Link>
+                    <Link className='' to='/trips/solo'><Card title="Solo Travel" id='three' src='/image/soloTravel.jpg' /></Link>
                 </div>
                 {/* <div class="swiper mySwiper hidden sm:flex">
                 <div class="swiper-wrapper">
@@ -336,7 +345,7 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                     </div>
                 </div>
                 <div className="p-6 sm:p-2">
-                    <button> <p className='text-8xl sm:text-6xl font-bold leading-normal    aumptags' onClick={() => { history.push('/gallery') }}>Gallery</p> </button>
+                    <button> <p className='text-8xl sm:text-6xl font-bold leading-normal hover:text-[#FFA914]' onClick={() => { history.push('/gallery') }}>Gallery</p> </button>
                     <p className='text-3xl pl-4 font-semibold '>select your destination by aesthetics</p>
                     <p className="p-4 leading-tight">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -435,7 +444,6 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                         <HFAQ />
                     </div>
                 </div>
-
                 <div className="footer sm:flex sm:flex-col  relative grid grid-cols-3 p-8 px-16">
 
                     <div className="" >
@@ -484,7 +492,7 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                     <div className='flex sm:w-full h-full justify-around items-center opacity-70 p-4'>
 
                         <div className='flex sm:w-full h-full justify-around items-left opacity-100 p-4'>
-                            <h1> <b> <u>Social media:</u></b> </h1><br/>
+                            <h1> <b> <u>Social media:</u></b> </h1><br />
                         </div>
 
                         <img className='w-[40px]' src="https://img.icons8.com/material/64/000000/facebook-new.png" />
@@ -505,9 +513,7 @@ const Home = ({ isadmin, setIsadmin,isopen,setIsopen }) => {
                             <button><img className='w-[40px]' src="https://img.icons8.com/material/64/000000/youtube-play--v1.png" /></button>
                         </a>
                     </div>
-                    
-                    <a href='#homepage'>Back to the top</a>
-                    
+
                     <div className="w-full flex absolute" >
                         {/* <marquee><h1> © Designed and developed by - <Link to='https://instagram.com/spydev_' target='_blank'>Spydev Co</Link> </h1></marquee> */}
                     </div>

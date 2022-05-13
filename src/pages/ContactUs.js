@@ -190,7 +190,7 @@ const ContactUs = ({ isauthenticated }) => {
                 <div className='flex items-center'>
                     <p className="w-52">Your query is realted to :</p>
 
-                    <select name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
+                    <select className="w-52" name="val" id="selected">{Object.keys(mainqueries).map((keyName, i) => (
                         <option id={i} value={i + 1}>{mainqueries[keyName]}</option>
                     ))}   </select>
                 </div>
