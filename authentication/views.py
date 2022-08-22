@@ -86,10 +86,11 @@ class RegisterUserView(APIView):
                 return Response({'error': 'Email already in use, Please login or use a different Email'},status=status.HTTP_400_BAD_REQUEST)
 
 
-class OTP_Validation(APIView):
+class Login_Via_OTP_Validation(APIView):
 
     permission_classes = [AllowAny]
-
+    
+    @method_decorator(ensure_csrf_cookie)
     def post(self,request, *args, **kwargs):
         otp = request.data['otp']
         email = request.data['email']
@@ -139,7 +140,7 @@ class LoginView(APIView):
             otp = request.data["otp"]
             otp1 = Otp.objects.get(user__email = email) 
             if (str(otp)!=str(otp1.otp)):
-                return Response({"error":"Wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error":"Incorrect OTP"}, status=status.HTTP_400_BAD_REQUEST)
             otp1.delete()
         serializer = UserSerializer(user)
         access_token = generate_access_token(user)
