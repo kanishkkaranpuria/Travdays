@@ -227,10 +227,9 @@ class Query(models.Model):
     MY_CHOICES = (
         ('1', 'Booking'),
         ('2', 'Trip'),
-        ('3', 'Queryyyyyyyyyyyyyyyyyyyyyyyyy 3'),
-        ('4', 'Query 4'),
-        ('5', 'Query 5'),
-        ('6', 'Other'),
+        ('3', 'Query 4'),
+        ('4', 'Query 5'),
+        ('5', 'Other'),
     )
     choice      = models.CharField( max_length=8,choices=MY_CHOICES)
     query       = models.CharField( max_length=1000, default="")
@@ -247,7 +246,7 @@ class Query(models.Model):
         return self.get_choice_display()
 
 class GalleryPageTemp(models.Model):        # for explore page
-    userKey    = models.CharField(max_length=100)
+    userKey    = models.CharField(max_length=100000)
     previousId = models.CharField( max_length=10000, default='')
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
