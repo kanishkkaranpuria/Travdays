@@ -768,7 +768,11 @@ const Trip = ({ isAuth, isadmin }) => {
                                         <span className='ml-2 text-md'>| {rating.ratingsCount} Reviews</span>
                                     </p>}
                                     <hr className="border mt-1" />
-                                    <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center pt-10'><span>₹{infoObject.price}</span></p>
+                                    <div className="flex py-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 md:h-4 w-6 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span className='ml-2 text-md font-medium'> {infoObject.duration} </span>
+                                    </div>
+                                    <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center'><span>₹{infoObject.price}</span></p>
                                     {/* <p className='flex text-2xl  md:text-xl md:pt-6 items-center text-center pt-10'><span>₹52,300</span></p> */}
                                     {/* <p className='flex text-2xl items-center text-center '><span>Rating count : {infoObject.ratingsCount}</span></p> */}
                                     {/* <p className='flex py-4 text-xl whitespace-pre-line'><span>{infoObject.description}</span></p> */}
