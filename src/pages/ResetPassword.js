@@ -100,7 +100,8 @@ const ResetPassword = () => {
     return (
        <div className="section">
             {!page2bool && !page3bool && 
-                <form className="flex flex-col sm:h-[300px] mx-auto h-[100px] max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 " onSubmit={submit_email}>
+                // <form className="flex flex-col sm:h-[300px] mx-auto  max-w-[1000px] px-40 md:px-0 sm:px-8 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 " onSubmit={submit_email}>
+                <form className="flex flex-col mx-auto max-w-[1000px] px-40 items-center justify-evenly p-box-shadow-2 rounded-2xl  mt-20 min-h-[500px]" onSubmit={submit_email}>
                     <p className="text-4xl sm:text-3xl text-center">Reset Password</p>
                     {!authStatus && <div type="email" className="email flex sm:flex-col items-center">
                         <p className="w-40">Enter your email:</p >

@@ -254,7 +254,7 @@ const Blogs = ({ id, setId }) => {
           {/* <p className='text-5xl font-bold p-4'>Blogs</p> */}
 
         <div className='flex mt-[50px] lg:ml-[100px] sm:ml-[30px] sm:pb-4'>
-          <p className=' text-xl font-bold '> Sort by: </p>
+          <p className=' text-xl font-bold mt-1'> Sort by- </p>
           <button className=' p-3 w-100 h-8 flex items-center justifycenter bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("votefilter"); setSortlink('votefilter') }} >Vote</button>
           <button className=' p-3 w-100 h-8 flex items-center justifycenter bg-green-500 left-margin-2 font-semibold rounded-lg hover:bg-green-800 text-white m-1 font-bold ' onClick={()=>{Sorted("created"); setSortlink('created')    }} >New</button>
         </div>
